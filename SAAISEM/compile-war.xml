@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SAAISEM" default="dist" basedir=".">
+	<description>
+		Builds the project SAAISEM.
+	</description>
+	<path id="compileA">
+		<fileset dir="build/web/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<target name="-pre-init">
+		<delete dir="build" />
+		<delete file="dist/SIALSS_MDF.war" />
+	</target>
+	<target name="init" depends="-pre-init">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="build" />
+		<mkdir dir="build/empty" />
+		<mkdir dir="build/generated-sources/ap-source-output" />
+	</target>
+	<target name="copy-webdir" depends="init">
+		<copy todir="build/web">
+			<fileset dir="web" />
+		</copy>
+		<copy todir="build/web/WEB-INF">
+			<fileset dir="web\WEB-INF" />
+		</copy>
+		<copy todir="build/web/WEB-INF/lib">
+			<fileset dir="JAR" />
+		</copy>
+		<copy todir="build/web/META-INF">
+			<fileset dir="src/conf" />
+		</copy>
+	</target>
+	<target name="compile" depends="copy-webdir">
+		<mkdir dir="build/web/WEB-INF/classes" />
+		<javac target="1.8" source="1.8" debug="true" srcdir="src/java" destdir="build/web/WEB-INF/classes" encoding="UTF-8" includeantruntime="false" classpathref="compileA" nowarn="on" />
+	</target>
+	<target name="jar" depends="compile">
+		<mkdir dir="dist" />
+		<jar jarfile="dist/SIALSS_MDF.war">
+			<fileset dir="build/web" />
+		</jar>
+	</target>
+	<target name="dist" depends="jar">
+		<delete dir="build" />
+	</target>
+</project>

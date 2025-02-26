@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="4" pageWidth="612" pageHeight="792" columnWidth="143" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a4176cd-ed45-4c77-9325-2c9181a2bfb5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Folio" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT F_Cb FROM tb_cbmedica WHERE F_Folio =$P{Folio}]]>
+	</queryString>
+	<field name="F_Cb" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="2549199f-6db5-4d22-8c82-9745ca15cd46" x="0" y="3" width="141" height="33"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{F_Cb}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement uuid="500c5e56-57c1-4449-9478-7455b73646ef" x="0" y="24" width="141" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_Cb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

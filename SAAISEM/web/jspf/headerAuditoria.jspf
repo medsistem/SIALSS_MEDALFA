@@ -1,0 +1,18 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%@include file="static.jspf" %>
+<%
+    HttpSession sesion = request.getSession();
+    
+    String usua = "", tipo = "", nombre = "";
+    
+    if (sesion.getAttribute("Usuario") == null) {
+        response.sendRedirect(generalContext+"/indexAuditoria.jsp");
+        return;
+    }
+    nombre = (String) sesion.getAttribute("nombre");
+    usua = (String) sesion.getAttribute("Usuario");
+    tipo = (String) sesion.getAttribute("Tipo");
+   
+ 
+%>

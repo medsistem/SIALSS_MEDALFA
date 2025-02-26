@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteRedFria" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="200fa2e4-7c20-4e94-97c4-c46b125a01ae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Documento" class="java.lang.String"/>
+	<parameter name="Tempera" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * from tb_redfriaimp where F_ClaDoc = $P{Documento};]]>
+	</queryString>
+	<field name="F_DesUniIS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_DesJurIS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ClaDoc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ClaPro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ClaLot" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Caducidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CantSur" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_Id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<columnHeader>
+		<band height="129">
+			<staticText>
+				<reportElement uuid="14221aaa-ddc9-454f-abec-eb4307c20415" x="176" y="8" width="395" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[FORMATO DE TEMPERATURA DE SALIDA Y ENTREGA DE INSUMOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba3d2d6a-5b02-4dbb-b16d-f0c20045f0c2" x="15" y="56" width="119" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[UNIDAD DE ATENCIÓN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="32f35b86-6f81-48f5-826c-c0462f70eba5" x="15" y="76" width="42" height="16"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[FOLIO:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a627ac0d-570e-4837-9338-7c9be441faf4" x="144" y="70" width="246" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8a85cc06-2d43-4aaa-9b9a-95a303eca039" x="144" y="90" width="246" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="f0c71a4d-43a4-4737-bc64-2827c2c9e5f1" x="464" y="31" width="139" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aa3455aa-40cd-4355-a20f-d84d721301e9" x="406" y="56" width="82" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[JURISDICCIÓN:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="44bb59f6-b017-4d52-a10a-8a9a99e9baf3" x="488" y="69" width="243" height="1"/>
+			</line>
+			<rectangle>
+				<reportElement uuid="250c3e5d-ab07-458d-b5ef-962a9f67dd9a" x="15" y="102" width="141" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d6caf3c1-386f-4b71-a447-2206fe79e06d" x="39" y="104" width="100" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CLAVE Y/O SICCAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="ac595b6a-1577-48d7-835b-f65ff6f74cf6" x="160" y="102" width="126" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="91dada31-a65a-42bd-973d-98884652579e" x="211" y="104" width="30" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[LOTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="e4742da6-52e3-4af7-81de-937fd507e66a" x="291" y="102" width="116" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="54ee2995-ce2f-48d4-a7a4-89e0051bb8b4" x="320" y="104" width="64" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CADUCIDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="9630c8d2-37e4-4a69-9fb3-d3e5daa8c791" x="414" y="102" width="100" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="5c830b09-1f4b-45e9-bb16-e3eaf3d40c89" x="438" y="104" width="59" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="9fb7801d-2888-46fd-a55f-afb7f23a1cf8" x="520" y="102" width="103" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="a4251e10-0b61-4bdf-9e85-8a3405ef3a7f" x="530" y="104" width="84" height="24"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TEMPERATURA SALIDA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="2b01ab26-a32e-4958-938e-dd9d248163d1" x="631" y="102" width="100" height="27"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="fdf8213d-79ef-4848-acb7-fd3fd274290b" x="637" y="104" width="91" height="24"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TEMPERATURA ENTREGA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="54248f94-dd94-408d-bab7-a8458f4e5282" x="618" y="32" width="100" height="13"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="73f11792-b057-4aa1-a0dd-c4051f038395" x="144" y="56" width="246" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_DesUniIS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="996bed0c-0dbf-4153-b7e9-929ca8eb6a31" x="488" y="56" width="243" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_DesJurIS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c0b2ea7-d288-4f71-a12a-6b0f1f87adf6" x="144" y="76" width="240" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_ClaDoc}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="f1a3a148-983f-4b4a-b73b-c4b6113a14b6" x="15" y="8" width="141" height="37"/>
+				<imageExpression><![CDATA["LogoMedalfa.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18">
+			<rectangle>
+				<reportElement uuid="82d92bb7-2c32-4e87-abb1-f7a38a57e1c8" x="15" y="0" width="141" height="18"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="7f6719cd-f092-4009-84ca-682605017418" x="631" y="0" width="100" height="18"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="66838139-b5d5-4aed-8089-97173924e1ab" x="160" y="0" width="126" height="18"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="4f040e10-ba4f-4758-8963-1f0c25d66f0f" x="291" y="0" width="116" height="18"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="5c8675c5-85af-467e-b786-47a66da01f8e" x="414" y="0" width="100" height="18"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="c32f30bf-b1b0-4131-a5b3-12593bd69110" x="160" y="0" width="126" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_ClaLot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c823a4c-9567-4a8a-8ff2-2000b184bbaf" x="291" y="0" width="115" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Caducidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9133f1ff-e282-4723-aaaf-9c63c370e355" x="414" y="0" width="100" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CantSur}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="2bc2e6ea-659d-42d6-b819-9a77a4d71dc6" x="520" y="0" width="103" height="18"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="14868ae3-6165-401e-9a0f-fec296d86a8d" x="15" y="0" width="141" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_ClaPro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d2fc72ac-0134-416f-8f48-c143f8de0f2d" x="536" y="0" width="33" height="18"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{Tempera}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9c46f11d-c765-46f1-a60c-883393f00952" x="571" y="0" width="22" height="18"/>
+				<textElement/>
+				<text><![CDATA[°C]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="221">
+			<staticText>
+				<reportElement uuid="3aa4800c-cf9d-4b5d-adc1-9d8e030524ba" x="15" y="13" width="100" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="7f33e7ba-59de-4455-8f33-6f0b0a2b4511" x="95" y="25" width="636" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="5a34caaa-9aa8-42d0-87c7-0250bc27b458" x="15" y="50" width="716" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9d006dbd-81c6-48d5-a904-3dc6ede26b6a" x="15" y="38" width="716" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9e41c381-9736-47f8-b82c-f6e065a08d4d" x="15" y="103" width="141" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="b003b33b-c97c-4ad3-9eb3-3d4ee85edc57" x="176" y="103" width="160" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9574d768-572e-4a0a-91d5-a1f2d2da7f8a" x="362" y="103" width="115" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="524eb938-6e78-4dea-8055-73d974053ae3" x="520" y="102" width="211" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="efd44ddc-9411-457c-ab36-a918733625bc" x="26" y="108" width="118" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y FIRMA RESPONSABLE DE INSUMO ESPECIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6bb40bfc-7ae1-4eaa-86f6-0014f38daaad" x="179" y="108" width="157" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y FIRMA AUXILIAR O RESPONSABLE SANITARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fa94c07a-041c-406f-87af-31a99a19f76e" x="362" y="108" width="119" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0398d547-52b6-40cd-abee-11a9e429d709" x="520" y="108" width="208" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NOMBRE, FIRMA Y SELLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7d6a57a1-7bc0-4e0c-b37e-ba985692a4ff" x="176" y="87" width="160" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[LUZ MARÍA MARCHAN ALVAREZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6337adec-a3e6-4072-a4ba-199758c2c883" x="362" y="123" width="119" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[OPERADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86d4d403-740d-4504-8f9c-708c3e66964d" x="520" y="123" width="208" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE DE LA UNIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce6a8173-5b37-4367-8b50-0c4baeabe96d" x="8" y="87" width="160" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[LUZ MARÍA MARCHAN ALVAREZ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

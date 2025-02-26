@@ -1,0 +1,111 @@
+<%-- any content can be specified here e.g.: --%>
+<%
+%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span clss="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/SIALSS_MDF/main_menuCompras.jsp">Inicio</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <%if (tipo.equals("13")){%>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Crear<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                         <% if(usua.equals("karen") || usua.equals("dotor")){ %>
+                       <!-- <li><a href="/SIALSS_MDF/crearOC.jsp">Crear OC</a></li>-->
+                        <li><a href="/SIALSS_MDF/cargarOC.jsp">CARGAR OC ISEM</a></li>
+                         <% } %>
+                        <li><a href="/SIALSS_MDF/cargarecibo.jsp">CARGAR OC INSABI ISEM</a></li>
+                        <li class="divider"></li>
+                        <% if(usua.equals("karen") || usua.equals("dotor")){ %>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/captura.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Entrada Manual</a></li>
+                        <% } %>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ver OC<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/verFoliosMedalfa.jsp">VER OC</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/AdministraRemisionesCompras?Accion=ListaRemision">Administrar Remisiones</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/BackOrderList.jsp">Back Order List</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMoviCompra.jsp">Consulta Movimientos</a></li>
+                        <li><a href="/SIALSS_MDF/Compras/SurtidoUnidadCompras.jsp">Consulta Global Unidad</a></li>
+                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyectoCompra.jsp">Existencias</a></li>
+                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
+                        <li><a href="/SIALSS_MDF/reportes/ReporteadorCompras.jsp">Reporteador Estadística de Entrega</a></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteFCompra.jsp">Reporte Fecha Proveedor</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/semaforoCompras.jsp">Semaforización</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF/catalogoProveedor.jsp">Alta Proveedor</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
+                       <% if (usua.equals("karen") || usua.equals("dotor") || usua.equals("ana")){%>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
+                        <% } %>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/catalogoUnidadesCompras.jsp">Puntos de Entregas</a></li>
+                    </ul>
+                </li>
+                <!--li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Requerimiento<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/requerimientoCompras.jsp">Cargar</a></li>
+                        <li><a href="/SIALSS_MDF/AdministraRequrimiento?Accion=ListaRemision">Ver Requerimiento</a></li>
+                    </ul>
+                </li-->
+                
+            </ul>
+            <%}else if (tipo.equals("14")){%>
+            <ul class="nav navbar-nav">
+                <!--li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyectoConsulta.jsp">Existencias</a></li>
+                    </ul>
+                </li-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Remisiones<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="divider"></li>
+                        
+                        <li><a href="/SIALSS_MDF/AdministraRemisionesCompras?Accion=ListaRemision">Administrar Remisiones</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <%}%>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%=usua%></a></li>
+                <li class="active"><a href="/SIALSS_MDF/indexMedalfa.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
