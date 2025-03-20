@@ -1,0 +1,5 @@
+SAAISEM/dist/*
+SAAISEM/nbproject/*
+SAAISEM/build/*
+
+!.gitkeep

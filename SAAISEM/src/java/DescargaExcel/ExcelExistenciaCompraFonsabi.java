@@ -84,7 +84,7 @@ public class ExcelExistenciaCompraFonsabi extends HttpServlet {
             }
 
             String path = sesion.getServletContext().getRealPath("");
-            String name = "EXISTENCIA FONSABI-%s.xlsx";
+            String name = "EXISTENCIA -%s.xlsx";
 
             if (Proyecto != null) {
                 name = String.format(name, Nombre.concat("-%s"));

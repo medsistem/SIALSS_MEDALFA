@@ -313,7 +313,7 @@ public class Medicamentos extends HttpServlet {
                         con.actualizar("UPDATE tb_medica SET F_DesPro='" + Descripcion + "',F_StsPro='" + radiosts + "',F_TipMed='" + radiotipo + "',F_Costo='" + Costo + "',F_PrePro='"+Presentacion+"',F_Origen='" + radiorigen + "',F_N1='" + ban1 + "',F_N2='" + ban2 + "',F_N3='" + ban3 + "',F_N4='" + ban4 + "',F_N5='" + ban5 + "',F_N6='" + ban6 + "',F_N7='" + ban7 + "',F_N8='" + ban8 + "',F_N9='" + ban9 + "',F_N10='" + ban10 + "',F_N11='" + ban11 + "',F_N12='" + ban12 + "',F_N13='" + ban13 + "',F_N14='" + ban14 + "',F_N15='" + ban15 + "',F_N16='" + ban16 + "',F_N17='" + ban17 + "',F_OriNim='" + OrigeNim + "',F_Grupo='" + GrupoNim + "',F_CantMax='" + CantRecibir + "' WHERE F_ClaPro='" + Clave + "';");
                         //Borrar de las ordenes de compra insumo cambiado a estatus 'S'
                         if(radiosts.equals("S")){
-//                            con.actualizar("update tb_pedidoisem2017 set F_StsPed= 3 where F_StsPed < 2 AND F_Recibido = 0 AND F_Clave = '"+Clave + "';");
+//                            con.actualizar("update tb_pedido_sialss set F_StsPed= 3 where F_StsPed < 2 AND F_Recibido = 0 AND F_Clave = '"+Clave + "';");
                         }
                         ban217 = 0;
                         out.println("<script>alert('Medicamento Modificado correctamente.')</script>");

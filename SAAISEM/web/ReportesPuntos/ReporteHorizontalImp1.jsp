@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -49,13 +50,7 @@
 %>
 <html>
     <%
-        Connection conn;
-        //Class.forName("com.mysql.jdbc.Driver");
-       Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020"); 
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
-        ContarReg = conn.createStatement();
+        ConectionDB conn = new ConectionDB();
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
             
@@ -147,7 +142,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -209,7 +204,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -230,7 +225,7 @@
             //smtfolio2.execute("DELETE FROM tb_imprepreqauto WHERE F_FolCon='" + FolCon + "'");
         //}
         //smtfolio2.execute("DELETE FROM tb_imprepreqauto");
-        conn.close();
+        conn.cierraConexion();
     %>
     <script type="text/javascript">
         var ventana = window.self;

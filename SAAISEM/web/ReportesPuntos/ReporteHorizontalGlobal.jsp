@@ -4,6 +4,7 @@
     Author     : Sistemas
 --%>
 
+<%@page import="conn.ConectionDB"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
 <%@page import="javax.print.attribute.standard.MediaSizeName"%>
 <%@page import="javax.print.attribute.standard.MediaSize"%>
@@ -46,9 +47,7 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
+        ConectionDB conn = new ConectionDB();
         
            File reportfile = new File(application.getRealPath("/ReportesPuntos/RepHorizontalglobal.jasper"));
             Map parameter = new HashMap();
@@ -57,7 +56,7 @@
             //parameter.put("F_Imagen", F_Imagen);
             System.out.println("Folio Horizontal2-->" + FolCon);
             
-            byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+            byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
             
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
@@ -67,7 +66,7 @@
             outputStream.flush();
             outputStream.close();
             
-        conn.close();
+        conn.cierraConexion();
     %>
     <head>
         

@@ -42,8 +42,8 @@
         fecha_fin = "";
     }
     
-        Proyecto = "1";
-        DesProyecto = "ISEM";
+        Proyecto = "";
+        DesProyecto = "";
     response.setContentType("application/vnd.ms-excel");
     response.setHeader("Content-Disposition", "attachment;filename=\"OC_cerradas_"+DesProyecto+".xls\"");
 %>
@@ -86,7 +86,7 @@
                                 <th>Solicitado</th>
                                 <th>Faltante/sobrante</th>
                                 <th>Status OC</th>
-                                <th>Provedor</th>
+                                <th>Proveedor</th>
                                
                                 </thead>
                                 <tbody>
@@ -97,7 +97,7 @@
                                             try {
                                                 ResultSet rs = null;
                                                
-                                                rs = con.consulta("call sae_oc_Isem('" + fecha_ini + "','" + fecha_fin + "')");
+                                                rs = con.consulta("call sae_oc_mdf('" + fecha_ini + "','" + fecha_fin + "')");
                                             
                                         while(rs.next()){
                                            

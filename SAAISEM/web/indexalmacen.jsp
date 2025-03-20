@@ -48,7 +48,7 @@
                             }
                             session.invalidate();
                         %>
-                        <div ALIGN="right">Versión 1.0.2.1   <a href="/SIALSS_MDF/"><h2>Inicio</h2></a></div>
+                        <div ALIGN="right">Versión 1.0.0.3   <a href="/SIALSS_MDF/"><h2>Inicio</h2></a></div>
                     </div>
                     
                     </div>

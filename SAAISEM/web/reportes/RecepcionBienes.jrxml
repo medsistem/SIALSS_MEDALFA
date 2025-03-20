@@ -34,8 +34,8 @@
 	M.F_PrePro,
 	C.F_FolRemi,
 	(@csum := @csum + F_ComTot) AS totales,
-	C.F_Obser as ObserGNKL,
-	I.F_Obser as ObserISEM
+	C.F_Obser as ObserGNK,
+	I.F_Obser as ObserMDF
 FROM
 	(SELECT @csum := 0) r,
 	tb_compra C,
@@ -111,7 +111,7 @@ ORDER BY
 	</field>
 	<field name="totales" class="java.lang.Double"/>
 	<field name="ObserGNKL" class="java.lang.String"/>
-	<field name="ObserISEM" class="java.lang.String"/>
+	<field name="Obsermdf" class="java.lang.String"/>
 	<variable name="piezasXCaja" class="java.lang.String" calculation="Average">
 		<variableExpression><![CDATA[($F{F_CanCom}/$F{F_Cajas}).intValue()]]></variableExpression>
 	</variable>
@@ -161,14 +161,6 @@ ORDER BY
 				</textElement>
 				<text><![CDATA[NÚMERO DE FACTURA O REMISIÓN:]]></text>
 			</staticText>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="a58b9e71-ce6c-4497-8d05-d1476c94a7eb" x="19" y="0" width="100" height="94"/>
-				<imageExpression><![CDATA["image/escudoedomex.jpg"]]></imageExpression>
-			</image>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="8c06cece-eb62-4c27-8fa2-a3fb547d147c" x="612" y="0" width="124" height="35"/>
-				<imageExpression><![CDATA["image/isem1.gif"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="223d9dfa-1bcf-42d9-9225-bcc243833448" x="552" y="35" width="43" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">

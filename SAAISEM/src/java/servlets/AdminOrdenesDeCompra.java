@@ -53,7 +53,7 @@ public class AdminOrdenesDeCompra extends HttpServlet {
                     json.put("msg", "error");
                 }
                 if (!detallePedido.isEmpty()) {
-                    ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Recibido=0 WHERE F_IdIsem=?");
+                    ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Recibido=0 WHERE F_IdIsem=?");
                     ps.setString(1, detallePedido);
                     ps.executeUpdate();
                     json.put("msg", "ok");

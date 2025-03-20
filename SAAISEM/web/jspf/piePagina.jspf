@@ -5,7 +5,7 @@
 <br><br><br>
 <div class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="text-center" style="color: white; bottom: auto">
-        MEDALFA | ISEM | Desarrollo de Aplicaciones       
+        MEDALFA | Desarrollo de Aplicaciones       
         <div id="current_date">
     <script>
         date = new Date();

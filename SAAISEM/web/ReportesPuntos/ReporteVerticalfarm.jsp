@@ -4,6 +4,7 @@
     Author     : Sistemas
 --%>
 
+<%@page import="conn.ConectionDBTrans"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -33,10 +34,7 @@
     int RegistroC=0,RegistroC2=0,Ban=0;
     double Hoja=0.0;
     
-    Statement smtfolio = null;
     ResultSet folio = null;
-    Statement smtfolio2 = null;
-    Statement ContarReg = null;
     ResultSet Contare = null;
     try {
 //FolCon = request.getParameter("FolCon");
@@ -50,12 +48,8 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        ContarReg = conn.createStatement();
-        
-        Contare = ContarReg.executeQuery("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepconfarm WHERE F_FolCon='"+FolCon+"'");
+         ConectionDBTrans conn = new ConectionDBTrans();
+        Contare =  conn.consulta("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepconfarm WHERE F_FolCon='"+FolCon+"'");
             if(Contare.next()){
                RegistroC = Contare.getInt(1);
                F_Region= Contare.getString(2);
@@ -101,7 +95,7 @@
                 Map parameter = new HashMap();
                 parameter.put("FolCon", FolCon);
 
-                byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+                byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
 
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
@@ -129,7 +123,7 @@
                 parameter.put("F_Surtido",F_Surtido);
                 parameter.put("F_Coberturas",F_Coberturas);
                 parameter.put("F_Suministro",F_Suministro);
-                byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+                byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
 
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
@@ -144,7 +138,7 @@
             
         
 
-        conn.close();
+        conn.cierraConexion();
     %>
  <head>
         <!--script type="text/javascript">

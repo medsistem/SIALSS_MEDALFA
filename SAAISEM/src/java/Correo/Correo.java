@@ -74,7 +74,7 @@ public class Correo extends HttpServlet {
             String mensaje = "Se acaba de enviar la siguiente orden de compra: " + folio + "\n";
             try {
                 obj.conectar();
-                ResultSet rset = obj.consulta("select p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario from tb_pedidoisem2017 p, tb_proveedor pro, tb_usuariosisem u where u.F_IdUsu = p.F_IdUsu and p.F_Provee = pro.F_ClaProve and  F_NoCompra = '" + folio + "' group by pro.F_NomPro ");
+                ResultSet rset = obj.consulta("select p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario from tb_pedido_sialss p, tb_proveedor pro, tb_usuariosisem u where u.F_IdUsu = p.F_IdUsu and p.F_Provee = pro.F_ClaProve and  F_NoCompra = '" + folio + "' group by pro.F_NomPro ");
                 while (rset.next()) {
                     mensaje = mensaje + "Proveedor: " + rset.getString(3) + "\n"
                             + "Fecha de Entrega: " + rset.getString(1) + " " + rset.getString(2) + "\n"
@@ -299,7 +299,7 @@ public class Correo extends HttpServlet {
             String mensaje = "Se acaba de enviar la siguiente ORDEN DE REPOSICIÓN DE INVENTARIO: " + OC + "\n";
             mensaje = mensaje + "Generado Por: " + F_NomCli + "\n";
             mensaje = mensaje + "\n\n";
-            rset = con.consulta("SELECT p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario FROM tb_pedidoisem2017 p INNER JOIN tb_proveedor pro ON p.F_Provee = pro.F_ClaProve INNER JOIN tb_usuariosisem u ON u.F_IdUsu = p.F_IdUsu WHERE  F_NoCompra = '" + OC + "' group by pro.F_NomPro ");
+            rset = con.consulta("SELECT p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario FROM tb_pedido_sialss p INNER JOIN tb_proveedor pro ON p.F_Provee = pro.F_ClaProve INNER JOIN tb_usuariosisem u ON u.F_IdUsu = p.F_IdUsu WHERE  F_NoCompra = '" + OC + "' group by pro.F_NomPro ");
             while (rset.next()) {
                 mensaje = mensaje + "Proveedor: " + rset.getString(3) + "\n"
                         + "Fecha de Entrega: " + rset.getString(1) + " " + rset.getString(2) + "\n"
@@ -309,7 +309,7 @@ public class Correo extends HttpServlet {
             mensaje = mensaje + "\n\n";
 
             mensaje = mensaje + "Clave\t\t\tCantidad\n";
-            rset = con.consulta("select F_Clave, F_Cant, F_Obser from tb_pedidoisem2017 where F_NoCompra = '" + OC + "' ");
+            rset = con.consulta("select F_Clave, F_Cant, F_Obser from tb_pedido_sialss where F_NoCompra = '" + OC + "' ");
             while (rset.next()) {
                 mensaje = mensaje + rset.getString(1) + "\t\t" + rset.getString(2) + "\t\t" + rset.getString(3) + "\n";
             }

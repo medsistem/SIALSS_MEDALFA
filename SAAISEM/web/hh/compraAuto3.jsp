@@ -157,7 +157,7 @@
                                 try {
                                     con.conectar();
 
-                                    rset = con.consulta("SELECT p.F_ClaProve, p.F_NomPro FROM tb_proveedor p INNER JOIN tb_pedidoisem2017 pv ON p.F_ClaProve = pv.F_Provee WHERE F_StsPed = '1' AND F_Recibido = '0' GROUP BY pv.F_Provee ORDER BY p.F_NomPro;");
+                                    rset = con.consulta("SELECT p.F_ClaProve, p.F_NomPro FROM tb_proveedor p INNER JOIN tb_pedido_sialss pv ON p.F_ClaProve = pv.F_Provee WHERE F_StsPed = '1' AND F_Recibido = '0' GROUP BY pv.F_Provee ORDER BY p.F_NomPro;");
 
                                     while (rset.next()) {
                             %>
@@ -209,7 +209,7 @@
                                 try {
                                     con.conectar();
 
-                                    rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro FROM tb_pedidoisem2017 o INNER JOIN tb_proveedor p ON o.F_Provee = p.F_ClaProve WHERE o.F_FecSur LIKE '%" + fecha + "%' AND o.F_Provee LIKE '%" + request.getParameter("Proveedor") + "' AND F_StsPed != '2' AND F_Recibido = 0 GROUP BY o.F_NoCompra;");
+                                    rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro FROM tb_pedido_sialss o INNER JOIN tb_proveedor p ON o.F_Provee = p.F_ClaProve WHERE o.F_FecSur LIKE '%" + fecha + "%' AND o.F_Provee LIKE '%" + request.getParameter("Proveedor") + "' AND F_StsPed != '2' AND F_Recibido = 0 GROUP BY o.F_NoCompra;");
 
                                     while (rset.next()) {
                             %>
@@ -240,7 +240,7 @@
                         int fechaActualVen = 0;
                         int activo = 0;
                         con.conectar();
-                        rset = con.consulta("select i.F_NoCompra, i.F_FecSur, i.F_HorSur, p.F_NomPro, p.F_ClaProve, i.F_Proyecto,i.F_FuenteFinanza,i.F_IdOrigen from tb_pedidoisem2017 i, tb_proveedor p where i.F_Provee = p.F_ClaProve and F_StsPed = '1' and F_NoCompra = '" + noCompra + "' and F_recibido='0' group by F_NoCompra;");
+                        rset = con.consulta("select i.F_NoCompra, i.F_FecSur, i.F_HorSur, p.F_NomPro, p.F_ClaProve, i.F_Proyecto,i.F_FuenteFinanza,i.F_IdOrigen from tb_pedido_sialss i, tb_proveedor p where i.F_Provee = p.F_ClaProve and F_StsPed = '1' and F_NoCompra = '" + noCompra + "' and F_recibido='0' group by F_NoCompra;");
                         while (rset.next()) {
                             Date date = new Date();
                             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -280,7 +280,7 @@
                                              */
                                             try {
                                                 con.conectar();
-                                                rset2 = con.consulta("SELECT F_IdIsem, F_Clave, CONCAT(F_Clave, ' - ', F_ClaveSS) AS F_ClaveSS FROM tb_pedidoisem2017 WHERE F_NoCompra = '" + noCompra + "' AND F_Recibido = '0';");
+                                                rset2 = con.consulta("SELECT F_IdIsem, F_Clave, CONCAT(F_Clave, ' - ', F_ClaveSS) AS F_ClaveSS FROM tb_pedido_sialss WHERE F_NoCompra = '" + noCompra + "' AND F_Recibido = '0';");
                                                 while (rset2.next()) {
                                         %>
 
@@ -331,11 +331,11 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        rset2 = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Obser from tb_pedidoisem2017 s, tb_medica m where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + rset.getString(1) + "' and F_StsPed = '1'");
+                                        rset2 = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Obser from tb_pedido_sialss s, tb_medica m where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + rset.getString(1) + "' and F_StsPed = '1'");
                                         while (rset2.next()) {
                                             rset2.last();
                                         }
-                                        rset2 = con.consulta("select s.F_Clave,s.F_ClaveSS, m.F_NomGen, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Obser,F_Proyecto ,m.F_PrePro, m.F_Concentracion, m.F_FormaFarm, m.F_DesProEsp, m.F_TipMed , IFNULL(COUNT(nc.F_ClaPro),0) as nombreComercial FROM tb_pedidoisem2017 AS s INNER JOIN tb_medica AS m ON s.F_Clave = m.F_ClaPro LEFT JOIN tb_nombrecomercial AS nc ON s.F_Clave = nc.F_ClaPro where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + rset.getString(1) + "' AND s.F_Proyecto='" + rset.getString(6) + "' and s.F_IdIsem = '" + sesion.getAttribute("claveSeleccionada") + "' ");
+                                        rset2 = con.consulta("select s.F_Clave,s.F_ClaveSS, m.F_NomGen, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Obser,F_Proyecto ,m.F_PrePro, m.F_Concentracion, m.F_FormaFarm, m.F_DesProEsp, m.F_TipMed , IFNULL(COUNT(nc.F_ClaPro),0) as nombreComercial FROM tb_pedido_sialss AS s INNER JOIN tb_medica AS m ON s.F_Clave = m.F_ClaPro LEFT JOIN tb_nombrecomercial AS nc ON s.F_Clave = nc.F_ClaPro where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + rset.getString(1) + "' AND s.F_Proyecto='" + rset.getString(6) + "' and s.F_IdIsem = '" + sesion.getAttribute("claveSeleccionada") + "' ");
                                         while (rset2.next()) {
                                             claveProducto = rset2.getString(1);
                                             claveProductoSS = rset2.getString(2);
@@ -1662,7 +1662,7 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        rset = con.consulta("select i.F_NoCompra, i.F_FecSur, i.F_HorSur, p.F_NomPro, p.F_ClaProve from tb_pedidoisem2017 i, tb_proveedor p where i.F_Provee = p.F_ClaProve and F_StsPed = '1' and F_NoCompra = '" + noCompra + "' and F_recibido='0' group by F_NoCompra");
+                                        rset = con.consulta("select i.F_NoCompra, i.F_FecSur, i.F_HorSur, p.F_NomPro, p.F_ClaProve from tb_pedido_sialss i, tb_proveedor p where i.F_Provee = p.F_ClaProve and F_StsPed = '1' and F_NoCompra = '" + noCompra + "' and F_recibido='0' group by F_NoCompra");
                                         while (rset.next()) {
                                 %>
                                 <div class="col-sm-12">
@@ -1745,7 +1745,7 @@
                                     <%
                                         try {
                                             con.conectar();
-                                            rset = con.consulta("select F_Clave from tb_pedidoisem2017 where F_NoCompra = '" + noCompra + "' ");
+                                            rset = con.consulta("select F_Clave from tb_pedido_sialss where F_NoCompra = '" + noCompra + "' ");
                                             int columna = 1;
                                             while (rset.next()) {
                                                 if (columna == 1) {

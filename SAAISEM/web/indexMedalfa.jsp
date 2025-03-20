@@ -28,7 +28,7 @@
                 <!-- Icon -->
                 <div class="fadeIn first">
                     <img src="imagenes/LogoMedalfa-.png"  />
-                    <h3>SIALSS ISEM COMPRAS</h3>
+                    <h3>SIALSS COMPRAS</h3>
                 </div>
                 <hr/>
                 <!-- Login Form -->
@@ -53,7 +53,7 @@
                             }
                             session.invalidate();
                         %>
-                         <div ALIGN="right">Versión 1.0.2.1   </div>
+                         <div ALIGN="right">Versión 1.0.0.3   </div>
                     </div>
                 </form>     
             </div>

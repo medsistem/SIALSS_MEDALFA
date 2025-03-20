@@ -74,22 +74,8 @@
                                         <option value ="" selected disabled>Seleccionar</option>
                                         <option value="1">Global</option>
                                         <option value="2">Lote</option>
-                                        <option value="3">Covid Isem</option>
-                                        <option value="4">Insabi AR</option>
-                                        <option value="5">Covid Insabi</option>
-                                        <option value="6">Isem AR</option>
-                                        <%if (tipo.equals("13")) {
-                                        %>
                                         <option value="7">Nueva</option>
-                                        <% }%>
                                         <option value="8">Disponibilidad</option>
-                                        <option value="9">Transferencia Soluglob</option>
-                                        <option value="10">INSABI Abasto Regular 2021</option>
-                                        <option value="11">UNOPS 2021</option>
-                                        <option value="12">SC Estatal</option>
-                                        <option value="13">SC Federal</option>
-                                        <option value="14">MI Texcoco</option>
-                                        <option value="15">Fuente de Financiamiento</option>
                                     </select>
                                 </div>
                             </div>

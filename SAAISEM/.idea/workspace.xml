@@ -36,10 +36,10 @@
       <change beforePath="$PROJECT_DIR$/src/java/LeeExcel/LeeExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/LeeExcel/LeeExcel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/com/gnk/dao/FacturacionTranDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/gnk/dao/FacturacionTranDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/com/gnk/impl/FacturacionTranDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/gnk/impl/FacturacionTranDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/com/medalfa/saa/controllers/services/FoliosUrgentesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/medalfa/saa/controllers/services/FoliosUrgentesService.java" afterDir="false" />
+    <!--  <change beforePath="$PROJECT_DIR$/src/java/com/medalfa/saa/controllers/services/FoliosUrgentesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/medalfa/saa/controllers/services/FoliosUrgentesService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/com/medalfa/saa/cronJobs/FoliosUrgentesCron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/medalfa/saa/cronJobs/FoliosUrgentesCron.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/com/medalfa/saa/dao/impl/NotificacionFoliosUrgentesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/com/medalfa/saa/dao/impl/NotificacionFoliosUrgentesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/conn/ConectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/conn/ConectionDB.java" afterDir="false" />
+    -->  <change beforePath="$PROJECT_DIR$/src/java/conn/ConectionDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/conn/ConectionDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/servlets/AltaUnidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/servlets/AltaUnidad.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/servlets/Facturacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/servlets/Facturacion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/catalogoUnidades.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/catalogoUnidades.jsp" afterDir="false" />

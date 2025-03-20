@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -32,11 +33,10 @@
     String F_Region="",F_DesJur="",F_DesMun="",F_DesLoc="",F_DesUni="",F_Fecha1="",F_Fecha2="",F_Serie1="",F_Serie2="",F_Provee="",F_Surtido="",F_Coberturas="",F_Suministro="";
     int RegistroC=0,RegistroC2=0,Ban=0;
     double Hoja=0.0;
-    Statement smtfolio = null;
+
     ResultSet folio = null;
     ResultSet Contare = null;
-    Statement smtfolio2 = null;
-    Statement ContarReg = null;
+  
     try {
 //FolCon = request.getParameter("FolCon");
         F_User = request.getParameter("Use");
@@ -49,22 +49,14 @@
 %>
 <html>
     <%
-        Connection conn;
-       Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
-        ContarReg = conn.createStatement();
+         ConectionDB conn = new ConectionDB();
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
             
             
             
         
-        /*folio = smtfolio.executeQuery("SELECT F_FolCon FROM tb_imprepreqauto WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FolCon");
-        while (folio.next()) {
-            FolCon = folio.getString(1);*/
-            Contare = ContarReg.executeQuery("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepreqauto WHERE F_FolCon='"+FolCon+"'");
+            Contare = conn.consulta("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepreqauto WHERE F_FolCon='"+FolCon+"'");
             if(Contare.next()){
                RegistroC = Contare.getInt(1);
                F_Region= Contare.getString(2);
@@ -100,14 +92,7 @@
                             Ban = 2;
                         }               
                     
-                   /* Hoja = RegistroC * 1.0 / 28;
-                    if (Hoja % 1 == 0){
-                    DesV="3 Hoja entero";
-                    Ban = 2;    
-                    }else{
-                    DesV="Mas Hoja decimal";
-                    Ban = 1;
-                    }*/                    
+                                 
                 }else{
                     DesV = "2 hojas";
                     Ban = 2;
@@ -146,7 +131,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -208,7 +193,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -229,7 +214,7 @@
             //smtfolio2.execute("DELETE FROM tb_imprepreqauto WHERE F_FolCon='" + FolCon + "'");
         //}
         //smtfolio2.execute("DELETE FROM tb_imprepreqauto");
-        conn.close();
+        conn.cierraConexion();
     %>
     <script type="text/javascript">
         var ventana = window.self;

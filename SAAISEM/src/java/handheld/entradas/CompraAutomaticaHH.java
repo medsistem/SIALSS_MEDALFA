@@ -357,7 +357,7 @@ public class CompraAutomaticaHH extends HttpServlet {
                 }
                 System.out.println("ando en la compra");
 String fuentef = "";
- ResultSet rset_fuente = con.consulta("SELECT F_FuenteFinanza FROM tb_pedidoisem2017 WHERE F_Clave= '"+Clave+"' AND F_NoCompra = '" + request.getParameter("folio") + "'");
+ ResultSet rset_fuente = con.consulta("SELECT F_FuenteFinanza FROM tb_pedido_sialss WHERE F_Clave= '"+Clave+"' AND F_NoCompra = '" + request.getParameter("folio") + "'");
                 while (rset_fuente.next()) {                    
                     fuentef = rset_fuente.getString(1);
                 }
@@ -377,7 +377,7 @@ String fuentef = "";
             if (request.getParameter("accion").equals("confirmar")) {
                 con.conectar();
                 try {
-                    ResultSet rset = con.consulta("select * from tb_pedidoisem2017 where F_NoCompra = '" + request.getParameter("folio") + "' and F_Recibido = '0'");
+                    ResultSet rset = con.consulta("select * from tb_pedido_sialss where F_NoCompra = '" + request.getParameter("folio") + "' and F_Recibido = '0'");
                     while (rset.next()) {
                         Calendar c1 = GregorianCalendar.getInstance();
                         String Tipo = "";
@@ -448,7 +448,7 @@ String fuentef = "";
 //                        con.insertar("insert into tb_compraregistro values(0,CURDATE(),'" + Clave + "','" + lote + "','" + cadu + "','" + fecFab + "','1','" + rset.getString("F_Provee") + "','" + CodBar + "','" + Tarimas + "','" + Cajas + "','" + Piezas + "','" + TarimasI + "','" + CajasxTI + "','" + Resto + "','" + Costo + "','" + IVAPro + "','" + MontoIva + "','" + F_Obser + "','" + request.getParameter("folioRemi") + "','" + request.getParameter("folio") + "','" + rset.getString("F_Provee") + "','" + sesion.getAttribute("nombre") + "')"
 //                        );
 
-                        con.insertar("update tb_pedidoisem2017 set F_Recibido = '1' where F_IdIsem = '" + rset.getString("F_IdIsem") + "' ");
+                        con.insertar("update tb_pedido_sialss set F_Recibido = '1' where F_IdIsem = '" + rset.getString("F_IdIsem") + "' ");
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

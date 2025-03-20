@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.io.*"%> 
 <%@page import="java.util.HashMap"%> 
@@ -36,11 +37,7 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-
+       ConectionDB conn = new ConectionDB();
         File reportfile = new File(application.getRealPath("/ReportesPuntos/RepConcentrado.jasper"));
 
         Map parameter = new HashMap();
@@ -57,7 +54,7 @@
 
         System.out.println("Folio-->" + F_Title);
 
-        byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+        byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
 
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
@@ -67,7 +64,7 @@
         outputStream.flush();
         outputStream.close();
 
-        conn.close();
+        conn.cierraConexion();
     %>
     
 </html>

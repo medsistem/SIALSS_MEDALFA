@@ -4,6 +4,7 @@
     Author     : Sistemas
 --%>
 
+<%@page import="conn.ConectionDB"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -44,17 +45,14 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-       
+        ConectionDB conn = new ConectionDB();
             File reportfile = new File(application.getRealPath("/ReportesPuntos/RepConcentradoFarm.jasper"));
             Map parameter = new HashMap();
             parameter.put("FolCon", FolCon);
             //parameter.put("F_Imagen", F_Imagen);
             out.println("Concentrado-->"+FolCon);
             
-            byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+            byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
             
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
@@ -64,7 +62,7 @@
             outputStream.flush();
             outputStream.close();
             
-        conn.close();
+        conn.cierraConexion();
     %>
     <head>
         <script type="text/javascript">

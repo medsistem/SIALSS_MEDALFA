@@ -4,6 +4,7 @@
     Author     : Sistemas
 --%>
 
+<%@page import="conn.ConectionDB"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -43,13 +44,7 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
-    //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        
+   ConectionDB con = new ConectionDB();
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
             PrintService[] impresoras = PrintServiceLookup.lookupPrintServices(null, null);
@@ -70,7 +65,7 @@
                 count++;
             }
         
-        folio = smtfolio.executeQuery("SELECT F_FolCon FROM tb_imprepconglobal WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FolCon");
+        folio = con.consulta("SELECT F_FolCon FROM tb_imprepconglobal WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FolCon");
         while (folio.next()) {
             FolCon = folio.getString(1);
 
@@ -78,7 +73,7 @@
             Map parameter = new HashMap();
             parameter.put("FolCon", FolCon);
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, con.getConn());
 
                 JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -116,7 +111,7 @@
             System.out.println("Folio Vertical2-->" + FolCon);
         }
 
-        conn.close();
+        con.cierraConexion();
     %>
  <head>
         <script type="text/javascript">

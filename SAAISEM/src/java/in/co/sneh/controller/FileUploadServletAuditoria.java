@@ -79,7 +79,7 @@ public class FileUploadServletAuditoria extends HttpServlet {
 
                                             ResultSet rs = con.consulta("SELECT rat.clave, m.F_ClaProSS, SUBSTRING( m.F_DesPro, 1, 250 ), rat.lote, rat.caducidad, rat.cantidad, tb_origen.F_DesOri, tb_reporteauditoriaestatus.estatus, rat.ordencompra FROM tb_reporteauditoriatemp AS rat INNER JOIN tb_medica AS m ON rat.clave = m.F_ClaPro INNER JOIN tb_origen ON rat.origen = tb_origen.F_ClaOri INNER JOIN tb_reporteauditoriaestatus ON rat.estatus = tb_reporteauditoriaestatus.id_estatus WHERE F_uSU = '" + Usuario + "'");
                                             while (rs.next()) {
-                                                String proyecto = "ISEM";
+                                                String proyecto = "PROYECTO";
                                                 String claPro = rs.getString(1);
                                                 String claProSS = rs.getString(2);
                                                 String descripcion = rs.getString(3);

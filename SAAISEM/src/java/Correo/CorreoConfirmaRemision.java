@@ -77,7 +77,7 @@ public class CorreoConfirmaRemision extends HttpServlet {
               message.addRecipient(Message.RecipientType.BCC, new InternetAddress("jefe.almacen@medalfa.mx"));
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress("jefe.Recibo@medalfa.mx"));
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress("dhernandez@medalfa.mx"));
-           message.setSubject("Remision Confirmada / MEDALFA ISEM");
+           message.setSubject("Remision Confirmada / MEDALFA");
             
             String mensaje = "" ,mensaje2 ="", mensaje3="",mensaje4="",mensaje5="", clave="", cantidad="", clave2="", cantidad2="",clave3="", cantidad3="", Tipo="",Tipo1="", Tipo2="";
             try {
@@ -136,7 +136,7 @@ public class CorreoConfirmaRemision extends HttpServlet {
             } catch (Exception e) {
                 e.getMessage();
             }
-            mensaje = "Se Ingreso en ISEM la siguiente orden de compra: " + oc + " con la remision: " + remision + "\n"+mensaje2+"\nClave\t\tCantidad\t\tTipo\n"+mensaje3+"\n"+mensaje4+"\n"+mensaje5+"";
+            mensaje = "Se Ingreso en la siguiente orden de compra: " + oc + " con la remision: " + remision + "\n"+mensaje2+"\nClave\t\tCantidad\t\tTipo\n"+mensaje3+"\n"+mensaje4+"\n"+mensaje5+"";
            
             message.setText(mensaje);
 

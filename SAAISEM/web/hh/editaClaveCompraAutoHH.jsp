@@ -76,7 +76,7 @@
                 marca = rset2.getString(1);
             }
 
-            ResultSet rsetpedi = con.consulta("SELECT p.F_Cant FROM tb_pedidoisem2017 AS p WHERE p.F_NoCompra = '" + orden + "' AND p.F_Clave = '" + clave + "';");
+            ResultSet rsetpedi = con.consulta("SELECT p.F_Cant FROM tb_pedido_sialss AS p WHERE p.F_NoCompra = '" + orden + "' AND p.F_Clave = '" + clave + "';");
             while (rsetpedi.next()) {
                 cantidadPedido = rsetpedi.getInt("F_Cant");
                 System.out.println("cantidadPedido :" + cantidadPedido);

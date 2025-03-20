@@ -86,7 +86,7 @@
                             <select id="RutaN" name="RutaN" class="form-control">
                                 <option value="0">--Seleccione--</option>
                                 <option value="1">RUTA ORDINARIA</option>
-                                <option value="2">RUTA COVID</option>
+                               
                                 <option value="3">URGENTE</option>
                             </select>
                         </div>

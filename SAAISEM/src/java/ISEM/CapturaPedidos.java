@@ -61,7 +61,7 @@ public class CapturaPedidos extends HttpServlet {
 
                 try {
 
-                    con.insertar("update tb_pedidoisem2017 set F_FecSur = '" + request.getParameter("F_FecEnt") + "', F_HorSur='" + request.getParameter("HoraN") + "' where F_NoCompra ='" + request.getParameter("NoCompra") + "';");
+                    con.insertar("update tb_pedido_sialss set F_FecSur = '" + request.getParameter("F_FecEnt") + "', F_HorSur='" + request.getParameter("HoraN") + "' where F_NoCompra ='" + request.getParameter("NoCompra") + "';");
                     out.println("<script>alert('Actualización correcta')</script>");
                 } catch (Exception e) {
                     out.println("<script>alert('Error al actualizar')</script>");
@@ -76,7 +76,7 @@ public class CapturaPedidos extends HttpServlet {
                 PreparedStatement ps = con.getConn().prepareStatement("SELECT F_ClaPro, F_DesPro FROM tb_medica where F_ClaPro = ?");
                 ps.setString(1, request.getParameter("NoCompra"));
                 ResultSet rset = ps.executeQuery();
-                //ResultSet rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, p.F_ClaProve FROM tb_pedidoisem2017 o, tb_proveedor p WHERE o.F_Provee = p.F_ClaProve AND F_NoCompra = '" + request.getParameter("NoCompra") + "'  GROUP BY o.F_NoCompra");
+                //ResultSet rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, p.F_ClaProve FROM tb_pedido_sialss o, tb_proveedor p WHERE o.F_Provee = p.F_ClaProve AND F_NoCompra = '" + request.getParameter("NoCompra") + "'  GROUP BY o.F_NoCompra");
                 while (rset.next()) {
                     sesion.setAttribute("NoOrdCompra", rset.getString(1));
                     sesion.setAttribute("proveedor", rset.getString(2));
@@ -91,8 +91,8 @@ public class CapturaPedidos extends HttpServlet {
                 String DesProyecto = request.getParameter("DesProyecto");
                 String Campo = request.getParameter("Campo");
                 String TipoOC = request.getParameter("TipoOC");
-                //con.insertar("delete from tb_pedidoisem2017 where F_IdIsem = '" + request.getParameter("id") + "' ");
-                PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedidoisem2017 WHERE F_IdIsem = ? ");
+                //con.insertar("delete from tb_pedido_sialss where F_IdIsem = '" + request.getParameter("id") + "' ");
+                PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedido_sialss WHERE F_IdIsem = ? ");
                 ps.setString(1, request.getParameter("id"));
                 ps.executeUpdate();
                 con.cierraConexion();
@@ -202,10 +202,10 @@ public class CapturaPedidos extends HttpServlet {
                                         try {
                                             int ban2 = 0;
                                             con.conectar();
-                                            ps = con.getConn().prepareStatement("select F_IdIsem from tb_pedidoisem2017 where F_NoCompra = ?");
+                                            ps = con.getConn().prepareStatement("select F_IdIsem from tb_pedido_sialss where F_NoCompra = ?");
                                             ps.setString(1, request.getParameter("NoCompra"));
                                             ResultSet rset = ps.executeQuery();
-                                            //ResultSet rset = con.consulta("select F_IdIsem from tb_pedidoisem2017 where F_NoCompra = '" + request.getParameter("NoCompra") + "'");
+                                            //ResultSet rset = con.consulta("select F_IdIsem from tb_pedido_sialss where F_NoCompra = '" + request.getParameter("NoCompra") + "'");
                                             while (rset.next()) {
                                                 ban2 = 1;
                                             }
@@ -370,8 +370,8 @@ public class CapturaPedidos extends HttpServlet {
                             try {
                                 int ban2 = 0;
                                 con.conectar();
-                                //ResultSet rset = con.consulta("select F_IdIsem from tb_pedidoisem2017 where F_NoCompra = '" + request.getParameter("NoCompra") + "'");
-                                PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem from tb_pedidoisem2017 where F_NoCompra = ?");
+                                //ResultSet rset = con.consulta("select F_IdIsem from tb_pedido_sialss where F_NoCompra = '" + request.getParameter("NoCompra") + "'");
+                                PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem from tb_pedido_sialss where F_NoCompra = ?");
                                 ps.setString(1, request.getParameter("NoCompra"));
                                 ResultSet rset = ps.executeQuery();
                                 while (rset.next()) {
@@ -414,7 +414,8 @@ public class CapturaPedidos extends HttpServlet {
                     Cant = request.getParameter("CanPro");
                     DesProyecto = request.getParameter("DesProyecto");
                     Campo = request.getParameter("Campo");
-                    TipoOC = request.getParameter("TipoOC");
+                  //  TipoOC = request.getParameter("TipoOC");
+                  TipoOC = "NORMAL";
                     ZonaOC = request.getParameter("ZonaOC");
                     byte[] a = request.getParameter("Observaciones").getBytes("ISO-8859-1");
                     Observaciones = (new String(a, "UTF-8")).toUpperCase();
@@ -435,7 +436,7 @@ public class CapturaPedidos extends HttpServlet {
                     }
                     int i = 0, cantAnt = 0;
                     String F_IdIsem = "";
-                    PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem, F_Cant from tb_pedidoisem2017 where F_NoCompra = ? and F_Clave = ? ");
+                    PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem, F_Cant from tb_pedido_sialss where F_NoCompra = ? and F_Clave = ? ");
                     ps.setString(1, (String) sesion.getAttribute("NoOrdCompra"));
                     ps.setString(2, ClaPro);
                     ResultSet rset = ps.executeQuery();
@@ -445,7 +446,7 @@ public class CapturaPedidos extends HttpServlet {
                         cantAnt = rset.getInt("F_Cant");
                     }
                     if (i == 1) {
-                        ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Cant = ? WHERE F_IdIsem= ?");
+                        ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Cant = ? WHERE F_IdIsem= ?");
                         ps.setInt(1, (cantAnt + Integer.parseInt(Cant)));
                         ps.setString(2, F_IdIsem);
                         ps.executeUpdate();
@@ -458,7 +459,7 @@ public class CapturaPedidos extends HttpServlet {
                         ClaveSS = rset.getString(1);
 
                         ps.clearParameters();
-                        ps = con.getConn().prepareStatement("INSERT INTO tb_pedidoisem2017 VALUES(0,?,?,?,?,'',?,?,?,?,?,CURRENT_TIMESTAMP(),?,?,?,'0','0',?,?,?)");
+                        ps = con.getConn().prepareStatement("INSERT INTO tb_pedido_sialss VALUES(0,?,?,?,?,'',?,?,?,?,?,CURRENT_TIMESTAMP(),?,?,?,'0','0',?,?,?,'',0,'')");
                         ps.setString(1, (String) sesion.getAttribute("NoOrdCompra"));
                         ps.setString(2, (String) sesion.getAttribute("proveedor"));
                         ps.setString(3, ClaPro);
@@ -594,7 +595,7 @@ public class CapturaPedidos extends HttpServlet {
 
                     int i = 0, cantAnt = 0;
                     String F_IdIsem = "";
-                    PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem, F_Cant from tb_pedidoisem2017 where F_NoCompra = ? and F_Clave = ? ");
+                    PreparedStatement ps = con.getConn().prepareStatement("select F_IdIsem, F_Cant from tb_pedido_sialss where F_NoCompra = ? and F_Clave = ? ");
                     ps.setString(1, NoCompra);
                     ps.setString(2, ClaPro);
                     ResultSet rset = ps.executeQuery();
@@ -604,7 +605,7 @@ public class CapturaPedidos extends HttpServlet {
                         cantAnt = rset.getInt("F_Cant");
                     }
                     if (i == 1) {
-                        ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Cant = ? WHERE F_IdIsem= ?");
+                        ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Cant = ? WHERE F_IdIsem= ?");
                         ps.setInt(1, (cantAnt + Integer.parseInt(Cant)));
                         ps.setString(2, F_IdIsem);
                         ps.executeUpdate();
@@ -617,7 +618,7 @@ public class CapturaPedidos extends HttpServlet {
                         ClaveSS = rset.getString(1);
 
                         ps.clearParameters();
-                        ps = con.getConn().prepareStatement("INSERT INTO tb_pedidoisem2017 VALUES(0,?,?,?,?,'-',?,?,?,?,?,CURRENT_TIMESTAMP(),?,CURTIME(),?,'1','0',?,?,?)");
+                        ps = con.getConn().prepareStatement("INSERT INTO tb_pedido_sialss VALUES(0,?,?,?,?,'-',?,?,?,?,?,CURRENT_TIMESTAMP(),?,CURTIME(),?,'1','0',?,?,?)");
                         ps.setString(1, NoCompra);
                         ps.setString(2, Proveedor);
                         ps.setString(3, ClaPro);
@@ -652,8 +653,8 @@ public class CapturaPedidos extends HttpServlet {
                     byte[] a = request.getParameter("Observaciones").getBytes("ISO-8859-1");
                     String Obser = (new String(a, "UTF-8")).toUpperCase();
                     try {
-                        //con.insertar("update tb_pedidoisem2017 set F_StsPed = '2' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
-                        PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_StsPed = '2' WHERE F_NoCompra = ? ");
+                        //con.insertar("update tb_pedido_sialss set F_StsPed = '2' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
+                        PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_StsPed = '2' WHERE F_NoCompra = ? ");
                         ps.setString(1, request.getParameter("NoCompra"));
                         ps.executeUpdate();
                     } catch (Exception e) {
@@ -690,8 +691,8 @@ public class CapturaPedidos extends HttpServlet {
                     DesProyecto = request.getParameter("DesProyecto");
                     Campo = request.getParameter("Campo");
                     TipoOC = request.getParameter("TipoOC");
-                    //con.insertar("delete from tb_pedidoisem2017 where F_IdUsu = '" + (String) sesion.getAttribute("Usuario") + "'  ");
-                    PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedidoisem2017 WHERE F_IdUsu = ? AND F_StsPed=0 ");
+                    //con.insertar("delete from tb_pedido_sialss where F_IdUsu = '" + (String) sesion.getAttribute("Usuario") + "'  ");
+                    PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedido_sialss WHERE F_IdUsu = ? AND F_StsPed=0 ");
                     ps.setString(1, (String) sesion.getAttribute("IdUsu"));
                     ps.executeUpdate();
                     sesion.setAttribute("clave", "");
@@ -723,8 +724,8 @@ public class CapturaPedidos extends HttpServlet {
             if (request.getParameter("accion").equals("eliminarRemi")) {
                 con.conectar();
                 try {
-                    //con.insertar("delete from tb_pedidoisem2017 where F_NoCompra = '" + request.getParameter("F_NoCompra") + "'");
-                    PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedidoisem2017 WHERE F_NoCompra = ?");
+                    //con.insertar("delete from tb_pedido_sialss where F_NoCompra = '" + request.getParameter("F_NoCompra") + "'");
+                    PreparedStatement ps = con.getConn().prepareStatement("DELETE FROM tb_pedido_sialss WHERE F_NoCompra = ?");
                     ps.setString(1, request.getParameter("F_NoCompra"));
                     ps.executeUpdate();
                 } catch (Exception e) {
@@ -737,8 +738,8 @@ public class CapturaPedidos extends HttpServlet {
             if (request.getParameter("accion").equals("confirmarRemi")) {
                 con.conectar();
                 try {
-                    //con.insertar("update tb_pedidoisem2017 set F_StsPed = '1' where F_NoCompra = '" + request.getParameter("F_NoCompra") + "'");
-                    PreparedStatement ps = con.getConn().prepareStatement("update tb_pedidoisem2017 set F_StsPed = '1' where F_NoCompra = ?");
+                    //con.insertar("update tb_pedido_sialss set F_StsPed = '1' where F_NoCompra = '" + request.getParameter("F_NoCompra") + "'");
+                    PreparedStatement ps = con.getConn().prepareStatement("update tb_pedido_sialss set F_StsPed = '1' where F_NoCompra = ?");
                     ps.setString(1, request.getParameter("F_NoCompra"));
                     ps.executeUpdate();
                 } catch (Exception e) {
@@ -757,8 +758,8 @@ public class CapturaPedidos extends HttpServlet {
                     DesProyecto = request.getParameter("DesProyecto");
                     Campo = request.getParameter("Campo");
                     TipoOC = request.getParameter("TipoOC");
-                    //con.insertar("update tb_pedidoisem2017 set F_StsPed = '1' where F_NoCompra = '" + (String) sesion.getAttribute("NoOrdCompra") + "'  and F_IdUsu = '" + (String) sesion.getAttribute("Usuario") + "' ");
-                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_StsPed = '1' WHERE F_NoCompra = ?  AND F_IdUsu = ? ");
+                    //con.insertar("update tb_pedido_sialss set F_StsPed = '1' where F_NoCompra = '" + (String) sesion.getAttribute("NoOrdCompra") + "'  and F_IdUsu = '" + (String) sesion.getAttribute("Usuario") + "' ");
+                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_StsPed = '1' WHERE F_NoCompra = ?  AND F_IdUsu = ? ");
                     String noCompra;
                     noCompra = request.getParameter("NoCompra");
                     ps.setString(1, noCompra);
@@ -818,8 +819,8 @@ public class CapturaPedidos extends HttpServlet {
             if (request.getParameter("accion").equals("reactivar")) {
                 con.conectar();
                 try {
-                    //con.insertar("update tb_pedidoisem2017 set F_Recibido='0' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
-                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Recibido='0' WHERE F_NoCompra = ?  ");
+                    //con.insertar("update tb_pedido_sialss set F_Recibido='0' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
+                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Recibido='0' WHERE F_NoCompra = ?  ");
                     ps.setString(1, request.getParameter("NoCompra"));
                     ps.executeUpdate();
                 } catch (Exception e) {
@@ -831,8 +832,8 @@ public class CapturaPedidos extends HttpServlet {
             if (request.getParameter("accion").equals("cerrar")) {
                 con.conectar();
                 try {
-                    //con.insertar("update tb_pedidoisem2017 set F_Recibido='1' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
-                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Recibido='1' WHERE F_NoCompra = ?  ");
+                    //con.insertar("update tb_pedido_sialss set F_Recibido='1' where F_NoCompra = '" + request.getParameter("NoCompra") + "'  ");
+                    PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Recibido='1' WHERE F_NoCompra = ?  ");
                     ps.setString(1, request.getParameter("NoCompra"));
                     ps.executeUpdate();
                     ps.clearParameters();
@@ -859,7 +860,7 @@ public class CapturaPedidos extends HttpServlet {
                     json.put("msg", "error");
                 }
                 if (!detallePedido.isEmpty()) {
-                    ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Cant = ? WHERE F_IdIsem = ?;");
+                    ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Cant = ? WHERE F_IdIsem = ?;");
                     ps.setString(1, CantidadM);
                     ps.setString(2, detallePedido);
                     ps.executeUpdate();
@@ -888,7 +889,7 @@ public class CapturaPedidos extends HttpServlet {
                     json.put("msg", "error");
                 }
                 if (!detallePedido.isEmpty()) {
-                    ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_StsPed=3 , F_Recibido = 3 WHERE F_IdIsem = ?;");
+                    ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_StsPed=3 , F_Recibido = 3 WHERE F_IdIsem = ?;");
                     ps.setString(1, detallePedido);
                     ps.executeUpdate();
                     json.put("msg", "ok");
@@ -904,7 +905,7 @@ public class CapturaPedidos extends HttpServlet {
                 con.conectar();
                 try {
                     try {
-                        PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedidoisem2017 SET F_Recibido = 0 WHERE F_NoCompra = ? ");
+                        PreparedStatement ps = con.getConn().prepareStatement("UPDATE tb_pedido_sialss SET F_Recibido = 0 WHERE F_NoCompra = ? ");
                         ps.setString(1, request.getParameter("NoCompra"));
                         ps.executeUpdate();
                     } catch (Exception e) {

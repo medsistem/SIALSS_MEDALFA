@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d36d56d-e705-43d8-bec6-461dd4e714a4">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5026296018031553"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
@@ -126,16 +126,16 @@ ORDER BY
 		<band/>
 	</background>
 	<pageHeader>
-		<band height="104">
+		<band height="71">
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="2fa00f35-a6fa-4f60-9d8e-1312e126dafa" x="122" y="78" width="320" height="11"/>
+				<reportElement uuid="2fa00f35-a6fa-4f60-9d8e-1312e126dafa" x="122" y="46" width="320" height="11"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_NomCli}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="08d9dc9d-ff07-45d2-9121-3965da3c1de8" mode="Opaque" x="408" y="67" width="90" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="08d9dc9d-ff07-45d2-9121-3965da3c1de8" mode="Opaque" x="408" y="35" width="90" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
@@ -149,7 +149,7 @@ ORDER BY
 				<text><![CDATA[DEVOLUCION DE ALMACEN Y ABASTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bbe4a43b-0a00-4c22-8913-ec6c4df8ffe9" x="10" y="67" width="112" height="11"/>
+				<reportElement uuid="bbe4a43b-0a00-4c22-8913-ec6c4df8ffe9" x="10" y="35" width="112" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
@@ -163,7 +163,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[$F{F_FecEnt}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="00000">
-				<reportElement uuid="3b3f968c-19a7-4dd5-8f92-1bc2c6ba4e5f" x="498" y="67" width="74" height="11"/>
+				<reportElement uuid="3b3f968c-19a7-4dd5-8f92-1bc2c6ba4e5f" x="498" y="35" width="74" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
@@ -191,7 +191,7 @@ ORDER BY
 				<text><![CDATA[GNK Logística]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="448d2aee-a3d1-4def-9e18-6a8315075829" x="10" y="78" width="112" height="11"/>
+				<reportElement uuid="448d2aee-a3d1-4def-9e18-6a8315075829" x="10" y="46" width="112" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
@@ -212,7 +212,7 @@ ORDER BY
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="11567681-1639-4f59-9b2c-2f2ed8742387" x="122" y="89" width="320" height="14"/>
+				<reportElement uuid="11567681-1639-4f59-9b2c-2f2ed8742387" x="122" y="57" width="320" height="14"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>

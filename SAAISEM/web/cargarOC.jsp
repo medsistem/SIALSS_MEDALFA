@@ -63,7 +63,7 @@
                         con.conectar();
                         String Class = "";
                         int Contar = 0;
-                        ResultSet rset = con.consulta("SELECT F_ClaOri, F_AbreOri,F_OCInd FROM tb_origen WHERE F_ClaOri IN (" + Origen + ") ORDER BY F_ClaOri ASC;");
+                        ResultSet rset = con.consulta("SELECT F_ClaOri FROM tb_origen WHERE F_ClaOri IN (" + Origen + ") ORDER BY F_ClaOri ASC;");
                         while (rset.next()) {
                             Contar++;
                             if (Contar == 1) {

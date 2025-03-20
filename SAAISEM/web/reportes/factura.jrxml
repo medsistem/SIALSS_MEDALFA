@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d36d56d-e705-43d8-bec6-461dd4e714a4">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5026296018031553"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
@@ -117,30 +117,30 @@ ORDER BY
 		<band/>
 	</background>
 	<pageHeader>
-		<band height="97">
+		<band height="68">
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="2fa00f35-a6fa-4f60-9d8e-1312e126dafa" x="122" y="61" width="276" height="11"/>
+				<reportElement uuid="2fa00f35-a6fa-4f60-9d8e-1312e126dafa" x="121" y="35" width="276" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_NomCli}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="08d9dc9d-ff07-45d2-9121-3965da3c1de8" mode="Opaque" x="408" y="50" width="90" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="08d9dc9d-ff07-45d2-9121-3965da3c1de8" mode="Opaque" x="407" y="24" width="90" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FOLIO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bbe4a43b-0a00-4c22-8913-ec6c4df8ffe9" x="10" y="50" width="214" height="11"/>
+				<reportElement uuid="bbe4a43b-0a00-4c22-8913-ec6c4df8ffe9" x="9" y="24" width="214" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[PROYECTO: ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern="00000">
-				<reportElement uuid="3b3f968c-19a7-4dd5-8f92-1bc2c6ba4e5f" x="498" y="50" width="74" height="11"/>
+				<reportElement uuid="3b3f968c-19a7-4dd5-8f92-1bc2c6ba4e5f" x="497" y="24" width="74" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
@@ -168,47 +168,42 @@ ORDER BY
 				<text><![CDATA[GNK Logística]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9409d028-3f27-418c-88cc-9b4d57094ddf" x="188" y="13" width="184" height="17"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="448d2aee-a3d1-4def-9e18-6a8315075829" x="10" y="61" width="112" height="11"/>
+				<reportElement uuid="448d2aee-a3d1-4def-9e18-6a8315075829" x="9" y="35" width="112" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[PUNTO DE ENTREGA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="123a43d9-1de1-404f-9b50-6522ec600a3e" x="10" y="83" width="112" height="11"/>
+				<reportElement uuid="123a43d9-1de1-404f-9b50-6522ec600a3e" x="9" y="57" width="112" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[NO. ORDEN:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="85cf5e21-d96b-4705-96ff-78b5992d5d03" x="122" y="83" width="268" height="11"/>
+				<reportElement uuid="85cf5e21-d96b-4705-96ff-78b5992d5d03" x="121" y="57" width="268" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Req}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="bbaded5d-90cb-4843-8b4c-a0a34ee16569" mode="Opaque" x="400" y="30" width="130" height="13" backcolor="#FFFFFF"/>
+				<reportElement uuid="bbaded5d-90cb-4843-8b4c-a0a34ee16569" mode="Opaque" x="399" y="4" width="130" height="13" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="eb62f1ec-1570-4c9a-9b60-e0225fcb6fb8" mode="Opaque" x="530" y="30" width="40" height="13" backcolor="#FFFFFF"/>
+				<reportElement uuid="eb62f1ec-1570-4c9a-9b60-e0225fcb6fb8" mode="Opaque" x="529" y="4" width="40" height="13" backcolor="#FFFFFF"/>
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="76013451-25ee-4a78-ae2b-b3ef144f39a7" x="10" y="39" width="214" height="11"/>
+				<reportElement uuid="76013451-25ee-4a78-ae2b-b3ef144f39a7" x="9" y="13" width="214" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>

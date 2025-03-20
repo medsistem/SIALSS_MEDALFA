@@ -63,10 +63,13 @@
                         <div class="col-sm-5">
                             <select class="form-control" name="insumoEspecial" id="insumoEspecial" onchange="this.form.submit();">
                                 <option value="">--Seleccionar el tipo de insumo--</option>
+                                
+                                
+                                <option value="APE">Ape</option>
                                 <option value="Controlado">Controlado</option>
+                              
                                 <option value="Red_Fria">Red Fría</option>
-                                <option value="APE">APE</option>
-                                <option value="Oncologico">Oncologico</option>
+                            
                             </select>
 
                         </div>
@@ -111,8 +114,8 @@
                                                             rset = con.consulta("SELECT rf.F_ClaPro, m.F_DesPro, m.F_PrePro FROM tb_redfria AS rf INNER JOIN tb_medica AS m ON rf.F_ClaPro = m.F_ClaPro; ");
                                                         } else if ((insumoEspecial.equals("APE"))) {
                                                             rset = con.consulta("SELECT APE.F_ClaPro, m.F_DesPro, m.F_PrePro FROM tb_ape AS APE INNER JOIN tb_medica AS m ON APE.F_ClaPro = m.F_ClaPro; ");
-                                                        } else if ((insumoEspecial.equals("Oncologico"))) {
-                                                            rset = con.consulta("SELECT o.F_ClaPro, m.F_DesPro, m.F_PrePro, o.F_TipIns FROM tb_onco AS o INNER JOIN tb_medica AS m ON o.F_ClaPro = m.F_ClaPro; ");
+                                                        } else if ((insumoEspecial.equals("Seco"))) {
+                                                            rset = con.consulta("SELECT m.F_ClaPro, m.F_DesPro, m.F_PrePro FROM tb_medica AS m ");
                                                         }
                                                         while (rset.next()) {
                                                 %>

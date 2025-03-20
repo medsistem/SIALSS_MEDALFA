@@ -83,7 +83,7 @@
         con.conectar();
         ResultSet rset = null;
 
-        rset = con.consulta("SELECT F_NoCompra, F_Provee, PR.F_NomPro, F_FecSur, F_Zona, F_Obser, F_Tipo FROM tb_pedidoisem2017 P INNER JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve WHERE F_NoCompra = '" + OC + "' GROUP BY F_NoCompra;");
+        rset = con.consulta("SELECT F_NoCompra, F_Provee, PR.F_NomPro, F_FecSur, F_Zona, F_Obser, F_Tipo FROM tb_pedido_sialss P INNER JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve WHERE F_NoCompra = '" + OC + "' GROUP BY F_NoCompra;");
 
         while (rset.next()) {
             F_NoCompra = rset.getString(1);
@@ -242,7 +242,7 @@
                                     int cantUsada = 0;
                                     int cantMax = 0;
                                     cantMax = rset.getInt(1);
-                                    ResultSet rset2 = con.consulta("select sum(F_Cant) from tb_pedidoisem2017 where F_Clave='" + claPro + "' and F_StsPed !='2'  AND F_Provee='" + proveedor + "'");
+                                    ResultSet rset2 = con.consulta("select sum(F_Cant) from tb_pedido_sialss where F_Clave='" + claPro + "' and F_StsPed !='2'  AND F_Provee='" + proveedor + "'");
                                     while (rset2.next()) {
                                         cantUsada = rset2.getInt(1);
                                     }

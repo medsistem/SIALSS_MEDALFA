@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
 	<parameter name="F_Obs" class="java.lang.String"/>
 	<parameter name="Usuario" class="java.lang.String"/>
@@ -100,7 +100,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="117">
+		<band height="107">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="3abcd692-39ba-487a-a02f-18421da2001c" x="0" y="0" width="122" height="25"/>
 				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
@@ -152,13 +152,6 @@
 					<jr:codeExpression><![CDATA[$F{F_Folio}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
-			<staticText>
-				<reportElement uuid="662e3d36-81fb-46df-be29-4b6f4fb71e8f" x="175" y="23" width="217" height="10"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INSTITUTO DE LA SALUD DEL ESTADO DE MÉXICO]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="86efef5e-b477-4934-a62e-e2a1dcc556ea" x="148" y="33" width="263" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -223,14 +216,14 @@
 				<textFieldExpression><![CDATA[$F{F_Direc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="8d398048-6342-46f1-82e9-d5b05950caff" x="65" y="89" width="310" height="27" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="8d398048-6342-46f1-82e9-d5b05950caff" x="66" y="77" width="310" height="27" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Razon}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="76dc5f84-3704-4d9e-b13f-970caf7efe3d" x="0" y="89" width="65" height="27"/>
+				<reportElement uuid="76dc5f84-3704-4d9e-b13f-970caf7efe3d" x="1" y="77" width="65" height="27"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
@@ -285,7 +278,7 @@
 				<imageExpression><![CDATA[$P{RedFria}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement uuid="e0094e8d-4b10-469a-9f9e-181e99752d99" x="0" y="116" width="572" height="1"/>
+				<reportElement uuid="e0094e8d-4b10-469a-9f9e-181e99752d99" x="0" y="106" width="572" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#000000"/>
 				</graphicElement>

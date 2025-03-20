@@ -70,7 +70,7 @@ public class CancelaCompra {
             }
             try {
                 obj.conectar();
-                ResultSet rset = obj.consulta("select p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario from tb_pedidoisem2017 p, tb_proveedor pro, tb_usuariosisem u where u.F_IdUsu = p.F_IdUsu and p.F_Provee = pro.F_ClaProve and  F_NoCompra = '" + folio + "' group by pro.F_NomPro ");
+                ResultSet rset = obj.consulta("select p.F_FecSur, p.F_HorSur, pro.F_NomPro, u.F_Usuario from tb_pedido_sialss p, tb_proveedor pro, tb_usuariosisem u where u.F_IdUsu = p.F_IdUsu and p.F_Provee = pro.F_ClaProve and  F_NoCompra = '" + folio + "' group by pro.F_NomPro ");
                 while (rset.next()) {
                     mensaje = mensaje + "Proveedor: " + rset.getString(3) + "\n"
                             + "Fecha de Entrega: " + rset.getString(1) + " " + rset.getString(2) + "\n"
@@ -82,7 +82,7 @@ public class CancelaCompra {
             mensaje = mensaje + "Clave\t\t\tCantidad\n";
             try {
                 obj.conectar();
-                ResultSet rset = obj.consulta("select F_Clave, F_Cant, F_Obser from tb_pedidoisem2017 where F_NoCompra = '" + folio + "' ");
+                ResultSet rset = obj.consulta("select F_Clave, F_Cant, F_Obser from tb_pedido_sialss where F_NoCompra = '" + folio + "' ");
                 while (rset.next()) {
                     mensaje = mensaje + rset.getString(1) + "\t\t" + rset.getString(2) + "\t\t" + rset.getString(3) + "\n";
                 }

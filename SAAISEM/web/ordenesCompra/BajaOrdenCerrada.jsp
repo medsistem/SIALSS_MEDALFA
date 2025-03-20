@@ -72,7 +72,7 @@
         <div class="container" >
             <div class="panel panel-success" >
                 <div class="panel-heading" >
-                    <h4 class="text-center" > OC CERRADAS ISEM  </h4>
+                    <h4 class="text-center" > OC CERRADAS</h4>
                 </div>
             </div>    
             <div class="panel panel-success" >
@@ -85,7 +85,7 @@
                         <div class="col-sm-2">
                             <input class="form-control" id="fecha_fin" name="fecha_fin" type="date" onchange="habilitar(this.value);"/>
                         </div>
-                        <!--div class="col-sm-3">
+                        <div class="col-sm-3">
                             <select name="Proyecto" id="Proyecto" class="form-control">
                                 <option value="0">--Seleccione--</option>
                                 <%                                    
@@ -102,7 +102,7 @@
                                     }
                                 %>
                             </select>
-                        </div-->
+                        </div>
                         <div class="col-sm-2">
                             <button class="btn btn-warning btn-block glyphicon glyphicon-search" onclick="" name="BuscaOCCerrada0" value="BuscaOCCerrada0"> Buscar</button>
                         </div>
@@ -123,7 +123,7 @@
                                 <th>Solicitado</th>
                                 <th>Faltante/sobrante</th>
                                 <th>Status OC</th>
-                                <th>Provedor</th>
+                                <th>Proveedor</th>
                                 
                                 </thead>
                                 <tbody>
@@ -133,7 +133,7 @@
                                             try {
                                                ResultSet rs = null;
                                            
-                                               rs = con.consulta("call sae_oc_Isem('" + fecha_ini + "','" + fecha_fin + "')");
+                                               rs = con.consulta("call sae_oc_mdf('" + fecha_ini + "','" + fecha_fin + "')");
                                      while (rs.next()) {
                                           String fecha1 = rs.getString(1);
                                               

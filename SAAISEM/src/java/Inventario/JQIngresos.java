@@ -43,7 +43,7 @@ public class JQIngresos extends HttpServlet {
                 con.conectar();
                 JSONObject json = new JSONObject();
                 JSONArray jsona = new JSONArray();
-                ResultSet rset = con.consulta("select F_Clave from tb_pedidoisem2017 where F_Clave like '%" + request.getParameter("clave") + "%' limit 0,10");
+                ResultSet rset = con.consulta("select F_Clave from tb_pedido_sialss where F_Clave like '%" + request.getParameter("clave") + "%' limit 0,10");
                 while (rset.next()) {
                     json.put("F_Clave", rset.getString(1).trim().replaceAll("\\n", ""));
                     json.put("F_ClaPro", rset.getString(1).trim().replaceAll("\\n", ""));

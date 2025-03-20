@@ -39,7 +39,7 @@ public class InterfaceSendetoDaoImpl implements InterfaceSenderoDao {
    
     public static String COMPRA_TEMPORAL_LERMA = "SELECT * FROM tb_compratemp WHERE F_OrdCom=? AND F_FolRemi=?;";
 
-    public static String PEDIDO_ISEM_2017 = "SELECT * FROM tb_pedidoisem2017 WHERE F_NoCompra=?";
+    public static String PEDIDO_ISEM_2017 = "SELECT * FROM tb_pedido_sialss WHERE F_NoCompra=?";
 
     public static String MARCA_SENDERO = "SELECT F_ClaMar FROM tb_marca WHERE F_ClaMar=?";
 
@@ -55,7 +55,7 @@ public class InterfaceSendetoDaoImpl implements InterfaceSenderoDao {
     public static String UPDATE_COMPRA_TEMPORAL = "UPDATE tb_compratemp SET F_Lote=?, F_FecCad=?, F_Marca=?, F_Pz=?, F_Cb=?, F_Obser=?, F_Tarimas=?, F_Cajas=?, F_PzaCaja=?, F_CajasI=?, F_Resto=?, F_TarimasI=?, F_ComTot = ?, F_FactorEmpaque = ?, F_OrdenSuministro = ?, F_CartaCanje =?, F_MarcaComercial = ?, F_unidadFonsabi = ? WHERE F_IdCom=?";
 //    public static String DATOS_COMPRA_TEMPORAL_PARA_EDITAR = "SELECT c.F_Lote AS lote,c.F_Pz AS cantidad,c.F_Cb AS cb,c.F_FecCad AS caducidad,m.F_DesMar AS marca, m.F_ClaMar AS claMar, c.F_Obser as observaciones,F_Tarimas,F_Cajas,F_PzaCaja,F_CajasI,F_Resto,F_TarimasI, F_Costo FROM tb_compratemp c, tb_marca m WHERE c.F_IdCom=? AND c.F_Marca=m.F_ClaMar;";
    
-    public static String DATOS_COMPRA_TEMPORAL_PARA_EDITAR = "SELECT c.F_Lote AS lote, c.F_Pz AS cantidad, c.F_Cb AS cb, c.F_FecCad AS caducidad, m.F_DesMar AS marca, m.F_ClaMar AS claMar, c.F_Tarimas AS tarimas, c.F_Cajas AS cajas, c.F_PzaCaja AS pzacajas, c.F_CajasI AS cajasI, c.F_Resto AS resto, c.F_TarimasI, c.F_Costo AS costo, c.F_CartaCanje AS cartaCanje, c.F_FactorEmpaque AS factorEmpaque, c.F_Origen AS origen, c.F_Obser AS observaciones, c.F_TipoInsumo AS tipoInsumo, c.F_OrdenSuministro AS OrdenSuministro, c.F_IdVolumetria AS idVolumetria, p.F_Cant AS cantPedido, c.F_FuenteFinanza AS fuenteFinanza, c.F_unidadFonsabi AS unidadFonsabi, IFNULL( CO.cantCompra, 0 ) AS cantCompra, IFNULL( COM.cantidadTemp, 0 ) AS cantidadTemp, IFNULL(c.F_MarcaComercial, '') AS marcaComercial, c.F_ClaPro as ClaPro FROM tb_compratemp AS c INNER JOIN tb_marca AS m ON c.F_Marca = m.F_ClaMar LEFT JOIN tb_pedidoisem2017 AS p ON c.F_OrdCom = p.F_NoCompra AND c.F_ClaPro = p.F_Clave LEFT JOIN (SELECT comptemp.F_IdCom, SUM( com.F_CanCom ) AS cantCompra FROM tb_compratemp AS comptemp INNER JOIN tb_compra AS com ON comptemp.F_ClaPro = com.F_ClaPro AND comptemp.F_OrdCom = com.F_OrdCom WHERE comptemp.F_IdCom = ? GROUP BY com.F_ClaPro) AS CO ON CO.F_IdCom = c.F_IdCom LEFT JOIN (SELECT SUM( ctemp.F_Pz ) AS cantidadTemp, ctemp.F_OrdCom, ctemp.F_ClaPro FROM tb_compratemp AS ctemp WHERE ctemp.F_IdCom <> ? GROUP BY ctemp.F_ClaPro) AS COM ON COM.F_OrdCom = c.F_OrdCom AND COM.F_ClaPro = c.F_ClaPro WHERE c.F_IdCom = ?;";
+    public static String DATOS_COMPRA_TEMPORAL_PARA_EDITAR = "SELECT c.F_Lote AS lote, c.F_Pz AS cantidad, c.F_Cb AS cb, c.F_FecCad AS caducidad, m.F_DesMar AS marca, m.F_ClaMar AS claMar, c.F_Tarimas AS tarimas, c.F_Cajas AS cajas, c.F_PzaCaja AS pzacajas, c.F_CajasI AS cajasI, c.F_Resto AS resto, c.F_TarimasI, c.F_Costo AS costo, c.F_CartaCanje AS cartaCanje, c.F_FactorEmpaque AS factorEmpaque, c.F_Origen AS origen, c.F_Obser AS observaciones, c.F_TipoInsumo AS tipoInsumo, c.F_OrdenSuministro AS OrdenSuministro, c.F_IdVolumetria AS idVolumetria, p.F_Cant AS cantPedido, c.F_FuenteFinanza AS fuenteFinanza, c.F_unidadFonsabi AS unidadFonsabi, IFNULL( CO.cantCompra, 0 ) AS cantCompra, IFNULL( COM.cantidadTemp, 0 ) AS cantidadTemp, IFNULL(c.F_MarcaComercial, '') AS marcaComercial, c.F_ClaPro as ClaPro FROM tb_compratemp AS c INNER JOIN tb_marca AS m ON c.F_Marca = m.F_ClaMar LEFT JOIN tb_pedido_sialss AS p ON c.F_OrdCom = p.F_NoCompra AND c.F_ClaPro = p.F_Clave LEFT JOIN (SELECT comptemp.F_IdCom, SUM( com.F_CanCom ) AS cantCompra FROM tb_compratemp AS comptemp INNER JOIN tb_compra AS com ON comptemp.F_ClaPro = com.F_ClaPro AND comptemp.F_OrdCom = com.F_OrdCom WHERE comptemp.F_IdCom = ? GROUP BY com.F_ClaPro) AS CO ON CO.F_IdCom = c.F_IdCom LEFT JOIN (SELECT SUM( ctemp.F_Pz ) AS cantidadTemp, ctemp.F_OrdCom, ctemp.F_ClaPro FROM tb_compratemp AS ctemp WHERE ctemp.F_IdCom <> ? GROUP BY ctemp.F_ClaPro) AS COM ON COM.F_OrdCom = c.F_OrdCom AND COM.F_ClaPro = c.F_ClaPro WHERE c.F_IdCom = ?;";
    
     public static String DATOS_NOMBRE_COMERCIAL_PARA_EDITAR = "select F_Id,F_NombreComercial from tb_nombrecomercial where F_ClaPro = ?";
 
@@ -98,9 +98,9 @@ private static String DATOS_FONSABI_CONTAR = "SELECT COUNT(*) FROM tb_uniatn AS 
 
     private static String INSERTAR_TB_UNIDADFONSABI = "INSERT INTO tb_unidadfonsabi SET F_Clacli = ?, F_FolLot = ?";
     
-    private static String BUSCA_TB_PEDIDO_ISEM_2017 = "SELECT c.F_ClaPro as clave, sum(c.F_CanCom) as totalCom, p17.F_Cant as solicitado, (p17.F_Cant - sum(c.F_CanCom )) AS Dif FROM tb_compra AS c INNER JOIN tb_pedidoisem2017 AS p17 ON c.F_OrdCom = p17.F_NoCompra AND c.F_ClaPro = p17.F_Clave WHERE c.F_ClaPro = ? AND c.F_OrdCom = ? GROUP BY c.F_ClaPro, c.F_OrdCom";
+    private static String BUSCA_TB_PEDIDO_ISEM_2017 = "SELECT c.F_ClaPro as clave, sum(c.F_CanCom) as totalCom, p17.F_Cant as solicitado, (p17.F_Cant - sum(c.F_CanCom )) AS Dif FROM tb_compra AS c INNER JOIN tb_pedido_sialss AS p17 ON c.F_OrdCom = p17.F_NoCompra AND c.F_ClaPro = p17.F_Clave WHERE c.F_ClaPro = ? AND c.F_OrdCom = ? GROUP BY c.F_ClaPro, c.F_OrdCom";
 
-    private static String UPDATE_TB_PEDIDO_ISEM_2017 = "UPDATE tb_pedidoisem2017 SET F_Recibido ='1' WHERE F_NoCompra =? and F_Clave =?";
+    private static String UPDATE_TB_PEDIDO_ISEM_2017 = "UPDATE tb_pedido_sialss SET F_Recibido ='1' WHERE F_NoCompra =? and F_Clave =?";
 
     private static String UPDATE_TB_PEDIDO = "UPDATE tb_pedidoisem SET F_Recibido ='1' WHERE F_NoCompra =? and F_Clave =?";
 
@@ -258,7 +258,7 @@ private ResultSet rsnom, rsfon;
 
             conSendero.getConn().setAutoCommit(false);
 
-            query = "INSERT INTO tb_pedidoisem2017 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            query = "INSERT INTO tb_pedido_sialss VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             for (pedidosIsemModel p : lP) {
                 ps = conSendero.getConn().prepareStatement(query);
                 ps.setInt(1, p.getId());

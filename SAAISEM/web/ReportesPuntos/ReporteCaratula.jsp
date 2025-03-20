@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDBTrans"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -51,12 +52,7 @@
 <html>
     <%
         if (ban == 1) {
-            Connection conn;
-            Class.forName("org.mariadb.jdbc.Driver");
-
-            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-            //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");    
-            smtfolio = conn.createStatement();
+             ConectionDBTrans conn = new ConectionDBTrans();
 
             int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
@@ -78,7 +74,7 @@
                 count++;
             }
 
-            folio = smtfolio.executeQuery("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='" + factura + "'");
+            folio = conn.consulta("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='" + factura + "'");
             while (folio.next()) {
                 puntos = folio.getInt(7);
                 Fechas = folio.getString(6);
@@ -171,7 +167,7 @@
             parameter.put("Factura", factura);
             parameter.put("fecha", FecEntrega);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -191,7 +187,7 @@
                 System.out.println("Error-> " + ex);
             }
             Reportes = "";
-            conn.close();
+            conn.cierraConexion();
         } else {
             Connection conn;
             Class.forName("org.mariadb.jdbc.Driver");

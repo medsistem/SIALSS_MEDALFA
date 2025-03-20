@@ -73,11 +73,8 @@ if(!Valida.equals("Valido")){
                <div>
                    <h5>PROYECTO:<select name="select" id="select">
                            <option id="op">--SELECCIONE PROYECTO--</option>
-                           <option id="op" value="DURANGO">DURANGO</option>
-                           <option id="op" value="ISEM">ISEM</option>
-                           <option id="op" value="ISSEMyM">ISSEMyM</option>
-                           <option id="op" value="SEDENA">SEDENA</option>
-                           <option id="op" value="TEPIC">TEPIC</option>                           
+                           <option id="op" value="DURANGO">MDF</option>
+                                                     
                        </select>
                        Por Folios:<input type="text" id="txtf_foliof1" name="folio1" placeholder="Ingrese Folio Inicial" size="10" class="text-center">&nbsp;AL&nbsp;<input type="text" id="txtf_foliof2" class="text-center" name="folio2" placeholder="Ingrese Folio Final" size="10">&nbsp;<input type="text" id="fecha" name="fecha" placeholder="Seleccione Fecha" class="text-center"/>&nbsp;<label class="icon-calendar"></label>&nbsp;<label class="btn btn-sm btn-success" id="btn-buscar">Buscar&nbsp;<label class="glyphicon glyphicon-search"></label></label>&nbsp;<button class="btn btn-sm btn-success" name="ban" value="8" >Marbete&nbsp;<label class="icon-refresh"></label></button></h5>   
                </div>               

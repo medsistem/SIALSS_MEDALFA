@@ -41,7 +41,7 @@
         <div class="container">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Cargar OC Insabi Isem</h3>
+                    <h3 class="panel-title">Cargar OC </h3>
                 </div>
                 <div class="panel-body ">
                     <form method="post" class="jumbotron"  action="FileUploadServletRecibo" enctype="multipart/form-data" name="form1">

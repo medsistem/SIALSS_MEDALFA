@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="CargoResponsable" class="java.lang.String"/>
 	<parameter name="ImagenControlado" class="java.lang.String"/>
 	<parameter name="F_Obs" class="java.lang.String"/>
@@ -161,13 +161,6 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Proyecto}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="662e3d36-81fb-46df-be29-4b6f4fb71e8f" x="135" y="28" width="292" height="10"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INSTITUTO DE LA SALUD DEL ESTADO DE MÉXICO]]></text>
-			</staticText>
 			<componentElement>
 				<reportElement uuid="dcf76330-0228-4601-891c-8e3eb4eed6f2" x="434" y="15" width="138" height="23"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">

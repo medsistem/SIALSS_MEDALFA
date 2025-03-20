@@ -291,7 +291,7 @@
                         </div>
                       <% } %>
                         <div class="col-sm-2">
-                            <button type="submit" class="btn btn-warning btn-block" id="btnImpMultMich" name="accion" value="impRemisMultplesMich" disabled >Surtido ISEM</button>
+                            <button type="submit" class="btn btn-warning btn-block" id="btnImpMultMich" name="accion" value="impRemisMultplesMich" disabled >Surtido MDF</button>
                         </div>
                         
                         <div class="col-sm-2"> 

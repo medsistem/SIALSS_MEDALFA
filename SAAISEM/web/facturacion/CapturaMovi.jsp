@@ -119,7 +119,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Captura Moviento al Inventario proyecto <%=Desproyecto%></h2>
+                    <h2>Captura Movimiento al Inventario proyecto <%=Desproyecto%></h2>
                 </div>
             </div>
             <hr/>

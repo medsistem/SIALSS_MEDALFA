@@ -40,7 +40,7 @@
                         <ul class="breadcrumb">
                             <li>Usted est&aacute; aqu&iacute;:</li>
                             <!--li><a href="/Proyectos/index.html">inicio</a><span class="divider">--><!--/span></li-->
-                            <li>inicio ubicaciones isem<span class="divider">--></span></li>
+                            <li>inicio ubicaciones<span class="divider">--></span></li>
                             
                         </ul>
                     </nav>

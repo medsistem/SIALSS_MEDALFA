@@ -20,7 +20,7 @@
     custom.setDecimalSeparator(',');
     formatter.setDecimalFormatSymbols(custom);
     HttpSession sesion = request.getSession();
-    String usua = "ISEM", Clave = "1", Claves = "";
+    String usua = "MDF", Clave = "1", Claves = "";
     ResultSet rset;
     ResultSet rset2;
     int Cantidad = 0;

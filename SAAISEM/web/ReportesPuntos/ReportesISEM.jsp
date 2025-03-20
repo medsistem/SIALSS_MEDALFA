@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDBTrans"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -32,11 +33,8 @@
     String F_Region="",F_DesJur="",F_DesMun="",F_DesLoc="",F_DesUni="",F_Fecha1="",F_Fecha2="",F_Serie1="",F_Serie2="",F_Provee="",F_Surtido="",F_Coberturas="",F_Suministro="";
     int RegistroC=0,Ban=0,F_Punto=0;
     double Hoja=0.0;
-    Statement smtfolio = null;
+
     ResultSet folio = null;
-    ResultSet Contare = null;
-    Statement smtfolio2 = null;
-    Statement ContarReg = null;
     HttpSession sesion = request.getSession();
     
     
@@ -56,18 +54,14 @@
 %>
 <html>
     <%
-      Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");   
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
+      ConectionDBTrans conn = new ConectionDBTrans();
                  
         //for(int x=1; x<=8; x++){
-        ResultSet FolioFact = smtfolio2.executeQuery("SELECT F_FolFact FROM tb_impreauto WHERE F_User='" + F_User + "' GROUP BY F_FolFact ORDER BY F_FolFact ASC");
+        ResultSet FolioFact = conn.consulta("SELECT F_FolFact FROM tb_impreauto WHERE F_User='" + F_User + "' GROUP BY F_FolFact ORDER BY F_FolFact ASC");
         while(FolioFact.next()){
             F_FolFact = FolioFact.getString(1);
         
-        folio = smtfolio.executeQuery("SELECT F_FolCon,F_FolFact,F_Punto FROM tb_impreauto WHERE F_User='" + F_User + "' and F_FolFact='"+F_FolFact+"' GROUP BY F_FolCon ORDER BY F_FolCon ASC");
+        folio =  conn.consulta("SELECT F_FolCon,F_FolFact,F_Punto FROM tb_impreauto WHERE F_User='" + F_User + "' and F_FolFact='"+F_FolFact+"' GROUP BY F_FolCon ORDER BY F_FolCon ASC");
         while (folio.next()) {
             FolCon = folio.getString(1);
             System.out.println("ReporteVerticalImp'"+folio.getString(3)+"'");
@@ -87,7 +81,7 @@
         FolCon="";
        // }
         
-        conn.close();
+        conn.cierraConexion();
     %>
     <script type="text/javascript">
 

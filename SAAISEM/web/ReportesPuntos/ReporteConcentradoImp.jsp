@@ -4,6 +4,7 @@
     Author     : Sistemas
 --%>
 
+<%@page import="conn.ConectionDB"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.Copies"%>
@@ -47,12 +48,8 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
+        ConectionDB conn = new ConectionDB(); 
         
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
         
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
@@ -74,25 +71,19 @@
                 count++;
             }
         
-       /* folio = smtfolio.executeQuery("SELECT F_FactAgr FROM tb_imprepvalauto WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FactAgr");
-        while (folio.next()) {
-            FolCon = folio.getString(1);*/
+     
             System.out.println("Folio Validacion-->" + FolCon);
             File reportfile = new File(application.getRealPath("/ReportesPuntos/RepConcentradoauto.jasper"));
             Map parameter = new HashMap();
             parameter.put("FolCon", FolCon);
             parameter.put("F_Imagen", F_Imagen);
             
-            /*
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
-            JasperPrintManager.printReport(jasperPrint, false);
-            */
+         
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
-            //exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, imprePredet.getAttributes());
             exporter.setParameter(JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, impresoras[Epson].getAttributes());
             exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
             exporter.setParameter(JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
@@ -100,15 +91,11 @@
             try {
                     exporter.exportReport();
                 } catch (Exception ex) {
-                    //out.print("<script type='text/javascript'>alert('Folio sin Datos ');</script>");
+                  
                     System.out.println("Error-> " + ex);
                 }
-            
-           // smtfolio2.execute("DELETE FROM tb_imprepvalauto WHERE F_FactAgr='" + FolCon + "'");
-
-        //}
-       // smtfolio2.execute("DELETE FROM tb_imprepvalauto");
-        conn.close();
+      
+        conn.cierraConexion();
     %>
     <head>
         <script type="text/javascript">

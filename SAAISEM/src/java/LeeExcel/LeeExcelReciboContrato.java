@@ -279,7 +279,7 @@ public class LeeExcelReciboContrato {
                     
                     if ((NoReg == NoClave) && (NoReg == NoProvee) && (NoReg == NoProyecto) && (NoReg == NoOc) && (NoReg == NoCantidad)) {
                         System.out.println("Entra para insertar: ");
-                        con.actualizar("DELETE FROM tb_pedidoisem2017 WHERE F_NoCompra='" + Consulta.getString(1) + "' AND F_Provee='" + Consulta.getString(2) + "' AND F_Proyecto='" + Consulta.getString(10) + "';");
+                        con.actualizar("DELETE FROM tb_pedido_sialss WHERE F_NoCompra='" + Consulta.getString(1) + "' AND F_Provee='" + Consulta.getString(2) + "' AND F_Proyecto='" + Consulta.getString(10) + "';");
 
                         ResultSet Claves = con.consulta("SELECT F_NoOc, P.F_ClaProve, F_Clave, F_Clavess, SUM(F_Cant) AS F_Cant,F_Proyecto, O.F_FuenteFinanza,O.F_Contratos FROM tb_cargaoc O INNER JOIN tb_proveedor P ON O.F_Proveedor = P.F_ClaProve INNER JOIN tb_proyectos PR ON O.F_Proyecto=PR.F_Id INNER JOIN tb_medica M ON O.F_Clave = M.F_ClaPro AND  M.F_StsPro != 'S' WHERE F_Usu = '" + User + "' AND F_NoOc ='" + Consulta.getString(1) + "' AND P.F_ClaProve = '" + Consulta.getString(2) + "' AND F_Proyecto='" + Consulta.getString(10) + "' AND o.F_Cant > 0 GROUP BY O.F_Id");
                         while (Claves.next()) {
@@ -293,7 +293,7 @@ public class LeeExcelReciboContrato {
                                     FechaS = FechaSur.getString(1);
                                 }
                                 System.out.println("ya para insertar");
-                                con.insertar("INSERT INTO tb_pedidoisem2017 VALUES(0,'" + Claves.getString(1) + "','" + Claves.getString(2) + "','" + Claves.getString(3) + "','" + Claves.getString(4) + "','-','1','-',CURDATE(),'" + Claves.getString(5) + "','-',NOW(),'" + FechaS + "',CURTIME(),'" + usuc + "',1,0,'" + Claves.getString(6) + "','','CC/LP','" + Claves.getString(7) + "',21,'" + Claves.getString(8) + "')");
+                                con.insertar("INSERT INTO tb_pedido_sialss VALUES(0,'" + Claves.getString(1) + "','" + Claves.getString(2) + "','" + Claves.getString(3) + "','" + Claves.getString(4) + "','-','1','-',CURDATE(),'" + Claves.getString(5) + "','-',NOW(),'" + FechaS + "',CURTIME(),'" + usuc + "',1,0,'" + Claves.getString(6) + "','','CC/LP','" + Claves.getString(7) + "',21,'" + Claves.getString(8) + "')");
 
                             }
                         }

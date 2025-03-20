@@ -28,7 +28,7 @@
                 <!-- Icon -->
                 <div class="fadeIn first">
                     <img src="imagenes/LogoMedalfa-.png"  />
-                    <h3>SIALSS ISEM AUDITORIA</h3>
+                    <h3>SIALSS AUDITORIA</h3>
                 </div>
                 <hr/>
                 <!-- Login Form -->

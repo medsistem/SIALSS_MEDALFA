@@ -11,10 +11,10 @@ package com.medalfa.saa.db;
  */
 public enum Source 
 {
-    SAA_RECEPTION("java:comp/env/jdbc/recepcion_saa"),
-    SAA_AUDIT("java:comp/env/jdbc/auditoria_saa"),
-    SAA_WAREHOUSE("java:comp/env/jdbc/almacen_saa"),
-    SAA_BILLING("java:comp/env/jdbc/facturacion_saa");
+    SAA_RECEPTION("java:comp/env/jdbc/recepcion_sialss_mdf"),
+    SAA_AUDIT("java:comp/env/jdbc/auditoria_sialss_mdf"),
+    SAA_WAREHOUSE("java:comp/env/jdbc/almacen_sialss_mdf"),
+    SAA_BILLING("java:comp/env/jdbc/facturacion_sialss_mdf");
     public final String text;
 
     private Source(final String text) {

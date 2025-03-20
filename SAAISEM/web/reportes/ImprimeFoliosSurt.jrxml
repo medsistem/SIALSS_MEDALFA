@@ -73,13 +73,6 @@
 	</background>
 	<pageHeader>
 		<band height="104">
-			<staticText>
-				<reportElement uuid="d94044bc-ceec-427a-a76c-a4f342594625" x="181" y="0" width="184" height="13"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ISEM]]></text>
-			</staticText>
 			<rectangle>
 				<reportElement uuid="f0f01e19-e9ce-4044-987c-b08e37d15e34" x="438" y="58" width="132" height="22"/>
 			</rectangle>

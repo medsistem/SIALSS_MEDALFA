@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDBTrans"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.MediaSizeName"%>
@@ -31,11 +32,9 @@
     String DesV="",F_Region="",F_DesJur="",F_DesMun="",F_DesLoc="",F_DesUni="",F_Fecha1="",F_Fecha2="",F_Serie1="",F_Serie2="",F_Provee="",F_Surtido="",F_Coberturas="",F_Suministro="";
     int RegistroC=0,RegistroC2=0,Ban=0;
     double Hoja=0.0;
-    Statement smtfolio = null;
+    
     ResultSet folio = null;
     ResultSet Contare = null;
-    Statement smtfolio2 = null;
-    Statement ContarReg = null;
     try {
         //FolCon = request.getParameter("FolCon");
         F_User = request.getParameter("User");
@@ -50,39 +49,12 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
-        ContarReg = conn.createStatement();
-   
-        
+       ConectionDBTrans conn = new ConectionDBTrans();
+       
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
-            /*PrintService[] impresoras = PrintServiceLookup.lookupPrintServices(null, null);
-            PrintService imprePredet = PrintServiceLookup.lookupDefaultPrintService();
-            PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
-            MediaSizeName mediaSizeName = MediaSize.findMedia(4, 4, MediaPrintableArea.INCH);
-            printRequestAttributeSet.add(mediaSizeName);
-            printRequestAttributeSet.add(new Copies(1));
             
-            for (PrintService printService : impresoras) {
-                Nom = printService.getName();
-                System.out.println("impresora" + Nom);
-                if (Nom.contains(Impresora)) {
-                    Epson = count;
-                } else {
-                    Impre = count;
-                }
-                count++;
-            }*/
-        /*
-        folio = smtfolio.executeQuery("SELECT F_FolCon FROM tb_imprepconauto WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FolCon");
-        while (folio.next()) {
-            FolCon = folio.getString(1);
-            */
-            Contare = ContarReg.executeQuery("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepconauto WHERE F_FolCon='"+FolCon+"'");
+            Contare = conn.consulta("SELECT COUNT(F_FolCon),F_Region,F_DesJur,F_DesMun,F_DesLoc,F_DesUni,F_Fecha1,F_Fecha2,F_Serie1,F_Serie2,F_Provee,F_Surtido,F_Coberturas,F_Suministro FROM tb_imprepconauto WHERE F_FolCon='"+FolCon+"'");
             if(Contare.next()){
                RegistroC = Contare.getInt(1);
                F_Region= Contare.getString(2);
@@ -162,7 +134,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -221,7 +193,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -242,7 +214,7 @@
             //smtfolio2.execute("DELETE FROM tb_imprepconauto WHERE F_FolCon='" + FolCon + "'");
         //}
         //smtfolio2.execute("DELETE FROM tb_imprepconauto");
-        conn.close();
+        conn.cierraConexion();
     %>
     <script type="text/javascript">
 

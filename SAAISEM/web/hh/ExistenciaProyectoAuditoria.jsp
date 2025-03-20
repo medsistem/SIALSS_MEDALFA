@@ -59,7 +59,7 @@
                         <div class="col-sm-2">
                           <select id="Nombre" name="Nombre" class="form-control">
                                 <option value ="" selected disabled>Seleccionar</option>
-                                <option value ="1">ISEM</option>                                
+                                <option value ="1">MDF</option>                                
                             </select>
                           
                         </div>

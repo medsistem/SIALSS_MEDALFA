@@ -268,13 +268,6 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 				<text><![CDATA[FINAL HH]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dfdff572-c286-4279-8600-a049e4ae463b" x="192" y="3" width="184" height="13"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ISEM]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="9ae98375-69b1-4683-aa3f-2b775d000a0b" x="444" y="35" width="42" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="Arial" size="10" isBold="true"/>
@@ -673,13 +666,6 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 			<line>
 				<reportElement uuid="39edce39-b161-483f-b45b-7b199b093f8a" x="495" y="57" width="1" height="22"/>
 			</line>
-			<staticText>
-				<reportElement uuid="8358a935-b491-4bde-a909-9504bde28676" x="192" y="13" width="184" height="13"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ISEM]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="935bb5cc-3cdb-4207-8867-c8009b5e178d" mode="Opaque" x="442" y="31" width="42" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">

@@ -1003,9 +1003,7 @@
     <listener>
         <listener-class>com.gnk.service.SessionManagerService</listener-class>
     </listener>
-    <listener>
-        <listener-class>com.medalfa.saa.cronJobs.FoliosUrgentesCron</listener-class>
-    </listener>
+  
     <listener>
         <listener-class>in.co.sneh.service.SessionManagerService</listener-class>
     </listener>

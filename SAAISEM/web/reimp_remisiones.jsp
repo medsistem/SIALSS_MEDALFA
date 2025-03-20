@@ -95,8 +95,7 @@
 
                 <div class="col-sm-4">
                     <br/>
-                    <button class="btn btn-info" id="descargarReporteRecetas" name="descargarReporteRecetas">Reporte de Recetas &nbsp;<label class="glyphicon glyphicon-cloud-download"></label></button>
-                    <a class="btn btn-success" href="gnrFacturaConcentrado.jsp?Fecha1=<%=Fecha1%>&Fecha2=<%=Fecha2%>&Folio1=<%=Folio1%>&Folio2=<%=Folio2%>" target="_blank">Exportar Global</a>
+                     <a class="btn btn-success" href="gnrFacturaConcentrado.jsp?Fecha1=<%=Fecha1%>&Fecha2=<%=Fecha2%>&Folio1=<%=Folio1%>&Folio2=<%=Folio2%>" target="_blank">Exportar Global</a>
                 </div>
             </div>
             <form name="forma1" id="forma1" action="AdministraRemisiones" method="post">

@@ -138,72 +138,7 @@ public class ExcelExistenciaProyectoCompra extends HttpServlet {
                     rowHeadInv.createCell((int) 7).setCellValue("Orden de suministro");
 
                     break;
-                case "3":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /*  rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-
-                    break;
-                case "4":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /*  rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-
-                    break;
-                case "5":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /*  rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-                    break;
-                case "6":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /* rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-                    break;
+               
                 case "7":
                     /**
                      * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
@@ -237,62 +172,7 @@ public class ExcelExistenciaProyectoCompra extends HttpServlet {
                     rowHeadInv.createCell((int) 8).setCellValue("Estatus");
                     rowHeadInv.createCell((int) 9).setCellValue("Orden de suministro");
                     break;
-                case "9":
-                case "10":
-                case "11":
-                case "12":
-                case "13":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /*   rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-                    break;
-                case "14":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /* rowHeadInv.createCell((int) 3).setCellValue("Descripción específica");*/
- /* rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-
-                    break;
-                case "15":
-                    /**
-                     * rowHeadInv.createCell((int) 0).setCellValue("Proyecto");*
-                     */
-                    rowHeadInv.createCell((int) 0).setCellValue("Clave");
-                    rowHeadInv.createCell((int) 1).setCellValue("Nombre genérico");
-                    rowHeadInv.createCell((int) 2).setCellValue("Descripción específica");
-                    rowHeadInv.createCell((int) 3).setCellValue("Presentación");
-                    /* rowHeadInv.createCell((int) 3).setCellValue("Descripción específica");*/
- /* rowHeadInv.createCell((int) 4).setCellValue("Forma farmacéutica");
-                    rowHeadInv.createCell((int) 5).setCellValue("Concentración");*/
-                    rowHeadInv.createCell((int) 4).setCellValue("Lote");
-                    rowHeadInv.createCell((int) 5).setCellValue("Caducidad");
-                    rowHeadInv.createCell((int) 6).setCellValue("Cantidad");
-                    rowHeadInv.createCell((int) 7).setCellValue("Origen");
-                    rowHeadInv.createCell((int) 8).setCellValue("Orden de suministro");
-                    rowHeadInv.createCell((int) 9).setCellValue("Fuente de Financiamiento");
-                    break;
+                
                 default:
                     break;
             }
@@ -328,92 +208,39 @@ public class ExcelExistenciaProyectoCompra extends HttpServlet {
 
                 switch (Consulta) {
                     case "1":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_Proyecto;";
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + "  AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_Proyecto;";
                         break;
                     case "2":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + "  AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
                         break;
-                    case "3":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' and L.F_Origen = 3 AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
-                        break;
-                    case "4":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' and L.F_Origen = 4 AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
-                        break;
-                    case "5":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' and L.F_Origen = 5 AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
-                        break;
-                    case "6":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' and L.F_Origen IN (1,2,8) AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "7":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote INNER JOIN tb_ubicanueva U ON L.F_Ubica = U.DescUbi COLLATE utf8_general_ci WHERE L.F_ExiLot > 0  AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
+                      case "7":
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote INNER JOIN tb_ubicanueva U ON L.F_Ubica = U.DescUbi COLLATE utf8_general_ci WHERE L.F_ExiLot > 0  AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
                         break;
                     case "8":
-
 //                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR( M.F_DesPro, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id  WHERE L.F_Proyecto = '1' AND L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro != '9999' GROUP BY L.F_ClaPro, O.F_DesOri ORDER BY L.F_ClaPro, O.F_DesOri;";
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  SUBSTR( M.F_DesProEsp, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '1' AND L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995')  AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri ORDER BY L.F_ClaPro,L.F_ClaLot,  O.F_DesOri;";
-
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  SUBSTR( M.F_DesProEsp, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '1' AND L.F_ExiLot > 0 " + AND + "  AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri ORDER BY L.F_ClaPro,L.F_ClaLot,  O.F_DesOri;";
                         break;
-                    case "15":
-
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,SUBSTR(M.F_DesProEsp, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, IFNULL(c.F_FuenteFinanza,'') as FuenteFinanza , M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id INNER JOIN (SELECT F_Lote, F_OrdenSuministro, F_FuenteFinanza FROM tb_compra where  F_FuenteFinanza != '' AND F_FuenteFinanza IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '1' AND L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri ORDER BY L.F_ClaPro,L.F_ClaLot,  O.F_DesOri;";
-
-                        break;
-                    default:
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
+                     default:
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot > 0 " + AND + "  AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
                         break;
                 }
 
             } else {
                 switch (Consulta) {
                     case "1":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica , M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_Proyecto;";
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica , M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + "  AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_Proyecto;";
                         break;
                     case "2":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + "  AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
                         break;
-                    case "3":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,   M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen=3 AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
-                        break;
-                    case "4":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen=4 AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
-                        break;
-                    case "5":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen=5 AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
-                        break;
-                    case "6":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen IN (1,2,8) AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "7":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote INNER JOIN tb_ubicanueva U ON L.F_Ubica = U.DescUbi COLLATE utf8_general_ci WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0  AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
+                     case "7":
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote INNER JOIN tb_ubicanueva U ON L.F_Ubica = U.DescUbi COLLATE utf8_general_ci WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0   AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad,  L.F_Proyecto;";
                         break;
                     case "8":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  SUBSTR(M.F_DesProEsp, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot > 0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_FecCad > CURDATE()  AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri ORDER BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri;";
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  SUBSTR(M.F_DesProEsp, 1, 40 ) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM( L.F_ExiLot ) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS , CASE  WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  ESTATUS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot > 0 " + AND + "  AND L.F_FecCad > CURDATE()  AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri ORDER BY L.F_ClaPro, L.F_ClaLot, O.F_DesOri;";
                         break;
-                    case "9":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '9' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "10":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro , M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '10' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "11":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro , M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '11' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "12":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro , M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '13' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "13":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro , M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '12' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "14":
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_Origen = '14' AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    case "15":
-                        System.out.println("caso 15");
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro, SUBSTR(M.F_DesProEsp,1,40) AS F_DesPro, L.F_ClaLot, L.F_FecCad AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri ,L.F_Ubica , M.F_ClaProSS,CASE WHEN L.F_Ubica = 'CUARENTENA' THEN 'NO DISPONIBLE' ELSE 'DISPONIBLE' END  AS  Estatus,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, IFNULL(c.F_FuenteFinanza,'') as FuenteFinanza , M.F_PrePro  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id INNER JOIN (SELECT F_Lote, F_OrdenSuministro,F_FuenteFinanza  FROM tb_compra where  F_FuenteFinanza != '' AND F_FuenteFinanza IS NOT NULL  group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_ExiLot>0 AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_Origen <> '19' AND L.F_Proyecto = '" + Proyecto + "' " + AND + " AND L.F_FecCad > CURDATE() AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_Proyecto;";
-                        break;
-                    default:
-                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_ClaPro NOT IN ('9999', '9998', '9996', '9995') AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
+                      default:
+                        qry = "SELECT P.F_DesProy, L.F_ClaPro,  M.F_DesProEsp, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica, M.F_ClaProSS,M.F_NomGen,M.F_FormaFarm,M.F_Concentracion,M.F_DesProEsp,c.F_OrdenSuministro as suministro, M.F_PrePro FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id LEFT JOIN (SELECT F_Lote, F_OrdenSuministro FROM tb_compra where F_OrdenSuministro IS NOT NULL group by F_Lote) c on L.F_FolLot = c.F_Lote WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + " AND L.F_FecCad > CURDATE() AND L.F_Origen <> '19' AND M.F_StsPro = 'A' GROUP BY L.F_ClaPro, L.F_ClaLot, L.F_FecCad, L.F_Proyecto;";
                         break;
                 }
 
@@ -457,66 +284,7 @@ public class ExcelExistenciaProyectoCompra extends HttpServlet {
                         row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
                         row.createCell((int) 7).setCellValue(rsTemp.getString(14));
                         break;
-                    case "3":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(10));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(15));
-                        /* row.createCell((int) 3).setCellValue(rsTemp.getString(13));*/
- /*  row.createCell((int) 4).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(12));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(14));
-                        break;
-                    case "4":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(10));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(15));
-                        /*  row.createCell((int) 3).setCellValue(rsTemp.getString(13));*/
- /*  row.createCell((int) 4).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(12));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(14));
-                        break;
-                    case "5":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(10));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(15));
-                        /* row.createCell((int) 3).setCellValue(rsTemp.getString(13));*/
- /*   row.createCell((int) 4).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(12));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(14));
-                        break;
-                    case "6":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(10));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(15));
-                        /*  row.createCell((int) 3).setCellValue(rsTemp.getString(13));*/
- /*  row.createCell((int) 4).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(12));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(14));
-                        break;
+                  
                     case "7":
                         /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
                         row.createCell((int) 0).setCellValue(rsTemp.getString(9));
@@ -549,56 +317,7 @@ public class ExcelExistenciaProyectoCompra extends HttpServlet {
                         row.createCell((int) 9).setCellValue(rsTemp.getString(15));
 
                         break;
-                    case "9":
-                    case "10":
-                    case "11":
-                    case "12":
-                    case "13":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(16));
-                        /* row.createCell((int) 3).setCellValue(rsTemp.getString(14));*/
- /* row.createCell((int) 4).setCellValue(rsTemp.getString(12));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(13));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(15));
-                        break;
-                    case "14":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(16));
-                        /* row.createCell((int) 3).setCellValue(rsTemp.getString(14));*/
- /*  row.createCell((int) 4).setCellValue(rsTemp.getString(12));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(13));*/
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(15));
-
-                        break;
-                    case "15":
-                        /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
-                        row.createCell((int) 0).setCellValue(rsTemp.getString(9));
-                        row.createCell((int) 1).setCellValue(rsTemp.getString(11));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
-                        row.createCell((int) 3).setCellValue(rsTemp.getString(17));
-
-                        row.createCell((int) 4).setCellValue(rsTemp.getString(4));
-                        row.createCell((int) 5).setCellValue(rsTemp.getString(5));
-                        row.createCell((int) 6).setCellValue(formatter.format(rsTemp.getInt(6)));
-                        row.createCell((int) 7).setCellValue(rsTemp.getString(7));
-                        row.createCell((int) 8).setCellValue(rsTemp.getString(15));
-                        row.createCell((int) 9).setCellValue(rsTemp.getString(16));
-
-                        break;
+                   
                     default:
                         /*  row.createCell((int) 0).setCellValue(rsTemp.getString(1));*/
                         row.createCell((int) 0).setCellValue(rsTemp.getString(9));

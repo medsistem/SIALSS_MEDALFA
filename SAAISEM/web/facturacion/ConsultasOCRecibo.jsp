@@ -83,7 +83,7 @@
             } else if (ban2 == 1) {
                 Query = ProveedorS;
             }
-            ResultSet rset = con.consulta("SELECT COUNT(F_NoCompra), SUM(P.F_Cant), SUM(IFNULL(C.F_CanCom,0)), ( SUM(P.F_Cant) - SUM(IFNULL(C.F_CanCom,0))) FROM tb_pedidoisem2017 P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro WHERE P.F_StsPed = 1 " + Query + ";");
+            ResultSet rset = con.consulta("SELECT COUNT(F_NoCompra), SUM(P.F_Cant), SUM(IFNULL(C.F_CanCom,0)), ( SUM(P.F_Cant) - SUM(IFNULL(C.F_CanCom,0))) FROM tb_pedido_sialss P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro WHERE P.F_StsPed = 1 " + Query + ";");
             if (rset.next()) {
                 Solicitado = rset.getInt(2);
                 Recibido = rset.getInt(3);
@@ -141,7 +141,7 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        ResultSet rset = con.consulta("SELECT F_NoCompra FROM tb_pedidoisem2017 GROUP BY F_NoCompra;");
+                                        ResultSet rset = con.consulta("SELECT F_NoCompra FROM tb_pedido_sialss GROUP BY F_NoCompra;");
                                         while (rset.next()) {
                                 %>
                                 <option value="<%=rset.getString(1)%>"><%=rset.getString(1)%></option>
@@ -170,7 +170,7 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        ResultSet rset = con.consulta("SELECT P.F_Provee, PR.F_NomPro FROM tb_pedidoisem2017 P INNER JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve GROUP BY P.F_Provee;");
+                                        ResultSet rset = con.consulta("SELECT P.F_Provee, PR.F_NomPro FROM tb_pedido_sialss P INNER JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve GROUP BY P.F_Provee;");
                                         while (rset.next()) {
                                 %>
                                 <option value="<%=rset.getString(1)%>"><%=rset.getString(2)%></option>
@@ -227,7 +227,7 @@
                         } else if (ban2 == 1) {
                             Query = ProveedorS;
                         }
-                        ResultSet rset = con.consulta("SELECT COUNT(F_NoCompra), SUM(P.F_Cant), SUM(C.F_CanCom), SUM(P.F_Cant) - SUM(C.F_CanCom) FROM tb_pedidoisem2017 P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro WHERE P.F_StsPed = 1 " + Query + ";");
+                        ResultSet rset = con.consulta("SELECT COUNT(F_NoCompra), SUM(P.F_Cant), SUM(C.F_CanCom), SUM(P.F_Cant) - SUM(C.F_CanCom) FROM tb_pedido_sialss P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro WHERE P.F_StsPed = 1 " + Query + ";");
                         if (rset.next()) {
                             Contar = rset.getInt(1);
                         }
@@ -322,7 +322,7 @@
                                                         Query = "AND p.F_Fecha >= '2022-01-01'";
                                                     }
 
-                                                    ResultSet rset = con.consulta("SELECT F_NoCompra, F_Clave, M.F_DesPro, FORMAT(SUM(F_Cant), 0) AS F_Cant, FORMAT(IFNULL(C.F_CanCom, 0), 0) AS F_CanCom, FORMAT(IFNULL(C.F_ComTot, 0), 2) AS F_ComTot, SUM(F_Cant) - IFNULL(C.F_CanCom, 0) AS PENDIENTE, PR.F_NomPro, DATE_FORMAT(P.F_FecSur, '%d/%m/%Y') AS FECHAPROX, IFNULL(C.F_FecApl, '') AS FECHAING, DATE_FORMAT(P.F_Fecha, '%d/%m/%Y') AS FECHCREA, P.F_FuenteFinanza, M.F_NomGen, M.F_PrePro, M.F_Grupo, P.F_Contratos FROM tb_pedidoisem2017 P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot, GROUP_CONCAT( DISTINCT ( DATE_FORMAT(F_FecApl, '%d/%m/%Y '))) AS F_FecApl FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro LEFT JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve WHERE P.F_StsPed = 1 " + Query + " GROUP BY P.F_NoCompra, F_Clave, P.F_Provee ORDER BY F_NoCompra ASC, F_Clave ASC;");
+                                                    ResultSet rset = con.consulta("SELECT F_NoCompra, F_Clave, M.F_DesPro, FORMAT(SUM(F_Cant), 0) AS F_Cant, FORMAT(IFNULL(C.F_CanCom, 0), 0) AS F_CanCom, FORMAT(IFNULL(C.F_ComTot, 0), 2) AS F_ComTot, SUM(F_Cant) - IFNULL(C.F_CanCom, 0) AS PENDIENTE, PR.F_NomPro, DATE_FORMAT(P.F_FecSur, '%d/%m/%Y') AS FECHAPROX, IFNULL(C.F_FecApl, '') AS FECHAING, DATE_FORMAT(P.F_Fecha, '%d/%m/%Y') AS FECHCREA, P.F_FuenteFinanza, M.F_NomGen, M.F_PrePro, M.F_Grupo, P.F_Contratos FROM tb_pedido_sialss P LEFT JOIN ( SELECT F_OrdCom, F_ClaPro, SUM(F_CanCom) AS F_CanCom, SUM(F_ComTot) AS F_ComTot, GROUP_CONCAT( DISTINCT ( DATE_FORMAT(F_FecApl, '%d/%m/%Y '))) AS F_FecApl FROM tb_compra GROUP BY F_OrdCom, F_ClaPro ) AS C ON P.F_NoCompra = C.F_OrdCom AND P.F_Clave = C.F_ClaPro LEFT JOIN tb_medica M ON P.F_Clave = M.F_ClaPro LEFT JOIN tb_proveedor PR ON P.F_Provee = PR.F_ClaProve WHERE P.F_StsPed = 1 " + Query + " GROUP BY P.F_NoCompra, F_Clave, P.F_Provee ORDER BY F_NoCompra ASC, F_Clave ASC;");
                                                     while (rset.next()) {
 
                                         %>

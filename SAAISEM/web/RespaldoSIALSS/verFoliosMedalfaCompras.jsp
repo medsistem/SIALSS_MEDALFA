@@ -75,7 +75,7 @@
                                 <option value="">--Proveedor--</option>
                                 <%                                    try {
                                         con.conectar();
-                                        ResultSet rset = con.consulta("SELECT F_ClaProve, F_NomPro FROM tb_proveedor p, tb_pedidoisem2017 o WHERE p.F_ClaProve = o.F_Provee GROUP BY o.F_Provee ORDER BY F_NomPro");
+                                        ResultSet rset = con.consulta("SELECT F_ClaProve, F_NomPro FROM tb_proveedor p, tb_pedido_sialss o WHERE p.F_ClaProve = o.F_Provee GROUP BY o.F_Provee ORDER BY F_NomPro");
                                         while (rset.next()) {
                                 %>
                                 <option value="<%=rset.getString(1)%>" ><%=rset.getString(2)%></option>
@@ -114,7 +114,7 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        ResultSet rset = con.consulta("SELECT u.F_IdUsu, u.F_Usu FROM tb_usuariocompra u, tb_pedidoisem2017 p WHERE  u.F_IdUsu ="+IdUsu+"  GROUP BY F_IdUsu;");
+                                        ResultSet rset = con.consulta("SELECT u.F_IdUsu, u.F_Usu FROM tb_usuariocompra u, tb_pedido_sialss p WHERE  u.F_IdUsu ="+IdUsu+"  GROUP BY F_IdUsu;");
                                         while (rset.next()) {
                                 %>
                                 <option value="<%=rset.getString(1)%>" ><%=rset.getString(2)%></option>
@@ -182,13 +182,13 @@
                                     ResultSet rset = null;
 
                                     if (!(Proveedor.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_Provee = '" + request.getParameter("Proveedor") + "' AND F_StsPed < 3 group by o.F_NoCompra;");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_Provee = '" + request.getParameter("Proveedor") + "' AND F_StsPed < 3 group by o.F_NoCompra;");
 
                                     } else if (!(fecha.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_FecSur =  '" + fecha + "%' AND F_StsPed < 3 group by o.F_NoCompra;");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_FecSur =  '" + fecha + "%' AND F_StsPed < 3 group by o.F_NoCompra;");
 
                                     } else if (!(Usuario.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_IdUsu = '" + request.getParameter("Usuario") + "' AND F_StsPed < 3 group by o.F_NoCompra");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_IdUsu = '" + request.getParameter("Usuario") + "' AND F_StsPed < 3 group by o.F_NoCompra");
                                     }
 
                                     while (rset.next()) {
@@ -236,7 +236,7 @@
                         <%                
                             try {
                                 con.conectar();
-                                ResultSet rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, rec.F_Recibido, o.F_Zona, o.F_Tipo, DATE_FORMAT(o.F_Fecha, '%d/%m/%Y') FROM tb_pedidoisem2017 o INNER JOIN tb_proveedor p ON o.F_Provee = p.F_ClaProve INNER JOIN tb_usuariocompra u ON u.F_IdUsu = o.F_IdUsu INNER JOIN ( SELECT F_NoCompra, SUM(F_Recibido) AS F_Recibido FROM tb_pedidoisem2017 o WHERE F_NoCompra = '" + NoCompra + "' ) rec ON o.F_NoCompra = rec.F_NoCompra WHERE o.F_NoCompra = '" + NoCompra + "' AND F_StsPed < 3 GROUP BY o.F_NoCompra;");
+                                ResultSet rset = con.consulta("SELECT o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, rec.F_Recibido, o.F_Zona, o.F_Tipo, DATE_FORMAT(o.F_Fecha, '%d/%m/%Y') FROM tb_pedido_sialss o INNER JOIN tb_proveedor p ON o.F_Provee = p.F_ClaProve INNER JOIN tb_usuariocompra u ON u.F_IdUsu = o.F_IdUsu INNER JOIN ( SELECT F_NoCompra, SUM(F_Recibido) AS F_Recibido FROM tb_pedido_sialss o WHERE F_NoCompra = '" + NoCompra + "' ) rec ON o.F_NoCompra = rec.F_NoCompra WHERE o.F_NoCompra = '" + NoCompra + "' AND F_StsPed < 3 GROUP BY o.F_NoCompra;");
                                 while (rset.next()) {
                         %>
 
@@ -362,7 +362,7 @@
                             <%
                                 try {
                                     con.conectar();
-                                    ResultSet rset = con.consulta("SELECT s.F_Clave, m.F_DesPro, s.F_Cant, IFNULL(com.F_CanCom, 0) AS Ingreso, s.F_Cant - IFNULL(com.F_CanCom, 0) AS Dif, F_Recibido, s.F_StsPed, F_IdIsem, F_Obser FROM tb_pedidoisem2017 s INNER JOIN tb_medica m ON s.F_Clave = m.F_ClaPro LEFT JOIN ( SELECT F_ClaPro, SUM(F_CanCom) AS F_CanCom FROM tb_compra WHERE F_OrdCom = '" + NoCompra + "' GROUP BY F_ClaPro ) AS com ON s.F_Clave = com.F_ClaPro WHERE F_NoCompra = '" + NoCompra + "' AND s.F_StsPed < 3;");
+                                    ResultSet rset = con.consulta("SELECT s.F_Clave, m.F_DesPro, s.F_Cant, IFNULL(com.F_CanCom, 0) AS Ingreso, s.F_Cant - IFNULL(com.F_CanCom, 0) AS Dif, F_Recibido, s.F_StsPed, F_IdIsem, F_Obser FROM tb_pedido_sialss s INNER JOIN tb_medica m ON s.F_Clave = m.F_ClaPro LEFT JOIN ( SELECT F_ClaPro, SUM(F_CanCom) AS F_CanCom FROM tb_compra WHERE F_OrdCom = '" + NoCompra + "' GROUP BY F_ClaPro ) AS com ON s.F_Clave = com.F_ClaPro WHERE F_NoCompra = '" + NoCompra + "' AND s.F_StsPed < 3;");
                                     while (rset.next()) {
                             %>
                             <tbody>

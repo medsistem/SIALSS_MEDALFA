@@ -44,7 +44,7 @@ private ResultSet rset = null;
              message.addRecipient(Message.RecipientType.CC, new InternetAddress("nidia.leon@medalfa.mx"));
 //            message.addRecipient(Message.RecipientType.BCC, new InternetAddress("brenda.santana@medalfa.mx"));
            
-            message.setSubject("Incidencia en Folios de Remision / MEDALFA ISEM");
+            message.setSubject("Incidencia en Folios de Remision / MEDALFA");
 
              
             String errorubica="ERROR EN LA UBICACION";

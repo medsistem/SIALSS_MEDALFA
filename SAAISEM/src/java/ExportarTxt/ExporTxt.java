@@ -4,13 +4,12 @@
  */
 package ExportarTxt;
 
+import conn.ConectionDBTrans;
 import java.sql.ResultSet;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+
 import java.text.DecimalFormat;
 
 /**
@@ -30,9 +29,10 @@ public class ExporTxt {
             String F_CosVensIVA = "", F_IVAP = "", F_CosSersIVA = "", F_IVAS = "", F_Cveuni = "", Tipo = "";
             File archivo;
 
-            archivo = new File("C:\\TXTISEM\\T_" + fecha1 + "_al_" + fecha2 + ".txt");
-            Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
+            archivo = new File("C:\\TXT\\T_" + fecha1 + "_al_" + fecha2 + ".txt");
+           
+            ConectionDBTrans conn = new ConectionDBTrans();
+         
             BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
 
             String query = "SELECT F_Secuencial,F_Cvepro,F_Cvemun,F_CveLoc,F_CveJur,F_Cveuni,F_CveCie,F_CveCie2,F_Cvemed,"
@@ -41,8 +41,8 @@ public class ExporTxt {
                     + "F_IdePro,F_Region,F_CosServ,F_FacSAVI,(F_Cansur * F_CosUni) AS F_CosVensIVA,((F_Cansur * F_CosUni) * 0.16) AS F_IVAP,"
                     + "(4.74 * F_Cansur) AS F_CosSersIVA,((4.74 * F_Cansur) * 0.16) AS F_IVAS "
                     + "FROM tb_txtis where F_Fecsur between '" + fecha1 + "' and '" + fecha2 + "' AND F_FacGNKLAgr LIKE 'AG-0%' AND F_Status !='C'";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+          
+            ResultSet rs = conn.consulta(query);
 
             while (rs.next()) {
                 F_Cansur = rs.getInt("F_Cansur");
@@ -104,7 +104,7 @@ public class ExporTxt {
             }
             fw.flush();
             fw.close();
-            conn.close();
+            conn.cierraConexion();
             System.out.println("Se creo correctamente");
         } catch (Exception e) {
             System.err.println("No se pudo generar el archivo" + e);

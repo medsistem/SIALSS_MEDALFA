@@ -11,9 +11,9 @@
 <%@ page import="java.io.*" %> 
 <%@ page import="java.sql.*" %> 
 <% /*Parametros para realizar la conexión*/
-
+ ConectionDB conn = new ConectionDB();
     HttpSession sesion = request.getSession();
-    ConectionDB con = new ConectionDB();
+    
     String usua = "";
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
@@ -21,9 +21,7 @@
         response.sendRedirect("index.jsp");
     }
     String folio_gnk = request.getParameter("fol_gnkl");
-    Connection conn;
-       Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
+   
     /*Establecemos la ruta del reporte*/
     File reportFile = new File(application.getRealPath("/reportes/ImprimeFoliosEnseres.jasper"));
     /* No enviamos parámetros porque nuestro reporte no los necesita asi que escriba 
@@ -31,10 +29,12 @@
     Map parameters = new HashMap();
     parameters.put("Folfact", folio_gnk);
     /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
-    byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conn);
+    byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conn.getConn());
     /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
     response.setContentLength(bytes.length);
     ServletOutputStream ouputStream = response.getOutputStream();
     ouputStream.write(bytes, 0, bytes.length); /*Limpiamos y cerramos flujos de salida*/ ouputStream.flush();
     ouputStream.close();
+    
+conn.cierraConexion();
 %>

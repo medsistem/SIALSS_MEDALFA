@@ -60,11 +60,9 @@
             <div class="row">
                 
                 <div class="col-sm-3">
-                    <a href="capturaMedalfa.jsp?Proyecto=1&DesProyecto=ISEM&Campo=F_ProIsem&TipoOC=CC" class="btn btn-block form-control btn-success">ISEM CC</a>
+                    <a href="capturaMedalfa.jsp?Proyecto=1&DesProyecto=Proyecto_MDF&Campo=F_ProIsem" class="btn btn-block form-control btn-success">NUEVO OC</a>
                 </div>
-                <div class="col-sm-3">
-                    <a href="capturaMedalfa.jsp?Proyecto=1&DesProyecto=ISEM&Campo=F_ProIsem&TipoOC=LP" class="btn btn-block form-control btn-success">ISEM LP</a>
-                </div>
+              
                 <br />
                 
                 

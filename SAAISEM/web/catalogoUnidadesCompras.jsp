@@ -158,9 +158,7 @@
                                         <option value="DIMESA">DIMESA</option>
                                         <option value="DISUR">DISUR</option>
                                         <option value="MEDALFA">MEDALFA</option>
-                                        <option value="SOLUGLOB">SOLUGLOB</option>
-                                        <option value="MOTION">MOTION</option>
-                                        <option value="ISEM">ISEM</option>
+                                        
                                     </select>
                                 </div>
                             </div>  

@@ -32,7 +32,7 @@
 		o.F_Contratos,
 		IFNULL(ori.F_DesOri, "") F_DesOri
 FROM
-tb_pedidoisem2017 o
+tb_pedido_sialss o
 INNER JOIN	tb_proveedor p ON o.F_Provee = p.F_ClaProve
 INNER JOIN	tb_usuariocompra u ON u.F_IdUsu = o.F_IdUsu
 INNER JOIN	tb_medica m ON o.F_ClaveSS = m.F_ClaProSS
@@ -113,18 +113,6 @@ order by totales;]]>
 	</background>
 	<pageHeader>
 		<band height="85" splitType="Stretch">
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="1557ab79-fcb0-44d9-92f0-fae31abf50f0" x="0" y="0" width="103" height="39"/>
-				<imageExpression><![CDATA["image/gobierno.png"]]></imageExpression>
-			</image>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="666fb95f-0aa5-473c-aeff-c17f8f8f948f" x="483" y="33" width="89" height="22"/>
-				<imageExpression><![CDATA["image/edomex.png"]]></imageExpression>
-			</image>
-			<image hAlign="Center" vAlign="Middle">
-				<reportElement uuid="5d7d0b98-031e-4edf-b562-31f6d736fbaf" x="483" y="0" width="89" height="33"/>
-				<imageExpression><![CDATA["image/isem.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement uuid="4cd132d9-f888-4503-92dc-8c39339a3ac6" x="184" y="0" width="205" height="13"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.io.*"%> 
@@ -31,13 +32,9 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
+        ConectionDB conn = new ConectionDB();
 
-        folio = smtfolio.executeQuery("SELECT F_FactAgr FROM tb_imprepvalauto WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FactAgr");
+        folio = conn.consulta("SELECT F_FactAgr FROM tb_imprepvalauto WHERE F_Usuario='" + F_User + "' AND F_Date=CURDATE() GROUP BY F_FactAgr");
         while (folio.next()) {
             FolCon = folio.getString(1);
             System.out.println("Folio Validacion-->" + FolCon);
@@ -46,13 +43,13 @@
             parameter.put("FolCon", FolCon);
             parameter.put("F_Imagen", F_Imagen);
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JasperPrintManager.printReport(jasperPrint, false);
 
             smtfolio2.execute("DELETE FROM tb_imprepvalauto WHERE F_FactAgr='" + FolCon + "'");
 
         }
-        conn.close();
+        conn.cierraConexion();
     %>
     <head>
         <script type="text/javascript">

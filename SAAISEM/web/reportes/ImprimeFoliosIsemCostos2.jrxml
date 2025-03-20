@@ -448,13 +448,6 @@
 				</textElement>
 				<text><![CDATA[IMPORTE]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="904c1eac-ea5d-400d-8616-6cd18b69e63e" x="92" y="34" width="340" height="12"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INSTITUTO DE LA SALUD DEL ESTADO DE MÉXICO]]></text>
-			</staticText>
 			<textField>
 				<reportElement uuid="413d5902-d863-4c10-8463-b1c41b95d35e" x="3" y="83" width="541" height="10"/>
 				<textElement textAlignment="Center">

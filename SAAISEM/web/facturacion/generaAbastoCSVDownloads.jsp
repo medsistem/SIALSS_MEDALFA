@@ -31,7 +31,7 @@
   
   // BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
   
-        final File archivo = new File("C:\\ABASTO\\ISEM\\Abasto_" + request.getParameter("F_ClaDoc") + "-" + request.getParameter("ConInv") + ".csv");
+        final File archivo = new File("C:\\ABASTO\\MDF\\Abasto_" + request.getParameter("F_ClaDoc") + "-" + request.getParameter("ConInv") + ".csv");
 
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=" + archivo.getName());

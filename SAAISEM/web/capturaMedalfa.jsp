@@ -9,7 +9,7 @@
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="conn.ConectionDB_Linux"%>
+
 <%@page import="conn.ConectionDB"%>
 <%@page import="ISEM.CapturaPedidos"%>
 <%@page import="javax.servlet.http.HttpSession"%>
@@ -99,16 +99,11 @@
     <body onload="focusLocus();
             SelectProve(FormBusca);">
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="jspf/menuPrincipalCompra.jspf" %>
             <h4>Captura OC Proyecto <%=Desproyecto%></h4>
-            <!--div class="row">
-                <div class="col-sm-11">
-                    <a class="btn btn-default" href="capturaMedalfa.jsp">Captura de Órdenes de Compra</a>
-                    <a class="btn btn-default" href="verFoliosIsem2017.jsp">Ver Órdenes de Compra</a>
-                </div>
-            </div-->
+          
             <hr/>
             <br/>
 
@@ -140,11 +135,9 @@
                                 try {
                                     con.conectar();
                                     ResultSet rset = null;
-                                    if (TipoOC.equals("CC")) {
+                              
                                         rset = con.consulta("SELECT F_ClaProve,F_NomPro FROM tb_proveedor;");
-                                    } else {
-                                        rset = con.consulta("SELECT P.F_ClaProve, CONCAT(PD.F_NomPro,' | ',P.F_Zona) AS F_NomPro FROM tb_prodprov P INNER JOIN tb_proveedor PD ON P.F_ClaProve = PD.F_ClaProve GROUP BY P.F_ClaProve,F_Zona;");
-                                    }
+                                  
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>"
@@ -168,7 +161,7 @@
                             %>
 
                         </select>
-                            <%if (TipoOC.equals("LP")) {%>
+                         
                     </div>
                             <label class="col-sm-1">
                         <h4>Zona:</h4>
@@ -208,12 +201,11 @@
 
                         </select>
                     </div>
-                            <%}%>
-                            <%if ((TipoOC.equals("LP")) && (proveedor.equals(""))){%>
+                           
                     <div class="col-sm-1">
                         <button class="btn btn-success btn-block" onclick="return validaClaDes(this);" name="accion" value="MostrarProvee">Mostrar</button>
                     </div>
-                    <%}%>
+                
                 </div>
                 <div class="row">
                     <label class="col-sm-2">
@@ -275,11 +267,9 @@
                                 try {
                                     con.conectar();
                                     ResultSet rset = null;
-                                    if (TipoOC.equals("CC")) {
+                                  
                                         rset = con.consulta("SELECT F_ClaPro,CONCAT(F_ClaPro,' - ',F_DesPro) FROM tb_medica WHERE " + Campo + "= 1 AND F_StsPro='A';");
-                                    } else {
-                                        rset = con.consulta("SELECT F_ClaPro,CONCAT(F_ClaPro,' - ',F_DesPro) FROM tb_medica WHERE " + Campo + "= 1 AND F_StsPro='A';");
-                                    }
+                              
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>"
@@ -341,7 +331,7 @@
                                     int cantUsada = 0;
                                     int cantMax = 0;
                                     cantMax = rset.getInt(1);
-                                    ResultSet rset2 = con.consulta("select sum(F_Cant) from tb_pedidoisem2017 where F_Clave='" + claPro + "' and F_StsPed !='2'  AND F_Provee='" + proveedor + "'");
+                                    ResultSet rset2 = con.consulta("select sum(F_Cant) from tb_pedido_sialss where F_Clave='" + claPro + "' and F_StsPed !='2'  AND F_Provee='" + proveedor + "'");
                                     while (rset2.next()) {
                                         cantUsada = rset2.getInt(1);
                                     }
@@ -422,12 +412,9 @@
                             </label>
                             <div class="col-sm-2">
                                 <select  class="form-control" name="Prioridad" id="Prioridad" onchange="document.getElementById('CanPro').focus()" >
-                                    <option selected="">1-2019</option>
-                                    <option>2-2019</option>
-                                    <option>3-2019</option>
-                                    <option>4-2019</option>
-                                    <option>5-2019</option>
-                                    <option>6-2019</option>
+                                    <option selected="">1-2024</option>
+                                    <option>2-2025</option>
+                             
                                     <option>ND</option>
                                 </select>
                             </div>
@@ -479,7 +466,7 @@
                     int banConfirma = 0;
                     try {
                         con.conectar();
-                        ResultSet rset = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, DATE_FORMAT(F_FecSur, '%d/%m/%Y'), F_HorSur from tb_pedidoisem2017 s, tb_medica m where s.F_Clave = m.F_ClaPro and F_IdUsu = '" + (String) sesion.getAttribute("IdUsu") + "' and F_NoCompra = '" + NoCompra + "' and F_StsPed = '0' ");
+                        ResultSet rset = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, DATE_FORMAT(F_FecSur, '%d/%m/%Y'), F_HorSur from tb_pedido_sialss s, tb_medica m where s.F_Clave = m.F_ClaPro and F_IdUsu = '" + (String) sesion.getAttribute("IdUsu") + "' and F_NoCompra = '" + NoCompra + "' and F_StsPed = '0' ");
                         while (rset.next()) {
                             banConfirma = 1;
                 %>

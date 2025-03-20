@@ -47,7 +47,7 @@ public class ConectionDB_SQLServer {
         this.clave = "HOST";
         //this.url = "jdbc:sqlserver://192.168.2.160\\BUSINESS\\SQLEXPRESS:49457;databaseName=HOST_IMPEXP_GNK";
 //        this.url = "jdbc:sqlserver://192.168.8.160\\DESKTOP-EELHNCP\\SQLEXPRESS:1433;databaseName=HOST_IMPEXP_GNK";
-             this.url = "jdbc:sqlserver://192.168.8.160\\MDF-MODULA\\SQLEXPRESS:1433;databaseName=HOST_IMPEXPA";
+//             this.url = "jdbc:sqlserver://192.168.8.160\\MDF-MODULA\\SQLEXPRESS:1433;databaseName=HOST_IMPEXPA";
         this.driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     }
 

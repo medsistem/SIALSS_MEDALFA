@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.io.*"%> 
@@ -24,18 +25,15 @@
 %>
 <html>
     <%
-        Connection conn;
-        Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");    
+         ConectionDB conn = new ConectionDB();
         File reportfile = new File(application.getRealPath("/ReportesPuntos/ClaveCB.jasper"));
         Statement smtfolio = null;
         
-        smtfolio = conn.createStatement();
         
-        smtfolio.execute("DELETE FROM tb_cbmedica WHERE F_Folio='" + Folio + "'");
         
-        ResultSet Cb = smtfolio.executeQuery("SELECT F_Cb FROM tb_lote WHERE F_FOLLOT='"+Folio+"' group by F_FOLLOT");
+        conn.consulta("DELETE FROM tb_cbmedica WHERE F_Folio='" + Folio + "'");
+        
+        ResultSet Cb = conn.consulta("SELECT F_Cb FROM tb_lote WHERE F_FOLLOT='"+Folio+"' group by F_FOLLOT");
         if(Cb.next()){
             CB = Cb.getString(1);
         }
@@ -50,7 +48,7 @@
         parameter.put("Folio", Folio);
         
 
-        byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn);
+        byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), parameter, conn.getConn());
 
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
@@ -60,6 +58,6 @@
         outputStream.flush();
         outputStream.close();
 
-        conn.close();
+        conn.cierraConexion();
     %>
 </html>

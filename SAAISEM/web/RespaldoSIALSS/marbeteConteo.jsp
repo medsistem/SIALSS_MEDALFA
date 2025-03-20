@@ -51,7 +51,7 @@
 
         con.insertar("delete from tb_cajasmarbetes where F_ClaDoc= -1");
         for(Marbete m: marbetes.getMarbetes()){
-            String qry = "insert into tb_cajasmarbetes values ('-1','" + m.getPurchaseOrder() + "','','"+m.getProviderName()+"','" + m.getBrandName() + "','ISEM', '" + m.getShortKey() + "', '" + m.getDescription() + "', '" + m.getBatch() + "','" + m.getExpiration() + "','" + m.getBarcode() + "','" + m.getPiecesPerBox() + "','"+m.getReception()+" ', 0, 0, 0, '1 / 1','I',0)";
+            String qry = "insert into tb_cajasmarbetes values ('-1','" + m.getPurchaseOrder() + "','','"+m.getProviderName()+"','" + m.getBrandName() + "','MDF', '" + m.getShortKey() + "', '" + m.getDescription() + "', '" + m.getBatch() + "','" + m.getExpiration() + "','" + m.getBarcode() + "','" + m.getPiecesPerBox() + "','"+m.getReception()+" ', 0, 0, 0, '1 / 1','I',0)";
             con.insertar(qry);
         }
         

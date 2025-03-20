@@ -25,12 +25,9 @@
     } else {
         response.sendRedirect("index.jsp");
     }
-
-    Class.forName("org.mariadb.jdbc.Driver").newInstance();
-    Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "facturacion_saa", "S44faCt0r4cI0n$c");
-    
-    File archivo;
-    archivo = new File("C:\\ABASTO\\ISEM\\Abasto_" + request.getParameter("F_ClaDoc") + "-" + request.getParameter("ConInv") + ".csv");
+ ConectionDB conn = new ConectionDB();
+       File archivo;
+    archivo = new File("C:\\ABASTO\\MDF\\Abasto_" + request.getParameter("F_ClaDoc") + "-" + request.getParameter("ConInv") + ".csv");
     BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
     
 //con.conectar();
@@ -142,7 +139,7 @@ abasto.crearAbastoWeb(Integer.parseInt(Documento),  Integer.parseInt( Proyecto),
     }
     fw.flush();
     fw.close();
-    conn.close();
+    conn.cierraConexion();
     //out.println("<script>window.location='../reimp_factura.jsp'</script>");
     //con.cierraConexion();
 %>

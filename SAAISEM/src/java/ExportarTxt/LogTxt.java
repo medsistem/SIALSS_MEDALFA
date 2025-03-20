@@ -4,6 +4,7 @@
  */
 package ExportarTxt;
 
+import conn.ConectionDBTrans;
 import java.sql.ResultSet;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,17 +46,16 @@ public class LogTxt {
         DecimalFormat f = new DecimalFormat("##0.00");
         try {
             File archivo;
+             ConectionDBTrans conn = new ConectionDBTrans();
             String Articulo = "";
             archivo = new File("C:\\SecuencialesLOGTXT\\SecLog.txt");
-            Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-
+            
             FileWriter fw = new FileWriter(archivo, true);
             fw.write("");
             String query = "SELECT F_ClaArtIS FROM tb_artiis WHERE F_ClaInt='" + ClaPro + "'";
             System.out.println(query);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+             ResultSet rs = conn.consulta(query);
+             
             while (rs.next()) {
                 Articulo = rs.getString(1);
             }
@@ -68,7 +68,7 @@ public class LogTxt {
                 fw.close();
             }
 
-            conn.close();
+            conn.cierraConexion();
             System.out.println("Se creo correctamente");
         } catch (Exception e) {
             System.err.println("No se pudo generar el archivo" + e);

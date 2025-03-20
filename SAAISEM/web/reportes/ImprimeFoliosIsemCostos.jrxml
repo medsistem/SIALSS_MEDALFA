@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
 	<property name="ireport.zoom" value="1.815000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="266"/>
+	<property name="ireport.y" value="161"/>
 	<parameter name="Folfact" class="java.lang.String"/>
 	<parameter name="F_Obs" class="java.lang.String"/>
 	<parameter name="Usuario" class="java.lang.String"/>
@@ -95,15 +95,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="11">
-			<staticText>
-				<reportElement uuid="8d382e2e-c136-4380-9a53-3344e9a912d1" x="181" y="0" width="184" height="11"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ISEM]]></text>
-			</staticText>
-		</band>
+		<band height="11"/>
 	</title>
 	<pageHeader>
 		<band height="106">
@@ -152,13 +144,6 @@
 					<jr:codeExpression><![CDATA[$F{F_Folio}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
-			<staticText>
-				<reportElement uuid="662e3d36-81fb-46df-be29-4b6f4fb71e8f" x="167" y="28" width="213" height="10"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[INSTITUTO DE LA SALUD DEL ESTADO DE MÉXICO]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="86efef5e-b477-4934-a62e-e2a1dcc556ea" x="148" y="38" width="263" height="20"/>
 				<textElement textAlignment="Center">

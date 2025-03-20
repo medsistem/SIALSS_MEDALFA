@@ -77,7 +77,7 @@
                             <%
                                 try {
                                     con.conectar();
-                                    ResultSet rset = con.consulta("select p.F_ClaProve, p.F_NomPro from tb_proveedor p, tb_pedidoisem2017 o where p.F_ClaProve = o.F_Provee group by o.F_Provee order by p.F_NomPro");
+                                    ResultSet rset = con.consulta("select p.F_ClaProve, p.F_NomPro from tb_proveedor p, tb_pedido_sialss o where p.F_ClaProve = o.F_Provee group by o.F_Provee order by p.F_NomPro");
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>" ><%=rset.getString(2)%></option>
@@ -116,7 +116,7 @@
                             <%
                                 try {
                                     con.conectar();
-                                    ResultSet rset = con.consulta("SELECT p.F_IdUsu, uc.F_Usu FROM tb_pedidoisem2017 AS p INNER JOIN tb_usuariocompra AS uc ON p.F_IdUsu = uc.F_IdUsu GROUP BY p.F_IdUsu ORDER BY  uc.F_Usu ASC");
+                                    ResultSet rset = con.consulta("SELECT p.F_IdUsu, uc.F_Usu FROM tb_pedido_sialss AS p INNER JOIN tb_usuariocompra AS uc ON p.F_IdUsu = uc.F_IdUsu GROUP BY p.F_IdUsu ORDER BY  uc.F_Usu ASC");
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>" ><%=rset.getString(2)%></option>
@@ -179,13 +179,13 @@
                                     ResultSet rset = null;
 
                                     if (!(Proveedor.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_Provee = '" + request.getParameter("Proveedor") + "' group by o.F_NoCompra;");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_Provee = '" + request.getParameter("Proveedor") + "' group by o.F_NoCompra;");
 
                                     } else if (!(fecha.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_FecSur =  '" + fecha + "%' group by o.F_NoCompra;");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_FecSur =  '" + fecha + "%' group by o.F_NoCompra;");
 
                                     } else if (!(Usuario.equals(""))) {
-                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedidoisem2017 o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_IdUsu = '" + request.getParameter("Usuario") + "' group by o.F_NoCompra");
+                                        rset = con.consulta("SELECT o.F_NoCompra, u.F_Usu, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y') F_FecSur, F_HorSur, F_Fecha FROM tb_pedido_sialss o, tb_proveedor p, tb_usuariocompra u WHERE u.F_IdUsu = o.F_IdUsu AND o.F_Provee = p.F_ClaProve and o.F_IdUsu = '" + request.getParameter("Usuario") + "' group by o.F_NoCompra");
                                     }
                                     while (rset.next()) {
                             %>
@@ -222,10 +222,10 @@
                     <div class="panel-body">
                         <%                try {
                                 con.conectar();
-                                ResultSet rset = con.consulta("select o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, F_Recibido from tb_pedidoisem2017 o, tb_proveedor p, tb_usuario u where u.F_Usu = o.F_IdUsu and  o.F_Provee = p.F_ClaProve and F_NoCompra = '" + NoCompra + "' group by o.F_NoCompra");
+                                ResultSet rset = con.consulta("select o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, F_Recibido from tb_pedido_sialss o, tb_proveedor p, tb_usuario u where u.F_Usu = o.F_IdUsu and  o.F_Provee = p.F_ClaProve and F_NoCompra = '" + NoCompra + "' group by o.F_NoCompra");
                                 while (rset.next()) {
                                     int recibido = 0;
-                                    ResultSet rset2 = con.consulta("select o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, F_Recibido from tb_pedidoisem2017 o, tb_proveedor p, tb_usuario u where u.F_Usu = o.F_IdUsu and  o.F_Provee = p.F_ClaProve and F_NoCompra = '" + NoCompra + "' and F_Recibido=1 group by o.F_NoCompra");
+                                    ResultSet rset2 = con.consulta("select o.F_NoCompra, p.F_NomPro, DATE_FORMAT(o.F_FecSur, '%d/%m/%Y'), F_HorSur, F_Usu, F_StsPed, F_Recibido from tb_pedido_sialss o, tb_proveedor p, tb_usuario u where u.F_Usu = o.F_IdUsu and  o.F_Provee = p.F_ClaProve and F_NoCompra = '" + NoCompra + "' and F_Recibido=1 group by o.F_NoCompra");
                                     while (rset2.next()) {
                                         recibido = rset2.getInt("F_Recibido");
                                     }
@@ -385,7 +385,7 @@
                                     <%
                                         try {
                                             con.conectar();
-                                            ResultSet rset = con.consulta("SELECT s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Recibido FROM tb_pedidoisem2017 s, tb_medica m where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + NoCompra + "' ");
+                                            ResultSet rset = con.consulta("SELECT s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Recibido FROM tb_pedido_sialss s, tb_medica m where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + NoCompra + "' ");
                                             while (rset.next()) {
                                     %>
                                     <tr>

@@ -100,11 +100,7 @@
                             <label for="list_medica" class="col-xs-1 control-label">ORIGEN</label>
                             <div class="col-xs-2">                                                                    
                                
-                                <!--input type="radio" name="radiorigen" id="radiorigen" checked="" value="1">ISEM ABASTO REGULAR
-                                <input type="radio" name="radiorigen" id="radiorigen" value="2">VENTA
-                                <input type="radio" name="radiorigen" id="radiorigen" value="3">ISEM COVID
-                                <input type="radio" name="radiorigen" id="radiorigen" value="4">INSABI ISEM ABASTO REGULAR
-                                <input type="radio" name="radiorigen" id="radiorigen" value="5">INSABI ISEM COVID-->
+                              
                                 <select class="form-control" name="radiorigen" id="radiorigen">
                                         <option value="0">-Selec Origen-</option>
                                         <%

@@ -130,9 +130,9 @@
                 <div class="col-sm-2">
                     <button class="btn btn-block btn-success btn-sm" name="accion" value="porUbicar">Por Ubicar</button>
                 </div>
-                <div class="col-sm-2">
+               <!-- <div class="col-sm-2">
                     <button class="btn btn-block btn-success btn-sm" name="accion" value="porUbicarCross">Por Ubicar Crossdock</button>
-                </div>
+                </div>-->
                 <div class="col-sm-2">
                     <button class="btn btn-block btn-success btn-sm" name="accion" value="mostrarTodas">Mostrar Todas</button>
                 </div>
@@ -155,8 +155,8 @@
                     <td>Piezas</td>
                     <td>Proveedor</td>
                     <td>Bodega</td>
-                     <td>Modula</td>
-                    <td>Cantidad</td>
+                      <!--td>Modula</td
+                    <td>Cantidad</td>-->
                     <!--td></td-->
                 </tr>
             </thead>
@@ -194,34 +194,8 @@
                     <td><%=formatter.format(rset2.getInt("F_ExiLot"))%></td>
                     <td><%=rset2.getString("F_NomPro")%></td>
                     <td><%=rset2.getString("Lugar")%></td>
-                    <td>
-                        <%
-                            if (F_StsMod.equals("1")) {
-                                out.println("En Abasto");
-                            }
-                        %>
-
-                        <%
-                            if (F_StsMod.equals("2")) {
-                                out.println("En Modula");
-                            }
-                        %>
-                    </td>
-                    <td>
-                        <%
-                            if (F_StsMod.equals("1") || F_StsMod.equals("2")) {
-                                out.println(F_CantMod);
-                            }
-                        %>
-                    </td>
-                    <!--td>
-                        <form action="../Ubicaciones/indexValida.jsp" method="post">
-                            <input name="folio" value="<%//=rset2.getString("F_FolLot")%>" class="hidden" />
-                            <input name="ubicacion" value="<%//=rset2.getString("F_Ubica")%>" class="hidden" />
-                            <input name="id" value="<%//=rset2.getString("F_IdLote")%>" class="hidden" />
-                            <button class="btn btn-block btn-warning btn-sm" id="folio" name="accion" value="Modificar"><span class="glyphicon glyphicon-edit"></span></button>
-                        </form>
-                    </td-->
+                  
+                   
                 </tr>
                 <%
                         }
@@ -235,6 +209,7 @@
         <hr/>
         <h3>Total de Piezas: <%=formatter.format(totalPiezas)%></h3>
         <hr />
+        <!--
         <h3>Modula<div class="col-sm-2"><a href="gnrExistModula.jsp" class="btn btn-info glyphicon glyphicon-download-alt"></a></div></h3>
         <table border="1" class="table table-bordered table-condensed table-striped" id="existModula">
             <thead>
@@ -249,7 +224,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%
+                < %
                     int totalModula = 0;
                     try {
                         conModula.conectar();
@@ -264,15 +239,15 @@
                             }
                 %>
                 <tr>
-                    <td><%=rset4.getString("SCO_ARTICOLO")%></td>
-                    <td><%=Descrip%></td>
-                    <td><%=rset4.getString("SCO_SUB1")%></td>
-                    <td><%=rset4.getString("SCO_DSCAD")%></td>
-                    <td><%=rset4.getString("UDC_UDC")%></td>
-                    <td><%=rset4.getString("SCO_POSI")%></td>
-                    <td><%=formatter.format(rset4.getInt("SCO_GIAC"))%></td>
+                    <td>< %=rset4.getString("SCO_ARTICOLO")%></td>
+                    <td>< %=Descrip%></td>
+                    <td>< %=rset4.getString("SCO_SUB1")%></td>
+                    <td>< %=rset4.getString("SCO_DSCAD")%></td>
+                    <td>< %=rset4.getString("UDC_UDC")%></td>
+                    <td>< %=rset4.getString("SCO_POSI")%></td>
+                    <td>< %=formatter.format(rset4.getInt("SCO_GIAC"))%></td>
                 </tr>
-                <%
+                < %
                         }
                         conModula.cierraConexion();
                         con.cierraConexion();
@@ -283,7 +258,8 @@
                 %>
             </tbody>
         </table>
-        <h3>Total Modula= <%=totalModula%></h3>
+        <h3>Total Modula= < %=totalModula%></h3>
+        -->
         <%@include file="../jspf/piePagina.jspf" %>
         <!-- 
         ================================================== -->

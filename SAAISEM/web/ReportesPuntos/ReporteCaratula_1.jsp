@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDB"%>
 <%@page import="org.omg.PortableInterceptor.SYSTEM_EXCEPTION"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -34,6 +35,7 @@ ResultSet folio = null;
 ResultSet facturas = null;
 
 try{
+    
     factura = request.getParameter("factura");
     ban = Integer.parseInt(request.getParameter("ban"));
     fecha1 = request.getParameter("Fecha1");
@@ -44,15 +46,12 @@ String F_Imagen = path+"imagenes\\check2.png";
 %>
 <html>
     <%
+         ConectionDB conn = new ConectionDB();
 if(ban == 1){
-    Connection conn; 
-    Class.forName("org.mariadb.jdbc.Driver"); 
-    
-    conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-    //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");    
-    smtfolio = conn.createStatement();    
+  
+ 
        
-        folio = smtfolio.executeQuery("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='"+factura+"'");
+        folio = conn.consulta("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='"+factura+"'");
         while(folio.next()){    
             puntos = folio.getInt(7);
             Fechas = folio.getString(6);
@@ -131,24 +130,18 @@ if(ban == 1){
             parameter.put("imagen",F_Imagen);
             parameter.put("fecha",FecEntrega);
            
-            JasperPrint jasperPrint= JasperFillManager.fillReport(reportfile.getPath(),parameter,conn);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(reportfile.getPath(),parameter,conn.getConn());
             JasperPrintManager.printReport(jasperPrint,false);    
             Reportes="";
-            conn.close();
+            conn.cierraConexion();
 }else{
-    Connection conn; 
-    Class.forName("org.mariadb.jdbc.Driver"); 
-    
-    conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-    //conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");    
-    smtfacturas = conn.createStatement(); 
-    smtfolio = conn.createStatement();    
+   
        
-        facturas = smtfacturas.executeQuery("SELECT F_FacGNKLAgr FROM tb_caratula WHERE F_Fecsur between '"+fecha1+"' and '"+fecha2+"' group by F_FacGNKLAgr");
+        facturas = conn.consulta("SELECT F_FacGNKLAgr FROM tb_caratula WHERE F_Fecsur between '"+fecha1+"' and '"+fecha2+"' group by F_FacGNKLAgr");
         while(facturas.next()){    
             FoliosFact = facturas.getString(1);
             System.out.println("facturas:"+FoliosFact);
-            folio = smtfolio.executeQuery("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='"+FoliosFact+"'");
+            folio = conn.consulta("SELECT F_FacGNKLAgr,F_Folios,F_DesUniIS,F_DesJurIS,F_DesCooIS,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,F_Puntos FROM tb_caratula WHERE F_FacGNKLAgr='"+FoliosFact+"'");
             while(folio.next()){ 
                 puntos = folio.getInt(7);
                 Fechas = folio.getString(6);
@@ -227,11 +220,11 @@ if(ban == 1){
             parameter.put("imagen",F_Imagen);
             parameter.put("fecha",FecEntrega);
            
-            JasperPrint jasperPrint= JasperFillManager.fillReport(reportfile.getPath(),parameter,conn);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(reportfile.getPath(),parameter,conn.getConn());
             JasperPrintManager.printReport(jasperPrint,false);    
             Reportes="";
         }
-        conn.close();
+        conn.cierraConexion();
 }
     
     %>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49b0e1de-86ce-4af1-8622-ca7277ae8a1f">
-	<property name="ireport.zoom" value="2.120488091862424"/>
+	<property name="ireport.zoom" value="1.5931540885517832"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="folio_gnk" class="java.lang.String">
@@ -75,10 +75,6 @@ where folio_gnk =$P{folio_gnk}  GROUP BY id_cap_inv]]>
 				</textElement>
 				<text><![CDATA[SIE - Recibo]]></text>
 			</staticText>
-			<image>
-				<reportElement uuid="30b17dcc-0a1d-443a-962b-e86592d95bcd" x="0" y="0" width="117" height="42"/>
-				<imageExpression><![CDATA["..\\imagenes\\LogoMedalfa.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -88,7 +84,7 @@ where folio_gnk =$P{folio_gnk}  GROUP BY id_cap_inv]]>
 				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[FOLIO GNK:]]></text>
+				<text><![CDATA[FOLIO:]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="3473e92e-1d81-43f0-93df-0f468e2eec61" x="458" y="0" width="97" height="14"/>

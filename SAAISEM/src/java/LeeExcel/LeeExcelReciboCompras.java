@@ -93,7 +93,7 @@ public class LeeExcelReciboCompras {
             try {
                 con.conectar();
                 String NoOc = "";
-                ResultSet Consulta = con.consulta("SELECT CONCAT('OC-',SUBSTR( F_NoCompra, 4, LENGTH(F_NoCompra)) + 1) FROM tb_pedidoisem2017 ORDER BY F_IdIsem DESC LIMIT 1;");
+                ResultSet Consulta = con.consulta("SELECT CONCAT('OC-',SUBSTR( F_NoCompra, 4, LENGTH(F_NoCompra)) + 1) FROM tb_pedido_sialss ORDER BY F_IdIsem DESC LIMIT 1;");
                 if (Consulta.next()) {
                     NoOc = Consulta.getString(1);
                 }
@@ -261,7 +261,7 @@ public class LeeExcelReciboCompras {
 
                     if (ContarRLP == ContarLP) {
 
-                        Consulta2 = con.consulta("SELECT C.F_Proveedor, C.F_Clave, C.F_Cant, C.F_Zona, P.F_CantMin, P.F_CantMax, P.F_CantMax - C.F_Cant AS DIFMAX, IFNULL(PD.F_Cant, 0) AS CANTPD, (( P.F_CantMax - IFNULL(PD.F_Cant, 0)) - C.F_Cant ) AS DIFENT FROM tb_cargaocisem C INNER JOIN tb_prodprov P ON C.F_Proveedor = P.F_ClaProve AND C.F_Clave = P.F_ClaPro AND C.F_Zona = P.F_Zona LEFT JOIN ( SELECT F_Provee, F_Clave, F_Zona, SUM(F_Cant) AS F_Cant FROM tb_pedidoisem2017 WHERE F_Tipo = 'LP' AND F_StsPed != 2 GROUP BY F_Provee, F_Clave, F_Zona ) AS PD ON C.F_Proveedor = PD.F_Provee AND C.F_Clave = PD.F_Clave AND C.F_Zona = PD.F_Zona WHERE C.F_Tipo = 'LP' AND C.F_Usu = '" + User + "' GROUP BY C.F_Proveedor, C.F_Clave, C.F_Zona;");
+                        Consulta2 = con.consulta("SELECT C.F_Proveedor, C.F_Clave, C.F_Cant, C.F_Zona, P.F_CantMin, P.F_CantMax, P.F_CantMax - C.F_Cant AS DIFMAX, IFNULL(PD.F_Cant, 0) AS CANTPD, (( P.F_CantMax - IFNULL(PD.F_Cant, 0)) - C.F_Cant ) AS DIFENT FROM tb_cargaocisem C INNER JOIN tb_prodprov P ON C.F_Proveedor = P.F_ClaProve AND C.F_Clave = P.F_ClaPro AND C.F_Zona = P.F_Zona LEFT JOIN ( SELECT F_Provee, F_Clave, F_Zona, SUM(F_Cant) AS F_Cant FROM tb_pedido_sialss WHERE F_Tipo = 'LP' AND F_StsPed != 2 GROUP BY F_Provee, F_Clave, F_Zona ) AS PD ON C.F_Proveedor = PD.F_Provee AND C.F_Clave = PD.F_Clave AND C.F_Zona = PD.F_Zona WHERE C.F_Tipo = 'LP' AND C.F_Usu = '" + User + "' GROUP BY C.F_Proveedor, C.F_Clave, C.F_Zona;");
                         while (Consulta2.next()) {
                             DIFMAX = Consulta2.getInt(7);
                             DIFENT = Consulta2.getInt(9);
@@ -289,11 +289,11 @@ public class LeeExcelReciboCompras {
                                 int NoProyecto = Consulta.getInt(7);
 
                                 if ((NoReg == NoClave) && (NoReg == NoProvee) && (NoReg == NoProyecto)) {
-                                    con.actualizar("DELETE FROM tb_pedidoisem2017 WHERE F_NoCompra='" + Consulta.getString(1) + "' AND F_Provee='" + Consulta.getString(3) + "' AND F_Proyecto='" + Consulta.getString(8) + "';");
+                                    con.actualizar("DELETE FROM tb_pedido_sialss WHERE F_NoCompra='" + Consulta.getString(1) + "' AND F_Provee='" + Consulta.getString(3) + "' AND F_Proyecto='" + Consulta.getString(8) + "';");
 
                                     ResultSet Claves = con.consulta("SELECT F_NoOc, P.F_ClaProve, F_Clave, F_Clavess, SUM(F_Cant) AS F_Cant, F_Proyecto, O.F_FecCap, O.F_FecEnt, O.F_Evento, O.F_Zona, O.F_Tipo FROM tb_cargaocisem O INNER JOIN tb_proveedor P ON O.F_Proveedor = P.F_ClaProve INNER JOIN tb_proyectos PR ON O.F_Proyecto = PR.F_Id WHERE F_Usu = '" + User + "' AND F_NoOc ='" + Consulta.getString(1) + "' AND P.F_ClaProve = '" + Consulta.getString(3) + "' AND F_Proyecto='" + Consulta.getString(8) + "' GROUP BY F_NoOc, P.F_ClaProve, F_Clave, F_Clavess,F_Proyecto;");
                                     while (Claves.next()) {
-                                        con.insertar("INSERT INTO tb_pedidoisem2017 VALUES(0,'" + Claves.getString(1) + "','" + Claves.getString(2) + "','" + Claves.getString(3) + "','" + Claves.getString(4) + "','-','-','-',CURDATE(),'" + Claves.getString(5) + "','" + Claves.getString(9) + "','" + Claves.getString(7) + "','" + Claves.getString(8) + "',CURTIME(),'" + IdUsu + "',1,0,'" + Claves.getString(6) + "','" + Claves.getString(10) + "','" + Claves.getString(11) + "');");
+                                        con.insertar("INSERT INTO tb_pedido_sialss VALUES(0,'" + Claves.getString(1) + "','" + Claves.getString(2) + "','" + Claves.getString(3) + "','" + Claves.getString(4) + "','-','-','-',CURDATE(),'" + Claves.getString(5) + "','" + Claves.getString(9) + "','" + Claves.getString(7) + "','" + Claves.getString(8) + "',CURTIME(),'" + IdUsu + "',1,0,'" + Claves.getString(6) + "','" + Claves.getString(10) + "','" + Claves.getString(11) + "');");
                                     }
 
                                 }

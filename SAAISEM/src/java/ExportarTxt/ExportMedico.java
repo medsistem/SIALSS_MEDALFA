@@ -4,6 +4,7 @@
  */
 package ExportarTxt;
 
+import conn.ConectionDBTrans;
 import java.sql.ResultSet;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,17 +27,14 @@ public class ExportMedico {
         DecimalFormat f = new DecimalFormat("##0.00");
         try {
             File archivo;
-            archivo = new File("C:\\TXTISEM\\T_Medicos.txt");
-            Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-            BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
+            ConectionDBTrans conn = new ConectionDBTrans();
+            archivo = new File("C:\\TXT\\T_Medicos.txt");
+             BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
 
             String query = "Select F_JurUniIs, F_ClaUniIs, F_ClaMedis, F_DesMedis "
                     + "from TB_UnidIS inner join TB_MediIS on TB_MediIS.F_ClaMedis=TB_UnidIS.F_MedUniIS "
                     + "where F_MedUniIS <>'' order by F_JurUniIs, F_ClaUniIs";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
+            ResultSet rs = conn.consulta(query);
             while (rs.next()) {
                 fw.append(Espacio15(rs.getString(1)));
                 fw.append(Espacio15(rs.getString(2)));
@@ -48,7 +46,7 @@ public class ExportMedico {
             }
             fw.flush();
             fw.close();
-            conn.close();
+            conn.cierraConexion();
             System.out.println("Se creo correctamente");
         } catch (Exception e) {
             System.err.println("No se pudo generar el archivo" + e);

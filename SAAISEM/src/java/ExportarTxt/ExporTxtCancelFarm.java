@@ -4,6 +4,7 @@
  */
 package ExportarTxt;
 
+import conn.ConectionDBTrans;
 import java.sql.ResultSet;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,15 +30,14 @@ public class ExporTxtCancelFarm {
             int F_Cansur = 0;
             String F_CosVensIVA = "", F_IVAP = "", F_CosSersIVA = "", F_IVAS = "", F_Cveuni = "";
             File archivo;
-
-            archivo = new File("C:\\TXTISEM\\CF_" + fecha1 + "_al_" + fecha2 + ".txt");
-            Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-            BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
+ ConectionDBTrans conn = new ConectionDBTrans();
+            archivo = new File("C:\\TXT\\CF_" + fecha1 + "_al_" + fecha2 + ".txt");
+               BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
 
             String query = "SELECT F_Secuencial FROM tb_txtis where F_Fecsur between '" + fecha1 + "' and '" + fecha2 + "' and F_Status='C' AND F_FacGNKLAgr LIKE 'AG-F%'";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+           
+            
+           ResultSet rs = conn.consulta(query);
 
             while (rs.next()) {
 
@@ -85,7 +85,7 @@ public class ExporTxtCancelFarm {
             }
             fw.flush();
             fw.close();
-            conn.close();
+            conn.cierraConexion();
             System.out.println("Se creo correctamente");
         } catch (Exception e) {
             System.err.println("No se pudo generar el archivo" + e);

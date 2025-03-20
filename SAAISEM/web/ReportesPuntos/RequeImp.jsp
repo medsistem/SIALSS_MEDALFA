@@ -3,6 +3,7 @@
     Created on : 6/01/2015, 03:09:40 PM
     Author     : Sistemas
 --%>
+<%@page import="conn.ConectionDBTrans"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter"%>
 <%@page import="net.sf.jasperreports.engine.export.JRPrintServiceExporter"%>
 <%@page import="javax.print.attribute.standard.MediaSizeName"%>
@@ -28,9 +29,9 @@
 
     String F_Title = "", F_Surti = "", F_Cober = "", F_Sumi = "", F_FecIni = "", F_FecFin = "", F_SecIni = "";
     String F_SecFin = "", F_Cvepro = "", F_DesRegion = "", F_ClaUni = "", F_User = "";
-    Statement smtfolio = null;
+    
     ResultSet folio = null;
-    Statement smtfolio2 = null;
+
     try {
 //FolCon = request.getParameter("FolCon");
         F_User = request.getParameter("User");
@@ -44,12 +45,7 @@
 %>
 <html>
     <%
-        Connection conn;
-       Class.forName("org.mariadb.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-        smtfolio = conn.createStatement();
-        smtfolio2 = conn.createStatement();
-    
+    ConectionDBTrans conn = new ConectionDBTrans();
         
         int count = 0, Epson = 0, Impre = 0;
             String Nom = "";
@@ -71,7 +67,7 @@
                 count++;
             }
         
-        folio = smtfolio.executeQuery("SELECT F_ClaUni FROM tb_auxrai GROUP BY F_ClaUni ORDER BY F_ClaUni ASC");
+        folio =  conn.consulta("SELECT F_ClaUni FROM tb_auxrai GROUP BY F_ClaUni ORDER BY F_ClaUni ASC");
         while (folio.next()) {
             F_ClaUni = folio.getString(1);
 
@@ -84,7 +80,7 @@
             JasperPrintManager.printReport(jasperPrint, false);
             */
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportfile.getPath(), parameter, conn.getConn());
             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 
@@ -103,7 +99,7 @@
             //smtfolio2.execute("DELETE FROM tb_imprepconauto WHERE F_FolCon='" + FolCon + "'");
         }
 
-        conn.close();
+        conn.cierraConexion();
     %>
     <script type="text/javascript">
 

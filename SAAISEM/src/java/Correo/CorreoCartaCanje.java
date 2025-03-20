@@ -44,7 +44,7 @@ public class CorreoCartaCanje extends HttpServlet {
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress("norma.hernandez@medalfa.mx"));
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress("devoluciones@medalfa.mx"));
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress("supervisor.recibo@medalfa.mx"));
-            message.setSubject("Medicamento controlado con caducidad menor a un año / MEDALFA ISEM");
+            message.setSubject("Medicamento controlado con caducidad menor a un año / MEDALFA");
 
             String mensaje = "",clave = "", cantidad = "", tipo = "", lote = "", caducidad = "", cartaCanje = "", body = "", proveedor = "", recepcion = "", usuario = "";
             try {
@@ -83,7 +83,7 @@ public class CorreoCartaCanje extends HttpServlet {
             }
             
                //Cuerpo del correo
-            body = "Se Ingreso en ISEM la siguiente orden de compra: " + ordenCompra + " con la remision: " + remision + "\n";
+            body = "Se Ingreso la siguiente orden de compra: " + ordenCompra + " con la remision: " + remision + "\n";
             body += "<h4> Proveedor: " + proveedor + "</h4>";
             body += "<h4> Fecha de Recepcion: " + recepcion + "</h4>";
             body += "<h4> Orden Capturada por: " + usuario + "</h4>";

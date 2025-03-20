@@ -4,6 +4,7 @@
  */
 package ExportarTxt;
 
+import conn.ConectionDBTrans;
 import java.sql.ResultSet;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,13 +28,12 @@ public class ExporTxtFarm {
         try {
             double F_CosUni = 0.0, CosServSub = 0.0;
             int F_Cansur = 0;
+             ConectionDBTrans conn = new ConectionDBTrans();
             String F_CosVensIVA = "", F_IVAP = "", F_CosSersIVA = "", F_IVAS = "", F_Cveuni = "", Tipo = "";
             File archivo;
 
-            archivo = new File("C:\\TXTISEM\\TF_" + fecha1 + "_al_" + fecha2 + ".txt");
-            Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/medalfa_isem", "saa_medalfaIsem", "S4a_M3d@l7@2020");
-            BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
+            archivo = new File("C:\\TXT\\TF_" + fecha1 + "_al_" + fecha2 + ".txt");
+              BufferedWriter fw = new BufferedWriter(new FileWriter(archivo));
 
             String query = "SELECT F_Secuencial,F_Cvepro,F_Cvemun,F_CveLoc,F_CveJur,F_Cveuni,F_CveCie,F_CveCie2,F_Cvemed,"
                     + "F_Cvesum,F_Cveser,F_Cvepac,F_Cveart,F_Presen,F_CosUni,F_Canreq,F_Cansur,F_Saldo,DATE_FORMAT(F_Fecsur,'%d/%m/%Y') AS F_Fecsur,"
@@ -41,9 +41,8 @@ public class ExporTxtFarm {
                     + "F_IdePro,F_Region,F_CosServ,F_FacSAVI,(F_Cansur * F_CosUni) AS F_CosVensIVA,((F_Cansur * F_CosUni) * 0.16) AS F_IVAP,"
                     + "(4.74 * F_Cansur) AS F_CosSersIVA,((4.74 * F_Cansur) * 0.16) AS F_IVAS "
                     + "FROM tb_txtis where F_Fecsur between '" + fecha1 + "' and '" + fecha2 + "' AND F_FacGNKLAgr LIKE 'AG-F%' AND F_Status !='C'";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
+           
+             ResultSet rs = conn.consulta(query);
             while (rs.next()) {
                 F_Cansur = rs.getInt("F_Cansur");
                 F_CosUni = rs.getDouble("F_CosUni");
@@ -104,7 +103,7 @@ public class ExporTxtFarm {
             }
             fw.flush();
             fw.close();
-            conn.close();
+            conn.cierraConexion();
             System.out.println("Se creo correctamente");
         } catch (Exception e) {
             System.err.println("No se pudo generar el archivo" + e);
