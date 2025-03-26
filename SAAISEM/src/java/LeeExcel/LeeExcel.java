@@ -308,7 +308,8 @@ public class LeeExcel {
                     Claves = con.consulta("SELECT F_ClaUni,C.F_ClaPro,F_CajasReq,SUM(F_PiezasReq) AS F_PiezasReq,F_FecCarg,F_Status,F_Fecha,SUM(F_Solicitado) AS F_Solicitado FROM tb_cargareq C INNER JOIN tb_medica M ON C.F_ClaPro=M.F_ClaPro WHERE F_User='" + User + "' AND F_ClaUni='" + Unidad.getString(1) + "' AND M.F_StsPro='A' AND C.F_Status='0' AND M.F_N17 = 1  GROUP BY F_ClaUni,C.F_ClaPro,F_FecCarg,F_Fecha;");
 
                 } else {
-                    System.out.println("<script>alert('claves fuera de catalogo')</script>");
+                    Claves = con.consulta("SELECT F_ClaUni,C.F_ClaPro,F_CajasReq,SUM(F_PiezasReq) AS F_PiezasReq,F_FecCarg,F_Status,F_Fecha,SUM(F_Solicitado) AS F_Solicitado FROM tb_cargareq C INNER JOIN tb_medica M ON C.F_ClaPro=M.F_ClaPro WHERE F_User='" + User + "' AND F_ClaUni='" + Unidad.getString(1) + "' AND M.F_StsPro='A' AND C.F_Status='0'  GROUP BY F_ClaUni,C.F_ClaPro,F_FecCarg,F_Fecha;");
+
                 }
                
                 
