@@ -121,7 +121,7 @@ public class AltaUnidad extends HttpServlet {
                         if ((estatusMod.equals("A")) || (estatusMod.equals("C"))) {
                             if (!(nombreMod == "")) {
                                 if (!(direccionMod == "")) {
-                                    con.actualizar("UPDATE tb_uniatn SET F_NomCli='" + nombreMod + "',F_StsCli='" + estatusMod + "', F_Direc='" + direccionMod + "', F_Clues = '" + clues + "', F_Tipo='" + tipoMod + "', F_RegSan ='" + regSaMod + "',F_RespSan ='" + resSaMod + "'  WHERE F_ClaCli='" + claveMod + "'");
+                                    con.actualizar("UPDATE tb_uniatn SET F_NomCli='" + nombreMod + "',F_StsCli='" + estatusMod + "', F_Direc='" + direccionMod + "', F_Clues = '" + clues + "' WHERE F_ClaCli='" + claveMod + "'");
                                     response.sendRedirect("catalogoUnidades.jsp");
                                 } else {
                                     out.println("<script>alert('Ingrese Datos En el campo Dirección')</script>");

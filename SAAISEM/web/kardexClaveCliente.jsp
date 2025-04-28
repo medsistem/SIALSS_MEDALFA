@@ -131,6 +131,7 @@
                 <div class="panel-body">
                     <form name="FormKardex" action="kardexClaveCliente.jsp" method="Post">
                         <div class="row">
+                      
                             <h4 class="col-sm-1">Descripción</h4>
                             <div class="col-sm-4">
                                 <input class="form-control" name="Descrip" id="Descrip" type="text" value="<%=Descripcion%>"/>
@@ -241,7 +242,8 @@
                                 <button class="btn btn-success form-control" name="accion" value="Buscar">Buscar</button>
                             </div>
                             <div class="col-sm-5">
-                                <a class="btn btn-success form-control" a href="gnrKardexClave.jsp?Clave=<%=Clave%>&Lote=<%=request.getParameter("Lote")%>&Cadu=<%=request.getParameter("Cadu")%>&Btn=<%=request.getParameter("accion")%>&ProyectoCL=<%=ProyectoCL%>">Reporte de Trazabilidad</a>
+                               
+                                <a class="btn btn-success form-control" a href="kardex/gnrKardexClave.jsp?Clave=<%=Clave%>&Lote=<%=request.getParameter("Lote")%>&Cadu=<%=request.getParameter("Cadu")%>&Btn=<%=request.getParameter("accion")%>&ProyectoCL=<%=ProyectoCL%>">Reporte de Trazabilidad</a>
                             </div>
                         </div>
                     </form>

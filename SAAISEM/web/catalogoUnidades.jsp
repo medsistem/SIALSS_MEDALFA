@@ -278,7 +278,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-12">
+                            <!--<div class="form-group col-lg-12">
                                 <label class="col-lg-3">Registro Sanitario:</label>
                                 <div class="col-lg-6">
                                     <input class="form-control" id="regSaMod" name="regSaMod" type="text">                                            
@@ -293,7 +293,7 @@
                                     </select>
                                 </div>
                             </div>
-
+-->
                         </div>
                         <div class="modal-footer">
                             <div class="navbar-right col-lg-4">          

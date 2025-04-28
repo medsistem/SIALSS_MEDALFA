@@ -55,7 +55,7 @@
             <%@include file="../jspf/menuPrincipal.jspf"%>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Usarios</h2>
+                    <h2>Usuarios</h2>
                 </div>
             </div>
             <div class="container">                           

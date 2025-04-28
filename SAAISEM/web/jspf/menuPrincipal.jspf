@@ -144,13 +144,12 @@
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li><a href="/SIALSS_MDF/CatalogoUnidad.jsp">Catálogo de Medicamento por Nivel</a></li>
-                        <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad </a></li>
+                       
                         <li class="divider"></li>
                          <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
                          <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades</a></li>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades </a></li>                        
+                     
     
                     </ul>
                 </li>
