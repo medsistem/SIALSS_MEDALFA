@@ -250,9 +250,9 @@ public class ExcelExporter {
     protected static void addSubtotal(SXSSFSheet sheet, JSONArray numericColumns,
             int initCol, int endCol, int initRow, int endRow) {
 
-        if (numericColumns.isEmpty()) {
-            return;
-        }
+//        if (numericColumns.isEmpty()) {
+//            return;
+//        }
 
         int firstNumericColumn = numericColumns.getInt(0);
         int subtotalRow = endRow + 1;

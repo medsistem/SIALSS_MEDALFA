@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
@@ -179,11 +181,11 @@ public class ImprimeFolio extends HttpServlet {
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         response.setContentType("application/pdf");
                         response.setContentLength(bytes.length);
-                        ServletOutputStream ouputStream = response.getOutputStream();
-                        ouputStream.write(bytes, 0, bytes.length);
-                        ouputStream.flush();
-                        ouputStream.close();
-
+                try (ServletOutputStream ouputStream = response.getOutputStream()) {
+                    ouputStream.write(bytes, 0, bytes.length);
+                    ouputStream.flush();
+                }
+                    System.out.println("salida de reporte en cero");
                 }
                 //********* NORMAL *************
                 if (BanDato == 1) {
@@ -438,8 +440,7 @@ public class ImprimeFolio extends HttpServlet {
 //                   
 //            }
             conexion.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | SQLException | JRException e) {
         }
     }
 
