@@ -166,14 +166,14 @@
 				<textFieldExpression><![CDATA[$F{F_Juris}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b2a994e5-6729-43cb-acb5-ac284ae3d830" x="347" y="83" width="182" height="13"/>
+				<reportElement uuid="b2a994e5-6729-43cb-acb5-ac284ae3d830" x="361" y="83" width="209" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Muni}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="7cdbcbf8-0978-48b9-8322-c45410796b34" x="300" y="83" width="47" height="13"/>
+				<reportElement uuid="7cdbcbf8-0978-48b9-8322-c45410796b34" x="309" y="83" width="54" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
@@ -221,28 +221,28 @@
 				<text><![CDATA[RAZÓN SOCIAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f953a7f0-fed6-4e19-a8a8-216e132ea5e8" x="300" y="96" width="47" height="13"/>
+				<reportElement uuid="f953a7f0-fed6-4e19-a8a8-216e132ea5e8" x="309" y="97" width="54" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLUES:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="185c39c0-11ca-49ba-8345-5374bd121c07" x="2" y="40" width="73" height="13"/>
+				<reportElement uuid="185c39c0-11ca-49ba-8345-5374bd121c07" x="2" y="40" width="73" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CLAVE INTERNA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="555e331c-f1b3-46e0-b77f-889bc4489d5d" x="347" y="96" width="106" height="14"/>
+				<reportElement uuid="555e331c-f1b3-46e0-b77f-889bc4489d5d" x="361" y="96" width="212" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Clues}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="cf9f6439-674b-4990-bed0-859736d9eb10" x="2" y="53" width="90" height="30"/>
+				<reportElement uuid="cf9f6439-674b-4990-bed0-859736d9eb10" x="75" y="40" width="54" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -323,7 +323,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="469d0e6c-4708-4cfb-b712-f29be5d3f4e7" stretchType="RelativeToBandHeight" x="81" y="2" width="226" height="27"/>
 				<textElement verticalAlignment="Middle">
@@ -366,18 +366,19 @@
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="158">
+		<band height="161">
 			<staticText>
-				<reportElement uuid="ba384124-3599-49e7-8a3c-c89d2db3cd24" x="157" y="134" width="55" height="12"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement uuid="ba384124-3599-49e7-8a3c-c89d2db3cd24" x="5" y="146" width="55" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTRATO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="fc3661d3-b6d1-4cca-9b10-a036dc72b21e" x="212" y="133" width="225" height="13"/>
+				<reportElement uuid="fc3661d3-b6d1-4cca-9b10-a036dc72b21e" x="61" y="147" width="426" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Contrato}]]></textFieldExpression>
 			</textField>
@@ -491,7 +492,7 @@
 				<reportElement uuid="04ca6677-2580-4945-96cf-a9d9f873ea89" x="140" y="89" width="1" height="58"/>
 			</line>
 			<staticText>
-				<reportElement uuid="5d41c955-7ec6-4cc7-a0ca-37405fdc1e0e" mode="Opaque" x="493" y="133" width="75" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="5d41c955-7ec6-4cc7-a0ca-37405fdc1e0e" mode="Opaque" x="495" y="147" width="75" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/SIALSS_MDF">
    
-
+  
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/recepcion_sialss_mdf" password="S1@L%S_re3cEpt1on" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="recepcion_sialss_mdf" validationQuery="SELECT 1"/>
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/auditoria_sialss_mdf" password="S1@L%S_ad1toRi44$s" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="auditoria_sialss_mdf" validationQuery="SELECT 1"/>
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/almacen_sialss_mdf" password="S1@L%S_alM4c3n$a" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="almacen_sialss_mdf" validationQuery="SELECT 1"/>
@@ -15,7 +15,7 @@
     -->
 
    <!-- conexion a QA-->
-    <!--
+  <!--
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/recepcion_sialss_mdf" password="S1@L%S_re3cEpt1on" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="recepcion_sialss_mdf" validationQuery="SELECT 1"/>
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/auditoria_sialss_mdf" password="S1@L%S_ad1toRi44$s" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="auditoria_sialss_mdf" validationQuery="SELECT 1"/>
   <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/almacen_sialss_mdf" password="S1@L%S_alM4c3n$a" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="almacen_sialss_mdf" validationQuery="SELECT 1"/>

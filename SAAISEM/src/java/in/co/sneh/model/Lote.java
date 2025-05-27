@@ -38,6 +38,7 @@ public class Lote {
     }
 
     public static Lote creatLote(Vector data) {
+        System.out.println("si entre a crear");
         Lote l = new Lote();
         XSSFCell celda = (XSSFCell) data.get(0);
         l.uniMed = "131";

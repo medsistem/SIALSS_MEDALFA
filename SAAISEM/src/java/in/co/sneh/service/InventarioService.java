@@ -14,6 +14,7 @@ import in.co.sneh.persistance.LoteDAOImpl;
 import in.co.sneh.persistance.MovimientoDAOImpl;
 import in.co.sneh.persistance.ProveedorDAOImpl;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -76,8 +77,8 @@ public class InventarioService {
 
                 vectorData.addElement(vectorCellEachRowData);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.getMessage();
         }
 
         return vectorData;
@@ -105,6 +106,7 @@ public class InventarioService {
                 if (l.getFecCadD() == null) {
                     l.setFecCadD(df.parse(l.getFecCad()));
                 }
+                
                 //Checar si existe el Lote en la ubicación
                 LoteCompra existente = loteDao.findLoteUbica(l);
                 if (existente != null) {
