@@ -24,7 +24,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/SIALSS_MDF/cargacaducos.jsp">Cargar Caducos</a></li>
                         <li><a href="/SIALSS_MDF/cargarecibo.jsp">Cargar OC</a></li>
-                        <li><a href="/SIALSS_MDF/cargaInventario.jsp">Cargar Inventario</a></li>
+                        <!--<li><a href="/SIALSS_MDF/cargaInventario.jsp">Cargar Inventario</a></li>-->
                         <li><a href="/SIALSS_MDF/requerimiento.jsp">Carga Requerimiento</a></li>
                         <li><a href="/SIALSS_MDF/ordenesCompra/cerrarOrden.jsp">Cerrar OC Manual</a></li>
                         <li class="divider"></li>

@@ -50,6 +50,9 @@
                                 <span class="glyphicon glyphicon-search"></span>
                             </button> 
                         </div>
+                         <div class="col-lg-1 col-md-1 col-sm-1" >
+                            <button type="button" class="btn btn-block btn-success" id="downloadKardexByFecha" ><span class="glyphicon glyphicon-save"></span></button>
+                        </div>
                  
                     </div>
                 </div>

@@ -78,9 +78,9 @@
                         <div class="col-lg-1 col-md-1 col-sm-1" >
                             <button type="button" class="btn btn-block btn-primary" id="searchByLoteKardex" ><span class="glyphicon glyphicon-search"></span></button>
                         </div>
-                       <!-- <div class="col-lg-1 col-md-1 col-sm-1" >
+                        <div class="col-lg-1 col-md-1 col-sm-1" >
                             <button type="button" class="btn btn-block btn-success" id="downloadKardex" ><span class="glyphicon glyphicon-save"></span></button>
-                        </div>-->
+                        </div>
                     </div>
                     <hr/>
                     <h3>Clave: <span id="claveResult" ></span></h3>

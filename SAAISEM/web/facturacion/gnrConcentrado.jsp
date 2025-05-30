@@ -65,7 +65,7 @@
                                 int CantReq=0,CantSur=0;
                                 ResultSet rset = null;
                                 if ( fecha_ini !=""){
-                                        rset = con.consulta("SELECT ur.F_ClaPro,m.F_DesPro,SUM(ur.F_PiezasReq) FROM tb_unireq ur INNER JOIN tb_uniatn un on ur.F_ClaUni=un.F_ClaCli INNER JOIN tb_medica m on ur.F_ClaPro=m.F_ClaPro WHERE F_Fecha='"+fecha_ini+"' AND F_Status='0' AND un.F_Tipo='RURAL' GROUP BY ur.F_ClaPro;");
+                                        rset = con.consulta("SELECT ur.F_ClaPro,m.F_DesPro,SUM(ur.F_PiezasReq) FROM tb_unireq ur INNER JOIN tb_uniatn un on ur.F_ClaUni=un.F_ClaCli INNER JOIN tb_medica m on ur.F_ClaPro=m.F_ClaPro WHERE F_Fecha='"+fecha_ini+"' AND F_Status='0' GROUP BY ur.F_ClaPro;");
                                     
                                     
                                 while (rset.next()) {
