@@ -50,6 +50,7 @@ public class AltaUnidad extends HttpServlet {
         String IdReporte = request.getParameter("IdReporte");
         String RegSa = request.getParameter("Regsa");
         String RespSa = request.getParameter("Respsa");
+        String niveluni = "" , nivelfarm = "";
 
 
         if (request.getParameter("accion").equals("guardar")) {
@@ -73,8 +74,14 @@ public class AltaUnidad extends HttpServlet {
                         Jurisdiccion = rset1.getString(2);
                     }
 
+                    rset1 = con.consulta("SELECT F_NivelUni,F_NomeUnidad FROM tb_tipunidad WHERE F_idTipUni = "+Tipo+" order by F_NomUni;");
+                    while (rset1.next()) {                        
+                        niveluni = rset1.getString(1);
+                        nivelfarm = rset1.getString(2);
+                    }
+                    
                     if (!Tipo.equals("")) {
-                        con.insertar("INSERT INTO tb_uniatn VALUES('" + Clave + "','" + Nombre + "','A','" + Jurisdiccion + "','" + Juris + "','" + Tipo + "','" + Mun + "','" + Direccion + "','R1001','','','','1','" + IdReporte + "','" + RegSa + "','" + RespSa + "');");
+                        con.insertar("INSERT INTO tb_uniatn VALUES('" + Clave + "','" + Nombre + "','A','" + Jurisdiccion + "','" + Juris + "','" + Tipo + "','" + Mun + "','" + Direccion + "','R1001','','','','1','" + IdReporte + "','"+niveluni+"','"+nivelfarm+"');");
                         con.insertar("INSERT INTO tb_fecharuta VALUES('" + Clave + "',CURDATE(),'R1001','Z01',0);");
                         response.sendRedirect("catalogoUnidades.jsp");
                     } else {

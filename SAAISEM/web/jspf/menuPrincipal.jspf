@@ -169,1623 +169,108 @@
 
 
 
-                 <%  }
-                    if (tipo.equals("2")) {
-                        /// AUXILIAR DE ALMACEN %>        
-                <% if(usua.equals("mjgalindo")){ %>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/cargacaducos.jsp">Cargar Caducos</a></li>
-                    </ul>
-                </li>
-                <% } if(usua.equals("ASeguraF") || usua.equals("mjgalindo") || usua.equals("FSalazarLo")){  %>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REMISION<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaRemision">Devoluciones Facturas</a></li>
-                        
-                    </ul>
-                </li>
-                <% } %>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                         <%  if(usua.equals("ASeguraF") || usua.equals("mjgalindo") || usua.equals("FSalazarLo")){  %>
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <li class="divider"></li>
-                        <% } %>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                  
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <%  if(usua.equals("ASeguraF") || usua.equals("mjgalindo") || usua.equals("FSalazarLo")){  %>
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <% } %>
-                         <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>              
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                    </ul>
-                </li>
-                   
+                 <%  } if (tipo.equals("2")) /*JEFE DE C.S. */{ %>
                  
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                       
-                    </ul>
-                </li>
-              
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         
-                    </ul>
-                </li>
-              <%  if(usua.equals("ASeguraF") || usua.equals("mjgalindo") || usua.equals("FSalazarLo")){  %>
-                        
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
-                    </ul>
-                </li>
-                <% } %>
-                
-                 <%  }  if (tipo.equals("3")) {      
-                /// AUDITORIA %> 
                  <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ordenesCompra/cerrarOrden.jsp">Cerrar OC Manual</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                       <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                       
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li> 
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                     
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                         <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades</a></li>                        
-                        
-    
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
-                       
-                    </ul>
-                </li>
-                
-                 <%  }  if (tipo.equals("4")) {      
-                /// RECIBO %>        
-                
-                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/cargacaducos.jsp">Cargar Caducos</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/cerrarOrden.jsp">Cerrar OC Manual</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/compraAuto3.jsp">Entrada Automática ORI</a></li>
-                        <li><a href="/SIALSS_MDF/captura.jsp">Entrada Manual</a></li>  
-                        
-                         <% if(usua.equals("Gustavovs")){ %>  
-                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/verificarCompraAuto.jsp">Verificar OC (ORI)</a></li>
-                         <% } %>
-                    </ul>
-                </li>
-                
-               
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                       
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li> 
-                        
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                         
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                         <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                    </ul>
-                </li>
-              
-                
-                 <%  }  if (tipo.equals("5")) {      
-                 //   SURTIDO %>    
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                         <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <% if(usua.equals("RMartinez")){ %>
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <% } %>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li>
-                         <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                          <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        
-                       
-                        <li class="divider"></li>
-                         <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                
-                    <%  }  if (tipo.equals("6")) {      
-                /// EMBARQUES  %>        
-                
-               
-            
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        
-                    </ul>
-                </li>
-              
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades</a></li>                        
-                 
-    
-                    </ul>
-                </li>
-                
-                <%  }  if (tipo.equals("7")) {      
-                /// FACTURISTA %>        
-                
-                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/requerimiento.jsp">Carga Requerimiento</a></li>
-                        <li><a href="/SIALSS_MDF/requerimientoLote.jsp">Carga Requerimiento (Recetas)</a></li>
-                    </ul>
-                </li>
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REMISION<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                         <% if (usua.equals("Francisco") ||  usua.equals("HeidiA") || usua.equals("LuisJ") || usua.equals("MariaC") || usua.equals("GenaroC") || usua.equals("carolina")) { %>        
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaRemision">Devoluciones Facturas</a></li>
-                        <li class="divider"></li>
-                            <% } %>
-                        <li><a href="/SIALSS_MDF/facturaAtomatica2Folio.jsp">Facturación Automatica</a></li>
-                        <li><a href="/SIALSS_MDF/facturaAtomaticaLote.jsp">Facturación Automática Lote</a></li>
-                        <li><a href="/SIALSS_MDF/facturacionManual.jsp">Facturación Manual</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ModificarFolio?Accion=ListaRemision">Modificar Folio</a></li>
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <% if (usua.equals("Francisco") ||  usua.equals("LuisJ") || usua.equals("MariaC") || usua.equals("GenaroC") || usua.equals("carolina")) { %>      
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                           <% } %>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/cambioFechas.jsp">Multiples Remisiones/Recalendarizar</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        
-                        <li class="divider"></li>
-                         <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                       
-                       <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li> 
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                      
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">FARMACIA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    <li><a href="/SIALSS_MDF/Requerimientos/ProcesarRequeLocal.jsp">Procesar</a></li> 
-                        <li><a href="/SIALSS_MDF/Requerimientos/ProcesarRequeFarmacia.jsp">Procesar Farmacia</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li><a href="/SIALSS_MDF/CatalogoUnidad.jsp">Catálogo de Medicamento por Nivel</a></li>
-                       <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
-                       
-                    </ul>
-                </li>
-                
-                <%  }  if (tipo.equals("8")) {      
-                ///  CROSSDOCK%>        
-                
-                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                    </ul>
-                </li>
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REMISION<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                    </ul>
-                </li>
-              
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                    </ul>
-                </li>
-                
-                <%  }  if (tipo.equals("9")) {      
-                /// JEFE DE ALMACEN %>        
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <% if(usua.equals("AGomezFa") || usua.equals("AEsquivelMa") || usua.equals("DcNJaen")  || usua.equals("FAhuatlGa") || usua.equals("GRamirezDi") || usua.equals("LFuentesEs") || usua.equals("LRHeredia")  || usua.equals("JDavid") || usua.equals("ACruzMo")){ %>
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <li class="divider"></li>
-                          <% } %>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                       <!-- <li><a href="/SIALSS_MDF/productotransferencia.jsp">Transferencias Productos</a></li>-->  
-                       
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>                        
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>                        
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                      
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li> 
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                       
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                       <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                 
-                       <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                         <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
-                    </ul>
-                </li>
-                
-                    <%  }  if (tipo.equals("10")) {      
-                /// JEFE DE SURTIDO %>        
-                
-                   
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                    </ul>
-                </li>
-                 
-              <!--  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>
-                    </ul>
-                </li>
-               -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                         
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                      <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                        
-                    </ul>
-                </li>
-              
-                
-                
-                 <%  }  if (tipo.equals("11")) {      
-                /// JEFE DE RECIBO %>        
-                
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/cargacaducos.jsp">Cargar Caducos</a></li>
                         <li><a href="/SIALSS_MDF/cargarecibo.jsp">Cargar OC</a></li>
+                        <li><a href="/SIALSS_MDF/requerimiento.jsp">Carga Requerimiento</a></li>
                         <li><a href="/SIALSS_MDF/ordenesCompra/cerrarOrden.jsp">Cerrar OC Manual</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/compraAuto3.jsp">Entrada Automática ORI</a></li>
                         <li><a href="/SIALSS_MDF/captura.jsp">Entrada Manual</a></li>  
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/verificarCompraAuto.jsp">Verificar OC (ORI)</a></li>
                     </ul>
                 </li>
-                
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REMISION<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <% if(usua.equals("EAhumada")) { %>
-                        <li><a href="/SIALSS_MDF/asignarUnidadFonsabi.jsp">Asignar Unidad FONSABI</a></li>
-                        <% } %>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <% if(usua.equals("DanielH")) { %>
-                           <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                          <% } %>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
+                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaRemision">Devoluciones Facturas</a></li>
+                       
+                        <li><a href="/SIALSS_MDF/facturaAtomatica2Folio.jsp">Facturación Automatica</a></li>
+
+                        <li><a href="/SIALSS_MDF/facturacionManual.jsp">Facturación Manual</a></li>
+
+                        <li><a href="/SIALSS_MDF/ModificarFolio?Accion=ListaRemision">Modificar Folio</a></li>
+
                     </ul>
                 </li>
-                 
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                     
-                       
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                      
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                        
-    
-                    </ul>
-                </li>
-              
-                
-                 <%  }  if (tipo.equals("12")) {      
-                /// JEFE DE PROYECTOS %>        
-                
-                   
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
+
                         <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
                         <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                       <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                       <!-- <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/modulaHistorico.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Histórico Modula</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/avisosIngreso.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Avisos de Ingreso</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/reabastecerModula.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Max - Min</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                          <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
-                       <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li><a href="/SIALSS_MDF/CatalogoUnidad.jsp">Catálogo de Medicamento por Nivel</a></li>
-                       <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                
-                 <%  }  if (tipo.equals("16")) {      
-                /// MODULA  %>        
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                      
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        
-                       <!-- <li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                       <!-- <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/modulaHistorico.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Histórico Modula</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/avisosIngreso.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Avisos de Ingreso</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/reabastecerModula.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Max - Min</a></li>
-                        <li class="divider"></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                        
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                      <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                     
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                   
-                      
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                      
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         
-    
-                    </ul>
-                </li>
-              
-              
-                 <%  }  if (tipo.equals("17")) {      
-                /// CLIENTES %>        
-                
-                   
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyectoCliente.jsp">Existencias por Proyecto</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardexClaveCliente.jsp">Kardex Claves</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/AdministraRemisionesClientes?Accion=ListaRemision">Administrar Remisiones</a></li>
-                       <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reimpresionCliente.jsp" >Reimpresión de Remisiones</a></li>
-                        
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                         <li><a href="/SIALSS_MDF/medicamentoCliente.jsp">Catálogo</a></li>
-                    </ul>
-                </li>
-              
-               
-                 <%  }  if (tipo.equals("18")) {      
-                ///MARBETES  %>        
-                
-                  
-               
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                       
-                    </ul>
-                </li>
-                 
-               
-                 <%  }  if (tipo.equals("19")) {      
-                /// CONSULTAS %>        
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>
-                        --><li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/modulaHistorico.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Histórico Modula</a></li>
-                        --><li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/avisosIngreso.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Avisos de Ingreso</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/reabastecerModula.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Max - Min</a></li>
-                        <li class="divider"></li>
-                        --><li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                          <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
-                       <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li><a href="/SIALSS_MDF/CatalogoUnidad.jsp">Catálogo de Medicamento por Nivel</a></li>
-                      <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                
-                 <%  }  if (tipo.equals("20")) {      
-                ///  JEFE EMBARQUES%>        
-                
-                  
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li> 
-                    </ul>
-                </li>
-                 
-               
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                       
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                    
-    
-                    </ul>
-                </li>
-              
-               
-                 <%  }  if (tipo.equals("21")) {      
-                /// MESA DE AYUDA %>        
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/FaltanteFolioGlobal.jsp">Faltantes por Folio Global</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ProductoFaltanteFolio.jsp">Productos faltantes por Folio</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li> 
-                    </ul>
-                </li>
-              
-               
-                 <%  }  if (tipo.equals("22")) {      
-                /// BECARIO %>        
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                         <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                      
-    
-                    </ul>
-                </li>
-              
-            
-                 <%  }  if (tipo.equals("23")) {      
-                ///SOLUGLOB  %>        
-                
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/cargacaducos.jsp">Cargar Caducos</a></li>
-                        <li><a href="/SIALSS_MDF/cargarecibo.jsp">Cargar OC</a></li>
-                        
-                        <li><a href="/SIALSS_MDF/ordenesCompra/cerrarOrden.jsp">Cerrar OC Manual</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/compraAuto3.jsp">Entrada Automática ORI</a></li>
-                        <li><a href="/SIALSS_MDF/captura.jsp">Entrada Manual</a></li>  
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/verificarCompraAuto.jsp">Verificar OC (ORI)</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                          <% if(usua.equals("SHernandezMi") || usua.equals("LFuentesEs")  ){ %>
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <% } %>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                          <% if(usua.equals("SHernandezMi") || usua.equals("LFuentesEs") ){ %>
-                  <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                    <% } %>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                        
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                       <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>
-                    </ul>
-                </li>
-              
-             
-                </li>
-                 <%  }  if (tipo.equals("24")) {      
-                /// AXULIAR INVENTARIO %>      
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-               
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                       <!-- <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/modulaHistorico.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Histórico Modula</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/avisosIngreso.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Avisos de Ingreso</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/reabastecerModula.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Max - Min</a></li>
-                        --><li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                          <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
-                        <li class="divider"></li>
-                       
-                        <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        
-                    </ul>
-                </li>
-                
-                 <%  }  if (tipo.equals("25")) {      
-                /// JEFE DE OPERACIONES %>        
-                
-                    
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                       
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                       
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
                         <li><a href="/SIALSS_MDF/facturacion/cambioFechas.jsp">Multiples Remisiones/Recalendarizar</a></li>
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
+                    <ul class="dropdown-menu"> 
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
+                    </ul>
+                </li>
+
+
+                 
+                
+                 <%  }  if (tipo.equals("3")) /*COORDINADOR DE C.S.*/ {  %>    
+                
+                 
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
+                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH (APAGADO)</a></li> 
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
                         
                     </ul>
                 </li>
-                 
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
                         <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        
                         <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
                         <li class="divider"></li>
-                           <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                      <!--  <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/modulaHistorico.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Histórico Modula</a></li>
+                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
                         <li class="divider"></li>
-                     <li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/avisosIngreso.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Avisos de Ingreso</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/modula/reabastecerModula.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Modula - Max - Min</a></li>
-                       --> <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
@@ -1793,122 +278,22 @@
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/verFoliosMedalfa.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">VER OC</a></li>
-                   
+
                     </ul>
                 </li>
-               
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                         
-                        <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
+
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
+                        <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
-                        <li class="divider"></li> 
-                       
-                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
-                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
-                    </ul>
-                </li>
-              
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
-                    <ul class="dropdown-menu"> 
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/modula/catalogoCB.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de CB</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li><a href="/SIALSS_MDF/CatalogoUnidad.jsp">Catálogo de Medicamento por Nivel</a></li>
-                      <!-- <li><a href="/SIALSS_MDF/medicamentoUnidad.jsp">Catálogo de Medicamento por Unidad  (APAGADO)</a></li>-->
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
-                    </ul>
-                </li>
-              
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
-                       
-                    </ul>
-                </li>
-                 <%  }  if (tipo.equals("26")) {      
-                /// RESP. SANITARIO %>        
-                
-                   
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/facturacion/CapturaMovi.jsp">Captura Movimiento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
-                        <li><a href="/SIALSS_MDF/hh/ExistenciaFonsabi.jsp">Existencia FONSABI</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
-                        <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
-                        <li class="divider"></li>
-                        <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
-                        <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
-                        <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/marbete.jsp">Marbete Manual</a></li>
-                        <li><a href="/SIALSS_MDF/Marbetes/genMarbete.jsp">Marbetes Surtido</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
-                        
-                    </ul>
-                </li>
-                 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
-                        <!--<li><a href="/SIALSS_MDF/ConcentradoxRuta">Concentrados por Ruta</a></li>-->
-                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
-                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
-                    </ul>
-                </li>
-               
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                          <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
-                        <li class="divider"></li>
-                       
-                        <!-- <li><a href="/SIALSS_MDF/hh/Facturado.jsp">Reporte Concentrado Facturado</a></li>-->
-                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
-                        <li><a href="/SIALSS_MDF/Reporte_incidencia.jsp">Reporte Incidencia Farmacia</a></li>
                         <li class="divider"></li> 
                         <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
                         <li class="divider"></li>
@@ -1917,12 +302,12 @@
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
                         <li class="divider"></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
+                          <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
+
                     </ul>
                 </li>
-              
-               
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATALOGOS<b class="caret"></b></a>
                     <ul class="dropdown-menu"> 
@@ -1930,24 +315,75 @@
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                    
+
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Proveedores</a></li>
-                         <li class="divider"></li>
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades Facturación</a></li>                        
-                        <li><a href="/SIALSS_MDF/facturacion/catalogoUniDis.jsp">Catálogo de Unidades ISEM</a></li>
-    
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/catalogoUnidades.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Unidades </a></li>                        
+
+
                     </ul>
                 </li>
-              
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        
                         <li><a href="/SIALSS_MDF/ParametrofacturaU.jsp">Parametro Facturación</a></li>
+
+                    </ul>
+                </li>
+
+                
+                 <%  }  if (tipo.equals("4")) {    /*CONSULTAS C.S.*/  %>
+                
+                     <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF/reportes/ConsultasExi.jsp">Consulta Existencia en Cedis</a></li>
+                        <li><a href="#" onclick="window.open('/SIALSS_MDF/ConMov.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Concepto Movimiento</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/ConsultasMovi.jsp">Consulta Movimiento</a></li>
+                        <li><a href="/SIALSS_MDF/facturacion/Concentradoxdia.jsp">Concentrado Requerido por día</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/reportes/ConsultasExiInv.jsp">Inventario por mes Cedis</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
+                        <li><a href="/SIALSS_MDF/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
+                        <li><a href="#"  onclick="window.open('/SIALSS_MDF/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteAuditoria.jsp">Reporte de Auditoría</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteClavesFuera.jsp">Reporte Claves Fuera de Catálogo</a></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/reportes/Reporteador.jsp">Reporteador Estadística de Entrega</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/reporteInsumoEspecial.jsp">Reporte Insumo Especial</a></li>
+                        <li class="divider"></li> 
+                        <li><a href="/SIALSS_MDF/facturacion/ConsultasOCRecibo.jsp">Reporte OC</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/Almacen/Proximos.jsp">Reporte Proximos a Caducar</a></li>
+                        <li><a href="/SIALSS_MDF/ReporteProveedor/ReporteF.jsp">Reporte por Fecha Proveedor</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF/RedFria.jsp">Reporte Red Fría</a></li> 
+                        <li class="divider"></li>
+                          <li><a href="/SIALSS_MDF/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li> 
+
                     </ul>
                 </li>
                  
-                
+               
                   <% } %>    
             </ul>
 

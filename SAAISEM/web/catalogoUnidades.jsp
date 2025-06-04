@@ -26,7 +26,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        
+
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/select2.css" rel="stylesheet">
@@ -42,7 +42,7 @@
         <div class="container">
             <h1>MEDALFA</h1>
             <h4 class="col-xs-10">SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
-           
+
         </div>
 
         <div class="container">
@@ -97,7 +97,7 @@
                                             while (rsetProy.next()) {
                                     %>
 
-                                    <option value="<%=rsetProy.getString(3)%>"><%=rsetProy.getString(2)%></option>
+                                    <option value="<%=rsetProy.getString(1)%>"><%=rsetProy.getString(2)%></option>
                                     <%
                                             }
                                             con.cierraConexion();
@@ -125,26 +125,26 @@
                         <div class="form-group">
                             <label for="IdReporte" class="col-xs-1 control-label">IdReporte</label>
                             <div class="col-xs-4">
-                                <input class="form-control" type="number" name="IdReporte" id="IdReporte" />
+                                <input class="form-control" type="number" name="IdReporte" id="IdReporte"  min="1"  step="1"/>
                             </div>                            
-<!--
-                            <label for="Respsa" class="col-xs-2 control-label">Responsable sanitario</label>
-                            <div class="col-xs-4">
-                                <select class="form-control" name="Respsa" id="Respsa">
-                                    <option value="0">No</option>
-                                    <option value="1">SI</option>                                                                       
-                                </select>                                
-                            </div>
--->
+                            <!--
+                                                        <label for="Respsa" class="col-xs-2 control-label">Responsable sanitario</label>
+                                                        <div class="col-xs-4">
+                                                            <select class="form-control" name="Respsa" id="Respsa">
+                                                                <option value="0">No</option>
+                                                                <option value="1">SI</option>                                                                       
+                                                            </select>                                
+                                                        </div>
+                            -->
                         </div>    
-                                <div class="panel-group col-xs-11">
-                                    <div class="col-xs-3 navbar-right" >
-                                        <button class="btn btn-block btn-success" type="submit" name="accion" value="guardar" >Guardar <span class="glyphicon glyphicon-floppy-save"></span> </button>
-                                    </div>
-                                    <div class="col-xs-3 navbar-right" >
-                                        <a class="btn btn-block btn-info" onclick="window.close();">Salir  <span class="glyphicon glyphicon-log-out"></span></a>
-                                    </div> 
-                                </div>
+                        <div class="panel-group col-xs-11">
+                            <div class="col-xs-3 navbar-right" >
+                                <button class="btn btn-block btn-success" type="submit" name="accion" value="guardar" >Guardar <span class="glyphicon glyphicon-floppy-save"></span> </button>
+                            </div>
+                            <div class="col-xs-3 navbar-right" >
+                                <a class="btn btn-block btn-info" onclick="window.close();">Salir  <span class="glyphicon glyphicon-log-out"></span></a>
+                            </div> 
+                        </div>
                     </form>
                     <div class="panel-footer col-lg-12">
                         <h6>Los campos marcados con * son obligatorios</h6>
@@ -169,7 +169,7 @@
 
                                 <!--th>Registro Sanitario</th>
                                 <th>Responsable Sanitario</th-->
-                                    <% if (tipo.equals("1")) { %>
+                                <% if (tipo.equals("1")) { %>
                                 <th>Modificar</th>
                                     <% } %>
                             </tr>
@@ -194,7 +194,7 @@
 
                                 <!--td class="RegSa"><small>< %=rset.getString(15)%></small></td>
                                 <td class="ResSa"><small>< %=rset.getString(16)%></small></td-->
-                                        <% if (tipo.equals("1") || tipo.equals("7")) { %>
+                                <% if (tipo.equals("1") || tipo.equals("7")) { %>
                                 <td>
                                     <a class="btn btn-block btn-warning rowButton" data-toggle="modal" data-target="#Devolucion"><span class="glyphicon glyphicon-pencil"></span></a>
                                 </td>
@@ -204,7 +204,7 @@
                                     }
                                     con.cierraConexion();
                                 } catch (Exception e) {
-               }
+                                }
                             %>
                         </tbody>
                     </table>
@@ -293,7 +293,7 @@
                                     </select>
                                 </div>
                             </div>
--->
+                            -->
                         </div>
                         <div class="modal-footer">
                             <div class="navbar-right col-lg-4">          
@@ -330,6 +330,16 @@
                                         $('#estadoSwitch').bootstrapSwitch();
                                     });
         </script>
+        <script>
+            const input = document.querySelector('input[type=number]');
+
+            input.addEventListener('input', (event) => {
+                const value = event.target.value;
+                if (value && !/^[0-9]*$/.test(value)) {
+                    event.target.value = value.replace(/[^0-9]/g, '');
+                }
+            });
+        </script> 
 
         <script type="text/javascript">
             $(".rowButton").click(function () {
@@ -404,99 +414,100 @@
 
             function valida_alta() {
                 var Clave = document.getElementById('Clave').value;
-                var Nombre = document.getElementById("Nombre").value;                
+                var Nombre = document.getElementById("Nombre").value;
                 if (Nombre === "" || Clave === "") {
                     alert("Tiene campos vacíos, verifique.");
                     return false;
-                } }
+                }
+            }
         </script>
         <script language="javascript">
-                function justNumbers(e)
-                {
-                    var keynum = window.event ? window.event.keyCode : e.which;
-                    if ((keynum == 8) || (keynum == 46))
-                        return true;
-                    return /\d/.test(String.fromCharCode(keynum));
+            function justNumbers(e)
+            {
+                var keynum = window.event ? window.event.keyCode : e.which;
+                if ((keynum == 8) || (keynum == 46))
+                    return true;
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+            otro = 0;
+            function LP_data() {
+                var key = window.event.keyCode; //codigo de tecla. 
+                if (key < 48 || key > 57) {//si no es numero 
+                    window.event.keyCode = 0; //anula la entrada de texto. 
                 }
-                otro = 0;
-                function LP_data() {
-                    var key = window.event.keyCode; //codigo de tecla. 
-                    if (key < 48 || key > 57) {//si no es numero 
-                        window.event.keyCode = 0; //anula la entrada de texto. 
-                    }
-                }
-                function anade(esto) {
-                    if (esto.value === "(55") {
+            }
+            function anade(esto) {
+                if (esto.value === "(55") {
+                    if (esto.value.length === 0) {
                         if (esto.value.length === 0) {
-                            if (esto.value.length === 0) {
-                                esto.value += "(";
-                            }
-                        }
-                        if (esto.value.length > otro) {
-                            if (esto.value.length === 3) {
-                                esto.value += ") ";
-                            }
-                        }
-                        if (esto.value.length > otro) {
-                            if (esto.value.length === 9) {
-                                esto.value += "-";
-                            }
-                        }
-                        if (esto.value.length < otro) {
-                            if (esto.value.length === 4 || esto.value.length === 9) {
-                                esto.value = esto.value.substring(0, esto.value.length - 1);
-                            }
-                        }
-                    } else {
-                        if (esto.value.length === 0) {
-                            if (esto.value.length === 0) {
-                                esto.value += "(";
-                            }
-                        }
-                        if (esto.value.length > otro) {
-                            if (esto.value.length === 4) {
-                                esto.value += ") ";
-                            }
-                        }
-                        if (esto.value.length > otro) {
-                            if (esto.value.length === 9) {
-                                esto.value += "-";
-                            }
-                        }
-                        if (esto.value.length < otro) {
-                            if (esto.value.length === 4 || esto.value.length === 9) {
-                                esto.value = esto.value.substring(0, esto.value.length - 1);
-                            }
+                            esto.value += "(";
                         }
                     }
-                    otro = esto.value.length
-
-                }
-
-
-                function tabular(e, obj)
-                {
-                    tecla = (document.all) ? e.keyCode : e.which;
-                    if (tecla != 13)
-                        return;
-                    frm = obj.form;
-                    for (i = 0; i < frm.elements.length; i++)
-                        if (frm.elements[i] == obj)
-                        {
-                            if (i == frm.elements.length - 1)
-                                i = -1;
-                            break
+                    if (esto.value.length > otro) {
+                        if (esto.value.length === 3) {
+                            esto.value += ") ";
                         }
-                    /*ACA ESTA EL CAMBIO*/
-                    if (frm.elements[i + 1].disabled == true)
-                        tabular(e, frm.elements[i + 1]);
-                    else
-                        frm.elements[i + 1].focus();
-                    return false;
+                    }
+                    if (esto.value.length > otro) {
+                        if (esto.value.length === 9) {
+                            esto.value += "-";
+                        }
+                    }
+                    if (esto.value.length < otro) {
+                        if (esto.value.length === 4 || esto.value.length === 9) {
+                            esto.value = esto.value.substring(0, esto.value.length - 1);
+                        }
+                    }
+                } else {
+                    if (esto.value.length === 0) {
+                        if (esto.value.length === 0) {
+                            esto.value += "(";
+                        }
+                    }
+                    if (esto.value.length > otro) {
+                        if (esto.value.length === 4) {
+                            esto.value += ") ";
+                        }
+                    }
+                    if (esto.value.length > otro) {
+                        if (esto.value.length === 9) {
+                            esto.value += "-";
+                        }
+                    }
+                    if (esto.value.length < otro) {
+                        if (esto.value.length === 4 || esto.value.length === 9) {
+                            esto.value = esto.value.substring(0, esto.value.length - 1);
+                        }
+                    }
                 }
+                otro = esto.value.length
+
+            }
+
+
+            function tabular(e, obj)
+            {
+                tecla = (document.all) ? e.keyCode : e.which;
+                if (tecla != 13)
+                    return;
+                frm = obj.form;
+                for (i = 0; i < frm.elements.length; i++)
+                    if (frm.elements[i] == obj)
+                    {
+                        if (i == frm.elements.length - 1)
+                            i = -1;
+                        break
+                    }
+                /*ACA ESTA EL CAMBIO*/
+                if (frm.elements[i + 1].disabled == true)
+                    tabular(e, frm.elements[i + 1]);
+                else
+                    frm.elements[i + 1].focus();
+                return false;
+            }
 
         </script> 
 
-    
+
 </html>
 

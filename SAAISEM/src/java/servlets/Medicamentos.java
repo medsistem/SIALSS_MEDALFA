@@ -76,7 +76,7 @@ public class Medicamentos extends HttpServlet {
             /*
              *Guarda Registros
              */
-            
+
 //            if (request.getParameter("accion").equals("guardar")) {
 //                out.println("ya entre");
 //                try {
@@ -118,7 +118,7 @@ public class Medicamentos extends HttpServlet {
             if (request.getParameter("accion").equals("Modificar")) {
                 try {
                     con.conectar();
-                    String Clave = "", Descripcion = "",Presentacion = "", radiosts = "", radiorigen = "", radiocat = "", radiotipo = "", Costo = "", Incmen = "0", Catalogo = "", CostoNim = "";
+                    String Clave = "", Descripcion = "", Presentacion = "", radiosts = "", radiorigen = "", radiocat = "", radiotipo = "", Costo = "", Incmen = "0", Catalogo = "", CostoNim = "";
                     String OrigeNim = "", GrupoNim = "", ComentarioNim = "", CatalogoNim = "", CantRecibir = "", ProIsem = "", ProMic = "", ProIssemym = "";
                     String Cat1 = "", Cat2 = "", Cat3 = "", Cat4 = "", Cat5 = "", Cat6 = "", Cat7 = "", Cat8 = "", Cat9 = "", Cat10 = "", Cat11 = "", Cat12 = "", Cat13 = "", Cat14 = "", Cat15 = "", Cat16 = "", Cat17 = "", Cat216 = "", Cat217 = "", Cat18 = "", Cat19 = "", Cat20 = "", Cat30 = "", Cat100 = "";
                     int ban1 = 0, ban2 = 0, ban3 = 0, ban4 = 0, ban5 = 0, ban6 = 0, ban7 = 0, ban8 = 0, ban9 = 0, ban10 = 0, ban11 = 0, ban12 = 0, ban13 = 0, ban14 = 0, ban15 = 0, ban16 = 0, ban216 = 0, ban17 = 0, ban217 = 0, ban18 = 0, ban19 = 0, ban20 = 0, ban30 = 0, bProIsem = 0, bProMic = 0, bProIssemym = 0;
@@ -127,7 +127,7 @@ public class Medicamentos extends HttpServlet {
                     Descripcion = request.getParameter("Descripcion");
                     radiosts = request.getParameter("radiosts");
                     radiorigen = request.getParameter("selectorigen");
-                    Presentacion = request.getParameter("Presentacion"); 
+                    Presentacion = request.getParameter("Presentacion");
                     Cat1 = request.getParameter("cat1");
                     Cat2 = request.getParameter("cat2");
                     Cat3 = request.getParameter("cat3");
@@ -310,9 +310,9 @@ public class Medicamentos extends HttpServlet {
 
                     if ((Clave != "") && (Descripcion != "") && (radiosts != "") && (radiorigen != "") && (radiotipo != "") && (Costo != "") && (OrigeNim != "") && (GrupoNim != "") && (CantRecibir != "")) {
 
-                        con.actualizar("UPDATE tb_medica SET F_DesPro='" + Descripcion + "',F_StsPro='" + radiosts + "',F_TipMed='" + radiotipo + "',F_Costo='" + Costo + "',F_PrePro='"+Presentacion+"',F_Origen='" + radiorigen + "',F_N1='" + ban1 + "',F_N2='" + ban2 + "',F_N3='" + ban3 + "',F_N4='" + ban4 + "',F_N5='" + ban5 + "',F_N6='" + ban6 + "',F_N7='" + ban7 + "',F_N8='" + ban8 + "',F_N9='" + ban9 + "',F_N10='" + ban10 + "',F_N11='" + ban11 + "',F_N12='" + ban12 + "',F_N13='" + ban13 + "',F_N14='" + ban14 + "',F_N15='" + ban15 + "',F_N16='" + ban16 + "',F_N17='" + ban17 + "',F_OriNim='" + OrigeNim + "',F_Grupo='" + GrupoNim + "',F_CantMax='" + CantRecibir + "' WHERE F_ClaPro='" + Clave + "';");
+                        con.actualizar("UPDATE tb_medica SET F_DesPro='" + Descripcion + "',F_StsPro='" + radiosts + "',F_TipMed='" + radiotipo + "',F_Costo='" + Costo + "',F_PrePro='" + Presentacion + "',F_Origen='" + radiorigen + "',F_N1='" + ban1 + "',F_N2='" + ban2 + "',F_N3='" + ban3 + "',F_N4='" + ban4 + "',F_N5='" + ban5 + "',F_N6='" + ban6 + "',F_N7='" + ban7 + "',F_N8='" + ban8 + "',F_N9='" + ban9 + "',F_N10='" + ban10 + "',F_N11='" + ban11 + "',F_N12='" + ban12 + "',F_N13='" + ban13 + "',F_N14='" + ban14 + "',F_N15='" + ban15 + "',F_N16='" + ban16 + "',F_N17='" + ban17 + "',F_OriNim='" + OrigeNim + "',F_Grupo='" + GrupoNim + "',F_CantMax='" + CantRecibir + "' WHERE F_ClaPro='" + Clave + "';");
                         //Borrar de las ordenes de compra insumo cambiado a estatus 'S'
-                        if(radiosts.equals("S")){
+                        if (radiosts.equals("S")) {
 //                            con.actualizar("update tb_pedido_sialss set F_StsPed= 3 where F_StsPed < 2 AND F_Recibido = 0 AND F_Clave = '"+Clave + "';");
                         }
                         ban217 = 0;
@@ -476,11 +476,13 @@ public class Medicamentos extends HttpServlet {
                 }
 
             }
-            /********************Alta de medicamento*********/
+            /**
+             * ******************Alta de medicamento********
+             */
             if (request.getParameter("accion").equals("Agregar")) {
                 try {
                     con.conectar();
-                    String Clave = "", ClaveSS = "", Descripcion = "",Presentacion = "", radiosts = "", radiorigen = "", radiocat = "", radiotipo = "", Costo = "", Incmen = "0", CostoNim = "", Prioridad = "";
+                    String Clave = "", ClaveSS = "", Descripcion = "", Presentacion = "", radiosts = "", radiorigen = "", radiocat = "", radiotipo = "", Costo = "", Incmen = "0", CostoNim = "", Prioridad = "";
                     String OrigeNim = "", GrupoNim = "", ComentarioNim = "", CatalogoNim = "", CantRecibir = "", ProIsem = "";
                     String Cat1 = "", Cat2 = "", Cat3 = "", Cat4 = "", Cat5 = "", Cat6 = "", Cat7 = "", Cat8 = "", Cat9 = "", Cat10 = "", Cat11 = "", Cat12 = "", Cat13 = "", Cat14 = "", Cat15 = "", Cat16 = "", Cat17 = "", Cat216 = "", Cat217 = "", Cat18 = "", Cat19 = "", Cat20 = "", Cat30 = "", Cat100 = "";
                     int ban1 = 0, ban2 = 0, ban3 = 0, ban4 = 0, ban5 = 0, ban6 = 0, ban7 = 0, ban8 = 0, ban9 = 0, ban10 = 0, ban11 = 0, ban12 = 0, ban13 = 0, ban14 = 0, ban15 = 0, ban16 = 0, ban216 = 0, ban17 = 0, ban217 = 0, ban18 = 0, ban19 = 0, ban20 = 0, ban30 = 0, bProIsem = 0, bProMic = 0, bProIssemym = 0;
@@ -490,7 +492,7 @@ public class Medicamentos extends HttpServlet {
                     Descripcion = request.getParameter("Descripcion");
                     radiosts = request.getParameter("radiosts");
                     radiorigen = request.getParameter("radiorigen");
-                    Presentacion = request.getParameter("Presentacion");                   
+                    Presentacion = request.getParameter("Presentacion");
                     Cat1 = request.getParameter("cat1");
                     Cat2 = request.getParameter("cat2");
                     Cat3 = request.getParameter("cat3");
@@ -686,7 +688,11 @@ public class Medicamentos extends HttpServlet {
 //                    } else {
 //                        bProIssemym = 1;
 //                    }
-
+//                    if (CostoNim.equals("") || CostoNim.isEmpty()) {
+//                        CostoNim = Costo;
+//                    } else {
+//                        CostoNim = "0";
+//                    }
                     if ((Clave != "") && (Descripcion != "") && (radiosts != "") && (radiorigen != "") && (radiotipo != "") && (Costo != "") && (GrupoNim != "") && (CantRecibir != "")) {
 
                         ResultSet DClave = con.consulta("SELECT * FROM tb_medica WHERE F_ClaPro='" + Clave + "'");
@@ -697,7 +703,7 @@ public class Medicamentos extends HttpServlet {
                             out.println("<script>alert('Medicamento Ya Se Encuntra Registrado.')</script>");
                             out.println("<script>window.location='AltaClave.jsp'</script>");
                         } else {
-                            con.actualizar("INSERT INTO tb_medica VALUES('" + Clave + "','" + ClaveSS + "','" + Descripcion + "','" + radiosts + "','" + radiotipo + "','" + Costo + "','" + Presentacion + "','" + radiorigen + "','0','0','0','0','" + Incmen + "','" + ban1 + "','" + ban2 + "','" + ban3 + "','" + ban4 + "','" + ban5 + "','" + ban6 + "','" + ban7 + "','" + ban8 + "','" + ban9 + "','" + ban10 + "','" + ban11 + "','" + ban12 + "','" + ban13 + "','" + ban14 + "','" + ban15 + "','" + ban16 + "','" + ban17 + "','" + ban217 + "','" + ban18 + "','" + ban19 + "','" + ban20 + "','" + ban30 + "','" + OrigeNim + "','" + CostoNim + "','" + GrupoNim + "','" + ComentarioNim + "','" + CatalogoNim + "','" + CantRecibir + "','" + Prioridad + "','1');");
+                            con.actualizar("INSERT INTO tb_medica VALUES('" + Clave + "','" + ClaveSS + "','" + Descripcion + "','" + radiosts + "','" + radiotipo + "','" + Costo + "','" + Presentacion + "','" + radiorigen + "','0','0','0','0','" + Incmen + "','" + ban1 + "','" + ban2 + "','" + ban3 + "','" + ban4 + "','" + ban5 + "','" + ban6 + "','" + ban7 + "','" + ban8 + "','" + ban9 + "','" + ban10 + "','" + ban11 + "','" + ban12 + "','" + ban13 + "','" + ban14 + "','" + ban15 + "','" + ban16 + "','" + ban17 + "','" + ban217 + "','" + ban18 + "','" + ban19 + "','" + ban20 + "','" + ban30 + "','" + OrigeNim + "','" + CostoNim + "','" + GrupoNim + "','" + ComentarioNim + "','" + CatalogoNim + "','" + CantRecibir + "','1','1','','','','');");
                             out.println("<script>alert('Medicamento Guardado correctamente.')</script>");
                             out.println("<script>window.location='AltaClave.jsp'</script>");
                         }

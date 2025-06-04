@@ -41,9 +41,8 @@ public class conection {
         this.UsuarioBD = "sialss_mdf";
         this.Password = "S1a15s_MdF@2025";
 
-//        this.Url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf";
-        this.Url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf";
-
+        this.Url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf";
+//        this.Url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf";
 //        this.Url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
 
         this.DriverClassName = "org.mariadb.jdbc.Driver";
