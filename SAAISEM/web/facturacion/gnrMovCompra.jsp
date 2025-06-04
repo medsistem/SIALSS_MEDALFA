@@ -112,6 +112,12 @@
                 <div class="panel-body">
                     <table class="table table-bordered table-striped" id="datosCompras" border="1">
                         <thead>
+                              <tr>
+                        <td>
+                            <img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
                             <tr>
                                 <td>Fecha Consulta:</td>
                                 <td colspan="2"><%=fecha_ini%> AL <%=fecha_fin%></td>

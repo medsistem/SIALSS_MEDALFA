@@ -82,9 +82,8 @@
                 try {
                     ResultSet rset = null;
                     if(fecha_ini !=""){   
-                       System.out.println("entro a consulta"
-                               + ""+fecha_ini);
-                            rset = con.consulta("SELECT ur.F_ClaPro,SUM(ur.F_PiezasReq) AS F_PiezasReq FROM tb_unireq ur INNER JOIN tb_uniatn un on ur.F_ClaUni=un.F_ClaCli WHERE F_Fecha='"+fecha_ini+"' AND F_Status='0' ;");
+                       System.out.println("entro a consulta: "+fecha_ini);
+                            rset = con.consulta("SELECT ur.F_ClaPro,SUM(ur.F_PiezasReq) AS F_PiezasReq FROM tb_unireq ur INNER JOIN tb_uniatn un on ur.F_ClaUni=un.F_ClaCli WHERE F_Fecha= '"+fecha_ini+"' AND F_Status='0' ;");
                         
                         if (rset.next()) {
                             Contar = rset.getInt(2);

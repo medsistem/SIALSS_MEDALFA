@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,10 +27,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Picture;
+import org.apache.poi.ss.usermodel.RichTextString;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -92,13 +102,31 @@ public class ExcelExistenciaProyecto extends HttpServlet {
 
             String filename = path + name;
             String sheetName = "Detalles";
-            XSSFWorkbook wb = new XSSFWorkbook();
 
+            XSSFWorkbook wb = new XSSFWorkbook();
             XSSFSheet sheet = wb.createSheet(sheetName);
             int width = 20;
             sheet.setAutobreaks(true);
             sheet.setDefaultColumnWidth(width);
             
+            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMedalfa.png");
+            byte[] bytes = IOUtils.toByteArray(is);
+            int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
+            is.close();
+            XSSFCreationHelper helper = wb.getCreationHelper();
+            Drawing drawing = sheet.createDrawingPatriarch();
+            //add a picture shape
+            XSSFClientAnchor anchor = helper.createClientAnchor();
+            anchor.setCol1(2);
+            anchor.setRow1(2);
+            Picture pict = drawing.createPicture(anchor, pictureIdx);
+//auto-size picture relative to its top-left corner
+           // pict.resize();
+
+            //int width = 1;
+           // sheet.setAutobreaks(true);
+           // sheet.setDefaultColumnWidth(width);
+
             //FORMATO DE CELDAS
             XSSFCellStyle style = wb.createCellStyle();
             XSSFFont font = wb.createFont();
@@ -119,13 +147,14 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             int totPiezas = 0, veces = 0;
             String qry = null, auxLimit;
             ResultSet rset;
+           // String imageUrl = "https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png";
 
             int index = 0;
 
             XSSFRow rowHeadInv = sheet.createRow(index);
-            //rowHeadInv.createCell((int) 0).setCellValue(String.format("Total de existencias en %d unidades de atención: %s", unidades.size(), formatter.format(totPiezas)));
+            //rowHeadInv.createCell((int) 0).setCellValue((RichTextString) pict);
 
-            index = 2;
+            index = 4;
 
             rowHeadInv = sheet.createRow(index);
             switch (Consulta) {
@@ -176,7 +205,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             int aux;
             PreparedStatement ps;
             ResultSet rsTemp;
-            //for (int i = 0; i < veces; i++) {
+
             String AND = "", Ubicaciones = "";
             if (Tipo.equals("Compra")) {
                 qry = "SELECT F_ClaUbi FROM tb_ubicanomostrar;";
@@ -190,7 +219,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             } else {
                 AND = "";
             }
-            
+
             if (Proyecto.equals("0")) {
 
                 switch (Consulta) {
@@ -206,7 +235,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
                     default:
                         break;
                 }
-            }else{
+            } else {
                 switch (Consulta) {
                     case "1":
                         qry = "SELECT P.F_DesProy, L.F_ClaPro, M.F_DesPro, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(L.F_ExiLot) AS F_ExiLot, O.F_DesOri, L.F_Ubica,M.F_PrePro,tb_proveedor.F_ClaProve,tb_proveedor.F_NomPro, b.Nombre_Bodega as lugar, IFNULL(M.F_NomGen,'') AS NomGen  FROM tb_lote L INNER JOIN tb_medica M ON L.F_ClaPro = M.F_ClaPro INNER JOIN tb_origen O ON L.F_Origen = O.F_ClaOri INNER JOIN tb_proyectos P ON L.F_Proyecto = P.F_Id INNER JOIN tb_proveedor ON tb_proveedor.F_ClaProve = L.F_ClaPrv LEFT JOIN tb_ubica as u ON u.F_ClaUbi=L.F_Ubica LEFT JOIN tb_bodegas AS b ON b.Id_Bodega = u.Id_Bodega WHERE L.F_Proyecto = '" + Proyecto + "' AND L.F_ExiLot>0 " + AND + "  AND L.F_Origen <> '19' AND u.Estatus=1 AND b.Estatus=1 GROUP BY L.F_ClaPro, L.F_Proyecto;";
@@ -227,7 +256,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
 
             ps = con.getConn().prepareStatement(qry);
             rsTemp = ps.executeQuery();
-System.out.println(ps);
+            System.out.println(ps);
             while (rsTemp.next()) {
                 aux++;
                 index++;
@@ -243,8 +272,8 @@ System.out.println(ps);
                         row.createCell((int) 3).setCellValue(rsTemp.getString(9));
                         row.createCell((int) 4).setCellValue(formatter.format(rsTemp.getInt(6)));
                         for (int i = 0; i <= 4; i++) {
-                        row.getCell(i).setCellStyle(styleBorder);
-                    }
+                            row.getCell(i).setCellStyle(styleBorder);
+                        }
                         break;
                     case "2":
                         row.createCell((int) 0).setCellValue(rsTemp.getString(2));
@@ -257,13 +286,13 @@ System.out.println(ps);
                         row.createCell((int) 7).setCellValue(rsTemp.getString(7));
                         row.createCell((int) 8).setCellValue(rsTemp.getString(11));
                         for (int i = 0; i <= 8; i++) {
-                        row.getCell(i).setCellStyle(styleBorder);
-                    }
+                            row.getCell(i).setCellStyle(styleBorder);
+                        }
                         break;
                     case "3":
                         row.createCell((int) 0).setCellValue(rsTemp.getString(2));
                         row.createCell((int) 1).setCellValue(rsTemp.getString("NomGen"));
-                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));               
+                        row.createCell((int) 2).setCellValue(rsTemp.getString(3));
                         row.createCell((int) 3).setCellValue(rsTemp.getString(9));
                         row.createCell((int) 4).setCellValue(rsTemp.getString(4));
                         row.createCell((int) 5).setCellValue(rsTemp.getString(5));
@@ -273,8 +302,8 @@ System.out.println(ps);
                         row.createCell((int) 9).setCellValue(rsTemp.getString(12));
                         row.createCell((int) 10).setCellValue(rsTemp.getString(13));
                         for (int i = 0; i <= 10; i++) {
-                        row.getCell(i).setCellStyle(styleBorder);
-                    }
+                            row.getCell(i).setCellStyle(styleBorder);
+                        }
                         break;
                     default:
                         break;

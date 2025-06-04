@@ -1,6 +1,7 @@
 package ReportesPuntos;
 
 import ReportesPuntos.cache.CacheQuery;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -11,9 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Picture;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 
 /**
  * Exportar consulta de reporteador de estadistica
@@ -59,7 +66,6 @@ public class ExporteReporteador extends HttpServlet {
             try (SXSSFWorkbook wb = new SXSSFWorkbook(100)) {
                 SXSSFSheet sheet = wb.createSheet("Entregas_" + sheets);
                 sheet = setColumnNames(columnas, sheet);
-
                 String path = sesion.getServletContext().getRealPath("/queries/");
                 CacheQuery cache = new CacheQuery(path);
                 ArrayList<ArrayList<String>> resultadoJSON;
@@ -99,9 +105,7 @@ public class ExporteReporteador extends HttpServlet {
 
                 }
 
-                String disHeader = "Attachment;Filename=\"" + fileName + ".xlsx\"";
-                response.setHeader("Content-Disposition", disHeader);
-
+                
                 wb.write(out);
 
                 out.flush();

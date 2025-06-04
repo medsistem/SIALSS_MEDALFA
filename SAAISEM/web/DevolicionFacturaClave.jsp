@@ -31,9 +31,7 @@
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
         username = (String) sesion.getAttribute("Usuario");
-        if (!tipo.equals("1") && !username.equals("mjgalindo") && !username.equals("ASeguraF") && !username.equals("FSalazarLo") && !username.equals("Francisco") && !username.equals("carolina") && !username.equals("LuisJ") && !username.equals("MariaC") && !username.equals("GenaroC") && !username.equals("HeidiA")) {
-            response.sendRedirect("./index.jsp");
-        }
+        
     } else {
         response.sendRedirect("index.jsp");
     }

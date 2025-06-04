@@ -172,7 +172,7 @@
                         }
                         if (Descrip != "") {
                             ban2 = 1;
-                            Concep = " MD.F_DesPro = '" + Descrip + "' ";
+                            Concep = " MD.F_DesPro like  '%" + Descrip + "%' ";
                         }
 
                         if (ban == 1 && ban1 == 1) {
@@ -259,7 +259,7 @@
                                                 }
                                                 if (Descrip != "") {
                                                     ban2 = 1;
-                                                    Concep = " MD.F_DesPro = '" + Descrip + "' ";
+                                                    Concep = " MD.F_DesPro like '%" + Descrip + "%' ";
                                                 }
                                                 if (ban == 1 && ban1 == 1) {
                                                     Query = Clave + " AND " + FechaFol;
@@ -312,7 +312,6 @@
                                                     Existencia = 0;
                                                 }
                                                 Total = Total + Existencia;
-
                                     %>
                                     <tr>                                        
                                         <td class="col-xs-3"><%=rset.getString(1)%></td>

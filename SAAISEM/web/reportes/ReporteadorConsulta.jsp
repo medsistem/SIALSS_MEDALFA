@@ -56,6 +56,7 @@
                     <div class="panel-body table-responsive">
                         <table class="table table-bordered table-striped" id="datosCompras" width="100%">
                             <thead>
+                               
                                 <tr>
                                     <c:forEach items="${columnas}" var="item">
                                         <td>
@@ -147,7 +148,7 @@
             limit = 2147483647; //Maximo en 32bit
             return;
         }
-        
+
         limit += Math.ceil(len *= 0.25);
     }
 </script>

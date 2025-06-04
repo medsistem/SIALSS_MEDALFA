@@ -61,7 +61,7 @@
                         <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
                         <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH </a></li> 
+                       <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> --> 
                         <li class="divider"></li>
 
                         <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
@@ -78,7 +78,7 @@
                         <li><a href="/SIALSS_MDF/facturacion/reimp_movimientos.jsp">Administrar Movimientos</a></li>
                         <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>
+                      <!--  <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>-->
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/facturacion/cambioFechas.jsp">Multiples Remisiones/Recalendarizar</a></li>
                         <li class="divider"></li>
@@ -206,7 +206,7 @@
                         <li><a href="/SIALSS_MDF/DevolucionesFacturas?Accion=ListaDevolucion">Administrar Devoluciones</a></li>
                         <li><a href="/SIALSS_MDF/AdministraRemisiones?Accion=ListaRemision">Administrar Remisiones</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>
+                      <!--  <li><a href="/SIALSS_MDF/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>-->
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/facturacion/cambioFechas.jsp">Multiples Remisiones/Recalendarizar</a></li>
                         <li class="divider"></li>
@@ -245,7 +245,7 @@
                         <li><a href="/SIALSS_MDF/kardex/kardex.jsp">Kardex Claves</a></li>
                         <li><a href="/SIALSS_MDF/kardex/kardexPorDia.jsp">Kardex por día</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH (APAGADO)</a></li> 
+                         <!--<li><a href="/SIALSS_MDF/hh/insumoNuevoRedist.jsp">Redistribución HH</a></li> -->
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
                     </ul>

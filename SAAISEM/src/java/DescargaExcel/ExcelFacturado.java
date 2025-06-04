@@ -24,7 +24,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Picture;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -91,6 +97,18 @@ public class ExcelFacturado extends HttpServlet {
             int width = 20;
             sheet.setAutobreaks(true);
             sheet.setDefaultColumnWidth(width);
+            
+            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMedalfa.png");
+            byte[] bytes = IOUtils.toByteArray(is);
+            int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
+            is.close();
+            XSSFCreationHelper helper = wb.getCreationHelper();
+            Drawing drawing = sheet.createDrawingPatriarch();
+            //add a picture shape
+            XSSFClientAnchor anchor = helper.createClientAnchor();
+            anchor.setCol1(2);
+            anchor.setRow1(2);
+            Picture pict = drawing.createPicture(anchor, pictureIdx);
 
             List<String> unidades = new ArrayList<>();
             int totPiezas = 0, veces = 0;
@@ -102,7 +120,7 @@ public class ExcelFacturado extends HttpServlet {
             XSSFRow rowHeadInv = sheet.createRow(index);
             //rowHeadInv.createCell((int) 0).setCellValue(String.format("Total de existencias en %d unidades de atención: %s", unidades.size(), formatter.format(totPiezas)));
 
-            index = 2;
+            index = 4;
 
             rowHeadInv = sheet.createRow(index);
             if (Proyecto.equals("0")) {

@@ -233,8 +233,8 @@ public class LeeExcelCaducos {
                                 }
                                 else{
                                     System.out.println("no esta ubi");
-                                con.insertar("INSERT INTO tb_lote VALUES(0, '" + Consulta.getString(2) + "', '" + Consulta.getString(3) + "', '" + Consulta.getString(4) + "', '" + Consulta.getString(5) + "', '" + FolioLote + "', '900002081', 'CADUCADOSFARMACIA', '" + Consulta.getString(4) + "', '1234567890123', '12327', '1', '900002081', '131', '1');");
-                                con.insertar("INSERT INTO tb_movinv VALUES(0, CURDATE(), '" + FolioMov + "', 30, '" + Consulta.getString(2) + "', '" + Consulta.getString(5) + "', '0.00', '0.00', 1, '" + FolioLote + "', 'CADUCADOSFARMACIA', '900002081',CURTIME(), '" + User + "','');");
+                                con.insertar("INSERT INTO tb_lote VALUES(0, '" + Consulta.getString(2) + "', '" + Consulta.getString(3) + "', '" + Consulta.getString(4) + "', '" + Consulta.getString(5) + "', '" + FolioLote + "', '900000000', 'CADUCADOSFARMACIA', '" + Consulta.getString(4) + "', '1010101010100', '100', '1', '900000000', '150', '1');");
+                                con.insertar("INSERT INTO tb_movinv VALUES(0, CURDATE(), '" + FolioMov + "', 30, '" + Consulta.getString(2) + "', '" + Consulta.getString(5) + "', '0.00', '0.00', 1, '" + FolioLote + "', 'CADUCADOSFARMACIA', '900000000',CURTIME(), '" + User + "','INGRESO DE CADUCADOS');");
                           
                                 }
                             
@@ -249,9 +249,9 @@ public class LeeExcelCaducos {
                             }
                             con.actualizar("UPDATE tb_indice SET F_IndLote = '" + (FolioLote + 1) + "'");
 
-                            con.insertar("INSERT INTO tb_lote VALUES(0, '" + Consulta.getString(2) + "', '" + Consulta.getString(3) + "', '" + Consulta.getString(4) + "', '" + Consulta.getString(5) + "', '" + FolioLote + "', '900002081', 'CADUCADOSFARMACIA', '" + Consulta.getString(4) + "', '1234567890123', '12327', '1', '900002081', '131', '1');");
+                            con.insertar("INSERT INTO tb_lote VALUES(0, '" + Consulta.getString(2) + "', '" + Consulta.getString(3) + "', '" + Consulta.getString(4) + "', '" + Consulta.getString(5) + "', '" + FolioLote + "', '900000000', 'CADUCADOSFARMACIA', '" + Consulta.getString(4) + "', '1010101010100', '100', '1', '900000000', '150', '1');");
 
-                            con.insertar("INSERT INTO tb_movinv VALUES(0, CURDATE(), '" + FolioMov + "', 30, '" + Consulta.getString(2) + "', '" + Consulta.getString(5) + "', '0.00', '0.00', 1, '" + FolioLote + "', 'CADUCADOSFARMACIA', '900002081',CURTIME(), '" + User + "','');");
+                            con.insertar("INSERT INTO tb_movinv VALUES(0, CURDATE(), '" + FolioMov + "', 30, '" + Consulta.getString(2) + "', '" + Consulta.getString(5) + "', '0.00', '0.00', 1, '" + FolioLote + "', 'CADUCADOSFARMACIA', '900000000',CURTIME(), '" + User + "','INGRESO DE CADUCADOS');");
 
                         }
                         con.actualizar("DELETE FROM tb_cargacaducos WHERE F_IdUnidad = '" + Consulta.getString(1) + "' AND F_Clave = '" + Consulta.getString(2) + "' AND F_Lote = '" + Consulta.getString(3) + "' AND F_Caducidad = '" + Consulta.getString(4) + "' AND F_Usu = '" + User + "';");
