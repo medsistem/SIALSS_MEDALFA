@@ -72,7 +72,7 @@ public class ExporteReporteador extends HttpServlet {
 
                 int size = CacheQuery.CHUCK_SIZE;
                 int parte = 0;
-                int filaCont = 1;
+                int filaCont = 5;
                 int col = 0;
                 boolean maximo = false;
                 while (!maximo) {

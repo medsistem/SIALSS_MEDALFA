@@ -44,7 +44,7 @@
                                </a> 
                             </div>
                             
-                            
+                            <!--
                             <div class="carousel-item">
                                 <img src="imagenes/alm7.jpg" class="d-block w-100" alt="COMPRAS" width="720px" height="680px"/>
                                 <a title=" " href="/SIALSS_MDF/indexMedalfa.jsp">
@@ -54,7 +54,7 @@
                                </div>
                                 </a>    
                             </div>
-                            
+                            -->
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

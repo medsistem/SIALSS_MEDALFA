@@ -404,12 +404,12 @@
                         Datos del Insumo 
                         -->            
                         <div class="panel-body">
-                            <div class="row">
+                           <!-- <div class="row">
                                 <div class="col-md-12">
                                     <label><input type="checkbox" id="volumetriaCheck" onclick="checkVolumetria()"> Volumetría</label>
                                 </div>
                             </div>
-
+-->
                             <!--Menu-->
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#datos" style="color: black">Datos del Insumo</a></li>
