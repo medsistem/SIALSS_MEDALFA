@@ -20,7 +20,7 @@
         IdUsu = (String) sesion.getAttribute("IdUsu");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     String ordenCompra = request.getParameter("ordenCompra");
     Connection conexion;

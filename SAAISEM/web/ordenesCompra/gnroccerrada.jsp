@@ -30,6 +30,7 @@
         fecha_ini = request.getParameter("fecha_ini");
         fecha_fin = request.getParameter("fecha_fin");
         Proyecto = request.getParameter("Proyecto");
+        System.out.println(" Proyecto = "+Proyecto);
         DesProyecto = request.getParameter("DesProyecto");
         
     } catch (Exception e) {
@@ -41,9 +42,21 @@
     if (fecha_fin == null) {
         fecha_fin = "";
     }
-    
-        Proyecto = "";
-        DesProyecto = "";
+       if (Proyecto == null) {
+        Proyecto = "0";
+    }
+    int proy = Integer.parseInt(Proyecto);
+     System.out.println("proy2: "+proy);
+     try {
+        con.conectar();
+        ResultSet rset = con.consulta("SELECT F_DesProy FROM tb_proyectos WHERE F_Id='" + proy + "' ;");
+        while (rset.next()) {
+            DesProyecto = rset.getString(1);
+        }
+        con.cierraConexion();
+    } catch (Exception e) {
+        out.println(e.getMessage());
+    }
     response.setContentType("application/vnd.ms-excel");
     response.setHeader("Content-Disposition", "attachment;filename=\"OC_cerradas_"+DesProyecto+".xls\"");
 %>

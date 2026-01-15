@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class ReporteadorV2 extends HttpServlet {
 
     private final String[] PARAMETROS = new String[]{"unidad", "juris",
-        "municipio", "nivel", "producto", "doct", "proyecto", "cause", "lote", "origen", "tipofact", "unireq", "unisur", "costo", "FuenteF"};
+        "municipio", "nivel", "producto", "doct", "proyecto", "cause", "lote", "origen", "tipofact", "unireq", "unisur", "costo"};
 
     private final String[] PARAMETROS_BUSQUEDA = new String[]{"ListJuris", "ListMuni", "ListUni", "ListClave", "LisTipUni", "ListProyect"};
 String Reporte = "";
@@ -78,12 +78,12 @@ String Reporte = "";
         folio = request.getParameter("doct");
         lote = request.getParameter("lote");
         Reporte = request.getParameter("Reporte");
-        FuenteF = request.getParameter("FuenteF");
+       // FuenteF = request.getParameter("FuenteF");
         
         
         
 
-        if (unidad == null && producto == null && jurisdicion == null && nivel == null && municipio == null && origen == null && requerimiento == null && folio == null && lote == null && proyecto == null && cause == null && FuenteF == null) {
+        if (unidad == null && producto == null && jurisdicion == null && nivel == null && municipio == null && origen == null && requerimiento == null && folio == null && lote == null && proyecto == null && cause == null ) {
 
             out.println("<script>alert('Favor de seleccionar al menos otra categaria además de \"Cifras\"')</script>");
             out.println("<script>window.history.back()</script>");
@@ -552,13 +552,13 @@ String Reporte = "";
                     }
                     break;
 
-                case "FuenteF":
-                    campos.append(" ,IFNULL(c.F_FuenteFinanza,'N/A') as Fuente");
-                    camposExternos.append(",total.Fuente");
-                    agrupamientosExternos.append(",total.Fuente");
-
-                    tablas.append(" LEFT JOIN tb_compra as c ON c.F_Lote = l.F_FolLot AND c.F_ClaPro = l.F_ClaPro");
-                    break;
+//                case "FuenteF":
+//                    campos.append(" ,IFNULL(c.F_FuenteFinanza,'N/A') as Fuente");
+//                    camposExternos.append(",total.Fuente");
+//                    agrupamientosExternos.append(",total.Fuente");
+//
+//                    tablas.append(" LEFT JOIN tb_compra as c ON c.F_Lote = l.F_FolLot AND c.F_ClaPro = l.F_ClaPro");
+//                    break;
             }
         }
 
@@ -783,10 +783,10 @@ String Reporte = "";
                 case "costo":
                     campos.append(",Sum(f.F_Monto) AS costo");
                     break;
-                case "FuenteF":
-                    campos.append(" ,IFNULL(c.F_FuenteFinanza,'N/A') as Fuente");
-                    tablas.append(" LEFT JOIN tb_compra as c ON c.F_Lote = l.F_FolLot AND c.F_ClaPro = l.F_ClaPro");
-                    break;
+//                case "FuenteF":
+//                    campos.append(" ,IFNULL(c.F_FuenteFinanza,'N/A') as Fuente");
+//                    tablas.append(" LEFT JOIN tb_compra as c ON c.F_Lote = l.F_FolLot AND c.F_ClaPro = l.F_ClaPro");
+//                    break;
             }
         }
 

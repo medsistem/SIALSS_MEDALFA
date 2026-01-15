@@ -44,9 +44,10 @@
         Proyecto = "0";
     }
     int proy = Integer.parseInt(Proyecto);
+    System.out.println("proy: "+proy);
      try {
         con.conectar();
-        ResultSet rset = con.consulta("SELECT F_DesProy FROM tb_proyectos WHERE F_Id='" + Proyecto + "' ;");
+        ResultSet rset = con.consulta("SELECT F_DesProy FROM tb_proyectos WHERE F_Id='" + proy + "' ;");
         while (rset.next()) {
             DesProyecto = rset.getString(1);
         }
@@ -107,7 +108,7 @@
                             <button class="btn btn-warning btn-block glyphicon glyphicon-search" onclick="" name="BuscaOCCerrada0" value="BuscaOCCerrada0"> Buscar</button>
                         </div>
                         <div class="col-sm-2">
-                            <a href="gnroccerrada.jsp?fecha_ini=<%=fecha_ini%>&fecha_fin=<%=fecha_fin%>" class="btn btn-success btn-block ">Descargar<span class="glyphicon glyphicon-download-alt"/> </a>
+                            <a href="gnroccerrada.jsp?fecha_ini=<%=fecha_ini%>&fecha_fin=<%=fecha_fin%>&Proyecto=<%=Proyecto%>" class="btn btn-success btn-block ">Descargar<span class="glyphicon glyphicon-download-alt"/> </a>
                         </div>    
                     </div>
                 </form>

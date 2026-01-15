@@ -87,17 +87,17 @@ $(function () {
             }
         
 
-        if (origen === '4' || origen === '5' || origen === '10' || origen === '11' || origen === '14' || origen === '15' || origen === '16'|| origen === '17'|| origen === '18') {
-
-            if (ordenSuministro === "") {
-                alert("Falta orden de suministro");
-                return false;
-            }
-            if (origen === '19'){
-             if (unidadFonsabi === "" )
-                 alert("Falta ingresar unidad");
-            }
-        }
+//        if (origen === '4' || origen === '5' || origen === '10' || origen === '11' || origen === '14' || origen === '15' || origen === '16'|| origen === '17'|| origen === '18') {
+//
+//            if (ordenSuministro === "") {
+//                alert("Falta orden de suministro");
+//                return false;
+//            }
+//            if (origen === '19'){
+//             if (unidadFonsabi === "" )
+//                 alert("Falta ingresar unidad");
+//            }
+//        }
 
 
         if (lote === "") {

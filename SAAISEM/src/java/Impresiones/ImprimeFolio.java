@@ -178,6 +178,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         response.setContentType("application/pdf");
                         response.setContentLength(bytes.length);
@@ -226,6 +227,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -246,6 +248,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -280,6 +283,7 @@ public class ImprimeFolio extends HttpServlet {
                     parameters.put("ImagenControlado", ImagenControlado);
                     parameters.put("CargoResponsable", CargoResponsable);
                     parameters.put("NombreResponsable", NombreResponsable);
+                    parameters.put("ProyectoF", ProyectoF);
                     /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                     byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                     /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -320,6 +324,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -359,6 +364,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -393,6 +399,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
@@ -426,6 +433,7 @@ public class ImprimeFolio extends HttpServlet {
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoF);
                         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
                         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
                         /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");

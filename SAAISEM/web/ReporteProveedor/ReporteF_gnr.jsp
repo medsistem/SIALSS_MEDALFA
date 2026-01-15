@@ -125,7 +125,7 @@
                                         <th class=xl66>Fecha de Ingreso</th> 
                                         <th class=xl66>Hora de Ingreso</th> 
                                         <th class=xl66>O.S.</th> >
-                                        <th class=xl66>Fuente Finanzamiento</th> >
+                                       <!-- <th class=xl66>Fuente Finanzamiento</th> > -->
                                     </tr>
                                     <tr height=20 style='height:15.0pt'>
 
@@ -154,7 +154,7 @@
                                         <td height=20 class=xl75 style='height:15.0pt;mso-number-format:"@"'><%=rset.getString(6)%></td>
                                         <td height=20 class=xl75 style='height:15.0pt;mso-number-format:"@"'><%=rset.getString("F_Hora")%></td>
                                         <td height=20 class=xl75 style='height:15.0pt'><%=rset.getString("os")%></td>
-                                        <td height=20 class=xl75 style='height:15.0pt'><%=rset.getString("F_FuenteFinanza")%></td>
+                                      <!--  <td height=20 class=xl75 style='height:15.0pt'><%=rset.getString("F_FuenteFinanza")%></td> -->
                                     </tr>
                                     <% } %>
 

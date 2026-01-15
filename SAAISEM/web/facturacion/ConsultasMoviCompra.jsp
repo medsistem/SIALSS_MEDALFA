@@ -21,7 +21,7 @@
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("../indexMedalfa.jsp");
+        response.sendRedirect("../indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
 
@@ -88,12 +88,12 @@
     </head>
     <body>
         <div class="container">
-            <div class="panel-heading">
-
-                <h1>MEDALFA</h1>
+             <h1>MEDALFA</h1>
                 <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
 
                 <%@include file="../jspf/menuPrincipalCompra.jspf"%>
+           
+                <div class="panel-heading">
                 <div class="row">
                     <h3 class="col-sm-9">Consultas Movimientos</h3>
                     <div class="col-sm-3 float-rigth">
@@ -104,7 +104,7 @@
             </div>
 
             <form action="ConsultasMoviCompra.jsp" method="post">
-                <div class="panel-title panel-success">
+                <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-3">
                             <div>
@@ -151,7 +151,8 @@
                         </div>
                     </div>
                     <br/>
-
+ </div>
+                <div class="panel-footer">
                     <div class="row">                        
 
                         <div class="col-sm-4">
@@ -185,14 +186,14 @@
                             <div class="col-sm-4">
                                 <button class="btn btn-block btn-success" id="btn_capturar">Mostrar&nbsp;<label class="glyphicon glyphicon-search"></label></button>                        
                             </div>
-                            </form>
+                            
                         </div>
                     </div> 
 
                 </div>   
                 <br/>
 
-
+ </form>
                 <form action="" method="post" id="formCambioFechas">
                     <div class="panel-body">
                         <% if (ClaCli.equals("1")) { %>

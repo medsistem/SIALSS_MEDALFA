@@ -21,7 +21,7 @@
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("../indexMedalfa.jsp");
+        response.sendRedirect("../indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
 

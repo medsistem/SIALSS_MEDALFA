@@ -92,7 +92,7 @@ function MostrarTabla(data) {
         var Presentacion = json[i].Presentacion;
         var Proveedor = json[i].Proveedor;
         var Lugar = json[i].Lugar;
-        var OrdSuministro = json[i].OrdSuministro;
+      //  var OrdSuministro = json[i].OrdSuministro;
         var Remision = json[i].Remision;
         var NomGenerico = json[i].NomGenerico;
         var OC = json[i].OC;
@@ -111,7 +111,7 @@ function MostrarTabla(data) {
                 aDataSet.push([ClaPro, NomGenerico, Descripcion,Presentacion, Lote, Caducidad,Cantidad, Origen,Proveedor]);
                 break;
             case "3":
-                aDataSet.push([ClaPro, NomGenerico, Descripcion,Presentacion,Lote, Caducidad, Ubicacion, Cantidad, Origen, IdLote, OrdSuministro, Remision, OC, fuenteF, Lugar]);
+                aDataSet.push([ClaPro, NomGenerico, Descripcion,Presentacion,Lote, Caducidad, Ubicacion, Cantidad, Origen, IdLote,  Remision, OC, fuenteF, Lugar]);
                 break;
             default:
                 aDataSet.push([Proyecto, ClaPro, Descripcion,Presentacion, Lote, Caducidad, Cantidad, Origen]);
@@ -199,7 +199,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
                         {"sTitle": "IdLote", "sClass": "center"},
-                        {"sTitle": "Orden suministro", "sClass": "center"},
+                    //    {"sTitle": "Orden suministro", "sClass": "center"},
                         {"sTitle": "Remisión", "sClass": "center"},
                         {"sTitle": "Orden compra", "sClass": "center"},             
                         {"sTitle": "Fuente financiamiento", "sClass": "center"},

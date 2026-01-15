@@ -222,21 +222,6 @@ order by totales;]]>
 			<line>
 				<reportElement uuid="9ea17f6a-4dc6-4836-8906-fe2727ba9aa2" x="0" y="84" width="572" height="1"/>
 			</line>
-			<staticText>
-				<reportElement uuid="a9d4535d-c753-4fcf-9bf3-23f401dc0259" x="2" y="70" width="126" height="15"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Fuente de Financiamiento:]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="a9a421bb-45cc-4b2d-996b-72b3ad035e99" x="128" y="70" width="212" height="15"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{F_FuenteFinanza}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement uuid="f1133c91-e9c8-4de7-916d-d2b9c9de0b39" x="400" y="70" width="172" height="15">
 					<printWhenExpression><![CDATA[$F{F_IdOrigen}.equals( "21" )]]></printWhenExpression>

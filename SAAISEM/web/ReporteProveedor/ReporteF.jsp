@@ -62,7 +62,7 @@
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>           
             <%@include file="../jspf/menuPrincipal.jspf" %>
-            <div>
+            <div class="panel-body">
                 <h3>Reporte por Fecha Proveedor</h3>
                 <div class="row">
                     <form action="ReporteF.jsp" method="post">
@@ -118,8 +118,8 @@
                                 <th class="text-center">Usuario Ingreso</th>
                                 <th class="text-center">Fecha-Hora de Ingreso</th> 
                                 <th class="text-center">O.S.</th> 
-                                <th class="text-center">Fuente Financiamiento</th> 
-                                <!--<td class="text-center">Hora de Validación</td>-->
+                                 <!--<th class="text-center">Fuente Financiamiento</th> 
+                               <td class="text-center">Hora de Validación</td>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -158,8 +158,8 @@
                                 <td class="text-center"><%=rset.getString("F_UserIngreso")%></td>
                                 <td class="text-center"><%=rset.getString("fecApl")%>-<%=rset.getString("F_Hora")%></td>
                                 <td class="text-center"><%=rset.getString("os")%></td>
-                                <td class="text-center"><%=rset.getString("F_FuenteFinanza")%></td>
-                                <!--<td class="text-center"><%=rset.getString("F_Hora")%></td>-->
+                               <!-- <td class="text-center"><%=rset.getString("F_FuenteFinanza")%></td>
+                                <td class="text-center"><%=rset.getString("F_Hora")%></td>-->
                             </tr>
                             <%
                                         }

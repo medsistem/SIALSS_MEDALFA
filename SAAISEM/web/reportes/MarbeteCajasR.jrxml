@@ -229,7 +229,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[No caja:]]></text>
+				<text><![CDATA[Pz caja:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a4aaab47-df5b-4b57-9d00-c8cd566b3fb6" x="119" y="174" width="59" height="12"/>

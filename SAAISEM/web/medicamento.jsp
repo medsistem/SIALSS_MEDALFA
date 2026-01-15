@@ -100,7 +100,7 @@
                 </div>
                 <div class="panel-footer">
                     <form method="post" action="Medicamentos">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="datosmed">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-responsive table-striped table-bordered" id="datosmed">
                             <thead>
                                 <tr>
                                     <th>CLAVE</th>
@@ -125,11 +125,11 @@
                                         int tipo = 0, ori = 0;
                                         String DesTipo = "";
                                         if (Descripcion != "") {
-                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri   where F_DesPro like '%" + Descripcion + "%' ORDER BY F_ClaPro+0 ASC");
+                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri where F_DesPro like '%" + Descripcion + "%' ORDER BY F_ClaPro+0 ASC");
                                         } else if (Clave != "") {
-                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON   F_Origen = F_ClaOri   where F_ClaPro = '" + Clave + "' ORDER BY F_ClaPro+0 ASC");
+                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri where F_ClaPro = '" + Clave + "' ORDER BY F_ClaPro+0 ASC");
                                         } else {
-                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON   F_Origen = F_ClaOri   ORDER BY F_ClaPro+0 ASC");
+                                            rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri ORDER BY F_ClaPro+0 ASC");
                                         }
 
                                         while (rset.next()) {

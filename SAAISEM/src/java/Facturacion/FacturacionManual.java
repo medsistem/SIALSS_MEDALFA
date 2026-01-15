@@ -20,6 +20,7 @@ import ISEM.*;
 import Modula.AbastoModula;
 import Modula.RequerimientoModula;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -1550,56 +1551,70 @@ public class FacturacionManual extends HttpServlet {
             }
 
             if (request.getParameter("accion").equals("NuevoLote")) {
-                try {
-                    con.conectar();
-                    String Clave = "", Lote = "", Caducidad = "", Origen = "", Proveedor = "", Cb = "", Proyecto = "", DesProyecto = "";
+                 System.out.println("alta de nuevo lote");
+                 try {
+                 con.conectar();
+                    String Clave = "", Fec_Fac = "", Marca = "", Lote = "", Caducidad = "", Origen = "", Proveedor = "", Cb = "", Proyecto = "", DesProyecto = "", Ubicacion = "";
                     int F_FolLot = 0, F_FolLotU = 0, FolioLot = 0, FolioLote = 0;
                     Clave = request.getParameter("clave");
+                    System.out.println("Clave: "+ Clave);
                     Lote = request.getParameter("lote");
                     Caducidad = request.getParameter("caducidad");
                     Origen = request.getParameter("origen");
                     Proveedor = request.getParameter("proveedor");
                     Proyecto = request.getParameter("Proyecto");
                     DesProyecto = request.getParameter("DesProyecto");
+                    Ubicacion = request.getParameter("UbicaNueva");
+                    Fec_Fac = request.getParameter("Fec_Fac");
+                    Marca = request.getParameter("Marca");
                     Cb = request.getParameter("cb");
+                    String cadu = df3.format(df2.parse(Caducidad));
+                    String fabri = df3.format(df2.parse(Fec_Fac));
 
-                    ResultSet rset = con.consulta("SELECT F_FolLot FROM tb_lote WHERE F_ClaPro = '" + Clave + "' AND F_ClaLot = '" + Lote + "' AND F_FecCad = '" + Caducidad + "' AND F_Origen = '" + Origen + "' AND F_ClaOrg = '" + Proveedor + "' AND F_Cb = '" + Cb + "' AND F_Proyecto = '" + Proyecto + "';");
-                    if (rset.next()) {
-                        F_FolLot = rset.getInt(1);
-                    }
+                   ResultSet rsetClave = con.consulta("SELECT m.F_ClaPro FROM tb_medica as m where m.F_ClaPro = '" + Clave + "'");
 
-                    if (F_FolLot > 0) {
-                        ResultSet rsetUbica = con.consulta("SELECT F_FolLot FROM tb_lote WHERE F_Ubica='NUEVA' AND F_FolLot='" + F_FolLot + "'");
-                        if (rsetUbica.next()) {
-                            F_FolLotU = rsetUbica.getInt(1);
+                    if (rsetClave.next()) {
+
+                        ResultSet rset = con.consulta("SELECT F_FolLot FROM tb_lote WHERE F_ClaPro = '" + Clave + "' AND F_ClaLot = '" + Lote + "' AND F_FecCad = '" + Caducidad + "' AND F_Origen = '" + Origen + "' AND F_ClaOrg = '" + Proveedor + "' AND F_Cb = '" + Cb + "' AND F_Proyecto = '" + Proyecto + "';");
+                        if (rset.next()) {
+                            F_FolLot = rset.getInt(1);
                         }
-                        if (F_FolLotU > 0) {
-                            out.println("<script>alert(Datos existente)</script>");
-                            out.println("<script>window.history.back()</script>");
-                        } else {
-                            ResultSet rsetDatos = con.consulta("SELECT F_ClaOrg,F_FecFab,F_Cb,F_ClaMar,F_ClaPrv FROM tb_lote WHERE F_FolLot='" + F_FolLot + "'");
-                            if (rsetDatos.next()) {
-                                con.actualizar("INSERT INTO TB_LOTE VALUES (0,'" + Clave + "','" + Lote + "','" + Caducidad + "','0','" + F_FolLot + "','" + rsetDatos.getString(1) + "','NUEVA','" + rsetDatos.getString(2) + "','" + rsetDatos.getString(3) + "','" + rsetDatos.getString(4) + "','" + Origen + "','" + rsetDatos.getString(5) + "','131','" + Proyecto + "')");
+
+                        if (F_FolLot > 0) {
+                            ResultSet rsetUbica = con.consulta("SELECT F_FolLot FROM tb_lote WHERE F_Ubica='" + Ubicacion + "' AND F_FolLot='" + F_FolLot + "'");
+                            if (rsetUbica.next()) {
+                                F_FolLotU = rsetUbica.getInt(1);
+                                System.out.println(F_FolLotU + "foloubi");
                             }
+                            if (F_FolLotU > 0) {
+                                out.println("<script>alert ('La clave:  " + Clave + "  \\nlote:  " + Lote + "  \\nUbicacion:  " + Ubicacion + " \\n\\n\\tDato existente')</script>");
+                                out.println("<script>window.history.back()</script>");
+                            }
+
+                        } else {
+
+                            ResultSet Folio = con.consulta("SELECT F_IndLote FROM tb_indice");
+                            if (Folio.next()) {
+                                FolioLot = Folio.getInt(1);
+                            }
+                            FolioLote = FolioLot;
+                            FolioLot = FolioLot + 1;
+                            con.actualizar("UPDATE tb_indice SET F_IndLote='" + FolioLot + "'");
+
+                            con.actualizar("INSERT INTO TB_LOTE VALUES (0,'" + Clave + "','" + Lote + "','" + cadu + "','0','" + FolioLote + "','" + Proveedor + "','" + Ubicacion + "','" + fabri + "','" + Cb + "','" + Marca + "','" + Origen + "','" + Proveedor + "','131','" + Proyecto + "')");
+                            out.println("<script>alert ('La clave:  " + Clave + "  \\nlote:  " + Lote + "  \\nUbicacion:  " + Ubicacion + "  \\n\\n\\tFue registrada con existo')</script>");
                             out.println("<script>window.location='facturacion/AltaLote.jsp?DesProyecto=" + DesProyecto + "&Proyecto=" + Proyecto + "'</script>");
                         }
                     } else {
-
-                        ResultSet Folio = con.consulta("SELECT F_IndLote FROM tb_indice");
-                        if (Folio.next()) {
-                            FolioLot = Folio.getInt(1);
-                        }
-                        FolioLote = FolioLot;
-                        FolioLot = FolioLot + 1;
-                        con.actualizar("UPDATE tb_indice SET F_IndLote='" + FolioLot + "'");
-
-                        con.actualizar("INSERT INTO TB_LOTE VALUES (0,'" + Clave + "','" + Lote + "','" + Caducidad + "','0','" + FolioLote + "','" + Proveedor + "','NUEVA','" + Caducidad + "','" + Cb + "','10372','" + Origen + "','" + Proveedor + "','131','" + Proyecto + "')");
-                        out.println("<script>window.location='facturacion/AltaLote.jsp?DesProyecto=" + DesProyecto + "&Proyecto=" + Proyecto + "'</script>");
+                        out.println("<script>alert ('La clave no existe en catalogo')</script>");
+                    out.println("<script>window.location='facturacion/AltaLote.jsp?DesProyecto=" + DesProyecto + "&Proyecto=" + Proyecto + "'</script>");
+                        
                     }
 
                     con.cierraConexion();
 
-                } catch (Exception e) {
+                } catch (SQLException | ParseException e) {
+                     e.getMessage();
                 }
             }
 

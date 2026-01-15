@@ -34,7 +34,7 @@
         IdUsu = (String) sesion.getAttribute("IdUsu");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
     String NoCompra = "", Fecha = "";

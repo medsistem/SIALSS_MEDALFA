@@ -144,7 +144,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
         /////////////////////////////////////
         /////////proyecto isem///////
         /////////////////////////////////
-        if (ProyectoFactura.equals("1")) {
+       
             /*Cuando son cero*/
             if (Ban2 == 0) {
             
@@ -165,6 +165,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                         parameters.put("ImagenControlado", ImagenControlado);
                         parameters.put("CargoResponsable", CargoResponsable);
                         parameters.put("NombreResponsable", NombreResponsable);
+                        parameters.put("ProyectoF", ProyectoFactura);        
                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -200,7 +201,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                         parameters.put("Imgape", Imgape);
                         parameters.put("RedFria", RedFria);
                         parameters.put("ImagenControlado", ImagenControlado);
-                     
+                      parameters.put("ProyectoF", ProyectoFactura); 
                         System.out.println(remis);
                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
@@ -240,6 +241,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -281,6 +283,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -321,6 +324,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -357,6 +361,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -396,6 +401,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -433,6 +439,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -470,6 +477,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -504,6 +512,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -541,6 +550,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -578,6 +588,7 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                             parameters.put("ImagenControlado", ImagenControlado);
                             parameters.put("CargoResponsable", CargoResponsable);
                             parameters.put("NombreResponsable", NombreResponsable);
+                             parameters.put("ProyectoF", ProyectoFactura); 
                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -597,7 +608,8 @@ ResultSet DatosRedF = con.consulta("SELECT COUNT(*) FROM tb_redfria r INNER JOIN
                      }//fin de onco red fria
  
 
-            }//FIN DEL PROYECTO 1
+            
+                 
         }//FIN DEL CICLO FOLIOS C
         conexion.close();
                       /*ResultSet DatosFactMed = con.consulta("SELECT F.F_ClaCli, U.F_NomCli, U.F_Direc, F.F_ClaDoc, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, F.F_ClaPro, SUBSTR( IFNULL( REPLACE (CPR.F_DesPro, '\n', ' '), M.F_DesPro ), 1, 333 ) AS F_DesPro, L.F_ClaLot, DATE_FORMAT(L.F_FecCad, '%d/%m/%Y') AS F_FecCad, SUM(F.F_CantReq) AS F_CantReq, SUM(F.F_CantSur) AS F_CantSur, IFNULL(CPR.F_Costo, SUM(F.F_Costo)) AS F_Costo, IFNULL( CPR.F_Costo * SUM(F.F_CantSur), SUM(F.F_Monto)) AS F_Monto, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, U.F_Razon,  L.F_Proyecto, P.F_DesProy, IFNULL(CPR.F_Presentacion, M.F_PrePro) AS Presentacion, F.F_Contrato, F.F_OC, PS.F_DesProy AS ProyectoFact, J.F_DesJurIS, MU.F_DesMunIS, CONCAT('image/',CASE WHEN RF.F_ClaPro IS NOT NULL THEN 'red_fria.jpg' ELSE 'Nored_fria.jpg' END) AS REDFRI, F.F_Cause, U.F_Clues FROM tb_factura F INNER JOIN tb_lote L ON F.F_Lote = L.F_FolLot AND F.F_Ubicacion = L.F_Ubica AND F.F_ClaPro = L.F_ClaPro INNER JOIN tb_uniatn U ON F.F_ClaCli = U.F_ClaCli INNER JOIN tb_medica M ON F.F_ClaPro = M.F_ClaPro INNER JOIN tb_proyectos P ON U.F_Proyecto = P.F_Id LEFT JOIN ( SELECT F_ClaPro, F_DesPro, F_Costo, F_Proyecto, F_Presentacion FROM tb_catalogoprecios ) AS CPR ON F.F_ClaPro = CPR.F_ClaPro AND L.F_Proyecto = CPR.F_Proyecto INNER JOIN tb_proyectos PS ON F.F_Proyecto = PS.F_Id LEFT JOIN tb_juriis J ON U.F_ClaJur = J.F_ClaJurIS LEFT JOIN tb_muniis MU ON U.F_ClaMun = MU.F_ClaMunIS AND U.F_ClaJur = MU.F_JurMunIS LEFT JOIN tb_redfria RF ON F.F_ClaPro = RF.F_ClaPro WHERE F_ClaDoc = '" + remis + "'  AND F_DocAnt != '1' AND F.F_Proyecto = '" + ProyectoFactura + "' AND F_CantSur = 0 GROUP BY F.F_ClaPro ORDER BY REDFRI ASC, F.F_ClaPro + 0;");

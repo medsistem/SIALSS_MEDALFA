@@ -30,10 +30,10 @@
         tipo = (String) sesion.getAttribute("Tipo");
         Proyecto = (String) sesion.getAttribute("Proyecto");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
-
+System.out.println("Proyecto = "+Proyecto+" / " +usua );
 %>
 
 <!DOCTYPE html>
@@ -58,16 +58,56 @@
             <hr/>
             <br/>
             <div class="row">
-                
+                <%                    try {
+                        con.conectar();
+                        String Class = "", IdOC = "";
+                        int Contar = 0, Ban = 0;
+                        ResultSet rset = con.consulta("SELECT F_Id, F_DesProy, F_Campo, F_NomOC, F_IdOC FROM tb_proyectos  WHERE F_Id IN (1,2,3) ORDER BY F_DesProy ASC;");
+                        while (rset.next()) {
+                            Contar++;
+                            IdOC = rset.getString(5);
+                            if (Contar == 1) {
+                                Class = "btn-info";
+                            } else if (Contar == 2) {
+                                Class = "btn-warning";
+                            } else if (Contar == 3) {
+                                Class = "btn-primary";
+                            } else if (Contar == 4) {
+                                Class = "btn-success";
+                                Contar = 0;
+                            }
+                            if ((IdOC == null) || (IdOC == "")) {
+                                Ban = 0;
+                            } else {
+                                Ban = 1;
+                            }
+
+                %>
                 <div class="col-sm-3">
-                    <a href="capturaMedalfa.jsp?Proyecto=1&DesProyecto=Proyecto_MDF&Campo=F_ProIsem" class="btn btn-block form-control btn-success">NUEVO OC</a>
+                    <a href="capturaMedalfa.jsp?Proyecto=<%=rset.getString(1)%>&DesProyecto=<%=rset.getString(2)%>&Campo=<%=rset.getString(3)%>&NomOC=<%=rset.getString(4)%>&IdOC=<%=rset.getString(5)%>&Ban=<%=Ban%>" class="btn btn-block form-control <%=Class%>">
+                        <%=rset.getString(2)%></a>
                 </div>
-              
                 <br />
-                
-                
+                <%if (Contar > 4) {%>
+                <br />
+                <%
+                                Contar = 0;
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                    } finally {
+                        try {
+                            con.cierraConexion();
+                        } catch (SQLException ex) {
+                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                        }
+                    }
+                %>
             </div>
         </div>
+     
         <%@include file="jspf/piePagina.jspf" %>
         <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>

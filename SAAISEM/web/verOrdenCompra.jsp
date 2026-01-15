@@ -24,7 +24,7 @@
     if (sesion.getAttribute("Usuario") != null) {
         usua = (String) sesion.getAttribute("Usuario");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
     String NoCompra = "", Fecha = "";

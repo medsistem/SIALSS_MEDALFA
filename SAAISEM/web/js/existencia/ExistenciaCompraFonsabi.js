@@ -93,7 +93,7 @@ function MostrarTabla(data) {
         var Caducidad = json[i].Caducidad;
         var Cantidad = json[i].Cantidad;
         var Origen = json[i].Origen;
-        var OrdenSuministro = json[i].OrdenSuministro;
+       // var OrdenSuministro = json[i].OrdenSuministro;
         var UnidadEntrega = json[i].UnidadEntrega;
         var NomGenrico = json[i].NomGenerico;
         var Tipo = json[i].Tipo;       
@@ -104,7 +104,7 @@ function MostrarTabla(data) {
 
         switch (Tipo) {               
             case "2":
-                aDataSet.push([ClaProSS, NomGenrico, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro, UnidadEntrega]);
+                aDataSet.push([ClaProSS, NomGenrico, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen,UnidadEntrega]);
                 break;              
         }
     }
@@ -143,7 +143,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},                        
-                        {"sTitle": "Orden de Suministro", "sClass": "center"},
+                      //  {"sTitle": "Orden de Suministro", "sClass": "center"},
                         {"sTitle": "Unidad de entrega", "sClass": "center"}
 
                     ]

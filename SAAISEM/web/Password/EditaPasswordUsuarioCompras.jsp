@@ -33,7 +33,7 @@
         Usuario = (String) sesion.getAttribute("Usuario");
     } else {
         System.out.println("aqui me quede");
-        response.sendRedirect("../indexMedalfa.jsp");
+        response.sendRedirect("../indexCompras.jsp");
     }
     String error = request.getParameter("error");
 

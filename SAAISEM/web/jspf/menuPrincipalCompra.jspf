@@ -118,7 +118,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%=usua%></a></li>
-                <li class="active"><a href="/SIALSS_MDF/indexMedalfa.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li class="active"><a href="/SIALSS_MDF/indexCompras.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -44,17 +44,17 @@
                                </a> 
                             </div>
                             
-                            <!--
+                        
                             <div class="carousel-item">
                                 <img src="imagenes/alm7.jpg" class="d-block w-100" alt="COMPRAS" width="720px" height="680px"/>
-                                <a title=" " href="/SIALSS_MDF/indexMedalfa.jsp">
+                                <a title=" " href="/SIALSS_MDF/indexCompras.jsp">
                                 <div class="carousel-caption d-none d-md-block">
                                 <h1>SIALSS COMPRAS</h1>
                                 <h3>Ingreso al sistema de Compras</h3>
                                </div>
                                 </a>    
                             </div>
-                            -->
+                          
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

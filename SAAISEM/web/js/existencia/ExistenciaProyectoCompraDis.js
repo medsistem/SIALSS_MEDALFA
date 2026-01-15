@@ -79,7 +79,7 @@ function MostrarTabla(data) {
         var Origen = json[i].Origen;
         var Tipo = json[i].Tipo;
         var Estatus = json[i].Estatus;
-        var OrdenSuministro = json[i].OrdenSuministro;
+        //var OrdenSuministro = json[i].OrdenSuministro;
        
         Contar = json[i].Contar;
         CantidadT = json[i].CantidadT;
@@ -88,10 +88,10 @@ function MostrarTabla(data) {
 
         switch (Tipo) {
               case "1":
-                aDataSet.push([ClaProSS, Descripcion, Tipo, Lote, Caducidad, Cantidad, Origen, Estatus, OrdenSuministro]);
+                aDataSet.push([ClaProSS, Descripcion, Tipo, Lote, Caducidad, Cantidad, Origen, Estatus]);
                 break;
             default:
-                aDataSet.push([ClaProSS, Descripcion, Tipo, Lote, Caducidad, Cantidad, Origen, Estatus, OrdenSuministro]);
+                aDataSet.push([ClaProSS, Descripcion, Tipo, Lote, Caducidad, Cantidad, Origen, Estatus]);
                 break;    
         }
     }
@@ -128,8 +128,8 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Estatus", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                        {"sTitle": "Estatus", "sClass": "center"}
+                       // {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -154,8 +154,9 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Estatus", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                        {"sTitle": "Estatus", "sClass": "center"}
+                        
+                       // {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;

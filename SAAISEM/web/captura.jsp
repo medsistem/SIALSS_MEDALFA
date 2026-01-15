@@ -641,7 +641,7 @@
 
 
                     <br/>
-                    <div class="row">
+                   <!-- <div class="row">
                         <div class="col-sm-4">
                             <strong>Orden de Suministro:</strong>
                             <input name="ordenSuministro" id="ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" style="-webkit-text-security: disc;" autocomplete="off" />
@@ -676,7 +676,7 @@
                                 %>
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <br/>
                     <h5><strong>Tarimas Completas</strong></h5>
                     <div class="row form-inline" style="text-align: right;">

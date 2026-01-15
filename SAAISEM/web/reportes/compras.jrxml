@@ -129,8 +129,9 @@ ORDER BY
 			</staticText>
 			<textField>
 				<reportElement uuid="3539ccb5-f06a-4c79-9366-394d08b46fe8" x="89" y="40" width="390" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10"/>
+					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_NomPro}]]></textFieldExpression>
 			</textField>

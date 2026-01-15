@@ -51,7 +51,7 @@ public class CompraAutomatica extends HttpServlet {
         HttpSession sesion = request.getSession(true);
         PrintWriter out = response.getWriter();
         try {
-            System.out.println(request.getParameter("accion") + "*****");
+            System.out.println(request.getParameter("accion") + "#CompraAutomatica#");
             if (request.getParameter("accion").equals("seleccionaClave")) {
                 String folio = request.getParameter("folio");
                 String folioRemi = request.getParameter("folioRemi");

@@ -193,8 +193,8 @@ public class ExcelExistenciaProyecto extends HttpServlet {
                     rowHeadInv.createCell((int) 7).setCellValue("Cantidad");
                     rowHeadInv.createCell((int) 8).setCellValue("Origen");
                     rowHeadInv.createCell((int) 9).setCellValue("Bodega");
-                    rowHeadInv.createCell((int) 10).setCellValue("Fuente Financiamiento");
-                    for (int i = 0; i <= 10; i++) {
+                 
+                    for (int i = 0; i <= 9; i++) {
                         rowHeadInv.getCell(i).setCellStyle(style);
                     }
                     break;
@@ -300,8 +300,8 @@ public class ExcelExistenciaProyecto extends HttpServlet {
                         row.createCell((int) 7).setCellValue(formatter.format(rsTemp.getInt(6)));
                         row.createCell((int) 8).setCellValue(rsTemp.getString(7));
                         row.createCell((int) 9).setCellValue(rsTemp.getString(12));
-                        row.createCell((int) 10).setCellValue(rsTemp.getString(13));
-                        for (int i = 0; i <= 10; i++) {
+                     
+                        for (int i = 0; i <= 9; i++) {
                             row.getCell(i).setCellStyle(styleBorder);
                         }
                         break;

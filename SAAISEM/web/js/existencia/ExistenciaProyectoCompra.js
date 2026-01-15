@@ -93,11 +93,11 @@ function MostrarTabla(data) {
         var Tipo = json[i].Tipo;
        
         var Estatus = json[i].Estatus;
-        var OrdenSuministro = json[i].OrdenSuministro;
+       // var OrdenSuministro = json[i].OrdenSuministro;
         var NomGen = json[i].NomGen;
         var ForFar = json[i].ForFar;
         var concentracion = json[i].concentracion;
-        var fuentefinanciamento = json[i].fuentefinanciamento;
+       // var fuentefinanciamento = json[i].fuentefinanciamento;
         var Presentacion = json[i].Presentacion;
         Contar = json[i].Contar;
         CantidadT = json[i].CantidadT;
@@ -134,34 +134,34 @@ function MostrarTabla(data) {
                 break;
                 */
               case "1":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Cantidad, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Cantidad]);
                 break;
             case "2":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad]);
                 break;
             case "3":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen]);
                 break;
             case "4":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen]);
                 break;
             case "5":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen]);
                 break;
             case "6":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen]);
                 break;
             case "7":
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen]);
                 break;
             case "8":
-                aDataSet.push([ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, Estatus, OrdenSuministro]);
+                aDataSet.push([ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, Estatus]);
                 break;
             case "15":
-                aDataSet.push([ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, Estatus, OrdenSuministro,fuentefinanciamento]);
+                aDataSet.push([ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, Estatus]);
                 break;    
             default:
-                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen, OrdenSuministro]);
+                aDataSet.push([ ClaProSS, NomGen, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Origen,]);
                 break;    
         }
     }
@@ -199,7 +199,7 @@ function MostrarTabla(data) {
                        /* {"sTitle": "Forma Farmaceutica", "sClass": "center"},
                         {"sTitle": "Concentracion", "sClass": "center"},*/
                         {"sTitle": "Cantidad", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                        //{"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -259,7 +259,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                      //  {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -289,7 +289,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                    //    {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -319,7 +319,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                //        {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -349,7 +349,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                     //   {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;
@@ -379,7 +379,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                        //{"sTitle": "Orden de Suministro", "sClass": "center"}
 
                     ]
                 });
@@ -441,8 +441,8 @@ function MostrarTabla(data) {
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
                         {"sTitle": "Estatus", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"},
-                        {"sTitle": "Fuente de Financiamiento", "sClass": "center"}
+                     /*   {"sTitle": "Orden de Suministro", "sClass": "center"},
+                        {"sTitle": "Fuente de Financiamiento", "sClass": "center"}*/
                     ]
                 });
                 break;
@@ -472,7 +472,7 @@ function MostrarTabla(data) {
                         {"sTitle": "Caducidad", "sClass": "center"},
                         {"sTitle": "Cantidad", "sClass": "center"},
                         {"sTitle": "Origen", "sClass": "center"},
-                        {"sTitle": "Orden de Suministro", "sClass": "center"}
+                      //  {"sTitle": "Orden de Suministro", "sClass": "center"}
                     ]
                 });
                 break;

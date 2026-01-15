@@ -30,7 +30,7 @@
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("../indexMedalfa.jsp");
+        response.sendRedirect("../indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
 
@@ -97,7 +97,7 @@
                                 <th>Recibido</th>                                
                                 <th>Monto</th>
                                 <th>Diferencia</th>
-                                <th>Fuente de Financiamiento</th>
+                               <!-- <th>Fuente de Financiamiento</th>-->
                                 <th>Contrato</th>
                                 <th>Fecha Programada</th>
                                 <th>Fecha Ingreso</th>
@@ -158,7 +158,7 @@
                                 <td><%=rset.getString(5)%></td>                                
                                 <td><%=rset.getString(7)%></td>                                                      
                                 <td><%=rset.getString(8)%></td>
-                                <td><%=rset.getString(13)%></td>
+                                 <!-- <td><%=rset.getString(13)%></td>-->
                                 <td><%=rset.getString(17)%></td>
                                 <td><%=rset.getString(10)%></td>
                                 <td><%=rset.getString(11)%></td>

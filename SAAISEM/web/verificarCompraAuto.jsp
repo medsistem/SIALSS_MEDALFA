@@ -37,6 +37,7 @@
         vRemi = (String) sesion.getAttribute("vRemi");
         unidadF = (String) sesion.getAttribute("tipoRV");        
     } catch (Exception e) {
+       
     }
 
     try {
@@ -87,13 +88,13 @@
                 <h4 class="col-sm-2">Elegir Remisión: </h4>
                 <div class="col-sm-9">
                     <select class="form-control" name="NoCompra" onchange="this.form.submit();">
-                        <option value="">-- Proveedor -- Orden de Compra --</option>
+                        <option selected disabled >-- Proveedor -- Orden de Compra --</option>
                         <%    try {
                                 con.conectar();
                                 ResultSet rset = null;
 
-                                rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, IFNULL(c.F_unidadFonsabi, '') AS F_unidadFonsabi,c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi, c.F_unidadFonsabi");
-
+                               // rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, IFNULL(c.F_unidadFonsabi, '') AS F_unidadFonsabi,c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi, c.F_unidadFonsabi");
+                                rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi;");
                                 while (rset.next()) {
                                     
                         %>
@@ -118,12 +119,12 @@
                 <h4 class="col-sm-2">Elegir Ubicacion: </h4>
                 <div class="col-sm-3">
                     <select class="form-control" name="UbicaN" id="UbicaN" >
-                        <option value="0">-- Ubicacion --</option>
+                        <option selected disabled>-- Ubicacion --</option>
                         <%  try {
                                 con.conectar();
                                 ResultSet rsetU = null; 
                                 ResultSet tsrtIdori = null;
-                                
+                            /*    
                                 tsrtIdori = con.consulta ("SELECT C.F_Origen FROM tb_compratemp C WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "' and F_Estado = '2';");
                                 
                                 while (tsrtIdori.next()){
@@ -131,7 +132,7 @@
                                 }
                                 System.out.println("IdOrigen: "+IdOrigen);
                                
-                                if(unidadF == null || unidadF == "" || unidadF.equals("null")){
+                             if(unidadF == null || unidadF == "" || unidadF.equals("null")){
                                     System.out.println("Andamos e: "+unidadF);
                                     if(IdOrigen == 21){
                                         
@@ -139,9 +140,9 @@
                                        rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.DescUbi RLIKE 'CE23' ORDER BY u.IdUbi ASC");
                                     
                                     } else {
-                                        System.out.println("IdOrigen == Normal");
-                                       rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.DescUbi LIKE 'NUEVA%' AND u.DescUbi NOT RLIKE 'CE23'  ORDER BY u.IdUbi ASC");
-                                      
+                                   */     System.out.println("IdOrigen == Normal");
+                                       rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A'  ORDER BY u.IdUbi ASC");
+                                   /*   
                                     }
                                     
                                   //  rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.DescUbi LIKE 'NUEVA%' ORDER BY u.IdUbi ASC");
@@ -151,7 +152,7 @@
                                     rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.F_ClaCli = '" + unidadF + "' AND u.DescUbi NOT RLIKE 'CE23'  ORDER BY u.IdUbi ASC");                                    
                                     
                                     }
-                                
+                                */
                                 
                                 while (rsetU.next()) {                                    
                         %>
@@ -239,9 +240,9 @@
                         <th class="text-center">IVA</th>
                         <th class="text-center">Importe</th>
                         <th class="text-center">Caducidad</th>
-                        <th class="text-center">Carta Canje</th>
+                      <!--  <th class="text-center">Carta Canje</th>
                         <th class="text-center">Fuente Financiamiento</th>
-                        <th class="text-center">Orden de Suministro</th>
+                        <th class="text-center">Orden de Suministro</th> -->
                         <th class="text-center">Marca</th>                       
                         <th class="text-center">Nombre Comercial</th>                              
                         <th class="text-center">Editar</th>
@@ -253,13 +254,9 @@
                             String query = "";
                             try {
                                 con.conectar();
-                                if(unidadF == null || unidadF == "" || unidadF.equals("null")){
-                                    System.out.println("entre a null");
-                                     query = "SELECT C.F_Cb,C.F_ClaPro,M.F_DesPro,C.F_Lote,C.F_FecCad,C.F_Pz,F_IdCom,C.F_Costo,C.F_ImpTo,C.F_ComTot,C.F_FolRemi,C.F_Obser,C.F_Origen,IFNULL(C.F_OrdenSuministro,'') as F_OrdenSuministro,MAR.F_ClaMar,MAR.F_DesMar, o.F_DesOri, IFNULL(C.F_CartaCanje,'') AS cartaCanje, C.F_FuenteFinanza,IFNULL(C.F_MarcaComercial,'') as F_MarcaComercial, C.F_unidadFonsabi FROM tb_compratemp C INNER JOIN tb_medica M  ON C.F_ClaPro=M.F_ClaPro INNER JOIN tb_marca MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen as o on C.F_Origen = o.F_ClaOri WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "' and (F_unidadFonsabi = '' || F_unidadFonsabi IS NULL) and F_Estado = '2';";
+                              
+                                     query = "SELECT C.F_Cb,C.F_ClaPro,M.F_DesPro,C.F_Lote,C.F_FecCad,C.F_Pz,F_IdCom,C.F_Costo,C.F_ImpTo,C.F_ComTot,C.F_FolRemi,C.F_Obser,C.F_Origen,IFNULL(C.F_OrdenSuministro,'') as F_OrdenSuministro,MAR.F_ClaMar,MAR.F_DesMar, o.F_DesOri, IFNULL(C.F_CartaCanje,'') AS cartaCanje, C.F_FuenteFinanza,IFNULL(C.F_MarcaComercial,'') as F_MarcaComercial, C.F_unidadFonsabi FROM tb_compratemp C INNER JOIN tb_medica M  ON C.F_ClaPro=M.F_ClaPro INNER JOIN tb_marca MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen as o on C.F_Origen = o.F_ClaOri WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "'  and F_Estado = '2';";
                                
-                                }else{
-                                     query = "SELECT C.F_Cb,C.F_ClaPro,M.F_DesPro,C.F_Lote,C.F_FecCad,C.F_Pz,F_IdCom,C.F_Costo,C.F_ImpTo,C.F_ComTot,C.F_FolRemi,C.F_Obser,C.F_Origen,IFNULL(C.F_OrdenSuministro,'') as F_OrdenSuministro,MAR.F_ClaMar,MAR.F_DesMar, o.F_DesOri, IFNULL(C.F_CartaCanje,'') AS cartaCanje, C.F_FuenteFinanza,IFNULL(C.F_MarcaComercial,'') as F_MarcaComercial, C.F_unidadFonsabi FROM tb_compratemp C INNER JOIN tb_medica M  ON C.F_ClaPro=M.F_ClaPro INNER JOIN tb_marca MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen as o on C.F_Origen = o.F_ClaOri WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "' and c.F_unidadFonsabi = '"+unidadF+"' and F_Estado = '2';";
-                                }
                                     System.out.println(query);
                                 ResultSet rset = con.consulta(query);
                                 while (rset.next()) {
@@ -336,12 +333,13 @@
                                 }
                             %>
                         </td>
-                        <td style="text-align: center; vertical-align: middle;">
+                        <!--<td style="text-align: center; vertical-align: middle;">
                             <input value="<%=rset.getString("cartaCanje")%>" class="form-control" name="F_CartaCanje<%=rset.getString("F_IdCom")%>" readonly/>
                         </td>
                         <td style="text-align: center; vertical-align: middle;"> <input value="<%=rset.getString("F_FuenteFinanza")%>" class="form-control" name="F_FuenteFinanza" readonly> </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <input value="<%=F_OrdenSuministro%>" class="form-control" name="F_OrdenSuministro<%=rset.getString("F_IdCom")%>" readonly/>
+                       -->
                         <td style="text-align: center; vertical-align: middle;">
                             <input value="<%=F_Marca%>" class="form-control" name="F_Marca<%=rset.getString("F_IdCom")%>" id="marca<%=rset.getString("F_IdCom")%>" readonly/>
                         </td>
@@ -438,23 +436,23 @@
                                     <div class="col-sm-4">
                                         <label align="rigth" for="CbNuevo" class="col-sm-10">Codigo de Barras</label>
                                     </div>
-                                    <div class="col-sm-4">
+                                  <!--  <div class="col-sm-4">
                                         <label  for="ordenSuministroNuevo"class="col-sm-10" >Orden de Suministro</label>
                                     </div>
                                     <div class="col-sm-4">
                                         <label  for="cartaCanjeNuevo"class="col-sm-10" >Carta Canje</label>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
                                         <input align="rigth" class="col-sm-10 form-control" id="CbNuevo">
                                     </div>
-                                    <div class="col-sm-4">
+                                    <!--<div class="col-sm-4">
                                         <input class="col-sm-10 form-control" maxlength="40" id="ordenSuministroNuevo" name="ordenSuministroNuevo">
                                     </div>                                      
                                     <div class="col-sm-4">
                                         <input type="text" class="col-sm-10 form-control" maxlength="40" id="cartaCanjeNuevo" name="cartaCanjeNuevo">
-                                    </div>
+                                    </div>-->
                                     <div>
                                         <input type="hidden"class="col-sm-8" maxlength="40" id="origen" name="origen" disabled="disabled"  onchange="validaOrigen()">
                                     </div>
@@ -471,7 +469,7 @@
                                 </select>				                                             
                                 <input class="form-control"  id="MarcaRNuevo" name="MarcaRNuevo" type="text" disabled=""/>
 
-
+<!--
                                 <label for="unidadFonsabi">Unidad:</label>
                                 <select class="form-control" id="UFonnuevo" name="UFonnuevo" onchange="document.getElementById('unidadFonsabi').value = this.options[this.selectedIndex].value"> 
                                     <option value="S/U">Sin conocimieno de unidad destino</option>
@@ -496,7 +494,7 @@
                                     %>
                                 </select>
                                 <input class="form-control" id="unidadFonsabi" name="unidadFonsabi" type="text" disabled=""/> 
-
+-->
 
                                 <label  for="CantidadNuevo" >Cantidad</label>
                                 <input class="form-control" id="CantidadNuevo" type="number" min="1" readonly="">
@@ -535,6 +533,10 @@
                             <br>
                             <br>
                         </div>
+                                
+                                
+                    <!-- /*VOLUMETRIA*/ -->            
+                                
                         <div id="volumetriaTab" class="tab-pane">
                             <h4><strong>Volumetría Peso</strong></h4>
                             <h5><strong>Peso por pieza</strong></h5>
@@ -625,6 +627,8 @@
 
                             </div>
                         </div>
+                                
+                               
                         <div id="volumetriaVolTab" class="tab-pane">
                             <h4><strong>Volumetría Volumen</strong></h4>
                             <br>

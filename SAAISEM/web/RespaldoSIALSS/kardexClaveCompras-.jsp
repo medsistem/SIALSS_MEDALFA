@@ -27,7 +27,7 @@
         tipo = (String) sesion.getAttribute("Tipo");
         Proyecto = (String) sesion.getAttribute("Proyecto");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
 

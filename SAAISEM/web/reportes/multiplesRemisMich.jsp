@@ -152,7 +152,7 @@
                         /////////////////////////////////////
                         /////////proyecto isem///////
                         /////////////////////////////////
-                        if (ProyectoFactura.equals("1")) {
+                     //   if (ProyectoFactura.equals("1")) {
 
                             if (Ban2 == 1) {
                                 if (TipoInsumo.equals("5")) {
@@ -167,6 +167,7 @@
                                             parameters.put("Imgape", Imgape);
                                             parameters.put("RedFria", RedFria);
                                             parameters.put("ImagenControlado", ImagenControlado);
+                                             parameters.put("ProyectoF", ProyectoFactura); 
                                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -197,6 +198,7 @@
                                             parameters.put("Imgape", Imgape);
                                             parameters.put("RedFria", RedFria);
                                             parameters.put("ImagenControlado", ImagenControlado);
+                                             parameters.put("ProyectoF", ProyectoFactura); 
                                             JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                             JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -235,6 +237,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("Imgape", Imgape);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -271,6 +274,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("Imgape", Imgape);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -303,6 +307,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("RedFria", RedFria);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -336,6 +341,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("Imgape", Imgape);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -368,6 +374,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("Imgape", Imgape);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -399,6 +406,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("Imgape", Imgape);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -429,6 +437,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("RedFria", RedFria);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -460,6 +469,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("RedFria", RedFria);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -490,6 +500,7 @@
                                         parameters.put("BanTip", Ban2);
                                         parameters.put("RedFria", RedFria);
                                         parameters.put("ImagenControlado", ImagenControlado);
+                                         parameters.put("ProyectoF", ProyectoFactura); 
                                         JasperPrint jasperPrint = JasperFillManager.fillReport(reportFile.getPath(), parameters, conexion);
                                         JRPrintServiceExporter exporter = new JRPrintServiceExporter();
                                         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -507,7 +518,7 @@
                                     }
                                 }//APE onco
                             }//FIN DE BAN ONCO 
-                          }//FIN DEL PROYECTO 1
+                      //    }//FIN DEL PROYECTO 1
         }//FIN DEL CICLO FOLIOS C
                 conexion.close (); 
                        

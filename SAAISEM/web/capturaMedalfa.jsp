@@ -29,11 +29,11 @@
         IdUsu = (String) sesion.getAttribute("IdUsu");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("indexMedalfa.jsp");
+        response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
     CapturaPedidos indice = new CapturaPedidos();
-    String proveedor = "", fecEnt = "", horEnt = "", claPro = "", desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "", Campo = "", TipoOC = "", zona="";
+    String proveedor = "", fecEnt = "", horEnt = "", claPro = "", desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "", Campo = "", TipoOC = "", zona = "";
     try {
         Proyecto = request.getParameter("Proyecto");
         Desproyecto = request.getParameter("DesProyecto");
@@ -73,7 +73,7 @@
     if (Campo == null) {
         Campo = "";
     }
-    
+
     if (zona == null) {
         zona = "";
     }
@@ -103,7 +103,7 @@
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="jspf/menuPrincipalCompra.jspf" %>
             <h4>Captura OC Proyecto <%=Desproyecto%></h4>
-          
+
             <hr/>
             <br/>
 
@@ -135,9 +135,9 @@
                                 try {
                                     con.conectar();
                                     ResultSet rset = null;
-                              
-                                        rset = con.consulta("SELECT F_ClaProve,F_NomPro FROM tb_proveedor;");
-                                  
+
+                                    rset = con.consulta("SELECT F_ClaProve,F_NomPro FROM tb_proveedor;");
+
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>"
@@ -161,51 +161,52 @@
                             %>
 
                         </select>
-                         
-                    </div>
-                            <label class="col-sm-1">
-                        <h4>Zona:</h4>
-                    </label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="Zona" id="Zona" onchange="SelectProve(this.form);
-                                document.getElementById('Fecha').focus()">
-                            <option value="">--ZONA--</option>
-                            <%
-                                try {
-                                    con.conectar();
-                                    ResultSet rset = null;
-                                    
-                                        rset = con.consulta("SELECT P.F_Zona FROM tb_prodprov P GROUP BY F_Zona;");
-                                    
-                                    while (rset.next()) {
-                            %>
-                            <option value="<%=rset.getString(1)%>"
-                                    <%
-                                        if (zona.equals(rset.getString(1))) {
-                                            out.println("selected");
-                                        }
-                                    %>
-                                    ><%=rset.getString(1)%></option>
-                            <%
-                                    }
-                                } catch (Exception e) {
-                                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
-                                } finally {
-                                    try {
-                                        con.cierraConexion();
-                                    } catch (SQLException ex) {
-                                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
-                                    }
-                                }
-                            %>
 
-                        </select>
                     </div>
-                           
-                    <div class="col-sm-1">
-                        <button class="btn btn-success btn-block" onclick="return validaClaDes(this);" name="accion" value="MostrarProvee">Mostrar</button>
-                    </div>
-                
+                    <!--
+                    <label class="col-sm-1">
+                <h4>Zona:</h4>
+            </label>
+            <div class="col-sm-2">
+                <select class="form-control" name="Zona" id="Zona" onchange="SelectProve(this.form);
+                        document.getElementById('Fecha').focus()">
+                    <option value="">--ZONA--</option>
+                    <%
+                        try {
+                            con.conectar();
+                            ResultSet rset = null;
+
+                            rset = con.consulta("SELECT P.F_Zona FROM tb_prodprov P GROUP BY F_Zona;");
+
+                            while (rset.next()) {
+                    %>
+                    <option value="<%=rset.getString(1)%>"
+                    <%
+                        if (zona.equals(rset.getString(1))) {
+                            out.println("selected");
+                        }
+                    %>
+                    ><%=rset.getString(1)%></option>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                        } finally {
+                            try {
+                                con.cierraConexion();
+                            } catch (SQLException ex) {
+                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    %>
+
+                </select>
+            </div>
+                   
+            <div class="col-sm-1">
+                <button class="btn btn-success btn-block" onclick="return validaClaDes(this);" name="accion" value="MostrarProvee">Mostrar</button>
+            </div>
+                    -->
                 </div>
                 <div class="row">
                     <label class="col-sm-2">
@@ -258,7 +259,7 @@
                 <div class="row">
 
                     <label class="col-sm-1 text-right">
-                        <h4>Clave:<%=proveedor%></h4>
+                        <h4>Clave:</h4>
                     </label>
                     <div class="col-sm-8">
                         <select name="Clave" id="Clave" class="form-control">
@@ -267,9 +268,9 @@
                                 try {
                                     con.conectar();
                                     ResultSet rset = null;
-                                  
-                                        rset = con.consulta("SELECT F_ClaPro,CONCAT(F_ClaPro,' - ',F_DesPro) FROM tb_medica WHERE " + Campo + "= 1 AND F_StsPro='A';");
-                              
+
+                                    rset = con.consulta("SELECT F_ClaPro,CONCAT(F_ClaPro,' - ',F_DesPro) FROM tb_medica WHERE " + Campo + "= 1 AND F_StsPro='A';");
+
                                     while (rset.next()) {
                             %>
                             <option value="<%=rset.getString(1)%>"
@@ -414,7 +415,7 @@
                                 <select  class="form-control" name="Prioridad" id="Prioridad" onchange="document.getElementById('CanPro').focus()" >
                                     <option selected="">1-2024</option>
                                     <option>2-2025</option>
-                             
+
                                     <option>ND</option>
                                 </select>
                             </div>

@@ -79,7 +79,7 @@ public class loginISEM extends HttpServlet {
 
                     } else {
                         sesion.setAttribute("mensaje", "No tienes Proyecto asignado");
-                        response.sendRedirect("indexMedalfa.jsp");
+                        response.sendRedirect("indexCompras.jsp");
                     }
                 } else {//--------------------------EL USUARIO NO ES VÁLIDO
                     Integer Contar = null;
@@ -95,7 +95,7 @@ public class loginISEM extends HttpServlet {
                         mensaje = "Usuario Suspendido, favor de contactar al departamento de sistemas.";
                     }
                     sesion.setAttribute("mensaje", mensaje);
-                    response.sendRedirect("indexMedalfa.jsp");
+                    response.sendRedirect("indexCompras.jsp");
                 }
 
             } catch (SQLException | IOException e) {

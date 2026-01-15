@@ -86,9 +86,9 @@
                                 <th class="text-center">IVA</th>
                                 <th class="text-center">Importe</th>
                                 <th class="text-center">Caducidad</th>
-                                <th class="text-center">Carta canje</th>
+                             <!--<th class="text-center">Carta canje</th>
                                 <th class="text-center">Fuente financiamiento</th>
-                                <th class="text-center">Orden de suministro</th>
+                                <th class="text-center">Orden de suministro</th> -->
                                 <th class="text-center">Marca</th>
                                 <th class="text-center">Nombre comercial</th>  
                             </tr>
@@ -102,11 +102,11 @@
                                         
                                         String query = "";
                                         
-                                        if(unidadF == null || unidadF == "" || unidadF.equals("null")){
+                                     /*   if(unidadF == null || unidadF == "" || unidadF.equals("null")){
                                             query = "SELECT C.F_Cb, C.F_ClaPro, M.F_DesPro, C.F_Lote, C.F_FecCad, C.F_Pz, C.F_IdCom, C.F_Costo, C.F_ImpTo, C.F_ComTot, C.F_FolRemi, C.F_Obser, C.F_Origen, MAR.F_ClaMar, MAR.F_DesMar, O.F_DesOri, C.F_CartaCanje, C.F_FuenteFinanza, C.F_OrdenSuministro, C.F_MarcaComercial FROM tb_compratemp AS C INNER JOIN tb_medica AS M ON C.F_ClaPro = M.F_ClaPro INNER JOIN tb_marca AS MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen AS O ON C.F_Origen = O.F_ClaOri WHERE C.F_OrdCom = '" + orden_compra + "' AND C.F_FolRemi = '" + fol_remi + "' and (F_unidadFonsabi = '' || F_unidadFonsabi IS NULL) AND C.F_Estado = '2';";
-                                        } else{
-                                           query = "SELECT C.F_Cb, C.F_ClaPro, M.F_DesPro, C.F_Lote, C.F_FecCad, C.F_Pz, C.F_IdCom, C.F_Costo, C.F_ImpTo, C.F_ComTot, C.F_FolRemi, C.F_Obser, C.F_Origen, MAR.F_ClaMar, MAR.F_DesMar, O.F_DesOri, C.F_CartaCanje, C.F_FuenteFinanza, C.F_OrdenSuministro, C.F_MarcaComercial FROM tb_compratemp AS C INNER JOIN tb_medica AS M ON C.F_ClaPro = M.F_ClaPro INNER JOIN tb_marca AS MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen AS O ON C.F_Origen = O.F_ClaOri WHERE C.F_OrdCom = '" + orden_compra + "' AND C.F_FolRemi = '" + fol_remi + "' AND c.F_unidadFonsabi = '" + unidadF + "' AND C.F_Estado = '2';"; 
-                                        }
+                                        } else{*/
+                                           query = "SELECT C.F_Cb, C.F_ClaPro, M.F_DesPro, C.F_Lote, C.F_FecCad, C.F_Pz, C.F_IdCom, C.F_Costo, C.F_ImpTo, C.F_ComTot, C.F_FolRemi, C.F_Obser, C.F_Origen, MAR.F_ClaMar, MAR.F_DesMar, O.F_DesOri, C.F_CartaCanje, C.F_FuenteFinanza, C.F_OrdenSuministro, C.F_MarcaComercial FROM tb_compratemp AS C INNER JOIN tb_medica AS M ON C.F_ClaPro = M.F_ClaPro INNER JOIN tb_marca AS MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen AS O ON C.F_Origen = O.F_ClaOri WHERE C.F_OrdCom = '" + orden_compra + "' AND C.F_FolRemi = '" + fol_remi + "'  AND C.F_Estado = '2';"; 
+                                      /*  } */
                                         System.out.println(query);
                                         System.out.println("unidad: " + unidadF);
                                         ResultSet rset = con.consulta(query);
@@ -159,9 +159,9 @@
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=formatterDecimal.format(rset.getDouble("C.F_ImpTo"))%></td>          
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=formatterDecimal.format(rset.getDouble("C.F_ComTot"))%></td>
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=F_FecCad%></td>
-                                <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_CartaCanje")%></td>
+                               <!-- <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_CartaCanje")%></td>
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_FuenteFinanza")%></td>
-                                <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_OrdenSuministro")%></td>
+                                <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_OrdenSuministro")%></td>-->
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=F_Marca%></td>
                                 <td style="text-align: center; vertical-align: middle;" class="text-center"><%=rset.getString("F_MarcaComercial")%></td>
                             </tr>
