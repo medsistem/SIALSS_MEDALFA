@@ -29,20 +29,20 @@
         response.sendRedirect("index.jsp");
     }
     ConectionDB con = new ConectionDB();
-    String vOrden = "", vRemi = "", tipoRV = "", UbicaN = "", MarcaR="", ClaPro="", unidadF = "";
+    String vOrden = "", vRemi = "", tipoRV = "", UbicaN = "", MarcaR = "", ClaPro = "", unidadF = "";
 
     try {
-        
+
         vOrden = (String) sesion.getAttribute("vOrden");
         vRemi = (String) sesion.getAttribute("vRemi");
-        unidadF = (String) sesion.getAttribute("tipoRV");        
+        unidadF = (String) sesion.getAttribute("tipoRV");
     } catch (Exception e) {
-       
+
     }
 
     try {
         String Folio = "";
-        
+
         String folio[] = null;
         Folio = request.getParameter("NoCompra");
         sesion.removeAttribute("tipoRV");
@@ -50,20 +50,19 @@
             folio = Folio.split(",");
             sesion.setAttribute("vOrden", folio[0]);
             sesion.setAttribute("vRemi", folio[1]);
-            if(!folio[2].equals("null")){
-            sesion.setAttribute("tipoRV", folio[2]);            
+            if (!folio[2].equals("null")) {
+                sesion.setAttribute("tipoRV", folio[2]);
             }
             vOrden = folio[0];
             vRemi = folio[1];
             unidadF = folio[2];
-           
-            
+
         }
     } catch (Exception e) {
     }
-            System.out.println("vorden : " + vOrden);
-            System.out.println("vRemi : " + vRemi);
-            System.out.println("tipoRV : " +  sesion.getAttribute("tipoRV") );
+    System.out.println("vorden : " + vOrden);
+    System.out.println("vRemi : " + vRemi);
+    System.out.println("tipoRV : " + sesion.getAttribute("tipoRV"));
 %>
 <html>
     <head>
@@ -80,7 +79,12 @@
     <div class="container">
         <h1>MEDALFA</h1>
         <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
-        <%@include file="../jspf/menuPrincipal.jspf" %>
+
+        <%if (tipo.equals("13") || tipo.equals("14")) {%>
+        <%@include file="jspf/menuPrincipalCompra.jspf" %>
+        <% } else {%>
+        <%@include file="jspf/menuPrincipal.jspf" %>
+        <% } %>
         <form action="verificarCompraAuto.jsp" method="post">
             <br/>
             <div class="row">
@@ -92,11 +96,16 @@
                         <%    try {
                                 con.conectar();
                                 ResultSet rset = null;
+                                if (tipo.equals("13") || tipo.equals("14")) {
+                                    rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, c.F_Origen FROM tb_compratemp c INNER JOIN tb_proveedor p ON c.F_Provee = p.F_ClaProve INNER JOIN tb_usuariocompra uc ON uc.F_Usu = c.F_User WHERE c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi;");
 
-                               // rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, IFNULL(c.F_unidadFonsabi, '') AS F_unidadFonsabi,c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi, c.F_unidadFonsabi");
-                                rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi;");
+                                } else {
+                                    rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi;");
+
+                                }
+                                // rset = con.consulta("SELECT c.F_OrdCom, p.F_NomPro, c.F_FolRemi, IFNULL(c.F_unidadFonsabi, '') AS F_unidadFonsabi,c.F_Origen FROM tb_compratemp c, tb_proveedor p WHERE c.F_Provee = p.F_ClaProve and c.F_Estado = '2' GROUP BY c.F_OrdCom, c.F_FolRemi, c.F_unidadFonsabi");
                                 while (rset.next()) {
-                                    
+
                         %>
                         <option value="<%=rset.getString(1)%>,<%=rset.getString(3)%>,<%=rset.getString(4)%>"><%=rset.getString(2)%> - <%=rset.getString(1)%> - <%=rset.getString(3)%> - <%=rset.getString(4)%></option>
                         <%
@@ -122,9 +131,9 @@
                         <option selected disabled>-- Ubicacion --</option>
                         <%  try {
                                 con.conectar();
-                                ResultSet rsetU = null; 
+                                ResultSet rsetU = null;
                                 ResultSet tsrtIdori = null;
-                            /*    
+                                /*    
                                 tsrtIdori = con.consulta ("SELECT C.F_Origen FROM tb_compratemp C WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "' and F_Estado = '2';");
                                 
                                 while (tsrtIdori.next()){
@@ -140,9 +149,16 @@
                                        rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.DescUbi RLIKE 'CE23' ORDER BY u.IdUbi ASC");
                                     
                                     } else {
-                                   */     System.out.println("IdOrigen == Normal");
-                                       rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A'  ORDER BY u.IdUbi ASC");
-                                   /*   
+                                 */
+                                  if (tipo.equals("13") || tipo.equals("14")) {
+                                    rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.F_ClaCli = 2 ORDER BY u.IdUbi ASC");
+
+                                } else {
+                                    rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A'  ORDER BY u.IdUbi ASC");
+
+                                }
+                                System.out.println("IdOrigen == Normal");
+                                /*   
                                     }
                                     
                                   //  rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.DescUbi LIKE 'NUEVA%' ORDER BY u.IdUbi ASC");
@@ -152,14 +168,15 @@
                                     rsetU = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.F_ClaCli = '" + unidadF + "' AND u.DescUbi NOT RLIKE 'CE23'  ORDER BY u.IdUbi ASC");                                    
                                     
                                     }
-                                */
-                                
-                                while (rsetU.next()) {                                    
+                                 */
+
+                                while (rsetU.next()) {
                         %>
                         <option value="<%=rsetU.getString("DescUbi")%>" > <%=rsetU.getString("DescUbi")%> </option>
                         <%
-                            UbicaN = rsetU.getString("DescUbi");             }
-                                
+                                    UbicaN = rsetU.getString("DescUbi");
+                                }
+
                             } catch (Exception e) {
                                 System.out.println("error--->" + e);
                             } finally {
@@ -190,7 +207,7 @@
                         con.conectar();
                         ResultSet rset = con.consulta("SELECT i.F_NoCompra, DATE_FORMAT(i.F_FecSur, '%d/%m/%Y') as F_FecSur, i.F_HorSur, p.F_NomPro, p.F_ClaProve from tb_pedido_sialss i, tb_proveedor p where i.F_Provee = p.F_ClaProve and F_StsPed = '1' and F_NoCompra = '" + vOrden + "'  and F_recibido='0' group by F_NoCompra");
                         while (rset.next()) {
-                                
+
 
                 %>
                 <div class="row">
@@ -240,9 +257,9 @@
                         <th class="text-center">IVA</th>
                         <th class="text-center">Importe</th>
                         <th class="text-center">Caducidad</th>
-                      <!--  <th class="text-center">Carta Canje</th>
-                        <th class="text-center">Fuente Financiamiento</th>
-                        <th class="text-center">Orden de Suministro</th> -->
+                        <!--  <th class="text-center">Carta Canje</th>
+                          <th class="text-center">Fuente Financiamiento</th>
+                          <th class="text-center">Orden de Suministro</th> -->
                         <th class="text-center">Marca</th>                       
                         <th class="text-center">Nombre Comercial</th>                              
                         <th class="text-center">Editar</th>
@@ -250,22 +267,22 @@
                         </thead>
 
                         <%
-                            int banBtn = 0,contemarca=0;
+                            int banBtn = 0, contemarca = 0;
                             String query = "";
                             try {
                                 con.conectar();
-                              
-                                     query = "SELECT C.F_Cb,C.F_ClaPro,M.F_DesPro,C.F_Lote,C.F_FecCad,C.F_Pz,F_IdCom,C.F_Costo,C.F_ImpTo,C.F_ComTot,C.F_FolRemi,C.F_Obser,C.F_Origen,IFNULL(C.F_OrdenSuministro,'') as F_OrdenSuministro,MAR.F_ClaMar,MAR.F_DesMar, o.F_DesOri, IFNULL(C.F_CartaCanje,'') AS cartaCanje, C.F_FuenteFinanza,IFNULL(C.F_MarcaComercial,'') as F_MarcaComercial, C.F_unidadFonsabi FROM tb_compratemp C INNER JOIN tb_medica M  ON C.F_ClaPro=M.F_ClaPro INNER JOIN tb_marca MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen as o on C.F_Origen = o.F_ClaOri WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "'  and F_Estado = '2';";
-                               
-                                    System.out.println(query);
+
+                                query = "SELECT C.F_Cb,C.F_ClaPro,M.F_DesPro,C.F_Lote,C.F_FecCad,C.F_Pz,F_IdCom,C.F_Costo,C.F_ImpTo,C.F_ComTot,C.F_FolRemi,C.F_Obser,C.F_Origen,IFNULL(C.F_OrdenSuministro,'') as F_OrdenSuministro,MAR.F_ClaMar,MAR.F_DesMar, o.F_DesOri, IFNULL(C.F_CartaCanje,'') AS cartaCanje, C.F_FuenteFinanza,IFNULL(C.F_MarcaComercial,'') as F_MarcaComercial, C.F_unidadFonsabi FROM tb_compratemp C INNER JOIN tb_medica M  ON C.F_ClaPro=M.F_ClaPro INNER JOIN tb_marca MAR ON C.F_Marca = MAR.F_ClaMar INNER JOIN tb_origen as o on C.F_Origen = o.F_ClaOri WHERE F_OrdCom='" + vOrden + "' and F_FolRemi = '" + vRemi + "'  and F_Estado = '2';";
+
+                                System.out.println(query);
                                 ResultSet rset = con.consulta(query);
                                 while (rset.next()) {
-                                    ResultSet rsetmarca = con.consulta("select count(*) from tb_nombrecomercial where F_ClaPro = "+rset.getString("F_ClaPro") );
+                                    ResultSet rsetmarca = con.consulta("select count(*) from tb_nombrecomercial where F_ClaPro = " + rset.getString("F_ClaPro"));
                                     while (rsetmarca.next()) {
                                         contemarca = rsetmarca.getInt(1);
                                     }
                                     banBtn = 1;
-                                    String F_FecCad = "", F_Cb = "", F_OrdenSuministro = "", F_Marca = "", F_CartaCanje  = "", F_FuenteFinanza = "", F_nomComer="";
+                                    String F_FecCad = "", F_Cb = "", F_OrdenSuministro = "", F_Marca = "", F_CartaCanje = "", F_FuenteFinanza = "", F_nomComer = "";
 
                                     try {
                                         F_FuenteFinanza = rset.getString("F_FuenteFinanza");
@@ -273,9 +290,9 @@
                                         F_OrdenSuministro = rset.getString("F_OrdenSuministro");
                                         F_FecCad = rset.getString(5);
                                         F_Cb = rset.getString("F_Cb");
-                                        F_nomComer = rset.getString("F_MarcaComercial");                                                
+                                        F_nomComer = rset.getString("F_MarcaComercial");
                                         ClaPro = rset.getString("F_ClaPro");
-                                          if (F_Cb.equals(" ")) {
+                                        if (F_Cb.equals(" ")) {
                                             F_Cb = "";
                                         }
                                         if (F_Cb.equals("")) {
@@ -294,7 +311,7 @@
                                                 F_Marca = rset2.getString("F_ClaMar");
                                             }
                                         }
-                                                
+
                                         if (F_Marca.equals("")) {
                                             ResultSet rset2 = con.consulta("SELECT F_DesMar FROM tb_marca WHERE F_ClaMar = '" + F_Marca + "'");
                                             while (rset2.next()) {
@@ -302,12 +319,11 @@
                                             }
                                         }
                                         F_Marca = rset.getString("F_DesMar");
-                                    
-                                              
+
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    
+
                         %>
 
                         <tbody>
@@ -339,7 +355,7 @@
                         <td style="text-align: center; vertical-align: middle;"> <input value="<%=rset.getString("F_FuenteFinanza")%>" class="form-control" name="F_FuenteFinanza" readonly> </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <input value="<%=F_OrdenSuministro%>" class="form-control" name="F_OrdenSuministro<%=rset.getString("F_IdCom")%>" readonly/>
-                       -->
+                        -->
                         <td style="text-align: center; vertical-align: middle;">
                             <input value="<%=F_Marca%>" class="form-control" name="F_Marca<%=rset.getString("F_IdCom")%>" id="marca<%=rset.getString("F_IdCom")%>" readonly/>
                         </td>
@@ -436,12 +452,12 @@
                                     <div class="col-sm-4">
                                         <label align="rigth" for="CbNuevo" class="col-sm-10">Codigo de Barras</label>
                                     </div>
-                                  <!--  <div class="col-sm-4">
-                                        <label  for="ordenSuministroNuevo"class="col-sm-10" >Orden de Suministro</label>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label  for="cartaCanjeNuevo"class="col-sm-10" >Carta Canje</label>
-                                    </div>-->
+                                    <!--  <div class="col-sm-4">
+                                          <label  for="ordenSuministroNuevo"class="col-sm-10" >Orden de Suministro</label>
+                                      </div>
+                                      <div class="col-sm-4">
+                                          <label  for="cartaCanjeNuevo"class="col-sm-10" >Carta Canje</label>
+                                      </div>-->
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
@@ -469,32 +485,32 @@
                                 </select>				                                             
                                 <input class="form-control"  id="MarcaRNuevo" name="MarcaRNuevo" type="text" disabled=""/>
 
-<!--
-                                <label for="unidadFonsabi">Unidad:</label>
-                                <select class="form-control" id="UFonnuevo" name="UFonnuevo" onchange="document.getElementById('unidadFonsabi').value = this.options[this.selectedIndex].value"> 
-                                    <option value="S/U">Sin conocimieno de unidad destino</option>
-                                    <%                                            try {
-                                            con.conectar();
+                                <!--
+                                                                <label for="unidadFonsabi">Unidad:</label>
+                                                                <select class="form-control" id="UFonnuevo" name="UFonnuevo" onchange="document.getElementById('unidadFonsabi').value = this.options[this.selectedIndex].value"> 
+                                                                    <option value="S/U">Sin conocimieno de unidad destino</option>
+                                <%                                            try {
+                                        con.conectar();
 
-                                          ResultSet  rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
-                                            while (rset3.next()) {
-                                    %>
-                                    <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
-                                    <%
-                                            }
-                                        } catch (Exception e) {
-                                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
-                                        } finally {
-                                            try {
-                                                con.cierraConexion();
-                                            } catch (Exception ex) {
-                                                Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
-                                            }
+                                        ResultSet rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
+                                        while (rset3.next()) {
+                                %>
+                                <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
+                                <%
                                         }
-                                    %>
-                                </select>
-                                <input class="form-control" id="unidadFonsabi" name="unidadFonsabi" type="text" disabled=""/> 
--->
+                                    } catch (Exception e) {
+                                        Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
+                                    } finally {
+                                        try {
+                                            con.cierraConexion();
+                                        } catch (Exception ex) {
+                                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+                                %>
+                            </select>
+                            <input class="form-control" id="unidadFonsabi" name="unidadFonsabi" type="text" disabled=""/> 
+                                -->
 
                                 <label  for="CantidadNuevo" >Cantidad</label>
                                 <input class="form-control" id="CantidadNuevo" type="number" min="1" readonly="">
@@ -533,10 +549,10 @@
                             <br>
                             <br>
                         </div>
-                                
-                                
-                    <!-- /*VOLUMETRIA*/ -->            
-                                
+
+
+                        <!-- /*VOLUMETRIA*/ -->            
+
                         <div id="volumetriaTab" class="tab-pane">
                             <h4><strong>Volumetría Peso</strong></h4>
                             <h5><strong>Peso por pieza</strong></h5>
@@ -627,8 +643,8 @@
 
                             </div>
                         </div>
-                                
-                               
+
+
                         <div id="volumetriaVolTab" class="tab-pane">
                             <h4><strong>Volumetría Volumen</strong></h4>
                             <br>
@@ -986,8 +1002,7 @@
 
         %>
             var availableTags = [
-        <%               
-            ResultSet rset1 = con.consulta("select F_DesMar from tb_marca");
+        <%            ResultSet rset1 = con.consulta("select F_DesMar from tb_marca");
             while (rset1.next()) {
                 out.println("'" + rset1.getString(1) + "',");
             }

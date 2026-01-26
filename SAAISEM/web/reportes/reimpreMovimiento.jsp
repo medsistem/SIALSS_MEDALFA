@@ -15,29 +15,34 @@
     HttpSession sesion = request.getSession();
     ConectionDB con = new ConectionDB();
     String usua = "";
+    
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
     } else {
         response.sendRedirect("index.jsp");
     }
-    String folio_gnk = request.getParameter("fol_gnkl");
+    
+    String fol_Mov = request.getParameter("fol_Mov");
     String fecha = request.getParameter("fecha");
     String concepto = request.getParameter("concepto");
-   
-    /*Establecemos la ruta del reporte*/
+    
+    System.out.println("Parametros: "+fol_Mov+" / "+fecha+" / "+concepto);
+    System.out.println("Fecha: "+fecha);
+    
     File reportFile = new File(application.getRealPath("/reportes/ImprimeMovimiento.jasper"));
-    /* No enviamos parámetros porque nuestro reporte no los necesita asi que escriba 
-     cualquier cadena de texto ya que solo seguiremos el formato del método runReportToPdf*/
+    
     Map parameters = new HashMap();
-    parameters.put("Folfact", folio_gnk);
+    parameters.put("Folfact", fol_Mov);
     parameters.put("fecha", fecha);
     parameters.put("concepto", concepto);
-    /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
-    byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters,con.getConn());
-    /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
+    
+    byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, con.getConn());
+    
+    response.setContentType("application/pdf");
     response.setContentLength(bytes.length);
     ServletOutputStream ouputStream = response.getOutputStream();
-    ouputStream.write(bytes, 0, bytes.length); /*Limpiamos y cerramos flujos de salida*/ ouputStream.flush();
+    ouputStream.write(bytes, 0, bytes.length); 
+    ouputStream.flush();
     ouputStream.close();
-    con.cierraConexion();
+     con.cierraConexion();
 %>

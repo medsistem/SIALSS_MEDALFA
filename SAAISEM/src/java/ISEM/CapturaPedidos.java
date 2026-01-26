@@ -69,7 +69,7 @@ public class CapturaPedidos extends HttpServlet {
                 out.println("<script>window.location='verFoliosMedalfa.jsp'</script>");
                 con.cierraConexion();
             }
-            
+
             if (request.getParameter("accion").equals("verFolio")) {
                 con.conectar();
 
@@ -107,7 +107,6 @@ public class CapturaPedidos extends HttpServlet {
 //                con.cierraConexion();
 //                response.sendRedirect("capturaEnseres.jsp");
 //            }
-
             if (request.getParameter("accion").equals("Actualizar")) {
                 sesion.setAttribute("NoOrdCompra", request.getParameter("NoCompra"));
                 out.println("<script>window.location='capturaMedalfa.jsp'</script>");
@@ -143,7 +142,7 @@ public class CapturaPedidos extends HttpServlet {
             }
 
             if (request.getParameter("accion").equals("Clave")) {
-
+                request.setCharacterEncoding("UTF-8");
                 PreparedStatement ps;
 
                 String NoCompra = request.getParameter("NoCompra");
@@ -402,7 +401,7 @@ public class CapturaPedidos extends HttpServlet {
                 }
             }
             if (request.getParameter("accion").equals("capturar")) {
-                String Proyecto = "", DesProyecto = "", Campo = "", TipoOC = "", Zona = "", ZonaOC="";
+                String Proyecto = "", DesProyecto = "", Campo = "", TipoOC = "", Zona = "", ZonaOC = "";
                 try {
                     con.conectar();
                     String ClaPro, Priori, Lote, Cadu, Cant, Observaciones, WHERE = "", ClaveSS = "";
@@ -414,8 +413,8 @@ public class CapturaPedidos extends HttpServlet {
                     Cant = request.getParameter("CanPro");
                     DesProyecto = request.getParameter("DesProyecto");
                     Campo = request.getParameter("Campo");
-                  //  TipoOC = request.getParameter("TipoOC");
-                  TipoOC = "NORMAL";
+                    //  TipoOC = request.getParameter("TipoOC");
+                    TipoOC = "NORMAL";
                     ZonaOC = request.getParameter("ZonaOC");
                     byte[] a = request.getParameter("Observaciones").getBytes("ISO-8859-1");
                     Observaciones = (new String(a, "UTF-8")).toUpperCase();
@@ -572,7 +571,6 @@ public class CapturaPedidos extends HttpServlet {
 //                }
 //
 //            }
-
             if (request.getParameter("accion").equals("capturarRegistro")) {
                 String Proyecto = "", DesProyecto = "", Campo = "", NoCompra = "";
                 try {
@@ -720,7 +718,6 @@ public class CapturaPedidos extends HttpServlet {
 //                con.cierraConexion();
 //                response.sendRedirect("capturaEnseres.jsp");
 //            }
-
             if (request.getParameter("accion").equals("eliminarRemi")) {
                 con.conectar();
                 try {
@@ -749,7 +746,7 @@ public class CapturaPedidos extends HttpServlet {
                 out.println("<script>alert('Se validó la orden " + request.getParameter("F_NoCompra") + " corrercetamente')</script>");
                 out.println("<script>window.location='ordenesCompra.jsp'</script>");
             }
-            
+
             if (request.getParameter("accion").equals("confirmar")) {
                 con.conectar();
                 String Proyecto = "", DesProyecto = "", Campo = "", TipoOC = "";
@@ -815,7 +812,6 @@ public class CapturaPedidos extends HttpServlet {
 //                }
 //                response.sendRedirect("capturaEnseres.jsp");
 //            }
-
             if (request.getParameter("accion").equals("reactivar")) {
                 con.conectar();
                 try {

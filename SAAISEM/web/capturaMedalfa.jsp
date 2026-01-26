@@ -36,7 +36,8 @@
     String proveedor = "", fecEnt = "", horEnt = "", claPro = "", desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "", Campo = "", TipoOC = "", zona = "";
     try {
         Proyecto = request.getParameter("Proyecto");
-        Desproyecto = request.getParameter("DesProyecto");
+        request.setCharacterEncoding("UTF-8");
+        Desproyecto = (String) request.getParameter("DesProyecto");
         Campo = request.getParameter("Campo");
         TipoOC = request.getParameter("TipoOC");
         NoCompra = (String) sesion.getAttribute("NoCompra");
@@ -130,7 +131,7 @@
                     <div class="col-sm-6">
                         <select class="form-control" name="Proveedor" id="Proveedor" onchange="SelectProve(this.form);
                                 document.getElementById('Fecha').focus()">
-                            <option value="">--Proveedor--</option>
+                                    <option selected disabled>--Proveedor--</option>
                             <%
                                 try {
                                     con.conectar();
@@ -221,7 +222,7 @@
                     <div class="col-sm-2">
                         <select class="form-control" id="Hora" name="Hora" onchange="document.getElementById('Clave').focus()">
                             <%
-                                for (int i = 0; i < 24; i++) {
+                                for (int i = 7; i < 24; i++) {
                                     if (i != 24) {
                             %>
                             <option value="<%=i%>:00"

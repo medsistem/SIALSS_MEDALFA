@@ -79,6 +79,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             //con = ConectionDB.instancias.get(0);
             con.conectar();
             pw = response.getWriter();
+            System.out.println("Proyecto: "+Proyecto+"  "+Tipo);
             DecimalFormat formatter = new DecimalFormat("#,###,###");
             String QueryProyecto = "SELECT F_DesProy FROM tb_proyectos WHERE F_Id = ?;";
             if (Proyecto.equals("0")) {
@@ -155,7 +156,10 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             //rowHeadInv.createCell((int) 0).setCellValue((RichTextString) pict);
 
             index = 4;
-
+             if (Tipo.equals("Compra")) {
+                Consulta = "2"; 
+             }
+            System.out.println("consulta: "+Consulta);
             rowHeadInv = sheet.createRow(index);
             switch (Consulta) {
                 case "1":

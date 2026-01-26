@@ -14,9 +14,10 @@
 <%
 
     HttpSession sesion = request.getSession();
-    String usua = "", DesProyecto = "", Proyecto = "", clave="";
+    String usua = "", DesProyecto = "", Proyecto = "", clave = "", tipo = "";
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
+        tipo = (String) sesion.getAttribute("Tipo");
     } else {
         response.sendRedirect("index.jsp");
     }
@@ -33,8 +34,8 @@
     if (Proyecto == null) {
         Proyecto = "";
     }
-     clave = (String) sesion.getAttribute("ClaProFM");
-     System.out.println("clave: "+clave);
+    clave = (String) sesion.getAttribute("ClaProFM");
+    System.out.println("clave: " + clave);
     ConectionDB con = new ConectionDB();
 %>
 <html>
@@ -67,24 +68,24 @@
                                 <label for="Clave" class="col-xs-2 control-label">Clave*</label>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" id="clave" name="clave" placeholder="Clave" value="<%=clave%>" onKeyPress="return tabular(event, this)" readonly>
-                               
-                                   <!--select id="clave" name="clave" >
-                                       <option value="< %=clave%>" disabled>< %=clave%></option>                                    
-                                        < %
-                                            try {
-                                                con.conectar();
-                                                ResultSet rset = con.consulta("SELECT F_ClaPro FROM tb_medica;");
-                                                while (rset.next()) {
-                                        %>
-                                        <option value="< %=rset.getString(1)%>">< %=rset.getString(1)%></option>                                        
-                                        < %
-                                                }
-                                                con.cierraConexion();
-                                            } catch (Exception e) {
-                                                out.println(e.getMessage());
-                                            }
-                                        %>
-                                    </select-->
+
+                                    <!--select id="clave" name="clave" >
+                                        <option value="< %=clave%>" disabled>< %=clave%></option>                                    
+                                         < %
+                                             try {
+                                                 con.conectar();
+                                                 ResultSet rset = con.consulta("SELECT F_ClaPro FROM tb_medica;");
+                                                 while (rset.next()) {
+                                         %>
+                                         <option value="< %=rset.getString(1)%>">< %=rset.getString(1)%></option>                                        
+                                         < %
+                                                 }
+                                                 con.cierraConexion();
+                                             } catch (Exception e) {
+                                                 out.println(e.getMessage());
+                                             }
+                                         %>
+                                     </select-->
                                 </div>
                                 <label for="Lote" class="col-xs-1 control-label">Lote*</label>
                                 <div class="col-xs-3">
@@ -192,7 +193,13 @@
                                         <%
                                             try {
                                                 con.conectar();
-                                                ResultSet rset = con.consulta("SELECT * FROM tb_ubicanueva;");
+                                                ResultSet rset = null;
+                                                if (tipo.equals("14")) {
+                                                    rset = con.consulta("SELECT u.IdUbi, u.DescUbi FROM tb_ubicanueva AS u WHERE u.status = 'A' AND u.F_ClaCli = 2 ORDER BY u.IdUbi ASC");
+
+                                                } else {
+                                                    rset = con.consulta("SELECT * FROM tb_ubicanueva;");
+                                                }
                                                 while (rset.next()) {
                                         %>
                                         <option value="<%=rset.getString(2)%>"><%=rset.getString(2)%></option>                                        
@@ -214,8 +221,8 @@
                             </div>
                         </div>
                         <input type="hidden" readonly class="form-control" name="Proyecto" id="Proyecto" value="<%=Proyecto%>"/>
-                      
-                               
+
+
                         <button class="btn btn-block btn-primary" type="submit" name="accion" value="NuevoLote" onclick="return valida_alta();"> Guardar</button> 
                         <a class="btn btn-block btn-info" onclick="window.close();">Salir</a>
                     </form>
@@ -247,86 +254,86 @@
                             $("#origen").select2();
                             $("#Marca").select2();
                             $("#UbicaNueva").select2();
-                           /* $("#clave").select2();*/
-                            
+                            /* $("#clave").select2();*/
+
                             $(document).ready(function () {
-                            $('#datosProv').dataTable();
+                                $('#datosProv').dataTable();
                             });
-                            
+
                             function muestraCalendario() {
-                            $("#caducidad").datepicker({
-                            dateFormat: 'dd/mm/yy',
+                                $("#caducidad").datepicker({
+                                    dateFormat: 'dd/mm/yy',
                                     minDate: 1,
                                     changeMonth: true,
                                     changeYear: true
-                            });
-                            $("#Fec_Fac").datepicker({
-                            dateFormat: 'dd/mm/yy',
-                                    maxDate: - 3,
+                                });
+                                $("#Fec_Fac").datepicker({
+                                    dateFormat: 'dd/mm/yy',
+                                    maxDate: -3,
                                     changeMonth: true,
                                     changeYear: true
-                            });
+                                });
                             }
 </script>
 
 <script>
-     function valida_alta(){
-   var clave = document.formulario1.clave.value.trim();
-    if ((clave === "-Clave-") || (origen === "")) {
-    alert("Selecciona Clave, verifique.");
-    return false;
-    }
-    
-     var lote = document.formulario1.lote.value.trim();
-    if (lote === "") {
-    alert("Ingresa un Lote, verifique.");
-    return false;
-    }
-    
-    var caducidad = document.formulario1.caducidad.value.trim();
-    if (caducidad === "") {
-    alert("Tiene campos vacíos, verifique.");
-    return false;
-    } 
-    
-    var Fec_Fac = document.formulario1.Fec_Fac.value.trim();
-    if (Fec_Fac === "") {
-    alert("Agregue fecha de fabricacion, verifique.");
-    return false;
-    } 
+    function valida_alta() {
+        var clave = document.formulario1.clave.value.trim();
+        if ((clave === "-Clave-") || (origen === "")) {
+            alert("Selecciona Clave, verifique.");
+            return false;
+        }
 
-    var origen = document.formulario1.origen.value.trim();
-    if ((origen === "-Origen-") || (origen === "")) {
-    alert("Seleccione Origen, verifique.");
-    return false;
-    }
-    
-    var marca = document.formulario1.Marca.value.trim();
-    if ((marca === "-Marca-") || (marca === "")) {
-    alert("Agregue Marca, verifique.");
-    return false;
-    }
-    
-    var proveedor = document.formulario1.proveedor.value.trim();
-    if ((proveedor === "-Proveedor-") || (proveedor === "")) {
-    alert("Seleccione Proveedor, verifique.");
-    return false;
-    }
-    
-    var cb = document.formulario1.cb.value.trim();
-    if ((cb === "") || (cb === "0")) {
-    alert("Agregue CB, verifique.");
-    return false;
-    }
-    
-    var ubica = document.formulario1.UbicaNueva.value.trim();
-    if ((ubica === "-Ubicación-") || (ubica === "")) {
-    alert("Seleccione Ubicación, verifique.");
-    return false;
-    }
+        var lote = document.formulario1.lote.value.trim();
+        if (lote === "") {
+            alert("Ingresa un Lote, verifique.");
+            return false;
+        }
+
+        var caducidad = document.formulario1.caducidad.value.trim();
+        if (caducidad === "") {
+            alert("Tiene campos vacíos, verifique.");
+            return false;
+        }
+
+        var Fec_Fac = document.formulario1.Fec_Fac.value.trim();
+        if (Fec_Fac === "") {
+            alert("Agregue fecha de fabricacion, verifique.");
+            return false;
+        }
+
+        var origen = document.formulario1.origen.value.trim();
+        if ((origen === "-Origen-") || (origen === "")) {
+            alert("Seleccione Origen, verifique.");
+            return false;
+        }
+
+        var marca = document.formulario1.Marca.value.trim();
+        if ((marca === "-Marca-") || (marca === "")) {
+            alert("Agregue Marca, verifique.");
+            return false;
+        }
+
+        var proveedor = document.formulario1.proveedor.value.trim();
+        if ((proveedor === "-Proveedor-") || (proveedor === "")) {
+            alert("Seleccione Proveedor, verifique.");
+            return false;
+        }
+
+        var cb = document.formulario1.cb.value.trim();
+        if ((cb === "") || (cb === "0")) {
+            alert("Agregue CB, verifique.");
+            return false;
+        }
+
+        var ubica = document.formulario1.UbicaNueva.value.trim();
+        if ((ubica === "-Ubicación-") || (ubica === "")) {
+            alert("Seleccione Ubicación, verifique.");
+            return false;
+        }
 
     }
-    
+
 </script>
 
 <script>
@@ -334,92 +341,92 @@
 
     function isNumberKey(evt, obj)
     {
-    var charCode = (evt.which) ? evt.which : event.keyCode;
-    if (charCode === 13 || charCode > 31 && (charCode < 48 || charCode > 57)) {
-    if (charCode === 13) {
-    frm = obj.form;
-    for (i = 0; i < frm.elements.length; i++)
-            if (frm.elements[i] === obj)
-    {
-    if (i === frm.elements.length - 1)
-            i = - 1;
-    break
-    }
-    /*ACA ESTA EL CAMBIO*/
-    if (frm.elements[i + 1].disabled === true)
-            tabular(e, frm.elements[i + 1]);
-    else
-            frm.elements[i + 1].focus();
-    return false;
-    }
-    return false;
-    }
-    return true;
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode === 13 || charCode > 31 && (charCode < 48 || charCode > 57)) {
+            if (charCode === 13) {
+                frm = obj.form;
+                for (i = 0; i < frm.elements.length; i++)
+                    if (frm.elements[i] === obj)
+                    {
+                        if (i === frm.elements.length - 1)
+                            i = -1;
+                        break
+                    }
+                /*ACA ESTA EL CAMBIO*/
+                if (frm.elements[i + 1].disabled === true)
+                    tabular(e, frm.elements[i + 1]);
+                else
+                    frm.elements[i + 1].focus();
+                return false;
+            }
+            return false;
+        }
+        return true;
     }
 
 
-   
+
 </script>
 
 <script language="javascript">
     function justNumbers(e)
     {
-    var keynum = window.event ? window.event.keyCode : e.which;
-    if ((keynum == 8) || (keynum == 46))
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
             return true;
-    return /\d/.test(String.fromCharCode(keynum));
+        return /\d/.test(String.fromCharCode(keynum));
     }
     otro = 0;
     function LP_data() {
-    var key = window.event.keyCode; //codigo de tecla. 
-    if (key < 48 || key > 57) {//si no es numero 
-    window.event.keyCode = 0; //anula la e        ntrada        de texto. 
-    }
+        var key = window.event.keyCode; //codigo de tecla. 
+        if (key < 48 || key > 57) {//si no es numero 
+            window.event.keyCode = 0; //anula la e        ntrada        de texto. 
+        }
     }
     function anade(esto) {
-    if (esto.value.length === 0) {
-    if (esto.value.length == 0) {
-    esto.value += "(";
-    }
-    }
-    if (esto.value.length > otro) {
-    if (esto.value.length == 4) {
-    esto.value += ") ";
-    }
-    }
-    if (esto.value.length > otro) {
-    if (esto.value.length == 9) {
-    esto.value += "-";
-    }
-    }
-    if (esto.value.length < otro) {
-    if (esto.value.length == 4 || esto.value.length == 9) {
-    esto.value = esto.value.substring(0, esto.value.length - 1);
-    }
-    }
-    otro = esto.value.length
+        if (esto.value.length === 0) {
+            if (esto.value.length == 0) {
+                esto.value += "(";
+            }
+        }
+        if (esto.value.length > otro) {
+            if (esto.value.length == 4) {
+                esto.value += ") ";
+            }
+        }
+        if (esto.value.length > otro) {
+            if (esto.value.length == 9) {
+                esto.value += "-";
+            }
+        }
+        if (esto.value.length < otro) {
+            if (esto.value.length == 4 || esto.value.length == 9) {
+                esto.value = esto.value.substring(0, esto.value.length - 1);
+            }
+        }
+        otro = esto.value.length
     }
 
 
     function tabular(e, obj)
     {
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla != 13)
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla != 13)
             return;
-    frm = obj.form;
-    for (i = 0; i < frm.elements.length; i++)
+        frm = obj.form;
+        for (i = 0; i < frm.elements.length; i++)
             if (frm.elements[i] == obj)
-    {
-    if (i == frm.elements.length - 1)
-            i = - 1;
-    break
-    }
-    /*ACA ESTA EL CAMBIO*/
-    if (frm.elements[i + 1].disabled == true)
+            {
+                if (i == frm.elements.length - 1)
+                    i = -1;
+                break
+            }
+        /*ACA ESTA EL CAMBIO*/
+        if (frm.elements[i + 1].disabled == true)
             tabular(e, frm.elements[i + 1]);
-    else
+        else
             frm.elements[i + 1].focus();
-    return false;
+        return false;
     }
 
 </script> 

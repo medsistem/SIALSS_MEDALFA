@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('#Descargar').click(function () {
         var Proyecto = $("#Nombre option:selected").val();
         if (Proyecto != "0") {
-            window.open("../ExcelExistenciaProyecto?Proyecto=" + Proyecto + "");
+            window.open("../ExcelExistenciaProyecto?Proyecto=" + Proyecto + "&Tipo=2&Consulta=2");
         } else {
             swal("Selecciona un proyecto", "", "error");
         }
@@ -58,7 +58,7 @@ function MostrarRegistros() {
     var Proyecto = $("#Nombre").val();
     $.ajax({
         url: "../ExistenciaProyecto",
-        data: {accion: "MostrarRegistros", Proyecto: Proyecto},
+        data: {accion: "MostrarRegistros", Proyecto: Proyecto, Tipo: 2},
         type: 'GET',
         async: false,
         success: function (data)

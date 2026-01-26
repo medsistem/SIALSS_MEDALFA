@@ -101,11 +101,11 @@
         <div class="container">
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
-           <%if (tipo.equals("13") || tipo.equals("14")) {%>
+            <%if (tipo.equals("13") || tipo.equals("14")) {%>
             <%@include file="jspf/menuPrincipalCompra.jspf" %>
             <% } else {%>
             <%@include file="jspf/menuPrincipal.jspf" %>
-            <% } %>
+            <% }%>
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3 class="panel-title">Captura de Insumo</h3>
@@ -143,7 +143,7 @@
                             <input type="text" class="hidden" id="provee" name="provee" placeholder="Proveedor" readonly onKeyPress="return tabular(event, this)" value="<%=provee%>" />                             
                             <div class="col-sm-3">
                                 <select class="form-control" name="list_provee" onKeyPress="return tabular(event, this)" id="list_provee" onchange="proveedor();">
-                                    <option value="">Proveedor</option>
+                                    <option selected disabled>Proveedor</option>
                                     <%
                                         try {
                                             con.conectar();
@@ -245,7 +245,7 @@
                                 <strong>Marca</strong>
                                 <input type="text" class="hidden" id="Marca" name="Marca" readonly="true" placeholder="Marca" onKeyPress="return tabular(event, this)" value="<%=Marca%>" />
                                 <select class="form-control" name="list_marca" onKeyPress="return tabular(event, this)" id="list_marca" onchange="llenarMarca();">
-                                    <option value="">Marca</option>
+                                    <option selected disabled>Marca</option>
                                     <%
                                         try {
                                             con.conectar();
@@ -271,7 +271,7 @@
                             <div class="col-md-6">
                                 <strong>Confirmar Marca</strong>
                                 <select class="form-control"  onKeyPress="return tabular(event, this)" id="confirm_list_marca" onfocusout="confirmaCampo('list_marca')">
-                                    <option value="">Marca</option>
+                                    <option selected disabled>Marca</option>
                                     <%
                                         try {
                                             con.conectar();
@@ -568,7 +568,7 @@
                                 %>
                                 <option value="<%=rsetOrigen.getString(1)%>"><%=rsetOrigen.getString(2)%></option>
                                 <%
-                                    
+
                                         }
                                         con.cierraConexion();
                                     } catch (Exception e) {
@@ -587,8 +587,19 @@
                                 <%
                                     try {
                                         con.conectar();
+                                        ResultSet rset3 = null;
+                                        if (tipo.equals("14")) {
+                                            String Proyecto = "";
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_usuariocompra WHERE F_Usu LIKE '%" + usua + "%' ");
+                                            System.out.println(" rset = " + rset);
+                                            if (rset.next()) {
+                                                Proyecto = rset.getString(9);
+                                            }
+                                            rset3 = con.consulta("SELECT * FROM tb_proyectos p WHERE p.F_Id IN ("+Proyecto+");");
+                                        } else {
+                                            rset3 = con.consulta("SELECT * FROM tb_proyectos;");
+                                        }
 
-                                        ResultSet rset3 = con.consulta("SELECT * FROM tb_proyectos;");
                                         while (rset3.next()) {
                                 %>
                                 <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
@@ -611,7 +622,7 @@
                             <strong>Marca Registrada:</strong>
 
                             <select class="form-control" name="lMarcaR" onfocusout="buttonEnable()" onKeyPress="return tabular(event, this)" id="lMarcaR" >   
-                                <option value="">Marca Comercial</option>
+                                <option selected disabled>Marca Comercial</option>
                                 <%
                                     try {
                                         con.conectar();
@@ -645,42 +656,42 @@
 
 
                     <br/>
-                   <!-- <div class="row">
-                        <div class="col-sm-4">
-                            <strong>Orden de Suministro:</strong>
-                            <input name="ordenSuministro" id="ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" style="-webkit-text-security: disc;" autocomplete="off" />
-                        </div>
-                        <div class="col-sm-4">
-                            <strong>Confirmar Orden de Suministro:</strong>
-                            <input name="confirm_ordenSuministro" id="confirm_ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" onfocusout="confirmaCampo('ordenSuministro')" autocomplete="off"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <strong>Unidad:</strong>
-                            <select class="form-control" name="unidadFonsabi" id="unidadFonsabi"  onChange="validaUnidad(this.value)">
-                                <option value="S/U">Sin conocimieno de unidad destino</option>
-                                <%                                            try {
-                                        con.conectar();
+                    <!-- <div class="row">
+                         <div class="col-sm-4">
+                             <strong>Orden de Suministro:</strong>
+                             <input name="ordenSuministro" id="ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" style="-webkit-text-security: disc;" autocomplete="off" />
+                         </div>
+                         <div class="col-sm-4">
+                             <strong>Confirmar Orden de Suministro:</strong>
+                             <input name="confirm_ordenSuministro" id="confirm_ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" onfocusout="confirmaCampo('ordenSuministro')" autocomplete="off"/>
+                         </div>
+                         <div class="col-sm-4">
+                             <strong>Unidad:</strong>
+                             <select class="form-control" name="unidadFonsabi" id="unidadFonsabi"  onChange="validaUnidad(this.value)">
+                                 <option value="S/U">Sin conocimieno de unidad destino</option>
+                    <%                                            try {
+                            con.conectar();
 
-                                        ResultSet rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
-                                        while (rset3.next()) {
-                                %>
-                                
-                                <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
-                                <%
-                                        }
-                                    } catch (Exception e) {
-                                        Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
-                                    } finally {
-                                        try {
-                                            con.cierraConexion();
-                                        } catch (Exception ex) {
-                                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
-                                        }
-                                    }
-                                %>
-                            </select>
-                        </div>
-                    </div>-->
+                            ResultSet rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
+                            while (rset3.next()) {
+                    %>
+                    
+                    <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
+                        } finally {
+                            try {
+                                con.cierraConexion();
+                            } catch (Exception ex) {
+                                Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    %>
+                </select>
+            </div>
+        </div>-->
                     <br/>
                     <h5><strong>Tarimas Completas</strong></h5>
                     <div class="row form-inline" style="text-align: right;">
@@ -1275,7 +1286,7 @@
                     }
 
                     function validaCapturaVacios() {
-                        
+
                         var origen = $('#F_Origen').val();
                         if (origen === '4' || origen === '5' || origen === '10' || origen === '11' || origen === '14' || origen === '15' || origen === '16' || origen === '17' || origen === '18') {
                             var ordenSuministro = $('#ordenSuministro').val();
@@ -1292,26 +1303,26 @@
                                 return false;
                             }
                         }
-                        
-                           if(origen === '19'){
-                                        var unidad = $('#unidadFonsabi').val();
-                                        console.log('unidad ' + unidad);
-                                        console.log('ORIGEN' + origen);
-                        
-                                        if(unidad === null | unidad === ""){
-                                            alert("Falta seleccionar unidad");
-                                            return false;
-                                        }else{
-                                             var unidadFonsabi = document.getElementById('unidadFonsabi').options[document.getElementById('unidadFonsabi').selectedIndex].text;
-                                        console.log(unidadFonsabi);
-                                       
-                                            var conf = confirm("\tConfirmar si la unidad seleccionada es: \n\n\t" + unidadFonsabi);
-                                           if(conf === false){
-                                               return false;
-                                           }
-                                            }                                        
-                                    }
-                                    
+
+                        if (origen === '19') {
+                            var unidad = $('#unidadFonsabi').val();
+                            console.log('unidad ' + unidad);
+                            console.log('ORIGEN' + origen);
+
+                            if (unidad === null | unidad === "") {
+                                alert("Falta seleccionar unidad");
+                                return false;
+                            } else {
+                                var unidadFonsabi = document.getElementById('unidadFonsabi').options[document.getElementById('unidadFonsabi').selectedIndex].text;
+                                console.log(unidadFonsabi);
+
+                                var conf = confirm("\tConfirmar si la unidad seleccionada es: \n\n\t" + unidadFonsabi);
+                                if (conf === false) {
+                                    return false;
+                                }
+                            }
+                        }
+
                         var missinginfo = "";
                         if ($("#folio_remi").val() === "") {
                             missinginfo += "\n El campo Folio Remisión no debe de estar vacío";
@@ -1350,8 +1361,8 @@
                         if ($("#factorEmpaque").val() === "" || $("#factorEmpaque").val() === "0") {
                             var caja = parseInt(0);
                         }
-                           
-                           
+
+
                         if (missinginfo !== "") {
                             missinginfo = "\n TE HA FALTADO INTRODUCIR LOS SIGUIENTES DATOS PARA ENVIAR PETICIÓN DE SOPORTE:\n" + missinginfo + "\n\n ¡INGRESA LOS DATOS FALTANTES Y TRATA OTRA VEZ!\n";
                             alert(missinginfo);
@@ -1403,7 +1414,7 @@
                             var caja = parseInt(0);
                         }
 
-                        
+
                         if (missinginfo != "") {
                             missinginfo = "\n TE HA FALTADO INTRODUCIR LOS SIGUIENTES DATOS PARA ENVIAR PETICIÓN DE SOPORTE:\n" + missinginfo + "\n\n ¡INGRESA LOS DATOS FALTANTES Y TRATA OTRA VEZ!\n";
                             alert(missinginfo);
@@ -1461,34 +1472,34 @@
                     function validarCartaCanje() {
                     }
 
-                    
-                                function validaOS(value) {
-                                    if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19') {
-                                        document.getElementById('ordenSuministro').value = "";
-                                        document.getElementById('ordenSuministro').disabled = true;
-                                        document.getElementById('confirm_ordenSuministro').value = "";
-                                        document.getElementById('confirm_ordenSuministro').disabled = true;
-                                    } else {
-                                        document.getElementById('ordenSuministro').disabled = false;
-                                        document.getElementById('confirm_ordenSuministro').disabled = false;
-                                    }
-                                    if (value !== '19') {
-                                        document.getElementById('unidadFonsabi').value = "";
-                                        document.getElementById('unidadFonsabi').disabled = true;
-                                    } else {
-                                        document.getElementById('unidadFonsabi').disabled = false;
-                                    }
-                                }
 
-                                validaOS(0);
-                
-                function validaUnidad(value) {
-                                    var unidadFonsabi = document.getElementById('unidadFonsabi').options[document.getElementById('unidadFonsabi').selectedIndex].text;
-                                    if (unidadFonsabi !== "") {
-                                        alert("\t La unidad seleccionada es: \n \t" + unidadFonsabi);
-                                    }
-                                }
-                                ;
-                    
+                    function validaOS(value) {
+                        if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19') {
+                            document.getElementById('ordenSuministro').value = "";
+                            document.getElementById('ordenSuministro').disabled = true;
+                            document.getElementById('confirm_ordenSuministro').value = "";
+                            document.getElementById('confirm_ordenSuministro').disabled = true;
+                        } else {
+                            document.getElementById('ordenSuministro').disabled = false;
+                            document.getElementById('confirm_ordenSuministro').disabled = false;
+                        }
+                        if (value !== '19') {
+                            document.getElementById('unidadFonsabi').value = "";
+                            document.getElementById('unidadFonsabi').disabled = true;
+                        } else {
+                            document.getElementById('unidadFonsabi').disabled = false;
+                        }
+                    }
+
+                    validaOS(0);
+
+                    function validaUnidad(value) {
+                        var unidadFonsabi = document.getElementById('unidadFonsabi').options[document.getElementById('unidadFonsabi').selectedIndex].text;
+                        if (unidadFonsabi !== "") {
+                            alert("\t La unidad seleccionada es: \n \t" + unidadFonsabi);
+                        }
+                    }
+                    ;
+
 
 </script> 

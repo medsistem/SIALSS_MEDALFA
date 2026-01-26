@@ -65,7 +65,11 @@ String ubicaciones = "";
                 <h1>MEDALFA</h1>
                 <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             </div>
+            <%if ( tipo.equals("14")) {%>
+            <%@include file="jspf/menuPrincipalCompra.jspf" %>
+            <% } else {%>
             <%@include file="jspf/menuPrincipal.jspf" %>
+            <% }%>
 
             <div class="panel-heading">
                 <h3 class="panel-title">Parametro facturacón para Usuarios SIALSS</h3>

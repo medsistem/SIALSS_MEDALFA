@@ -28,7 +28,7 @@
     try {
         if (request.getParameter("accion").equals("buscar")) {
             //fol_gnkl = request.getParameter("fol_gnkl");
-           // fol_remi = request.getParameter("fol_remi");
+            // fol_remi = request.getParameter("fol_remi");
             //orden_compra = request.getParameter("orden_compra");
             //fecha = request.getParameter("fecha");
             fecha_ini = request.getParameter("fecha_ini");
@@ -112,100 +112,104 @@
                 </div>
             </form>
 
-                <div>
-                    <br />
-                    <div class="panel panel-success">
-                        <div class="panel-body table-responsive">
-                            <table class="table table-bordered table-striped" id="datosCompras">
-                                <thead>
-                                    <tr>
-                                        <!--td></td-->
-                                        <th>No. Folio</th>
-                                        <th>Punto de Entrega</th>
-                                        <th>Fecha de Entrega</th>
-                                        <th>Folio</th>
-                                        <th>Exportar Ubicación</th>                                    
+            <div>
+                <br />
+                <div class="panel panel-success">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-bordered table-striped" id="datosCompras">
+                            <thead>
+                                <tr>
+                                    <!--td></td-->
+                                    <th>No. Folio</th>
+                                    <th>Punto de Entrega</th>
+                                    <th>Fecha de Entrega</th>
+                                    <th>Folio</th>
+                                    <th>Exportar Ubicación</th>                                    
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    try {
+                                        con.conectar();
                                         try {
-                                            con.conectar();
-                                            try {
 
-                                                String QFolio = "", QFecha = "", Query = "";
+                                            String QFolio = "", QFecha = "", Query = "";
 
-                                                int ban = 0, ban2 = 0, ban3 = 0;
+                                            int ban = 0, ban2 = 0, ban3 = 0;
 
-                                                ResultSet rset;
+                                            ResultSet rset;
 
-                                                if (folio1 != "" && folio2 != "") {
-                                                    ban = 1;
-                                                }
-                                                if (fecha_ini != "" && fecha_fin != "") {
-                                                    ban2 = 1;
-                                                }
-
-                                                if (ban == 1) {
-                                                    QFolio = " F_DocMov between '" + folio1 + "' and '" + folio2 + "' ";
-                                                }
-
-                                                if (ban2 == 1 && ban == 0) {
-
-                                                    QFecha = " F_FecMov between '" + fecha_ini + "' and '" + fecha_fin + "' ";
-                                                } else if (ban2 == 1 && ban == 1) {
-                                                    QFecha = "AND F_FecMov between '" + fecha_ini + "' and '" + fecha_fin + "' ";
-                                                }
-
-                                                Query = QFolio + QFecha;
-                                                System.out.println("Query: " + Query);
-
-                                                if (Query.isEmpty()) {
-                                                    rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon WHERE F_ConMov NOT IN (3,1000,1,51,1001,4,5,9) and F_FecMov BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE()  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
-
-                                                    System.out.println("datos fecha");
-                                                } else {
-                                                    rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon WHERE F_ConMov NOT IN (3,1000,1,51,1001,4,5,9) and " + Query + "  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
-
-                                                    System.out.println("sin datos");
-                                                }
-
-                                                while (rset.next()) {
-
-                                    %>
-                                    <tr>
-
-                                        <td><%=rset.getString(1)%></td>
-                                        <td><%=rset.getString(3)%></td>
-                                        <td><%=rset.getString(4)%></td>
-                                        <td>
-                                            <form action="../reportes/reimpreMovimiento.jsp" target="_blank">
-                                                <input class="hidden" name="fol_gnkl" value="<%=rset.getString(1)%>">
-                                                <input class="hidden" name="fecha" value="<%=rset.getString(4)%>">
-                                                <input class="hidden" name="concepto" value="<%=rset.getString(2)%>">
-                                                <button class="btn btn-block btn-success"><span class="glyphicon glyphicon-print"></span></button>
-                                            </form>
-                                        </td>
-                                        <td><a class="btn btn-warning btn-block" href="../reportes/MovimientoUbicacion.jsp?F_ClaDoc=<%=rset.getString(1)%>&ConInv=<%=rset.getString(2)%>&fecha=<%=rset.getString(4)%>"><span class="glyphicon glyphicon-download"></span></a></td>
-
-                                    </tr>
-                                    <%
-                                                }
-                                            } catch (Exception e) {
-                                                e.getMessage();
+                                            if (folio1 != "" && folio2 != "") {
+                                                ban = 1;
                                             }
-                                            con.cierraConexion();
-                                        } catch (Exception e) {
+                                            if (fecha_ini != "" && fecha_fin != "") {
+                                                ban2 = 1;
+                                            }
 
+                                            if (ban == 1) {
+                                                QFolio = " F_DocMov between '" + folio1 + "' and '" + folio2 + "' ";
+                                            }
+
+                                            if (ban2 == 1 && ban == 0) {
+
+                                                QFecha = " F_FecMov between '" + fecha_ini + "' and '" + fecha_fin + "' ";
+                                            } else if (ban2 == 1 && ban == 1) {
+                                                QFecha = "AND F_FecMov between '" + fecha_ini + "' and '" + fecha_fin + "' ";
+                                            }
+
+                                            Query = QFolio + QFecha;
+                                            System.out.println("Query: " + Query);
+
+                                            if (Query.isEmpty()) {
+                                                System.out.println("sin datos");
+                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5,60,9) and F_FecMov BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE()  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
+                                            } else {
+                                                System.out.println("datos fecha");
+                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5,60,9) and " + Query + "  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
+                                            }
+                                            int contar = 0;
+                                            while (rset.next()) {
+
+                                %>
+                                <tr>
+
+                                    <td><%=rset.getString(1)%></td>
+                                    <td><%=rset.getString(3)%></td>
+                                    <td><%=rset.getString(4)%></td>
+                                    <td><%=rset.getString(6)%></td>
+
+                                    <td>
+                                        <form action="../reportes/reimpMovimiento.jsp" target="_blank" >
+                                            <input class="hidden" name="fol_Mov" value="<%=rset.getString(1)%>">
+
+                                            <input class="hidden" name="concepto" value="<%=rset.getString(2)%>">
+
+                                            <input class="hidden" name="proyecto" value="<%=rset.getString(5)%>">
+                                            <button class="btn btn-block btn-primary" id="btn_<%=contar%>" ><span class="glyphicon glyphicon-print"></span></button>
+                                        </form>
+                                    </td>
+
+                                    <td><a class="btn btn-info btn-block" href="../reportes/MovimientoUbicacion.jsp?F_ClaDoc=<%=rset.getString(1)%>&ConInv=<%=rset.getString(2)%>&fecha=<%=rset.getString(4)%>"><span class="glyphicon glyphicon-download"></span></a></td>
+
+                                </tr>
+                                <%
+                                                contar = contar++;
+                                            }
+                                        } catch (Exception e) {
+                                            e.getMessage();
                                         }
-                                    %>
-                                </tbody>
-                            </table>
-                        </div>
+                                        con.cierraConexion();
+                                    } catch (Exception e) {
+                                        e.getMessage();
+                                    }
+                                %>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-        
+            </div>
+
         </div>
         <%@include file="../jspf/piePagina.jspf" %>
 

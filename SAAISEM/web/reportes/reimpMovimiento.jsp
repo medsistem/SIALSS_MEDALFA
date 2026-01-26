@@ -20,23 +20,30 @@
     } else {
         response.sendRedirect("index.jsp");
     }
-    String folio_gnk = request.getParameter("fol_gnkl");
-    String Mov = request.getParameter("Mov");
-    //Connection conexion;
-    //Class.forName("org.mariadb.jdbc.Driver").newInstance();
-   // conexion = con.getConn();
-    /*Establecemos la ruta del reporte*/
-    File reportFile = new File(application.getRealPath("/reportes/MovimientoInv.jasper"));
-    /* No enviamos parámetros porque nuestro reporte no los necesita asi que escriba 
-     cualquier cadena de texto ya que solo seguiremos el formato del método runReportToPdf*/
+    
+    String fol_Mov = request.getParameter("fol_Mov");
+    String proyecto = request.getParameter("proyecto");
+    String concepto = request.getParameter("concepto");
+    
+   File reportFile = new File(application.getRealPath("/reportes/MovimientoInv.jasper"));
+   
     Map parameters = new HashMap();
-    parameters.put("Folfact", folio_gnk);
-    parameters.put("Mov", Mov);
-    /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
+    
+     parameters.put("Folfact", fol_Mov);
+    parameters.put("Mov", concepto);
+    parameters.put("proyecto", proyecto);
+    
+     System.out.println("Parametros: "+fol_Mov+" / "+concepto+" / "+proyecto);
+     System.out.println("admin de movimientos");
+     
     byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, con.getConn());
-    /*Indicamos que la respuesta va a ser en formato PDF*/ response.setContentType("application/pdf");
+    
+    
+    response.setContentType("application/pdf");
     response.setContentLength(bytes.length);
     ServletOutputStream ouputStream = response.getOutputStream();
-    ouputStream.write(bytes, 0, bytes.length); /*Limpiamos y cerramos flujos de salida*/ ouputStream.flush();
+    ouputStream.write(bytes, 0, bytes.length); 
+    ouputStream.flush();
     ouputStream.close();
+    con.cierraConexion();
 %>
