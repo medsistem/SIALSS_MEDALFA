@@ -48,7 +48,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Catalogo de Proveedores</h3>
                 </div>
-                <% if( tipo.equals("13") || tipo.equals("1")){ %>
+                <% if( tipo.equals("13") || tipo.equals("1") || tipo.equals("14")){ %>
                 <div class="panel-body ">
                     <form class="form-horizontal" role="form" name="formulario1" id="formulario1" method="post" action="Proveedores">
                         <div class="form-group">

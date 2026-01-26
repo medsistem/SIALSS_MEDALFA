@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
 
     $("#Nombre").change(function () {
-        //var Nombre = $("#Nombre option:selected").val();
+        var Nombre = $("#Nombre option:selected").val();
         MostrarRegistros();
     });
 

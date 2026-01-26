@@ -409,7 +409,7 @@ public static String BuscaclavePrograma = "SELECT F_ClaPro FROM tb_medicaprogram
             con.conectar();
             psBuscaProyecto = con.getConn().prepareStatement(String.format(BuscaProyectoConsulta, Proyecto));
             rs = psBuscaProyecto.executeQuery();
-
+            System.out.println("ando buscando proyecto" + psBuscaProyecto);
             while (rs.next()) {
                 jsonObj = new JSONObject();
                 jsonObj.put("Id", rs.getString(1));
@@ -435,6 +435,7 @@ public static String BuscaclavePrograma = "SELECT F_ClaPro FROM tb_medicaprogram
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObj;
         int Contar = 0, CantidadT = 0, ContarClave = 0;
+        System.out.println("solo busqueda");
         try {
             con.conectar();
             psConsulta = con.getConn().prepareStatement(String.format(ContarClaveTodosCosulta, Proyecto));

@@ -52,6 +52,14 @@ public class ExistenciaProyecto extends HttpServlet {
                     out.println(jsona);
                 }
                 break;
+                
+             case "obtenerProyectosConsulta":
+                try (PrintWriter out = response.getWriter()) {
+                    ExistenciaProyectoDaoImpl consultaDatos = new ExistenciaProyectoDaoImpl();
+                    jsona = consultaDatos.ObtenerProyectos();
+                    out.println(jsona);
+                }
+                break;    
 
             case "obtenerTipoUnidad":
                 try (PrintWriter out = response.getWriter()) {

@@ -141,8 +141,11 @@
         <div class="container">
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
-
+            <%if (tipo.equals("13") || tipo.equals("14")) {%>
+            <%@include file="../jspf/menuPrincipalCompra.jspf" %>
+            <% } else {%>
             <%@include file="../jspf/menuPrincipal.jspf" %>
+            <% } %>
             <form action="compraAuto3.jsp" method="post">
 
                 <div class="row">
@@ -404,12 +407,12 @@
                         Datos del Insumo 
                         -->            
                         <div class="panel-body">
-                           <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <label><input type="checkbox" id="volumetriaCheck" onclick="checkVolumetria()"> Volumetría</label>
-                                </div>
-                            </div>
--->
+                            <!-- <div class="row">
+                                 <div class="col-md-12">
+                                     <label><input type="checkbox" id="volumetriaCheck" onclick="checkVolumetria()"> Volumetría</label>
+                                 </div>
+                             </div>
+                            -->
                             <!--Menu-->
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#datos" style="color: black">Datos del Insumo</a></li>
@@ -722,7 +725,7 @@
                                         <div class="col-sm-2">
                                             <strong>Costo:</strong>
                                             <input name="F_Costo" id="F_Costo" type="text" class="form-control" />
-                                          
+
                                         </div>
 
                                         <div class="col-sm-3">
@@ -788,53 +791,53 @@
                                         </div>    
                                     </div>
                                     <br>
-                                     <!--
-                                   
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <strong>Orden de Suministro:</strong>
-                                            <input name="ordenSuministro" maxlength="40" id="ordenSuministro" type="text" onfocusout="buttonEnable()" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" style="-webkit-text-security: disc;" autocomplete="off" />
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <strong>Confirmar Orden de Suministro:</strong>
-                                            <input name="confirm-ordenSuministro" maxlength="40" id="confirm-ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" onfocusout="confirmaCampo('ordenSuministro')" autocomplete="off"/>
-                                        </div>
-                                    </div  >
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <strong>Carta Canje:</strong>                                            
-                                            <input name="cartaCanje" id="cartaCanje" type="text" maxlength="50" class="form-control" onkeypress="return tabular(event, this)"/>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <strong> Unidad:</strong>
-                                            <select class="form-control" name="unidadFonsabi" id="unidadFonsabi"  onChange="validaUnidad(this.value)" onfocusout="buttonEnable()" onKeyPress="return tabular(event, this)" >
-                                                <option value="S/U">Sin conocimiento de unidad destino</option>
-                                                <%  
-                                                    try {
-                                                        con.conectar();
+                                    <!--
+                                  
+                                   <div class="row">
+                                       <div class="col-sm-4">
+                                           <strong>Orden de Suministro:</strong>
+                                           <input name="ordenSuministro" maxlength="40" id="ordenSuministro" type="text" onfocusout="buttonEnable()" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" style="-webkit-text-security: disc;" autocomplete="off" />
+                                       </div>
+                                       <div class="col-sm-4">
+                                           <strong>Confirmar Orden de Suministro:</strong>
+                                           <input name="confirm-ordenSuministro" maxlength="40" id="confirm-ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" onfocusout="confirmaCampo('ordenSuministro')" autocomplete="off"/>
+                                       </div>
+                                   </div  >
+                                   <div class="row">
+                                       <div class="col-sm-4">
+                                           <strong>Carta Canje:</strong>                                            
+                                           <input name="cartaCanje" id="cartaCanje" type="text" maxlength="50" class="form-control" onkeypress="return tabular(event, this)"/>
+                                       </div>
+                                       <div class="col-sm-4">
+                                           <strong> Unidad:</strong>
+                                           <select class="form-control" name="unidadFonsabi" id="unidadFonsabi"  onChange="validaUnidad(this.value)" onfocusout="buttonEnable()" onKeyPress="return tabular(event, this)" >
+                                               <option value="S/U">Sin conocimiento de unidad destino</option>
+                                    <%
+                                        try {
+                                            con.conectar();
 
-                                                        rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
-                                                        while (rset3.next()) {
-                                                %>
-                                                <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
-                                                <%
-                                                        }
-                                                    } catch (Exception e) {
-                                                        Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
-                                                    } finally {
-                                                        try {
-                                                            con.cierraConexion();
-                                                        } catch (Exception ex) {
-                                                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
-                                                        }
-                                                    }
-                                                %>
-                                            </select>
-                                        </div>
+                                            rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
+                                            while (rset3.next()) {
+                                    %>
+                                    <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (Exception ex) {
+                                                Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
 
-                                    </div>
-                                            
-                                            -->
+                        </div>
+                                
+                                    -->
                                 </div>
 
 
@@ -1494,7 +1497,7 @@
                             <div class="row">
                                 <%
                                     //if (tipo.equals("2") || tipo.equals("3") || tipo.equals("1")) {
-%>
+                                %>
 
                                 <h4 class="col-sm-2 text-right">Folio de Remisión:</h4>
                                 <div class="col-sm-4"><input class="form-control" value="<%=folioRemi%>" name="folioRemi" id="folioRemi" onkeypress="return tabular(event, this)" /></div>
@@ -1794,357 +1797,352 @@
             </div>
         </div>
 
-</body>
+    </body>
 
-<script src="../js/jquery-2.1.4.min.js" type="text/javascript"></script>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/funcIngresos.js"></script>
-<script src="../js/select2.js"></script>
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/funcIngresos.js"></script>
+    <script src="../js/select2.js"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $("#selectClave").select2();
-    $("#list_marca").select2();
-    $("#unidadFonsabi").select2();
-    $("#Proveedor").select2();
-    $("#NoCompra").select2();
+                                $("#selectClave").select2();
+                                $("#list_marca").select2();
+                                $("#unidadFonsabi").select2();
+                                $("#Proveedor").select2();
+                                $("#NoCompra").select2();
 
-    function checkea(obj) {
-        var cbs = document.getElementsByName('chkCancela');
-        if (obj.checked) {
-            for (var i = 0; i < cbs.length; i++)
-                {
-                    cbs[i].checked = true;
-                }
-        } else {
-            for (var i = 0; i < cbs.length; i++)
-                {
-                    cbs[i].checked = false;
-                }
-        }
-    }
-                                
-    function validaRechazo() {
-                                    
-        var obser = document.getElementById('rechazoObser').value;                           
-        var fechaN = document.getElementById('FechaOrden').value;                   
-        var horaN = document.getElementById('HoraOrden').value;      
-        var correoProvee = document.getElementById('correoProvee').value;
-        
-        if (obser === "") {
-                                        
-            alert('Ingrese las observaciones del rechazo.');                 
-            return false;
-                                    
-        }
-                                    
-        if (fechaN === "") {
-                                       
-            alert('Ingrese nueva fecha de recepción.');
-                                        
-            return false;
-                                    
-        }
-                                    
-        if (horaN === "0:00") {
-                                        
-            alert('Ingrese nueva hora de recepción.');
-                                        
-            return false;
-                                    
-        }
-                                    
-        if (correoProvee === "0:00") {
-                                        
-            alert('Ingrese correo de proveedor.');
-                                        
-            return false;
-                                    
-        }
-                                    
-        var con = confirm('¿Seguro que desea rechazar la OC?');
-                                    
-        if (con === false) {
-                                        
-            return false;
-                                    
-        }
-                                    
-        document.getElementById('imagenCarga').style.display = 'block';
-                                
-    }
+                                function checkea(obj) {
+                                    var cbs = document.getElementsByName('chkCancela');
+                                    if (obj.checked) {
+                                        for (var i = 0; i < cbs.length; i++)
+                                        {
+                                            cbs[i].checked = true;
+                                        }
+                                    } else {
+                                        for (var i = 0; i < cbs.length; i++)
+                                        {
+                                            cbs[i].checked = false;
+                                        }
+                                    }
+                                }
 
-                                
-    function justNumbers(e)
-                                
-    {
-                                    
-        var keynum = window.event ? window.event.keyCode : e.which;
-                                    
-        if ((keynum === 8) || (keynum === 46))
-                                        
-        return true;
-                                    
-    return /\d/.test(String.fromCharCode(keynum));
-                                
-}
+                                function validaRechazo() {
 
-                                
-otro = 0;
-                                
-function LP_data(e, esto) {
-                                    
-        var key = (document.all) ? e.keyCode : e.which; //codigo de tecla. 
-                                    
-        if (key < 48 || key > 57)//si no es numero 
-                                        
-        return false; //anula la entrada de texto.
-                                    
-    else
-                                        
-    anade(esto);
-                                
-}
-                                
-function anade(esto) {
+                                    var obser = document.getElementById('rechazoObser').value;
+                                    var fechaN = document.getElementById('FechaOrden').value;
+                                    var horaN = document.getElementById('HoraOrden').value;
+                                    var correoProvee = document.getElementById('correoProvee').value;
 
-                                    
-        if (esto.value.length > otro) {
-                                        
-            if (esto.value.length === 2) {
-                                            
-                esto.value += "/";
-                                        
-            }
-                                    
-        }
-                                    
-        if (esto.value.length > otro) {
-                                        
-            if (esto.value.length === 5) {
-                                            
-                esto.value += "/";
-                                        
-            }
-                                    
-        }
-                                    
-        if (esto.value.length < otro) {
-                                        
-            if (esto.value.length === 2 || esto.value.length === 5) {
-                                            
-                esto.value = esto.value.substring(0, esto.value.length - 1);
-                                        
-            }
-                                    
-        }
-                                    
-        otro = esto.value.length;
-                                
-    }
+                                    if (obser === "") {
 
-                                
-var formatNumber = {
-                                    
-        separador: ",", sepDecimal: '.',
-                                    
-        formatear: function (num) {
-                                       
-        num += '';
-                                        
-        var splitStr = num.split('.');
-                                        
-        var splitLeft = splitStr[0];
-                                        
-        var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
-                                        
-        var regx = /(\d+)(\d{3})/;
-                                        
-        while (regx.test(splitLeft)) {
-                                            
-            splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
-                                        
-        }
-                                        
-        return this.simbol + splitLeft + splitRight;
-                                    
-    },
-                                    
-        new : function (num, simbol) {
-                                        
-        this.simbol = simbol || '';
+                                        alert('Ingrese las observaciones del rechazo.');
+                                        return false;
+
+                                    }
+
+                                    if (fechaN === "") {
+
+                                        alert('Ingrese nueva fecha de recepción.');
+
+                                        return false;
+
+                                    }
+
+                                    if (horaN === "0:00") {
+
+                                        alert('Ingrese nueva hora de recepción.');
+
+                                        return false;
+
+                                    }
+
+                                    if (correoProvee === "0:00") {
+
+                                        alert('Ingrese correo de proveedor.');
+
+                                        return false;
+
+                                    }
+
+                                    var con = confirm('¿Seguro que desea rechazar la OC?');
+
+                                    if (con === false) {
+
+                                        return false;
+
+                                    }
+
+                                    document.getElementById('imagenCarga').style.display = 'block';
+
+                                }
+
+
+                                function justNumbers(e)
+
+                                {
+
+                                    var keynum = window.event ? window.event.keyCode : e.which;
+
+                                    if ((keynum === 8) || (keynum === 46))
+                                        return true;
+
+                                    return /\d/.test(String.fromCharCode(keynum));
+
+                                }
+
+
+                                otro = 0;
+
+                                function LP_data(e, esto) {
+
+                                    var key = (document.all) ? e.keyCode : e.which; //codigo de tecla. 
+
+                                    if (key < 48 || key > 57)//si no es numero 
+                                        return false; //anula la entrada de texto.
+
+                                    else
+                                        anade(esto);
+
+                                }
+
+                                function anade(esto) {
+
+
+                                    if (esto.value.length > otro) {
+
+                                        if (esto.value.length === 2) {
+
+                                            esto.value += "/";
+
+                                        }
+
+                                    }
+
+                                    if (esto.value.length > otro) {
+
+                                        if (esto.value.length === 5) {
+
+                                            esto.value += "/";
+
+                                        }
+
+                                    }
+
+                                    if (esto.value.length < otro) {
+
+                                        if (esto.value.length === 2 || esto.value.length === 5) {
+
+                                            esto.value = esto.value.substring(0, esto.value.length - 1);
+
+                                        }
+
+                                    }
+
+                                    otro = esto.value.length;
+
+                                }
+
+
+                                var formatNumber = {
+
+                                    separador: ",", sepDecimal: '.',
+
+                                    formatear: function (num) {
+
+                                        num += '';
+
+                                        var splitStr = num.split('.');
+
+                                        var splitLeft = splitStr[0];
+
+                                        var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
+
+                                        var regx = /(\d+)(\d{3})/;
+
+                                        while (regx.test(splitLeft)) {
+
+                                            splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
+
+                                        }
+
+                                        return this.simbol + splitLeft + splitRight;
+
+                                    },
+
+                                    new : function (num, simbol) {
+
+                                        this.simbol = simbol || '';
                                         return this.formatear(num);
                                     }
-                                
-    };
-                                
-function totalPiezas() {
-                                    
-        var totalTarimas = 0;
-                                    
-        var TarimasC = document.getElementById('TarimasC').value;
-                                    
-        var CajasxTC = document.getElementById('CajasxTC').value;
-                                    
-        var PzsxCC = document.getElementById('PzsxCC').value;
-                                    
-        var TarimasI = document.getElementById('TarimasI').value;
-                                    
-        var CajasxTI = document.getElementById('CajasxTI').value;
-                                    
-        var Resto = document.getElementById('Resto').value;
-                                    
-        //alert("Resto = "+Resto);
-                                    
-        if (TarimasC === "") {
-                                        
-            TarimasC = 0;
-                                    
-        }
-                                   
-        if (CajasxTC === "") {
-                                        
-            CajasxTC = 0;
-                                    
-        }
-                                    
-        if (PzsxCC === "") {
-                                        
-            PzsxCC = 0;
-                                    
-        }
-                                    
-        if (TarimasI === "" || TarimasI === "0") {
-                                                                        
-            TarimasI = 0;
-                                    
-        }
-                                    
-        if (CajasxTI === "") {
-                                        
-            CajasxTI = 0;
-                                    
-        }
 
-                                    
-        if (Resto === "" || Resto === "0") {
-                                        
-            Resto = 0;
-                                    
-        }
+                                };
 
-                                    
-        var totalCajas = parseInt(CajasxTC) * parseInt(TarimasC) + parseInt(CajasxTI);
-                                    
-        document.getElementById('TCajas').value = formatNumber.new(totalCajas);
-                                    
-        if (Resto === 0) 
-                                    
-        {
-                                        
-            document.getElementById('CajasIn').value = formatNumber.new(0);
-                                    
-        } 
-                                        
-        else 
-                                        
-        {
-                                            
-            document.getElementById('TCajas').value = formatNumber.new(totalCajas + 1);
-                                            
-            document.getElementById('CajasIn').value = formatNumber.new(1);
-                                        
-        }
-                                  
-        if (parseInt(CajasxTI) !== parseInt(0)) {
-                                        
-            TarimasI = parseInt(1);
-                                    
-        }
+                                function totalPiezas() {
 
-                                    
-        if ((parseInt(CajasxTI) === parseInt(0)) && (parseInt(TarimasC) !== parseInt(0))) {
-                                        
-            totalTarimas = parseInt(TarimasC);
-                                    
-        } else {
-                                        
-            totalTarimas = parseInt(TarimasC) + parseInt(TarimasI);
-                                    
-        }
-                               
-        if (totalTarimas === 0 && Resto !== 0) {
-                                        
-            totalTarimas = totalTarimas + 1;
-                                    
-        }
-                               
-        document.getElementById('Tarimas').value = formatNumber.new(totalTarimas);
-                                    
-        var totalCajas = parseInt(CajasxTC) * parseInt(TarimasC) + parseInt(CajasxTI);
-                                    
-        document.getElementById('Cajas').value = formatNumber.new(totalCajas);
-                                    
-        var totalPiezas = parseInt(PzsxCC) * parseInt(totalCajas);
-                                    
-        document.getElementById('Piezas').value = formatNumber.new(totalPiezas + parseInt(Resto));
-                                
-    }
-                                
-function validaCadu() {
+                                    var totalTarimas = 0;
 
-        var cad = document.getElementById('cad').value;
-        var cartaCanje = document.getElementById('cartaCanje').value;
-                                    
-        if (cad === "") {
-                                        
-            alert("Falta Caducidad");
-            
-            document.getElementById('cad').focus();
-            
-            cartaCanje === "";
-            
-            return false;
-            
-        } else {
-        
-            if (cad.length < 10) {
-            
-                alert("Caducidad Incorrecta");
-                
-                document.getElementById('cad').focus();
-                
-                cartaCanje === "";
-                                            
-                return false;
-                
-            } else {
-            
-                var dtFechaActual = new Date();
-                
-                var sumarDias = parseInt(1);
-                
-                dtFechaActual.setDate(dtFechaActual.getDate() + sumarDias);
-                
-                var fechaSpl = cad.split("/");
-                
-                var Caducidad = fechaSpl[2] + "-" + fechaSpl[1] + "-" + fechaSpl[0];
-                
-                cartaCanje === "";
-                
-                if (Date.parse(dtFechaActual) >= Date.parse(Caducidad)) {
-                                                
-                    alert("Verifique la caducidad"); 
-                    document.getElementById('cad').focus();                 
-                    return false;                    
-                }                   
-            }                    
-        }                   
-    }
+                                    var TarimasC = document.getElementById('TarimasC').value;
+
+                                    var CajasxTC = document.getElementById('CajasxTC').value;
+
+                                    var PzsxCC = document.getElementById('PzsxCC').value;
+
+                                    var TarimasI = document.getElementById('TarimasI').value;
+
+                                    var CajasxTI = document.getElementById('CajasxTI').value;
+
+                                    var Resto = document.getElementById('Resto').value;
+
+                                    //alert("Resto = "+Resto);
+
+                                    if (TarimasC === "") {
+
+                                        TarimasC = 0;
+
+                                    }
+
+                                    if (CajasxTC === "") {
+
+                                        CajasxTC = 0;
+
+                                    }
+
+                                    if (PzsxCC === "") {
+
+                                        PzsxCC = 0;
+
+                                    }
+
+                                    if (TarimasI === "" || TarimasI === "0") {
+
+                                        TarimasI = 0;
+
+                                    }
+
+                                    if (CajasxTI === "") {
+
+                                        CajasxTI = 0;
+
+                                    }
 
 
-function validaOS(value) {
-                                    if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19' && value !== '20' && value !== '22' ) {
+                                    if (Resto === "" || Resto === "0") {
+
+                                        Resto = 0;
+
+                                    }
+
+
+                                    var totalCajas = parseInt(CajasxTC) * parseInt(TarimasC) + parseInt(CajasxTI);
+
+                                    document.getElementById('TCajas').value = formatNumber.new(totalCajas);
+
+                                    if (Resto === 0)
+
+                                    {
+
+                                        document.getElementById('CajasIn').value = formatNumber.new(0);
+
+                                    } else
+
+                                    {
+
+                                        document.getElementById('TCajas').value = formatNumber.new(totalCajas + 1);
+
+                                        document.getElementById('CajasIn').value = formatNumber.new(1);
+
+                                    }
+
+                                    if (parseInt(CajasxTI) !== parseInt(0)) {
+
+                                        TarimasI = parseInt(1);
+
+                                    }
+
+
+                                    if ((parseInt(CajasxTI) === parseInt(0)) && (parseInt(TarimasC) !== parseInt(0))) {
+
+                                        totalTarimas = parseInt(TarimasC);
+
+                                    } else {
+
+                                        totalTarimas = parseInt(TarimasC) + parseInt(TarimasI);
+
+                                    }
+
+                                    if (totalTarimas === 0 && Resto !== 0) {
+
+                                        totalTarimas = totalTarimas + 1;
+
+                                    }
+
+                                    document.getElementById('Tarimas').value = formatNumber.new(totalTarimas);
+
+                                    var totalCajas = parseInt(CajasxTC) * parseInt(TarimasC) + parseInt(CajasxTI);
+
+                                    document.getElementById('Cajas').value = formatNumber.new(totalCajas);
+
+                                    var totalPiezas = parseInt(PzsxCC) * parseInt(totalCajas);
+
+                                    document.getElementById('Piezas').value = formatNumber.new(totalPiezas + parseInt(Resto));
+
+                                }
+
+                                function validaCadu() {
+
+                                    var cad = document.getElementById('cad').value;
+                                    var cartaCanje = document.getElementById('cartaCanje').value;
+
+                                    if (cad === "") {
+
+                                        alert("Falta Caducidad");
+
+                                        document.getElementById('cad').focus();
+
+                                        cartaCanje === "";
+
+                                        return false;
+
+                                    } else {
+
+                                        if (cad.length < 10) {
+
+                                            alert("Caducidad Incorrecta");
+
+                                            document.getElementById('cad').focus();
+
+                                            cartaCanje === "";
+
+                                            return false;
+
+                                        } else {
+
+                                            var dtFechaActual = new Date();
+
+                                            var sumarDias = parseInt(1);
+
+                                            dtFechaActual.setDate(dtFechaActual.getDate() + sumarDias);
+
+                                            var fechaSpl = cad.split("/");
+
+                                            var Caducidad = fechaSpl[2] + "-" + fechaSpl[1] + "-" + fechaSpl[0];
+
+                                            cartaCanje === "";
+
+                                            if (Date.parse(dtFechaActual) >= Date.parse(Caducidad)) {
+
+                                                alert("Verifique la caducidad");
+                                                document.getElementById('cad').focus();
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                }
+
+
+                                function validaOS(value) {
+                                    if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19' && value !== '20' && value !== '22') {
                                         document.getElementById('ordenSuministro').value = "";
                                         document.getElementById('ordenSuministro').disabled = true;
                                         document.getElementById('confirm-ordenSuministro').value = "";
@@ -2314,7 +2312,7 @@ function validaOS(value) {
 
                                     }
 
-    <%if (nomComercial > 0) { %>
+        <%if (nomComercial > 0) { %>
 
                                     var nomcomer = document.getElementById('lMarcaR').value;
                                     if (nomcomer === "" && codBar !== "") {
@@ -2323,7 +2321,7 @@ function validaOS(value) {
                                         alert("Seleccionar nombre comercial");
                                         return false;
                                     }
-    <% }%>
+        <% }%>
                                 }
 
 
@@ -2410,7 +2408,7 @@ function validaOS(value) {
                                             break;
                                         }
                                     }
-//            var enable= $("#").val() === $("#confirm-"+idCampo).val();
+                                    //            var enable= $("#").val() === $("#confirm-"+idCampo).val();
 
                                 }
 
@@ -2458,6 +2456,6 @@ function validaOS(value) {
 
 
 
-</script>
+    </script>
 
 </html>

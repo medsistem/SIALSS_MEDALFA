@@ -26,6 +26,7 @@
     formatterDecimal.setDecimalFormatSymbols(custom);
     HttpSession sesion = request.getSession();
     String usua = "", tipo = "", Proyecto = "";
+    ResultSet rset = null;
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
@@ -33,6 +34,19 @@
     } else {
         response.sendRedirect("index.jsp");
     }
+    
+     ConectionDB con = new ConectionDB();
+    try {
+        con.conectar();
+        rset = con.consulta("SELECT * FROM tb_usuariocompra WHERE F_Usu LIKE '%" + usua + "%' ");
+        System.out.println(" rset = " + rset);
+        if (rset.next()) {
+            Proyecto = rset.getString(9);
+        }
+    } catch (Exception e) {
+    }
+
+    System.out.println("Proyecto: "+Proyecto);
 %>
 <html>
     <head>

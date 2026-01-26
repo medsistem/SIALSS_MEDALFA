@@ -23,17 +23,29 @@
     custom.setGroupingSeparator(',');
     formatter.setDecimalFormatSymbols(custom);
     HttpSession sesion = request.getSession();
+    ResultSet rset = null;
     String usua = "", tipo = "", IdUsu = "", Proyecto = "";
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
         IdUsu = (String) sesion.getAttribute("IdUsu");
         tipo = (String) sesion.getAttribute("Tipo");
-        Proyecto = (String) sesion.getAttribute("Proyecto");
+        //Proyecto = (String) sesion.getAttribute("Proyecto");
     } else {
         response.sendRedirect("indexCompras.jsp");
     }
     ConectionDB con = new ConectionDB();
-System.out.println("Proyecto = "+Proyecto+" / " +usua );
+    try {
+        con.conectar();
+        rset = con.consulta("SELECT * FROM tb_usuariocompra WHERE F_Usu LIKE '%" + usua + "%' ");
+        System.out.println(" rset = " + rset);
+        if (rset.next()) {
+            Proyecto = rset.getString(9);
+        }
+    } catch (Exception e) {
+    }
+
+    System.out.println("Proyecto = " + Proyecto + " / " + usua);
+    con.cierraConexion();
 %>
 
 <!DOCTYPE html>
@@ -62,7 +74,15 @@ System.out.println("Proyecto = "+Proyecto+" / " +usua );
                         con.conectar();
                         String Class = "", IdOC = "";
                         int Contar = 0, Ban = 0;
-                        ResultSet rset = con.consulta("SELECT F_Id, F_DesProy, F_Campo, F_NomOC, F_IdOC FROM tb_proyectos  WHERE F_Id IN (1,2,3) ORDER BY F_DesProy ASC;");
+                        System.out.println("tipo: "+tipo);
+                        if (tipo.equals("14")) {
+                            System.out.println("entro nuevo usuario");
+                            rset = con.consulta("SELECT F_Id, F_DesProy, F_Campo, F_NomOC, F_IdOC FROM tb_proyectos  WHERE F_Id IN (" + Proyecto + " ) ORDER BY F_DesProy ASC;");
+                        } else {
+                            System.out.println("entro usuario compras");
+                            rset = con.consulta("SELECT F_Id, F_DesProy, F_Campo, F_NomOC, F_IdOC FROM tb_proyectos  WHERE F_Id IN (" + Proyecto + " ) ORDER BY F_DesProy ASC;");
+                        }
+
                         while (rset.next()) {
                             Contar++;
                             IdOC = rset.getString(5);
@@ -107,7 +127,7 @@ System.out.println("Proyecto = "+Proyecto+" / " +usua );
                 %>
             </div>
         </div>
-     
+
         <%@include file="jspf/piePagina.jspf" %>
         <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>

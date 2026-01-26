@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#Mostrar').click(function () {
         var Consulta = $('#Consulta').val();
         $.ajax({
-            url: "../ExistenciaProyecto",
+            url: "../ExistenciaProyectoCompras",
             data: {accion: "MostrarTodosCompra", Tipo: Consulta},
             type: 'GET',
             async: false,
@@ -41,8 +41,8 @@ function ObtenerProyecto() {
     $("#Nombre").append("<option value=0>Seleccione</option>").select2();
     $('#Nombre option:gt(0)').remove();
     $.ajax({
-        url: "../ExistenciaProyecto",
-        data: {accion: "obtenerProyectos"},
+        url: "../ExistenciaProyectoCompra",
+        data: {accion: "obtenerProyectosConsulta"},
         type: 'GET',
         dataType: 'JSON',
         async: true,
@@ -59,7 +59,7 @@ function MostrarRegistros() {
     var Proyecto = $("#Nombre").val();
     if (Consulta && Proyecto !== "0") {
         $.ajax({
-            url: "../ExistenciaProyecto",
+            url: "../ExistenciaProyectoCompra",
             data: {accion: "MostrarRegistrosCompra", Proyecto: Proyecto, Tipo: Consulta},
             type: 'GET',
             async: false,
