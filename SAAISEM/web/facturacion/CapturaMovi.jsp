@@ -7,7 +7,8 @@
 
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--%@page contentType="text/html" pageEncoding="UTF-8"%-->
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="conn.*" %>
 <%@page import="Facturacion.FacturacionManual" %>
 <!DOCTYPE html>
@@ -17,6 +18,8 @@
     HttpSession sesion = request.getSession();
     String F_IndFolMov = (String) sesion.getAttribute("F_IndFolMov");
     String usua = "", tipo = "";
+    request.setCharacterEncoding("UTF-8");
+response.setContentType("text/html;charset=UTF-8");
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
@@ -33,6 +36,7 @@
         FechaEnt = (String) sesion.getAttribute("FechaEntFM");
         ClaPro = (String) sesion.getAttribute("ClaProFM");
         DesPro = (String) sesion.getAttribute("DesProFM");
+              System.out.println("DesPro: "+DesPro);
     } catch (Exception e) {
         System.out.println(e);
     }
@@ -145,7 +149,7 @@
                                         rset = con.consulta("SELECT F_IdCon,CONCAT('[',F_IdCon,']  ',F_DesCon) AS F_DesCon FROM tb_coninv WHERE  F_IdCon  IN (71);");
 
                                     } else {
-                                        rset = con.consulta("SELECT F_IdCon,CONCAT('[',F_IdCon,']  ',F_DesCon) AS F_DesCon FROM tb_coninv WHERE  F_IdCon  IN (11,62,19,18,2,10,16,23,6,9,30,53,59,58,66,54,68,57,67,70,71,63,69,5);");
+                                        rset = con.consulta("SELECT F_IdCon,CONCAT('[',F_IdCon,']  ',F_DesCon) AS F_DesCon FROM tb_coninv ;");
 
                                     }
                                     while (rset.next()) {
@@ -211,11 +215,11 @@
                                 <h4>Ingresé Cantidad:</h4>
                             </div>
                             <div class="col-sm-2">
-                            <input class="form-control" type="number" min="1" max="1000" maxlength="4" minlength="1" name="Cantidad" id="Cantidad" onKeyPress="return justNumbers(event);"/>
+                            <input class="form-control" type="number" min="1" max="10000" maxlength="4" minlength="1" name="Cantidad" id="Cantidad" onKeyPress="return justNumbers(event);"/>
                  </div>
 
                             <div class="col-sm-2">
-                                <button class="btn btn-block btn-info" name="accion" value="SeleccionaLoteTMovi" onclick="return validaSeleccionar();">Seleccionar</button>
+                                <button class="btn btn-block btn-info" name="accion" value="SeleccionaLoteTMovi" onclick="return validaSeleccionar();">Buscar</button>
                             </div>
                         </div>
 

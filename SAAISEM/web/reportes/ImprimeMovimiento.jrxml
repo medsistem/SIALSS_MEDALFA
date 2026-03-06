@@ -71,7 +71,7 @@ GROUP BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SIALSS dev]]></text>
+				<text><![CDATA[SIALSS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83580f10-239f-4474-871d-820c698eb6c9" x="90" y="-60" width="198" height="20"/>
@@ -209,13 +209,6 @@ GROUP BY
 				<text><![CDATA[Clave]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="476ff044-6bae-4919-8bf5-24aa6265034d" x="505" y="1" width="34" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Costo]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="7802a61b-e2cc-408e-a1a1-48c804cc9471" x="464" y="1" width="41" height="12"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
@@ -228,13 +221,6 @@ GROUP BY
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lote]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="9d2f925d-5f9b-46d7-ac3c-668f425d19d7" x="539" y="1" width="33" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Importe]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -260,13 +246,6 @@ GROUP BY
 					<font fontName="Arial" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_FecCad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="d19fb4ef-d4fd-4e0e-beab-d4b997be6ac4" x="505" y="1" width="34" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{F_Costo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="dc36ab1a-39a4-4b64-b20e-ee22e8e816a3" x="0" y="1" width="90" height="12"/>
@@ -296,13 +275,6 @@ GROUP BY
 					<font fontName="Arial" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_CantSur}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="c7f5cbab-611d-41da-9afd-2c7a67991099" x="539" y="1" width="32" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{F_Monto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="bd2e0099-7922-4a2a-ab07-9e750222ceea" x="372" y="1" width="92" height="12"/>

@@ -23,6 +23,8 @@
     custom.setGroupingSeparator(',');
     formatter.setDecimalFormatSymbols(custom);
     HttpSession sesion = request.getSession();
+      request.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html;charset=UTF-8");
     ResultSet rset = null;
     String usua = "", tipo = "", IdUsu = "", Proyecto = "";
     if (sesion.getAttribute("nombre") != null) {

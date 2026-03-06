@@ -1,0 +1,1033 @@
+<%-- 
+    Document   : capturaISEM.jsp
+    Created on : 14-jul-2014, 14:48:02
+    Author     : Americo
+--%>
+
+<%@page import="java.text.DecimalFormatSymbols"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Level"%>
+<%@page import="java.sql.SQLException"%>
+<!--%@page import="conn.ConectionDB_Linux"%-->
+<%@page import="conn.ConectionDB"%>
+<%@page import="ISEM.CapturaPedidos"%>
+<%@page import="javax.servlet.http.HttpSession"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
+    DecimalFormat formNoCom = new DecimalFormat("000");
+    DecimalFormatSymbols custom = new DecimalFormatSymbols();
+    custom.setDecimalSeparator('.');
+    custom.setGroupingSeparator(',');
+    formatter.setDecimalFormatSymbols(custom);
+    HttpSession sesion = request.getSession();
+    String usua = "", tipo = "", IdUsu = "";
+
+    if (sesion.getAttribute("nombre") != null) {
+        usua = (String) sesion.getAttribute("nombre");
+        IdUsu = (String) sesion.getAttribute("IdUsu");
+        tipo = (String) sesion.getAttribute("Tipo");
+    } else {
+        response.sendRedirect("indexCompras.jsp");
+    }
+
+    ConectionDB con = new ConectionDB();
+    CapturaPedidos indice = new CapturaPedidos();//objeto de capturapedidos
+
+    String proveedor = "", Prove_entrega = "", fecEnt = "", horEnt = "", claPro = "", Clave = "";
+    String desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "";
+    String Campo = "", FechaVencimiento = "", dias = "", NomOC = "", IdOC = "";
+    String ver = "", moneda = "", cfdi = "";
+    int Ban = 0, act = 0, BANP = 0;
+    Boolean autoriza = null;
+
+    try {
+        Proyecto = request.getParameter("Proyecto");
+        Desproyecto = request.getParameter("DesProyecto");
+
+        Campo = request.getParameter("Campo");
+        NomOC = request.getParameter("NomOC");
+        IdOC = request.getParameter("IdOC");
+        Ban = Integer.parseInt(request.getParameter("Ban"));
+        BANP = Integer.parseInt(request.getParameter("Banp"));
+        // act = Integer.parseInt((String) sesion.getAttribute("act"));
+
+        System.out.println("0.- NomOC: " + NomOC + " /IdOC : " + IdOC + " /:Ban: " + Ban + " /BANP: " + BANP + " /act: " + act);
+
+        NoCompra = (String) sesion.getAttribute("NoCompra");
+        proveedor = (String) sesion.getAttribute("proveedor");
+        Prove_entrega = (String) sesion.getAttribute("Prove_entrega");
+        fecEnt = (String) sesion.getAttribute("fec_entrega");
+        horEnt = (String) sesion.getAttribute("hor_entrega");
+        claPro = (String) sesion.getAttribute("clave");
+        desPro = (String) sesion.getAttribute("descripcion");
+        origen = (String) sesion.getAttribute("origen");
+        FechaVencimiento = (String) sesion.getAttribute("FechaVencimiento");
+        dias = (String) sesion.getAttribute("dias");
+        moneda = (String) sesion.getAttribute("moneda");
+        cfdi = (String) sesion.getAttribute("cfdi");
+
+        //  cedis = (String) sesion.getAttribute("cedis");
+    } catch (Exception e) {
+        e.getMessage();
+    }
+
+    System.out.println("proiveedor: " + proveedor + " /dias: " + dias);
+
+    if (proveedor == null) {
+        proveedor = "";
+        fecEnt = "";
+        horEnt = "";
+        FechaVencimiento = "";
+        Prove_entrega = "";
+        dias = "";
+    }
+    if (claPro == null) {
+        claPro = "";
+        desPro = "";
+        origen = "";
+    }
+
+    if (NoCompra == null) {
+        NoCompra = "";
+
+    }
+
+    if (Desproyecto == null) {
+        Desproyecto = "";
+    }
+
+    if (Campo == null) {
+        Campo = "";
+    }
+
+    if (NomOC == null) {
+        NomOC = "";
+
+    }
+
+    if (IdOC == null) {
+        IdOC = "";
+    }
+
+    if (dias == null) {
+        dias = "";
+    }
+    System.out.println("1.- NoCompra: " + NoCompra + " / " + NomOC + " / " + Ban + " / banp: " + BANP);
+
+    /*if (cedis == null) {
+        cedis = request.getParameter("cedis");
+    }*/
+    if (Ban == 1) {
+        System.out.println("si entre cuando es 1");
+        NoCompra = NomOC + IdOC;
+
+    } else if (Ban == 2) {
+        System.out.println("si entre en dos");
+        NoCompra = "";
+        proveedor = "";
+        fecEnt = "";
+        horEnt = "";
+        FechaVencimiento = "";
+        Prove_entrega = "";
+        dias = "";
+        moneda = "";
+        cfdi = "";
+    } else {
+        NoCompra = NoCompra;
+    }
+
+    if (BANP == 2) {
+        autoriza = true;
+        ver = "disabled";
+    } else {
+
+        autoriza = false;
+        ver = "";
+    }
+    System.out.println("2.- NoCompra: " + NoCompra + " / NomOC: " + NomOC + " / sts: " + autoriza + " / Prove_entrega: " + Prove_entrega + " / proveedor: " + proveedor);
+    System.out.println("moneda: " + moneda + " /cfdi: " + cfdi);
+
+%>
+<script>
+    // Verificar si el atributo errorMessage está disponible
+    <%        String errorMessage = (String) request.getParameter("errorMessage");
+        System.out.println("errorMessage: " + errorMessage);
+        if (errorMessage != null) {
+    %>
+    alert("<%= errorMessage%>");
+    <%
+        }
+    %>
+
+</script>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Captura OC</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="images/system-settings-icon_31831.png" rel="shortcut icon"/>
+        <link href="css/select2.css" rel="stylesheet">
+
+    </head>
+    <body onload="focusLocus();">
+        <div class="container">
+            <h1>SIALSS</h1>
+            <h4>Módulo - Sistema de Administración de Almacenes (SAA)</h4>
+            <%@include file="jspf/menuPrincipalCompra.jspf" %>
+            <h4>Captura OC Proyecto <%=Desproyecto%></h4>
+
+            <hr/>
+            <br/>
+
+            <form name="FormBusca" action="CapturaPedidos" method="post">
+
+                <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
+                <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
+                <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
+                <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
+                <div class="row">
+
+                    <!--input class="hidden" value="< %=cedis%>" id="nomCedis" name="nomCedis" --> 
+
+
+                    <label class="col-sm-3 col-sm-offset-5 text-right">
+                        <h4>Número de Orden de Compra</h4>
+                    </label>
+
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="NoCompra" name="NoCompra" value="<%=NoCompra%>"  <%= ver%>/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-warning btn-block" name="accion" value="LimpiarOC" onclick="limpiarFormulario()" <%= ver%> >Limpiar NO OC</button>
+                    </div>
+                </div>
+                <br/>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <label class="col-sm-2">
+                                <h4>Proveedor:</h4>
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="Proveedor" id="Proveedor" onchange="document.getElementById('Prove_entrega').focus();" <%= ver%>>
+                                    <option value="" disabled selected >--Proveedor--</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT F_ClaProve,F_NomPro FROM tb_proveedor;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (proveedor.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2">
+                                <h4>Punto Entrega:</h4>
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="Prove_entrega" id="Prove_entrega" onchange=" document.getElementById('Fecha').focus();" <%= ver%>>
+                                    <option value="" disabled selected >--Punto Entrega--</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_prove_entrega;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (Prove_entrega.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+
+                                </select>
+                            </div>
+                        </div>      
+                        <div class="row">
+                            <label class="col-sm-2">
+                                <h4>Fecha de Entrega:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="date" class="form-control" id="Fecha" name="Fecha" value="<%=fecEnt%>"  data-date-format="dd/mm/yyyy" oncopy="return false" onpaste="return false" onkeypress="return false;" maxlength="10"  autocomplete="off" placeholder="dd/mm/aaaa" <%= ver%>/>
+                            </div>
+                            
+                            
+                            <label class="col-sm-2">
+                                <h4>Hora de Entrega:</h4>
+                            </label>
+
+                            <div class="col-sm-2">
+                                <select class="form-control" id="Hora" name="Hora" onchange="document.getElementById('FechaVencimiento').focus()" <%= ver%>>
+                                    <%
+                                        for (int i = 7; i < 24; i++) {
+                                            if (i != 24) {
+                                    %>
+                                    <option value="<%=i%>:00"
+                                            <%
+                                                if (horEnt.equals(i + ":00")) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=i%>:00</option>
+                                    <option value="<%=i%>:30"
+                                            <%
+                                                if (horEnt.equals(i + ":30")) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=i%>:30</option>
+                                    <%
+                                    } else {
+                                    %>
+                                    <option value="<%=i%>:00"
+                                            <%
+                                                if (horEnt.equals(i + ":00")) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=i%>:00</option>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            
+                            <label class="col-sm-2">
+                                <h5>Fecha de Vencimiento:</h5>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="date" class="form-control" id="FechaVencimiento" name="FechaVencimiento" value="<%=FechaVencimiento%>"   data-date-format="dd/mm/yyyy" oncopy="return false" onpaste="return false" onkeypress="return false;" maxlength="10"  autocomplete="off" placeholder="dd/mm/aaaa" <%= ver%>/>
+                            </div>
+                            
+                            
+                        </div>
+
+
+                        <div class="row">
+
+
+                            <label class="col-sm-2 ">
+                                <h4>Moneda:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <select  class="form-control" name="moneda" id="moneda"  onpaste="return false"  <%= ver%> >
+                                    <option value="" disabled selected > $ </option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_tipo_moneda WHERE F_Mone_sts = 1;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (moneda.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-2 ">
+                                <h4>CFDI: </h4>
+                            </label>    
+
+                            <div class="col-sm-2">
+                                <select  class="form-control" name="cfdi" id="cfdi"  onpaste="return false"   <%= ver%>>
+                                    <option value=""  > CFDI </option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_cfdi WHERE cfdi_sts = 1;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (cfdi.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="row"> 
+                            <label class="col-sm-2">
+                                <h4>Condición de pago</h4>
+                            </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="dias" name="dias" value="<%=dias%>"  <%= ver%>/>
+                            </div>   
+
+                        </div>
+                        <%
+                            if (BANP != 2) {
+                        %> 
+                        <div class="col-lg-8"> 
+                            <button class="btn btn-block btn-info glyphicon glyphicon-ok-sign"  value="Validar_OC" name="accion" onclick="return validaOC_P(this);" >
+                                Validar OC
+                            </button>
+                        </div>
+
+                        <%
+                            }
+                        %> 
+
+                    </div>  
+                </div> 
+
+                <!-- </form> -->
+
+                <hr/>
+
+
+                <%
+                    if (BANP == 2) {
+                %>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <label class="col-sm-1 text-right">
+                                <h4>Clave:</h4>
+                            </label>
+                            <div class="col-sm-8">
+                                <select name="Clave" id="Clave" class="form-control">
+                                    <option disabled selected >-- Seleccione --</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT F_ClaPro,CONCAT(F_ClaPro,' - ',F_DesPro) FROM tb_medica WHERE " + Campo + " = 1 AND F_StsPro='A';");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (Clave.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary btn-block"  name="accion" value="ClaveB">Clave</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-1 text-right">
+                                <h4>Clave:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" readonly value="<%=claPro%>" name="ClaPro" id="ClaPro"/>
+                            </div>
+                            <label class="col-sm-2">
+                                <h4>Descripción:</h4>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" readonly value="<%=desPro%>" name="DesPro" id="DesPro"/>
+                            </div>
+                        </div>
+
+                        <%
+                            try {
+                                con.conectar();
+                                ResultSet rset = con.consulta("select pp.F_CantMax, pp.F_CantMin, m.F_PrePro from tb_prodprov pp, tb_medica m where m.F_ClaPro = pp.F_ClaPro and pp.F_ClaPro = '" + claPro + "'and pp.F_ClaProve = '" + proveedor + "' ");
+                                if (rset.next()) {
+                                    int cantUsada = 0;
+                                    int cantMax = 0;
+                                    cantMax = rset.getInt(1);
+                                    ResultSet rset2 = con.consulta("select sum(F_Cant) from tb_pedido_sialss where F_Clave='" + claPro + "' and F_StsPed !='2'  AND F_Provee='" + proveedor + "'");
+                                    while (rset2.next()) {
+                                        cantUsada = rset2.getInt(1);
+                                    }
+                                    int cantRestante = cantMax - cantUsada;
+                        %>
+                        <div class="row">
+                            <label class="col-sm-2 text-right">
+                                <h4>Cantidad Enviada:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="numer" class="form-control" readonly value="<%=formatter.format(cantUsada)%>" name="" id="" min="1" />
+                            </div>
+                            <label class="col-sm-2">
+                                <h4>Cantidad Máxima:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" readonly value="<%=formatter.format(cantMax)%>" name="" id="" min="1"/>
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>Cantidad Restante:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" readonly value="<%=formatter.format(cantRestante)%>" name="CantRest" min="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2">
+                                <h4>Presentación</h4>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" readonly value="<%=rset.getString(3)%>" name="" id=""/>
+                            </div>
+                        </div>
+                        <%
+                                }
+                                con.cierraConexion();
+                            } catch (Exception e) {
+                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                            } finally {
+                                try {
+                                    con.cierraConexion();
+                                } catch (SQLException ex) {
+                                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        %>
+                        <div class="row">
+                            <%
+                                String cantidad = "0";
+                                try {
+                                    con.conectar();
+                                    ResultSet rset = con.consulta(" select SUM(F_ExiLot) from tb_lote WHERE F_Proyecto ='" + Proyecto + "' AND F_ClaPro = '" + claPro + "' group by F_ClaPro  ");
+                                    while (rset.next()) {
+                                        cantidad = rset.getString(1);
+                                    }
+                                    if (cantidad == null) {
+                                        cantidad = "0";
+                                    }
+                                    con.cierraConexion();
+                                } catch (Exception e) {
+                                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                } finally {
+                                    try {
+                                        con.cierraConexion();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            %>
+                            <label class="col-sm-2 text-center">
+                                <h4>Exist. en Almacén:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="CantAlm" id="CantAlm" readonly="" value="<%=formatter.format(Integer.parseInt(cantidad))%>" />
+                            </div>
+                            <label class="col-sm-2 text-center">
+                                <h4>No. de Entrega:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <select  class="form-control" name="Prioridad" id="Prioridad">
+                                    <option value="0" disabled selected> N/A </option>
+                                     <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_prioridad;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"
+                                            <%
+                                                if (proveedor.equals(rset.getString(1))) {
+                                                    out.println("selected");
+                                                }
+                                            %>
+                                            ><%=rset.getString(2)%></option>
+                                    <%
+                                            }
+                                        } catch (Exception e) {
+                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        } finally {
+                                            try {
+                                                con.cierraConexion();
+                                            } catch (SQLException ex) {
+                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    %>
+
+                                </select>
+                            </div>
+                            <label class="hidden">
+                                <h4>Lote</h4>
+                            </label>
+                            <div class="hidden">
+                                <input type="text" class="form-control" name="LotPro" id="LotPro" />
+                            </div>
+                            <label class="hidden">
+                                <h4>Caducidad</h4>
+                            </label>
+                            <div class="hidden">
+                                <input type="text" class="form-control" data-date-format="dd/mm/yyyy" readonly="" name="CadPro" id="CadPro" onchange="calculaTotal()"/>
+                            </div><label class="col-sm-2 text-right">
+                                <h4>Pzs a Entregar:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="number" class="form-control" name="CanPro" id="CanPro" data-behavior="only-num" onkeydown="filtro()" onchange="calculaTotal()" onKeyPress="return justNumbers(event);" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-1 text-right">
+                                <h4>Precio </h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="Precio" id="Precio" data-behavior="only-num" onpaste="return false"/>
+                            </div>
+
+                            <label class="col-sm-2 text-right">
+                                <h4>Descuento %:</h4>
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="descuento" id="descuento" data-behavior="only-num" required="" value="0" onpaste="return false"/>
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>IVA %:</h4>
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="iva" id="iva" data-behavior="only-num" required="" value="0" onpaste="return false" />
+                            </div>
+
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <label class="col-sm-2 text-right">
+                                <h4>Subtotal:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="subtotalDis" data-behavior="only-num" disabled />
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>Monto Descuento:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="descuentoDis" data-behavior="only-num" disabled/>
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>Monto IVA:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="ivaDis" data-behavior="only-num" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 text-right">
+                                <h4>Total:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="totalDis" data-behavior="only-num" disabled />
+                            </div>
+                        </div>
+                        <br/>
+
+                        <button class="btn btn-block btn-primary" name="accion" value="capturar" onclick="return validaCaptura();">Capturar</button>
+
+                    </div>
+
+                </div>
+            </form>
+            <br/>
+
+
+
+
+            <table class="table table-bordered table-condensed table-striped">
+                <tr>
+                    <td><strong>Clave</strong></td>
+                    <td><strong>Descripción</strong></td>
+                    <td><strong>Fecha</strong></td>
+                    <td><strong>Hora</strong></td>
+                    <td><strong>Cantidad</strong></td>
+                    <td><strong>Precio</strong></td>
+                    <td><strong>Descuento</strong></td>
+                    <td><strong>IVA</strong></td>
+                    <td></td>
+                </tr>
+                <%
+                    int banConfirma = 0;
+                    try {
+                        con.conectar();
+                        ResultSet rset = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, DATE_FORMAT(F_FecSur, '%d/%m/%Y'), F_HorSur, F_Iva, F_Descuento, F_Precio from tb_pedido_sialss s, tb_medica m where s.F_Clave = m.F_ClaPro and F_IdUsu = '" + (String) sesion.getAttribute("IdUsu") + "' and F_NoCompra = '" + NoCompra + "' and F_StsPed = '0' ");
+                        while (rset.next()) {
+                            banConfirma = 1;
+                %>
+                <tr>
+                    <td><%=rset.getString(1)%></td>
+                    <td><%=rset.getString(2)%></td>
+                    <td><%=rset.getString(7)%></td>
+                    <td><%=rset.getString(8)%></td>
+                    <td><%=rset.getInt(5)%></td>
+                    <td><%=formatter.format(rset.getDouble(11))%></td>
+                    <td><%=formatter.format(rset.getDouble(10))%></td>
+                    <td><%=formatter.format(rset.getDouble(9))%></td>
+                    <td>
+                        <form action="CapturaPedidos" method="post">
+                            <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
+                            <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
+                            <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
+                            <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                            <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                            <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
+                            <input name="id" value="<%=rset.getString(6)%>" class="hidden" />
+                            <button class="btn btn-info" name="accion" value="eliminaClave"><span class="glyphicon glyphicon-remove"></span></button>
+                        </form>
+                    </td>
+                </tr>
+                <%
+                        }
+                    } catch (Exception e) {
+                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                    } finally {
+                        try {
+                            con.cierraConexion();
+                        } catch (SQLException ex) {
+                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                        }
+                    }
+                %>
+
+            </table>
+            <div class="row">
+                <%
+                    if (banConfirma == 1) {
+                %>
+                <form name="FormCaptura" action="CapturaPedidos" method="post">
+                    <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
+                    <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
+                    <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
+                    <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                    <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                    <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
+                    <div class="row">
+                        <label class="col-sm-2 text-right">
+                            <h4>Observaciones</h4>
+                        </label>
+                        <div class="col-sm-10">
+                            <textarea id="Observaciones" name="Observaciones" class="form-control" rows="1" data-behavior="only-alphanum-white" maxlength="150"></textarea>
+                        </div>
+                    </div>
+                    <br/>
+
+
+                    <div class="col-sm-6">
+                        <button class="btn btn-info btn-block" name="accion" value="cancelar" onclick="return confirm('¿Seguro que desea CANCELAR el pedido?')">Cancelar</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="hidden" name="NoCompra" value="<%=NoCompra%>"/>
+                        <button class="btn btn-primary btn-block" name="accion" value="confirmar" onclick="return confirm('¿Seguro que desea CONFIRMAR el pedido?')">Confirmar Orden de Compra</button>
+                    </div>
+                </form>
+                <%
+                    }
+                %>
+            </div>
+            <%
+                }
+            %>
+
+
+        </div>
+        <%@include file="jspf/piePagina.jspf" %>
+
+
+        <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript" ></script>
+        <script src="js/jquery.alphanum.js" type="text/javascript"></script>
+        <script src="js/select2.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+
+                            Fecha.min = new Date().toISOString().split("T")[0];
+                            FechaVencimiento.min = new Date().toISOString().split("T")[0];
+        </script>
+
+        <script type="text/javascript">
+
+            $("#Proveedor").select2();
+            $("#Clave").select2();
+            $("#Prove_entrega").select2();
+
+            $('#FormBusca').submit(function () {
+                document.getElementById('imgCarga').style.display = "block";
+                $('#accion').css('display', 'none');
+            });
+
+        </script>
+
+
+
+        <script type="text/javascript">
+
+
+            $("[data-behavior~=only-num]").numeric({
+                allowMinus: false,
+                allowThouSep: false
+            });
+
+
+            function limpiarFormulario() {
+                document.getElementById('Proveedor').value = '';
+                document.getElementById('Clave').value = '';
+                document.getElementById('Prove_entrega').value = '';
+
+                const folio_remi = document.getElementById("folio_remi");
+                const orden = document.getElementById('orden');
+                const list_provee = document.getElementById('Proveedor');
+                //   alert("Limpio Campos" + folio_remi);
+                folio_remi.disabled = true;
+                orden.disabled = true;
+
+            }
+            ;
+
+
+
+
+
+            function justNumbers(e)
+            {
+                var keynum = window.event ? window.event.keyCode : e.which;
+                if ((keynum === 8) || (keynum === 46)) {
+                    return true;
+                }
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+
+
+            jQuery(document).ready(function () {
+                jQuery("#CanPro").on('input', function (evt) {
+                    // Allow only numbers.
+                    jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                });
+            });
+
+
+
+
+            function focusLocus() {
+                /* document.getElementById('Proveedor').focus();
+                 if (document.getElementById('Fecha').value !== "") {
+                 
+                 }*/
+
+            }
+
+
+            /*  function validaClaDes(boton) {
+             var btn = boton.value;
+             valor = "";
+             if (btn === "ClaveB") {
+             valor = document.getElementById('Clave').value;
+             mensaje = "Introduzca la clave";
+             }
+             if (valor === "") {
+             alert(mensaje);
+             return false;
+             }
+             }*/
+
+
+            function validaOC_P(boton) {
+
+
+                var prove = document.getElementById('Proveedor').value;
+                var proventre = document.getElementById('Prove_entrega').value;
+                var fecha = document.getElementById('Fecha').value;
+                var fechaVe = document.getElementById('FechaVencimiento').value;
+                var hora = document.getElementById('Hora').value;
+                var NoCompra = document.getElementById('NoCompra').value;
+                var dias = document.getElementById('dias').value;
+                var moneda = document.getElementById('moneda').value;
+                var cfdi = document.getElementById('cfdi').value;
+
+                var fechaConvertida = fecha.replace(/-/g, ''); // Cualquier número que quieras
+                var fechaVeConvertida = fechaVe.replace(/-/g, ''); // Cualquier número que quieras
+
+
+                if (fecha === "" || hora === "0:00" || NoCompra === "" || prove === "" || proventre === "" || fecha === "" || fechaVe === "" || dias === "" || moneda === "" || cfdi === "") {
+                    alert("Complete los datos de la captura !");
+                    return false;
+                } else if (fechaConvertida >= fechaVeConvertida) {
+                    if (confirm("La fecha de vencimiento es menor a la fecha de entrega desea cambiarla?.")) {
+                        return false;
+                    } else {
+                        return false;
+                    }
+                    if (moneda === "") {
+                        alert("Se requiere un tipo de moneda");
+                        return false;
+                    } else if (cdi === "") {
+                        alert("Se requiere un tipo de CDI");
+                        return false;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+
+
+            function validaCaptura()
+            {
+                var ClaPro = document.getElementById('ClaPro').value;
+                var DesPro = document.getElementById('DesPro').value;
+                var CanPro = document.getElementById('CanPro').value;
+                var Precio = document.getElementById('Precio').value;
+
+
+
+                if (ClaPro === "" | DesPro === "" || CanPro === "" || Precio === "") {
+                    alert("Complete los datos de capturar de cantidades ");
+                    return false;
+                } else if (CanPro === 0 || CanPro === "0") {
+                    alert("El numero de piezas como minimo es 1");
+                    return false;
+                }
+
+                var CanRes = document.getElementById('CantRest').value;
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                if (parseInt(CanRes) < parseInt(CanPro)) {
+                    alert("La Cantidad Solicitada no puede ser mayor a la Cantidad Restante");
+                    return false;
+                }
+                return true;
+            }
+
+
+            function calculaTotal() {
+                var CanPro = document.getElementById('CanPro').value;
+                var costoUnitario = document.getElementById('Precio').value;
+                var descuento = document.getElementById('descuento').value;
+                var iva = document.getElementById('iva').value;
+                var total = 0;
+                var subtotal = 0;
+                var descuentoCalc = 0;
+                var ivaCalc = 0;
+                CanPro = parseFloat(CanPro);
+                if (costoUnitario !== "") {
+                    costoUnitario = parseFloat(costoUnitario);
+                    subtotal = costoUnitario * CanPro;
+                    total = subtotal;
+                    if (descuento !== "") {
+                        descuento = parseFloat(descuento);
+                        descuentoCalc = costoUnitario - (costoUnitario * (1 - (descuento / 100.00)));
+                        subtotal = costoUnitario * (1 - (descuento / 100.00));
+                        subtotal = subtotal * CanPro;
+                        total = subtotal;
+                    }
+                    if (iva !== "") {
+                        ivaCalc = subtotal * (parseFloat(iva) / 100.00);
+                        total = subtotal * (1 + (parseFloat(iva) / 100.00));
+                    }
+//                                    document.getElementById('subtotal').value= subtotal;
+                    document.getElementById('subtotalDis').value = subtotal.toFixed(2);
+                    document.getElementById('ivaDis').value = ivaCalc.toFixed(2);
+                    document.getElementById('totalDis').value = total.toFixed(2);
+                    document.getElementById('descuentoDis').value = descuentoCalc.toFixed(2);
+                }
+            }
+
+            function justNumbers(e)
+            {
+                var keynum = window.event ? window.event.keyCode : e.which;
+                if ((keynum == 8) || (keynum == 46))
+                    return true;
+
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+
+            function filtro()
+            {
+                var tecla = event.key;
+                if (['.', 'e'].includes(tecla))
+                    event.preventDefault()
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    </body>
+
+</html>

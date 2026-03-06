@@ -163,10 +163,10 @@
 
                                             if (Query.isEmpty()) {
                                                 System.out.println("sin datos");
-                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5,60,9) and F_FecMov BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE()  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
+                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5) and F_FecMov BETWEEN CURDATE() - INTERVAL 7 DAY AND CURDATE()  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
                                             } else {
                                                 System.out.println("datos fecha");
-                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5,60,9) and " + Query + "  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
+                                                rset = con.consulta("SELECT F_DocMov,c.F_IdCon,c.F_DesCon,F_FecMov, l.F_Proyecto, py.F_DesProy  FROM tb_movinv m INNER JOIN tb_coninv c on m.F_ConMov=c.F_IdCon INNER JOIN tb_lote l ON m.F_LotMov = l.F_FolLot and m.F_ProMov = l.F_ClaPro  INNER JOIN tb_proyectos py ON l.F_Proyecto = py.F_Id WHERE F_ConMov NOT IN (3,11,1000,1,51,1001,4,5) and " + Query + "  GROUP BY F_DocMov,F_FecMov,F_ConMov ORDER BY F_DocMov+0;");
                                             }
                                             int contar = 0;
                                             while (rset.next()) {

@@ -6,12 +6,15 @@
 
 <%@page import="java.util.Date"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--%@page contentType="text/html" pageEncoding="UTF-8"%-->
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@page import="conn.*" %>
 <!DOCTYPE html>
 <%java.text.DateFormat df2 = new java.text.SimpleDateFormat("yyyy-MM-dd"); %>
 <%
-
+request.setCharacterEncoding("UTF-8");
+response.setContentType("text/html;charset=UTF-8");
     HttpSession sesion = request.getSession();
     String usua = "", tipo = "";
     if (sesion.getAttribute("nombre") != null) {
@@ -31,8 +34,9 @@
         DesPro = (String) sesion.getAttribute("DesProFM");
         Cantidad = (String) request.getAttribute("Cantidad");
         Mov = (String) request.getAttribute("Mov");
-        DesProyecto = (String) request.getAttribute("DesProyecto");
+        DesProyecto =(String) request.getAttribute("DesProyecto");
         Proyecto = (String) request.getAttribute("Proyecto");
+        System.out.println("DesProyecto: "+DesProyecto);
     } catch (Exception e) {
 
     }
@@ -131,18 +135,23 @@
                             </div>
 
                         </div>
+                        <%   if ((Movi > 1) && (Movi < 51)) {%>
                         <div class="panel-footer">
-                            <div class="row">                            
+                            <div class="row">
+
                                 <div class="col-sm-6">
                                     <a class="btn btn-block btn-default btn-primary" href="facturacion/AltaLote.jsp?DesProyecto=<%=DesProyecto%>&Proyecto=<%=Proyecto%>" target="_black"><span class="glyphicon glyphicon-cloud-upload">&nbsp;Nuevo Lote</span></a>
-                                </div>                                            
+                                </div>  
+
                                 <div class="col-sm-2">
                                     <input class="form-control" id="Cantidad" name="Cantidad" type="hidden" value="<%=Cantidad%>" />
                                     <input class="form-control" id="Mov" name="Mov" type="hidden" value="<%=Mov%>" />
                                     <button class="btn btn-block btn-primary glyphicon glyphicon-refresh" name="accion" value="Refresh" onclick="return validaSeleccionar();">Actualiza</button>
                                 </div>
+
                             </div>
-                        </div>        
+                        </div>   
+                        <% } %>
                     </div>
                 </div>
             </form>
@@ -275,41 +284,41 @@
     <script src="js/dataTables.bootstrap.js"></script>
     <script>
 
-                                    $(document).ready(function () {
-                                        $('#movimien').dataTable();
+                                        $(document).ready(function () {
+                                            $('#movimien').dataTable();
 
-                                    });
+                                        });
 
-                                    function cambiaLoteCadu(elemento) {
-                                        var indice = elemento.selectedIndex;
-                                        document.getElementById('SelectCadu').selectedIndex = indice;
-                                    }
-
-                                    function validaCantidad(e) {
-                                        var cantidadSol = document.getElementById('Cantidad').value;
-                                        document.getElementById('Cant' + e).value = cantidadSol;
-                                        var cantidadAlm = document.getElementById('CantAlm_' + e).value;
-                                        if (parseInt(cantidadSol) > parseInt(cantidadAlm)) {
-                                            alert('La cantidad a facturar no puede ser mayor a la cantidad de esa ubicación');
-                                            return false;
+                                        function cambiaLoteCadu(elemento) {
+                                            var indice = elemento.selectedIndex;
+                                            document.getElementById('SelectCadu').selectedIndex = indice;
                                         }
 
-                                        /*var confirma = confirm('Seguro de usar esta ubicación?');
-                                         if (confirma === false) {
-                                         return false;
-                                         }*/
-                                    }
-                                    function validaCantidadMov(e) {
-                                        var cantidadSol = document.getElementById('Cantidad').value;
-                                        document.getElementById('Cant' + e).value = cantidadSol;
-                                        var cantidadAlm = document.getElementById('CantAlm_' + e).value;
+                                        function validaCantidad(e) {
+                                            var cantidadSol = document.getElementById('Cantidad').value;
+                                            document.getElementById('Cant' + e).value = cantidadSol;
+                                            var cantidadAlm = document.getElementById('CantAlm_' + e).value;
+                                            if (parseInt(cantidadSol) > parseInt(cantidadAlm)) {
+                                                alert('La cantidad a facturar no puede ser mayor a la cantidad de esa ubicación');
+                                                return false;
+                                            }
+
+                                            /*var confirma = confirm('Seguro de usar esta ubicación?');
+                                             if (confirma === false) {
+                                             return false;
+                                             }*/
+                                        }
+                                        function validaCantidadMov(e) {
+                                            var cantidadSol = document.getElementById('Cantidad').value;
+                                            document.getElementById('Cant' + e).value = cantidadSol;
+                                            var cantidadAlm = document.getElementById('CantAlm_' + e).value;
 
 
-                                        /*var confirma = confirm('Seguro de usar esta ubicación?');
-                                         if (confirma === false) {
-                                         return false;
-                                         }*/
-                                    }
+                                            /*var confirma = confirm('Seguro de usar esta ubicación?');
+                                             if (confirma === false) {
+                                             return false;
+                                             }*/
+                                        }
     </script>
 </html>
 

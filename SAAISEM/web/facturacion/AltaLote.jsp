@@ -49,11 +49,11 @@
         <link href="../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" >
         <link href="../css/select2.css" rel="stylesheet" type="text/css"/>
         <!---->
-        <title>SIALSS IMSS</title>
+        <title>SIALSS</title>
     </head>
     <body onload="muestraCalendario()" >
         <div class="container">
-            <h1>SIALSS IMSS</h1>
+            <h1>SIALSS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD</h4>
             <hr/>
 

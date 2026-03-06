@@ -25,9 +25,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">CREAR OC<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/SIALSS_MDF/crearOC.jsp">Crear OC</a></li>
-                        <li><a href="/SIALSS_MDF/cargarecibo.jsp">CARGAR OC</a></li>
+                        <li><a href="/SIALSS_MDF/cargarecibo.jsp">Cargar OC</a></li>
                         <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/verFoliosMedalfa.jsp">VER OC</a></li>
+                        <li><a href="/SIALSS_MDF/verFoliosMedalfa.jsp">Ver OC</a></li>
                     </ul>
                 </li>
                 
@@ -62,7 +62,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Existencias<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">EXISTENCIAS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/SIALSS_MDF/hh/ExistenciaProyectoCompraDis.jsp">Existencias Disponibles</a></li>
                     </ul>
@@ -110,8 +110,7 @@
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/marcas.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Marcas</a></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF/medicamento.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Catálogo de Medicamento</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/SIALSS_MDF/catalogoUnidadesCompras.jsp">Puntos de Entregas</a></li>
+                        
                     </ul>
                 </li>
                 

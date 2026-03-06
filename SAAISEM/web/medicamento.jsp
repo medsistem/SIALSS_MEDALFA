@@ -125,10 +125,13 @@
                                         int tipo = 0, ori = 0;
                                         String DesTipo = "";
                                         if (Descripcion != "") {
+                                            System.out.println("Descripcion");
                                             rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri where F_DesPro like '%" + Descripcion + "%' ORDER BY F_ClaPro+0 ASC");
                                         } else if (Clave != "") {
+                                            System.out.println("Clave");
                                             rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri where F_ClaPro = '" + Clave + "' ORDER BY F_ClaPro+0 ASC");
                                         } else {
+                                            System.out.println("Todos");
                                             rset = con.consulta("SELECT F_ClaPro, F_ClaProSS, F_DesPro, F_StsPro, F_TipMed, F_Costo, F_DesOri, F_PrePro FROM tb_medica m INNER JOIN tb_origen as o ON F_Origen = F_ClaOri ORDER BY F_ClaPro+0 ASC");
                                         }
 

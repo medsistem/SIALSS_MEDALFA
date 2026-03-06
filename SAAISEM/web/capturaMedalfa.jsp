@@ -14,9 +14,10 @@
 <%@page import="ISEM.CapturaPedidos"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--%@page contentType="text/html" pageEncoding="UTF-8"%-->
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    DecimalFormat formatter = new DecimalFormat("#,###,###");
+       DecimalFormat formatter = new DecimalFormat("#,###,##0.00");
     DecimalFormat formNoCom = new DecimalFormat("000");
     DecimalFormatSymbols custom = new DecimalFormatSymbols();
     custom.setDecimalSeparator('.');
@@ -24,6 +25,7 @@
     formatter.setDecimalFormatSymbols(custom);
     HttpSession sesion = request.getSession();
     String usua = "", tipo = "", IdUsu = "";
+
     if (sesion.getAttribute("nombre") != null) {
         usua = (String) sesion.getAttribute("nombre");
         IdUsu = (String) sesion.getAttribute("IdUsu");
@@ -31,31 +33,54 @@
     } else {
         response.sendRedirect("indexCompras.jsp");
     }
+
     ConectionDB con = new ConectionDB();
-    CapturaPedidos indice = new CapturaPedidos();
-    String proveedor = "", fecEnt = "", horEnt = "", claPro = "", desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "", Campo = "", TipoOC = "", zona = "";
+    CapturaPedidos indice = new CapturaPedidos();//objeto de capturapedidos
+
+    String proveedor = "", Prove_entrega = "", fecEnt = "", horEnt = "", claPro = "", Clave = "";
+    String desPro = "", NoCompra = "", origen = "", cedis = "", Proyecto = "", Desproyecto = "";
+    String Campo = "",  dias = "", NomOC = "", IdOC = "";
+    String  moneda = "", cfdi = "", ver ="";
+    int Ban = 0, act = 0, BANP = 0;
+    Boolean autoriza = null;
+
     try {
         Proyecto = request.getParameter("Proyecto");
-        request.setCharacterEncoding("UTF-8");
-        Desproyecto = (String) request.getParameter("DesProyecto");
+        Desproyecto = request.getParameter("DesProyecto");
+
         Campo = request.getParameter("Campo");
-        TipoOC = request.getParameter("TipoOC");
+        NomOC = request.getParameter("NomOC");
+        IdOC = request.getParameter("IdOC");
+        Ban = Integer.parseInt(request.getParameter("Ban"));
+        BANP = Integer.parseInt(request.getParameter("Banp"));
+        // act = Integer.parseInt((String) sesion.getAttribute("act"));
+
+        System.out.println("0.- NomOC: " + NomOC + " /IdOC : " + IdOC + " /:Ban: " + Ban + " /BANP: " + BANP + " /act: " + act);
+
         NoCompra = (String) sesion.getAttribute("NoCompra");
         proveedor = (String) sesion.getAttribute("proveedor");
-        zona = (String) sesion.getAttribute("zona");
         fecEnt = (String) sesion.getAttribute("fec_entrega");
         horEnt = (String) sesion.getAttribute("hor_entrega");
         claPro = (String) sesion.getAttribute("clave");
         desPro = (String) sesion.getAttribute("descripcion");
         origen = (String) sesion.getAttribute("origen");
-        cedis = (String) sesion.getAttribute("cedis");
-    } catch (Exception e) {
+      
+        dias = (String) sesion.getAttribute("dias");
 
+        //  cedis = (String) sesion.getAttribute("cedis");
+    } catch (Exception e) {
+        e.getMessage();
     }
+
+    System.out.println("proiveedor: " + proveedor + " /dias: " + dias);
+
     if (proveedor == null) {
         proveedor = "";
         fecEnt = "";
         horEnt = "";
+     
+        Prove_entrega = "";
+        dias = "";
     }
     if (claPro == null) {
         claPro = "";
@@ -65,6 +90,7 @@
 
     if (NoCompra == null) {
         NoCompra = "";
+
     }
 
     if (Desproyecto == null) {
@@ -75,16 +101,62 @@
         Campo = "";
     }
 
-    if (zona == null) {
-        zona = "";
+    if (NomOC == null) {
+        NomOC = "";
+
     }
 
-    if (cedis == null) {
-        cedis = request.getParameter("cedis");
+    if (IdOC == null) {
+        IdOC = "";
     }
+
+    if (dias == null) {
+        dias = "";
+    }
+    System.out.println("1.- NoCompra: " + NoCompra + " / " + NomOC + " / " + Ban + " / banp: " + BANP);
+
+    /*if (cedis == null) {
+        cedis = request.getParameter("cedis");
+    }*/
+    if (Ban == 1) {
+        System.out.println("si entre cuando es 1");
+        NoCompra = NomOC + IdOC;
+
+    } else if (Ban == 2) {
+        System.out.println("si entre en dos");
+        NoCompra = "";
+        proveedor = "";
+        fecEnt = "";
+        horEnt = "";
+        dias = "";
+    } else {
+        NoCompra = NoCompra;
+    }
+
+    if (BANP == 2) {
+        autoriza = true;
+        ver = "disabled";
+    } else {
+
+        autoriza = false;
+        ver = "";
+    }
+    System.out.println("2.- NoCompra: " + NoCompra + " / NomOC: " + NomOC + " / sts: " + autoriza + " / Prove_entrega: " + Prove_entrega + " / proveedor: " + proveedor);
+    System.out.println("moneda: " + moneda + " /cfdi: " + cfdi);
 
 %>
+<script>
+    // Verificar si el atributo errorMessage está disponible
+    <%        String errorMessage = (String) request.getParameter("errorMessage");
+        System.out.println("errorMessage: " + errorMessage);
+        if (errorMessage != null) {
+    %>
+    alert("<%= errorMessage%>");
+    <%
+        }
+    %>
 
+</script>
 <!DOCTYPE html>
 <html>
     <head>
@@ -111,10 +183,11 @@
             <form name="FormBusca" action="CapturaPedidos" method="post">
                 <div class="row">
                     <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
-                    <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
-                    <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
-                    <input type="hidden" class="form-control" id="TipoOC" name="TipoOC" value="<%=TipoOC%>" />
-                    <input type="hidden" class="form-control" id="ZonaOC" name="ZonaOC" value="<%=zona%>" />
+                <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
+                <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
+                <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
                     <label class="col-sm-3 col-sm-offset-7 text-right">
                         <h4>Número de Orden de Compra</h4>
                     </label>
@@ -131,7 +204,7 @@
                     <div class="col-sm-6">
                         <select class="form-control" name="Proveedor" id="Proveedor" onchange="SelectProve(this.form);
                                 document.getElementById('Fecha').focus()">
-                                    <option selected disabled>--Proveedor--</option>
+                            <option selected disabled>--Proveedor--</option>
                             <%
                                 try {
                                     con.conectar();
@@ -164,50 +237,7 @@
                         </select>
 
                     </div>
-                    <!--
-                    <label class="col-sm-1">
-                <h4>Zona:</h4>
-            </label>
-            <div class="col-sm-2">
-                <select class="form-control" name="Zona" id="Zona" onchange="SelectProve(this.form);
-                        document.getElementById('Fecha').focus()">
-                    <option value="">--ZONA--</option>
-                    <%
-                        try {
-                            con.conectar();
-                            ResultSet rset = null;
 
-                            rset = con.consulta("SELECT P.F_Zona FROM tb_prodprov P GROUP BY F_Zona;");
-
-                            while (rset.next()) {
-                    %>
-                    <option value="<%=rset.getString(1)%>"
-                    <%
-                        if (zona.equals(rset.getString(1))) {
-                            out.println("selected");
-                        }
-                    %>
-                    ><%=rset.getString(1)%></option>
-                    <%
-                            }
-                        } catch (Exception e) {
-                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
-                        } finally {
-                            try {
-                                con.cierraConexion();
-                            } catch (SQLException ex) {
-                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    %>
-
-                </select>
-            </div>
-                   
-            <div class="col-sm-1">
-                <button class="btn btn-success btn-block" onclick="return validaClaDes(this);" name="accion" value="MostrarProvee">Mostrar</button>
-            </div>
-                    -->
                 </div>
                 <div class="row">
                     <label class="col-sm-2">
@@ -264,7 +294,7 @@
                     </label>
                     <div class="col-sm-8">
                         <select name="Clave" id="Clave" class="form-control">
-                            <option>-- Seleccione --</option>
+                            <option disabled selected>-- Clave --</option>
                             <%
                                 try {
                                     con.conectar();
@@ -306,13 +336,14 @@
                 <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                 <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
                 <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
-                <input type="hidden" class="form-control" id="TipoOC" name="TipoOC" value="<%=TipoOC%>" />
-                <input type="hidden" class="form-control" id="ZonaOC" name="ZonaOC" value="<%=zona%>" />
+                <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
                             <label class="col-sm-1 text-right">
-                                <h4>Clave:</h4>
+                                <h4>Clave sss :</h4>
                             </label>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" readonly value="<%=claPro%>" name="ClaPro" id="ClaPro"/>
@@ -416,7 +447,6 @@
                                 <select  class="form-control" name="Prioridad" id="Prioridad" onchange="document.getElementById('CanPro').focus()" >
                                     <option selected="">1-2024</option>
                                     <option>2-2025</option>
-
                                     <option>ND</option>
                                 </select>
                             </div>
@@ -438,16 +468,61 @@
                                 <input type="text" class="form-control" name="CanPro" id="CanPro" data-behavior="only-num" />
                             </div>
                         </div>
-                        <br/>
+                            
+                        <div class="row">
+                            <label class="col-sm-1 text-right">
+                                <h4>Precio </h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="Precio" id="Precio" data-behavior="only-num" onpaste="return false"/>
+                            </div>
+
+                            <label class="col-sm-2 text-right">
+                                <h4>Descuento %:</h4>
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="descuento" id="descuento" data-behavior="only-num" required="" value="0" onpaste="return false"/>
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>IVA %:</h4>
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" onchange="calculaTotal()" name="iva" id="iva" data-behavior="only-num" required="" value="0" onpaste="return false" />
+                            </div>
+
+                        </div>
+
+                        <hr>
                         <div class="row">
                             <label class="col-sm-2 text-right">
-                                <h4>Observaciones</h4>
+                                <h4>Subtotal:</h4>
                             </label>
-                            <div class="col-sm-10">
-                                <textarea id="Observaciones" name="Observaciones" class="form-control" rows="7" data-behavior="only-alphanum-white"></textarea>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="subtotalDis" data-behavior="only-num" disabled />
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>Monto Descuento:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="descuentoDis" data-behavior="only-num" disabled/>
+                            </div>
+                            <label class="col-sm-2 text-right">
+                                <h4>Monto IVA:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="ivaDis" data-behavior="only-num" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 text-right">
+                                <h4>Total:</h4>
+                            </label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  id="totalDis" data-behavior="only-num" disabled />
                             </div>
                         </div>
                         <br/>
+                      
                         <button class="btn btn-block btn-success" name="accion" value="capturar" onclick="return validaCaptura();">Capturar</button>
 
                     </div>
@@ -483,8 +558,9 @@
                             <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                             <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
                             <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
-                            <input type="hidden" class="form-control" id="TipoOC" name="TipoOC" value="<%=TipoOC%>" />
-                            <input type="hidden" class="form-control" id="ZonaOC" name="ZonaOC" value="<%=zona%>" />
+                            <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                            <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                            <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
                             <input name="id" value="<%=rset.getString(6)%>" class="hidden" />
                             <button class="btn btn-success" name="accion" value="eliminaClave"><span class="glyphicon glyphicon-remove"></span></button>
                         </form>
@@ -508,12 +584,24 @@
                 <%
                     if (banConfirma == 1) {
                 %>
-                <form name="FormCaptura" action="CapturaPedidos" method="post">
+                 <form name="FormCaptura" action="CapturaPedidos" method="post">
                     <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                     <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
                     <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
-                    <input type="hidden" class="form-control" id="TipoOC" name="TipoOC" value="<%=TipoOC%>" />
-                    <input type="hidden" class="form-control" id="ZonaOC" name="ZonaOC" value="<%=zona%>" />
+                    <input type="hidden" class="form-control" id="NomOC" name="NomOC" value="<%=NomOC%>" />
+                    <input type="hidden" class="form-control" id="IdOC" name="IdOC" value="<%=IdOC%>" />
+                    <input type="hidden" class="form-control" id="BanOC" name="BanOC" value="<%=Ban%>" />
+                    
+                    <br/>
+                        <div class="row">
+                            <label class="col-sm-2 text-right">
+                                <h4>Observaciones</h4>
+                            </label>
+                            <div class="col-sm-10">
+                                <textarea id="Observaciones" name="Observaciones" class="form-control" rows="7" data-behavior="only-alphanum-white"></textarea>
+                            </div>
+                        </div>
+                        <br/>
                     <div class="col-sm-6">
                         <input class="hidden" name="NoCompra" value="<%=NoCompra%>"/>
                         <button class="btn btn-success btn-block" name="accion" value="confirmar" onclick="return confirm('¿Seguro que desea CONFIRMAR el pedido?')">Confirmar Orden de Compra</button>
@@ -536,115 +624,197 @@
 
         <script type="text/javascript">
 
-                            $("#Proveedor").select2();
-                            $("#Clave").select2();
-                            var cedis = "<%=cedis%>";
 
-                            $("#cedis option[value=" + cedis + "] ").prop('selected', 'selected');
-                            $("#cedis").val(cedis);
-                            $("[data-behavior~=only-alphanum-white]").alphanum({
-                                allow: '.',
-                                disallow: "'",
-                                allowSpace: true
-                            });
-                            $("[data-behavior~=only-num]").numeric({
-                                allowMinus: false,
-                                allowThouSep: false
-                            });
+            $("[data-behavior~=only-num]").numeric({
+                allowMinus: false,
+                allowThouSep: false
+            });
 
 
+            function limpiarFormulario() {
+                document.getElementById('Proveedor').value = '';
+                document.getElementById('Clave').value = '';
+                document.getElementById('Prove_entrega').value = '';
+
+                const folio_remi = document.getElementById("folio_remi");
+                const orden = document.getElementById('orden');
+                const list_provee = document.getElementById('Proveedor');
+                //   alert("Limpio Campos" + folio_remi);
+                folio_remi.disabled = true;
+                orden.disabled = true;
+
+            }
+            ;
 
 
-                            function focusLocus() {
-                                document.getElementById('Proveedor').focus();
-                                if (document.getElementById('Fecha').value !== "") {
-                                    document.getElementById('Clave').focus();
-                                }
-                                if (document.getElementById('ClaPro').value !== "") {
-                                    document.getElementById('Prioridad').focus();
-                                }
-                            }
 
-                            function validaClaDes(boton) {
-                                var btn = boton.value;
-                                var prove = document.getElementById('Proveedor').value;
-                                var fecha = document.getElementById('Fecha').value;
-                                var hora = document.getElementById('Hora').value;
-                                var cedis = document.getElementById('cedis').value;
-                                var NoCompra = document.getElementById('NoCompra').value;
-                                if (prove === "" || fecha === "" || hora === "0:00" || NoCompra === "" || cedis === "") {
-                                    alert("Complete los datos");
-                                    return false;
-                                }
-                                var valor = "";
-                                var mensaje = "";
-                                if (btn === "Clave") {
-                                    valor = document.getElementById('Clave').value;
-                                    mensaje = "Introduzca la clave";
-                                }
-                                if (btn === "Descripcion") {
-                                    valor = document.getElementById('Descripcion').value;
-                                    mensaje = "Introduzca la descripcion";
-                                }
-                                if (valor === "") {
-                                    alert(mensaje);
-                                    return false;
-                                }
-                                return true;
-                            }
 
-                            function validaCaptura() {
-                                var ClaPro = document.getElementById('ClaPro').value;
-                                var DesPro = document.getElementById('DesPro').value;
-                                var CanPro = document.getElementById('CanPro').value;
-                                var proveedor = document.getElementById('Proveedor').value;
-                                if (ClaPro === "" || DesPro === "" || CanPro === "") {
-                                    alert("Complete los datos");
-                                    return false;
-                                }
-                                var CanRes = document.getElementById('CantRest').value;
-                                CanRes = CanRes.replace(",", "");
-                                CanRes = CanRes.replace(",", "");
-                                CanRes = CanRes.replace(",", "");
-                                CanRes = CanRes.replace(",", "");
-                                CanRes = CanRes.replace(",", "");
-                                if (parseInt(CanRes) < parseInt(CanPro) && proveedor !== '63' && proveedor !== '19') {
-                                    alert("La Cantidad Solicitada no puede ser mayor a la Cantidad Restante");
-                                    return false;
-                                }
-                                return true;
-                            }
-                            function SelectProve(form) {
-            <%
-                /*try {
-                    con.conectar();
-                    ResultSet rset3 = con.consulta("SELECT DISTINCT F_ClaProve FROM tb_prodprov2017");
-                    while (rset3.next()) {
-                        out.println("if (form.Proveedor.value == '" + rset3.getString(1) + "') {");
-                        out.println("var select = document.getElementById('Clave');");
-                        out.println("select.options.length = 0;");
-                        int i = 1;
-                        ResultSet rset4 = con.consulta("SELECT F_ClaPro FROM tb_prodprov2017  WHERE  F_ClaProve='" + rset3.getString(1) + "';");
 
-                        out.println("select.options[select.options.length] = new Option('-Seleccione-', '');");
-                        while (rset4.next()) {
-                            out.println("select.options[select.options.length] = new Option('" + rset4.getString(1) + "', '" + rset4.getString(1) + "');");
-                            i++;
-                        }
-                        out.println("}");
+            function justNumbers(e)
+            {
+                var keynum = window.event ? window.event.keyCode : e.which;
+                if ((keynum === 8) || (keynum === 46)) {
+                    return true;
+                }
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+
+
+            jQuery(document).ready(function () {
+                jQuery("#CanPro").on('input', function (evt) {
+                    // Allow only numbers.
+                    jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                });
+            });
+
+
+
+
+            function focusLocus() {
+                /* document.getElementById('Proveedor').focus();
+                 if (document.getElementById('Fecha').value !== "") {
+                 
+                 }*/
+
+            }
+
+
+            /*  function validaClaDes(boton) {
+             var btn = boton.value;
+             valor = "";
+             if (btn === "ClaveB") {
+             valor = document.getElementById('Clave').value;
+             mensaje = "Introduzca la clave";
+             }
+             if (valor === "") {
+             alert(mensaje);
+             return false;
+             }
+             }*/
+
+
+            function validaOC_P(boton) {
+
+
+                var prove = document.getElementById('Proveedor').value;
+                var proventre = document.getElementById('Prove_entrega').value;
+                var fecha = document.getElementById('Fecha').value;
+                var fechaVe = document.getElementById('FechaVencimiento').value;
+                var hora = document.getElementById('Hora').value;
+                var NoCompra = document.getElementById('NoCompra').value;
+                var dias = document.getElementById('dias').value;
+                var moneda = document.getElementById('moneda').value;
+                var cfdi = document.getElementById('cfdi').value;
+
+                var fechaConvertida = fecha.replace(/-/g, ''); // Cualquier número que quieras
+                var fechaVeConvertida = fechaVe.replace(/-/g, ''); // Cualquier número que quieras
+
+
+                if (fecha === "" || hora === "0:00" || NoCompra === "" || prove === "" || proventre === "" || fecha === "" || fechaVe === "" || dias === "" || moneda === "" || cfdi === "") {
+                    alert("Complete los datos de la captura !");
+                    return false;
+                } else if (fechaConvertida >= fechaVeConvertida) {
+                    if (confirm("La fecha de vencimiento es menor a la fecha de entrega desea cambiarla?.")) {
+                        return false;
+                    } else {
+                        return false;
                     }
-                } catch (Exception e) {
-                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
-                } finally {
-                    try {
-                        con.cierraConexion();
-                    } catch (Exception ex) {
-                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                    if (moneda === "") {
+                        alert("Se requiere un tipo de moneda");
+                        return false;
+                    } else if (cdi === "") {
+                        alert("Se requiere un tipo de CDI");
+                        return false;
+                    } else {
+                        return false;
                     }
-                }*/
-            %>
-                            }
+                }
+            }
+
+
+            function validaCaptura()
+            {
+                var ClaPro = document.getElementById('ClaPro').value;
+                var DesPro = document.getElementById('DesPro').value;
+                var CanPro = document.getElementById('CanPro').value;
+                var Precio = document.getElementById('Precio').value;
+
+
+
+                if (ClaPro === "" | DesPro === "" || CanPro === "" || Precio === "") {
+                    alert("Complete los datos de capturar de cantidades ");
+                    return false;
+                } else if (CanPro === 0 || CanPro === "0") {
+                    alert("El numero de piezas como minimo es 1");
+                    return false;
+                }
+
+                var CanRes = document.getElementById('CantRest').value;
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                CanRes = CanRes.replace(",", "");
+                if (parseInt(CanRes) < parseInt(CanPro)) {
+                    alert("La Cantidad Solicitada no puede ser mayor a la Cantidad Restante");
+                    return false;
+                }
+                return true;
+            }
+
+
+            function calculaTotal() {
+                var CanPro = document.getElementById('CanPro').value;
+                var costoUnitario = document.getElementById('Precio').value;
+                var descuento = document.getElementById('descuento').value;
+                var iva = document.getElementById('iva').value;
+                var total = 0;
+                var subtotal = 0;
+                var descuentoCalc = 0;
+                var ivaCalc = 0;
+                CanPro = parseFloat(CanPro);
+                if (costoUnitario !== "") {
+                    costoUnitario = parseFloat(costoUnitario);
+                    subtotal = costoUnitario * CanPro;
+                    total = subtotal;
+                    if (descuento !== "") {
+                        descuento = parseFloat(descuento);
+                        descuentoCalc = costoUnitario - (costoUnitario * (1 - (descuento / 100.00)));
+                        subtotal = costoUnitario * (1 - (descuento / 100.00));
+                        subtotal = subtotal * CanPro;
+                        total = subtotal;
+                    }
+                    if (iva !== "") {
+                        ivaCalc = subtotal * (parseFloat(iva) / 100.00);
+                        total = subtotal * (1 + (parseFloat(iva) / 100.00));
+                    }
+//                                    document.getElementById('subtotal').value= subtotal;
+                    document.getElementById('subtotalDis').value = subtotal.toFixed(2);
+                    document.getElementById('ivaDis').value = ivaCalc.toFixed(2);
+                    document.getElementById('totalDis').value = total.toFixed(2);
+                    document.getElementById('descuentoDis').value = descuentoCalc.toFixed(2);
+                }
+            }
+
+            function justNumbers(e)
+            {
+                var keynum = window.event ? window.event.keyCode : e.which;
+                if ((keynum == 8) || (keynum == 46))
+                    return true;
+
+                return /\d/.test(String.fromCharCode(keynum));
+            }
+
+            function filtro()
+            {
+                var tecla = event.key;
+                if (['.', 'e'].includes(tecla))
+                    event.preventDefault()
+            }
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+       
     </body>
 
 </html>

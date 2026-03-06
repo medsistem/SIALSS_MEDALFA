@@ -1358,6 +1358,8 @@ public class FacturacionManual extends HttpServlet {
 
             ////SELECCIONA LOTES PARA MOVIMIENTO//
             if (request.getParameter("accion").equals("SeleccionaLoteTMovi")) {
+                request.setCharacterEncoding("UTF-8");
+response.setContentType("text/html;charset=UTF-8");
                 System.out.println("Cant: " + request.getParameter("Cantidad"));
                 System.out.println("Mov: " + request.getParameter("ClaCli"));
                 System.out.println("Factor de empaque: " + request.getParameter("FacEmp"));
