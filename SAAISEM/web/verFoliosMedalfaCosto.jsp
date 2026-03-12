@@ -63,7 +63,7 @@
             </div>
             <br/>
             <div class="row">
-                <form method="post" action="verFoliosMedalfa.jsp">
+                <form method="post" action="verFoliosMedalfaCosto.jsp">
                     <div class="row">
                         <label class="col-sm-1">
                             <h4>Proveedor</h4>
@@ -82,12 +82,12 @@
                                         }
                                         con.cierraConexion();
                                     } catch (Exception e) {
-                                        Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                     } finally {
                                         try {
                                             con.cierraConexion();
                                         } catch (Exception e) {
-                                            Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         }
                                     }
                                 %>
@@ -121,12 +121,12 @@
                                         }
                                         con.cierraConexion();
                                     } catch (Exception e) {
-                                        Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                     } finally {
                                         try {
                                             con.cierraConexion();
                                         } catch (Exception e) {
-                                            Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         }
                                     }
                                 %>
@@ -198,12 +198,12 @@
                                     }
                                     con.cierraConexion();
                                 } catch (Exception e) {
-                                    Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                    Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                 } finally {
                                     try {
                                         con.cierraConexion();
                                     } catch (Exception e) {
-                                        Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                     }
                                 }
                             %>
@@ -226,7 +226,7 @@
                         </div>
 
                         <div class="col-sm-1">
-                            <a class="btn btn-default" target="_blank" href="imprimeOrdenCompra.jsp?ordenCompra=<%=NoCompra%>"><span class="glyphicon glyphicon-print"></span></a>
+                            <a class="btn btn-default" target="_blank" href="imprimeOrdenCompraCosto.jsp?ordenCompra=<%=NoCompra%>"><span class="glyphicon glyphicon-print"></span></a>
                         </div>
                         <div class="panel-body">
                             <form name="FormBusca" action="CapturaPedidos" method="post">
@@ -299,12 +299,12 @@
                                         }
                                         con.cierraConexion();
                                     } catch (Exception e) {
-                                        Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                        Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                     } finally {
                                         try {
                                             con.cierraConexion();
                                         } catch (Exception e) {
-                                            Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         }
                                     }
                                 %>
@@ -332,12 +332,12 @@
                                             }
                                             con.cierraConexion();
                                         } catch (Exception e) {
-                                            Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (Exception e) {
-                                                Logger.getLogger("verFoliosMedalfa.jsp").log(Level.SEVERE, null, e);
+                                                Logger.getLogger("verFoliosMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                             }
                                         }
                                     %>

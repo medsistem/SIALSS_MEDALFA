@@ -183,7 +183,7 @@ public class CapturaPedidosCosto extends HttpServlet {
             //////////////////fin de ver folio///////////////////////////
             if (request.getParameter("accion").equals("Actualizar")) {
                 sesion.setAttribute("NoOrdCompra", request.getParameter("NoCompra"));
-                out.println("<script>window.location='capturaMedalfa.jsp'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp'</script>");
             }
 
             ///////// Captura OC ///////////////////////
@@ -204,10 +204,10 @@ public class CapturaPedidosCosto extends HttpServlet {
                 ban = 3;
                 Banp = 2;
                 con.cierraConexion();
-                //response.sendRedirect("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
-                out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                //response.sendRedirect("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
 
-                // response.sendRedirect("capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + BanOC + "");
+                // response.sendRedirect("capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + BanOC + "");
             }
 
             if (request.getParameter("accion").equals("LimpiarOC")) {
@@ -248,7 +248,7 @@ public class CapturaPedidosCosto extends HttpServlet {
 
                 sesion.setAttribute("NoCompra", NoCompra);
                 System.out.println("que paso");
-                out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&dias=" + dias + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&dias=" + dias + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
 
             }
 
@@ -321,7 +321,7 @@ public class CapturaPedidosCosto extends HttpServlet {
                     sesion.setAttribute("cfdi", cfdi);
 
                     System.out.println("ya paso");
-                    out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                    out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
 
                 } catch (SQLException e) {
                     e.getMessage();
@@ -382,7 +382,7 @@ public class CapturaPedidosCosto extends HttpServlet {
                     System.out.println(e.getMessage());
                 }
 
-                out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
 
             }
 
@@ -462,7 +462,7 @@ public class CapturaPedidosCosto extends HttpServlet {
                 con.cierraConexion();
                 ban = 3;
                 Banp = 2;
-                out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&NomOC=" + NomOC + "&IdOC=" + IdOC + "&Campo=" + Campo + "&Ban=" + ban + "&Banp=" + Banp + "'</script>");
             }
 
             if (request.getParameter("accion").equals("confirmar")) {
@@ -660,7 +660,7 @@ public class CapturaPedidosCosto extends HttpServlet {
                 sesion.setAttribute("zona", request.getParameter("Zona"));
 
                 sesion.setAttribute("NoCompra", NoCompra);
-                out.println("<script>window.location='capturaMedalfa.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&Campo=" + Campo + "&TipoOC=" + TipoOC + "'</script>");
+                out.println("<script>window.location='capturaMedalfaCosto.jsp?Proyecto=" + Proyecto + "&DesProyecto=" + DesProyecto + "&Campo=" + Campo + "&TipoOC=" + TipoOC + "'</script>");
             }
 
             if (request.getParameter("accion").equals("ClaveAgregar")) {

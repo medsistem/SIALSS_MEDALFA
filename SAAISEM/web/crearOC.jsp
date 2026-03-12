@@ -106,7 +106,7 @@
 
                 %>
                 <div class="col-sm-3">
-                    <a href="capturaMedalfa.jsp?Proyecto=<%=rset.getString(1)%>&DesProyecto=<%=rset.getString(2)%>&Campo=<%=rset.getString(3)%>&NomOC=<%=rset.getString(4)%>&IdOC=<%=rset.getString(5)%>&Ban=<%=Ban%>" class="btn btn-block form-control <%=Class%>">
+                    <a href="capturaMedalfaCosto.jsp?Proyecto=<%=rset.getString(1)%>&DesProyecto=<%=rset.getString(2)%>&Campo=<%=rset.getString(3)%>&NomOC=<%=rset.getString(4)%>&IdOC=<%=rset.getString(5)%>&Ban=<%=Ban%>" class="btn btn-block form-control <%=Class%>">
                         <%=rset.getString(2)%></a>
                 </div>
                 <br />

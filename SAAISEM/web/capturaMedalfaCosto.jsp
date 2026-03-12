@@ -184,7 +184,7 @@
             <hr/>
             <br/>
 
-            <form name="FormBusca" action="CapturaPedidos" method="post">
+            <form name="FormBusca" action="CapturaPedidosCosto" method="post">
 
                 <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                 <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
@@ -235,12 +235,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -251,7 +251,7 @@
 
                         <div class="row">
                             <label class="col-sm-2">
-                                <h4>Punto Entrega:</h4>
+                                <h4>Lugar de Entrega:</h4>
                             </label>
                             <div class="col-sm-7">
                                 <select class="form-control" name="Prove_entrega" id="Prove_entrega" onchange=" document.getElementById('Fecha').focus();" <%= ver%>>
@@ -272,12 +272,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -371,12 +371,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -406,12 +406,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -480,12 +480,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -556,12 +556,12 @@
                                 }
                                 con.cierraConexion();
                             } catch (Exception e) {
-                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                             } finally {
                                 try {
                                     con.cierraConexion();
                                 } catch (SQLException ex) {
-                                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                    Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                 }
                             }
                         %>
@@ -579,12 +579,12 @@
                                     }
                                     con.cierraConexion();
                                 } catch (Exception e) {
-                                    Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                    Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                 } finally {
                                     try {
                                         con.cierraConexion();
                                     } catch (SQLException ex) {
-                                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                        Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                     }
                                 }
                             %>
@@ -616,12 +616,12 @@
                                     <%
                                             }
                                         } catch (Exception e) {
-                                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                                         } finally {
                                             try {
                                                 con.cierraConexion();
                                             } catch (SQLException ex) {
-                                                Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                                                Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                                             }
                                         }
                                     %>
@@ -741,7 +741,7 @@
                     <td><%=formatter.format(rset.getDouble(10))%></td>
                     <td><%=formatter.format(rset.getDouble(9))%></td>
                     <td>
-                        <form action="CapturaPedidos" method="post">
+                        <form action="CapturaPedidosCosto" method="post">
                             <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                             <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
                             <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />
@@ -756,12 +756,12 @@
                 <%
                         }
                     } catch (Exception e) {
-                        Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, e);
+                        Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, e);
                     } finally {
                         try {
                             con.cierraConexion();
                         } catch (SQLException ex) {
-                            Logger.getLogger("capturaMedalfa.jsp").log(Level.SEVERE, null, ex);
+                            Logger.getLogger("capturaMedalfaCosto.jsp").log(Level.SEVERE, null, ex);
                         }
                     }
                 %>
@@ -771,7 +771,7 @@
                 <%
                     if (banConfirma == 1) {
                 %>
-                <form name="FormCaptura" action="CapturaPedidos" method="post">
+                <form name="FormCaptura" action="CapturaPedidosCosto" method="post">
                     <input type="hidden" class="form-control" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
                     <input type="hidden" class="form-control" id="DesProyecto" name="DesProyecto" value="<%=Desproyecto%>" />
                     <input type="hidden" class="form-control" id="Campo" name="Campo" value="<%=Campo%>" />

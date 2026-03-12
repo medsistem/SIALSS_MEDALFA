@@ -72,6 +72,10 @@
         <servlet-name>CapturaPedidos</servlet-name>
         <servlet-class>ISEM.CapturaPedidos</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>CapturaPedidosCosto</servlet-name>
+        <servlet-class>ISEM.CapturaPedidosCosto</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>CompraAutomatica</servlet-name>
         <servlet-class>ISEM.CompraAutomatica</servlet-class>
@@ -579,6 +583,10 @@
     <servlet-mapping>
         <servlet-name>CapturaPedidos</servlet-name>
         <url-pattern>/CapturaPedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CapturaPedidosCosto</servlet-name>
+        <url-pattern>/CapturaPedidosCosto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CompraAutomatica</servlet-name>

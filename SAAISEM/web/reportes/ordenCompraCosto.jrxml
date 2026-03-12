@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenCompra" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f59271d3-8d37-4164-b6ae-641800414185">
 	<property name="ireport.zoom" value="1.8181818181818197"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -48,7 +48,8 @@
 	tm.F_Moneda as F_Tipo,
 	cdi.CFDI as F_cdi,
 o.Plazo_pago as F_pago,
-DATE_FORMAT(o.Fecha_Vencimiento, '%d/%m/%Y')  as Fec_ven
+DATE_FORMAT(o.Fecha_Vencimiento, '%d/%m/%Y')  as Fec_ven,
+w.F_Encabezado
 FROM
 	( SELECT @csum := 0 ) r,
 	( SELECT @ssum := 0 ) s,
@@ -122,6 +123,7 @@ WHERE
 	<field name="F_cdi" class="java.lang.String"/>
 	<field name="F_pago" class="java.lang.String"/>
 	<field name="Fec_ven" class="java.lang.String"/>
+	<field name="F_Encabezado" class="java.lang.String"/>
 	<variable name="F_Cant_1" class="java.lang.Integer" resetType="Column" calculation="Count">
 		<variableExpression><![CDATA[$F{F_Cant}]]></variableExpression>
 	</variable>
@@ -231,7 +233,7 @@ WHERE
 				<imageExpression><![CDATA["image/sialss.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement uuid="cbb751dc-70aa-4c48-8440-bf2a8f81534f" mode="Opaque" x="139" y="0" width="185" height="30" backcolor="#999999"/>
+				<reportElement uuid="cbb751dc-70aa-4c48-8440-bf2a8f81534f" mode="Opaque" x="139" y="0" width="185" height="22" backcolor="#999999"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
@@ -245,9 +247,9 @@ WHERE
 				<text><![CDATA[Dirección:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="29845027-7cc1-4ce3-a375-551109850e4f" style="table" x="91" y="95" width="192" height="20"/>
+				<reportElement uuid="29845027-7cc1-4ce3-a375-551109850e4f" style="table" x="91" y="95" width="192" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="7"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Dir}]]></textFieldExpression>
@@ -262,7 +264,7 @@ WHERE
 			<textField>
 				<reportElement uuid="8f831b12-32c6-4ce7-a81a-e3b342df4ab2" style="table" x="91" y="115" width="192" height="15"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="6"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Rfc}]]></textFieldExpression>
@@ -328,7 +330,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[DATOS DEL COMPRADOR]]></text>
+				<text><![CDATA[LUGAR DE ENTREGA:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="19412896-20dc-4005-aee4-9c49a91ea3a4" style="table" mode="Opaque" x="0" y="60" width="283" height="20" backcolor="#CCCCCC"/>
@@ -448,6 +450,13 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Fec_ven}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement uuid="94bf29e1-796c-4418-9661-30e2c5482d5a" style="table" x="91" y="22" width="293" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_Encabezado}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -523,15 +532,15 @@ WHERE
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement uuid="70cd3baa-8f34-44d3-a9bf-ede0cec46c6f" style="table" x="503" y="0" width="68" height="25"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="c384d68b-240b-43f3-a1fb-9827c3963875" style="table" x="91" y="0" width="276" height="25"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c384d68b-240b-43f3-a1fb-9827c3963875" style="table" x="91" y="0" width="276" height="25" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="7"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_DesPro}]]></textFieldExpression>
