@@ -57,7 +57,7 @@
             </div>
             <form action="../Facturacion" method="post" id="formCambioFechas">
                 <div class="row col-sm-6">
-                    <a class="btn btn-block btn-info" href="gnrExiCedisInv.jsp">Exportar Global<span class="glyphicon glyphicon-save"></span></a>
+                    <a class="btn btn-block btn-info" href="gnrExiCedisInv.jsp">Exportar Global &nbsp;<span class="glyphicon glyphicon-save"></span></a>
                 </div>                
                 <div>                    
                     <div class="panel panel-success">

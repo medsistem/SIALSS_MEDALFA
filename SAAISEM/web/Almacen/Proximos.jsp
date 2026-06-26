@@ -38,10 +38,14 @@
     if (Proyecto == null) {
         Proyecto = "0";
     }
+
+    if (Proyecto == "0") {
+        Proyecto = "1";
+    }
     System.out.println("Proyecto : " + Proyecto);
     java.util.Date fecha = new Date();
     SimpleDateFormat dateformat2 = new SimpleDateFormat("dd-MM-yyyy / hh:mm:ss");
-    
+
     try {
         con.conectar();
         ResultSet rset = con.consulta("SELECT F_DesProy FROM tb_proyectos WHERE F_Id='" + Proyecto + "' ;");
@@ -80,7 +84,7 @@
                         <label for="Proyecto" class="col-sm-2 control-label">Proyectos:</label>
                         <div class="col-sm-3">
                             <select name="Proyecto" id="Proyecto" class="form-control">
-                                <option value="">--Seleccione--</option>
+                                <option value="" disabled selected>--Seleccione--</option>
                                 <%
                                     try {
                                         con.conectar();
@@ -198,8 +202,9 @@
                                         alert("DEBES SELECCIONAR UN PROYECTO");
                                         return false;
                                     }
-                                };
-                                                            </script>
+                                }
+                                ;
+        </script>
         <script>
             $(document).ready(function () {
                 $('#tbProx').dataTable();

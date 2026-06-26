@@ -28,7 +28,7 @@
     }
     ConectionDB con = new ConectionDB();
 
-    String fol_gnkl = "", fol_remi = "", orden_compra = "", fecha = "",Origen="";
+    String fol_gnkl = "", fol_remi = "", orden_compra = "", fecha = "", Origen = "";
     try {
         if (request.getParameter("accion").equals("buscar")) {
             fol_gnkl = request.getParameter("fol_gnkl");
@@ -36,17 +36,16 @@
             orden_compra = request.getParameter("orden_compra");
             fecha = request.getParameter("fecha");
             Origen = request.getParameter("selectOri");
-            System.out.println("Origen-"+Origen);
+            System.out.println("Origen-" + Origen);
         }
     } catch (Exception e) {
 
     }
     try {
-        
-            
-            Origen = request.getParameter("selectOri");
-            System.out.println("Origen-"+Origen);
-        
+
+        Origen = request.getParameter("selectOri");
+        System.out.println("Origen-" + Origen);
+
     } catch (Exception e) {
 
     }
@@ -56,37 +55,37 @@
         orden_compra = "";
         fecha = "";
     }
-    String fecha_ini="",fecha_fin="",folio1="",folio2="",radio="",unidad="",unidad2="";
+    String fecha_ini = "", fecha_fin = "", folio1 = "", folio2 = "", radio = "", unidad = "", unidad2 = "";
     try {
-        fecha_ini = request.getParameter("fecha_ini");        
+        fecha_ini = request.getParameter("fecha_ini");
         fecha_fin = request.getParameter("fecha_fin");
-        folio1 = request.getParameter("folio1");        
+        folio1 = request.getParameter("folio1");
         folio2 = request.getParameter("folio2");
-        radio = request.getParameter("radio");   
+        radio = request.getParameter("radio");
         unidad = request.getParameter("NombreUnidad");
         unidad2 = request.getParameter("NombreUnidad2");
     } catch (Exception e) {
 
     }
-    if(fecha_ini==null){
-        fecha_ini="";
+    if (fecha_ini == null) {
+        fecha_ini = "";
     }
-    if(fecha_fin==null){
-        fecha_fin="";
+    if (fecha_fin == null) {
+        fecha_fin = "";
     }
-    if(folio1 == null){
-        folio1="";
+    if (folio1 == null) {
+        folio1 = "";
     }
-    if(folio2 == null){
+    if (folio2 == null) {
         folio2 = "";
     }
-    if(unidad == null){
-        unidad="";
+    if (unidad == null) {
+        unidad = "";
     }
-    if(unidad2 == null){
-        unidad2="";
+    if (unidad2 == null) {
+        unidad2 = "";
     }
-    
+
     String UsuaJuris = "(";
 
     try {
@@ -108,18 +107,18 @@
 
         UsuaJuris = UsuaJuris + ")";
         System.out.println(UsuaJuris);
-        
-        if(unidad !=""){
-         ResultSet RUni = con.consulta("SELECT F_ClaCli FROM tb_uniatn WHERE F_NomCli='"+unidad+"'");
-         if(RUni.next()){
-             unidad = RUni.getString(1);
-         }
+
+        if (unidad != "") {
+            ResultSet RUni = con.consulta("SELECT F_ClaCli FROM tb_uniatn WHERE F_NomCli='" + unidad + "'");
+            if (RUni.next()) {
+                unidad = RUni.getString(1);
+            }
         }
-        if(unidad2 !=""){
-         ResultSet RUni2 = con.consulta("SELECT F_ClaCli FROM tb_uniatn WHERE F_NomCli='"+unidad2+"'");
-         if(RUni2.next()){
-             unidad2 = RUni2.getString(1);
-         }
+        if (unidad2 != "") {
+            ResultSet RUni2 = con.consulta("SELECT F_ClaCli FROM tb_uniatn WHERE F_NomCli='" + unidad2 + "'");
+            if (RUni2.next()) {
+                unidad2 = RUni2.getString(1);
+            }
         }
         con.cierraConexion();
     } catch (Exception e) {
@@ -137,7 +136,7 @@
         <link href="../css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../css/dataTables.bootstrap.css">
         <!---->
-         <!--<h1>SIALSS CEDIS</h1>-->
+        <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
@@ -145,93 +144,103 @@
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
 
             <%@include file="../jspf/menuPrincipal.jspf" %>
-            
+
             <div class="panel-heading">
                 <h3 class="panel-title">Requerido Vs. Surtido</h3>
             </div>
             <form action="Reporteador.jsp" method="post">
-            <div class="panel-footer">
-                <div class="row">
-                    <label class="control-label col-sm-1" for="fecha_ini">Fechas</label>
-                    <div class="col-sm-2">
-                        <input class="form-control" id="fecha_ini" name="fecha_ini" type="date" onchange="habilitar(this.value);"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <input class="form-control" id="fecha_fin" name="fecha_fin" type="date" onchange="habilitar(this.value);"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <select name="selectOri" id="selectOri">
-                            <option value="">--Selecciona Origen--</option>                            
-                            <option value="1">ADMON</option>                                                        
-                            <option value="2">VD</option>                                                        
-                        </select>
-                    </div>
-                </div>   
-            </div>
-                
+                <div class="panel-footer">
+                    <div class="row">
+                        <label class="control-label col-sm-1" for="fecha_ini">Fechas</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="fecha_ini" name="fecha_ini" type="date" onchange="habilitar(this.value);"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="fecha_fin" name="fecha_fin" type="date" onchange="habilitar(this.value);"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <select name="selectOri" id="selectOri">
+                                <option value="" disabled selected>--Selecciona Origen--</option>  
+                                <%
+                                    try {
+                                        con.conectar();
+                                        ResultSet ROrigen = con.consulta("SELECT * FROM tb_origen ");
+                                        while (ROrigen.next()) {
+                                %>
+                                <option value="<%=ROrigen.getString(1)%>"><%=ROrigen.getString(2)%></option>
+                                <%
+                                        }
+                                        con.cierraConexion();
+                                    } catch (Exception e) {
+                                    }
+                                %>                                                  
+                            </select>
+                        </div>
+                    </div>   
+                </div>
+
                 <div class="panel-body">
                     <div class="row">
-                            <button class="btn btn-block btn-success" id="btn_capturar" onclick="return confirma();">MOSTRAR&nbsp;<label class="glyphicon glyphicon-search"></label></button>                        
+                        <button class="btn btn-block btn-success" id="btn_capturar" onclick="return confirma();">MOSTRAR&nbsp;<label class="glyphicon glyphicon-search"></label></button>                        
                     </div>
                 </div>  
             </form>
             <%
-            int Contar=0;
-            try {
-                con.conectar();
+                int Contar = 0;
                 try {
-                    ResultSet rset = null;
-                    if(fecha_ini !="" && fecha_fin !=""){
-                        if(Origen !=""){
-                            rset = con.consulta("SELECT COUNT(l.F_ClaPro) FROM tb_factura f INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE F_FecEnt BETWEEN '"+fecha_ini+"' AND '"+fecha_fin+"' AND F_StsFact='A' and l.F_Origen='"+Origen+"' GROUP BY F_StsFact;");
-                        }else{
-                            rset = con.consulta("SELECT COUNT(l.F_ClaPro) FROM tb_factura f INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE F_FecEnt BETWEEN '"+fecha_ini+"' AND '"+fecha_fin+"' AND F_StsFact='A' GROUP BY F_StsFact;");
+                    con.conectar();
+                    try {
+                        ResultSet rset = null;
+                        if (fecha_ini != "" && fecha_fin != "") {
+                            if (Origen != "") {
+                                rset = con.consulta("SELECT COUNT(l.F_ClaPro) FROM tb_factura f INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE F_FecEnt BETWEEN '" + fecha_ini + "' AND '" + fecha_fin + "' AND F_StsFact='A' and l.F_Origen='" + Origen + "' GROUP BY F_StsFact;");
+                            } else {
+                                rset = con.consulta("SELECT COUNT(l.F_ClaPro) FROM tb_factura f INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE F_FecEnt BETWEEN '" + fecha_ini + "' AND '" + fecha_fin + "' AND F_StsFact='A' GROUP BY F_StsFact;");
+                            }
+
+                            if (rset.next()) {
+                                Contar = rset.getInt(1);
+                            }
+                        } else {
+                            Contar = 0;
                         }
-                    
-                        if (rset.next()) {
-                            Contar = rset.getInt(1);
-                        }    
-                    }else{
-                        Contar = 0;
+
+                    } catch (Exception e) {
+
                     }
-                    
+                    con.cierraConexion();
                 } catch (Exception e) {
 
                 }
-                con.cierraConexion();
-            } catch (Exception e) {
-
-            }
 
             %>
-            
-                <%
-            System.out.println("Contar: "+Contar);
-                if(Contar > 0){
-                %>
-                <div class="row">
-                    <input class="form-control" id="fecha_ini1" name="fecha_ini1" type="hidden" value="<%=fecha_ini%>" />
-                    <input class="form-control" id="fecha_fin1" name="fecha_fin1" type="hidden" value="<%=fecha_fin%>" />                    
-                    <input class="form-control" id="origen" name="origen" type="hidden" value="<%=Origen%>" />                    
-                    <a class="btn btn-block btn-info" href="gnrReport.jsp?fecha_ini=<%=fecha_ini%>&fecha_fin=<%=fecha_fin%>&Origen=<%=Origen%>">Exportar<span class="glyphicon glyphicon-save"></span></a>
-                    <br />                    
-                </div>
-                    <%}%>
-                    
-                    
-                <div>
-                    
-                    <div class="panel panel-success">
-                        <div class="panel-body table-responsive">
-                            <div style="width:100%; height:400px; overflow:auto;">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
+
+            <%                    System.out.println("Contar: " + Contar);
+                if (Contar > 0) {
+            %>
+            <div class="row">
+                <input class="form-control" id="fecha_ini1" name="fecha_ini1" type="hidden" value="<%=fecha_ini%>" />
+                <input class="form-control" id="fecha_fin1" name="fecha_fin1" type="hidden" value="<%=fecha_fin%>" />                    
+                <input class="form-control" id="origen" name="origen" type="hidden" value="<%=Origen%>" />                    
+                <a class="btn btn-block btn-info" href="gnrReport.jsp?fecha_ini=<%=fecha_ini%>&fecha_fin=<%=fecha_fin%>&Origen=<%=Origen%>">Exportar<span class="glyphicon glyphicon-save"></span></a>
+                <br />                    
+            </div>
+            <%}%>
+
+
+            <div>
+
+                <div class="panel panel-success">
+                    <div class="panel-body table-responsive">
+                        <div style="width:100%; height:400px; overflow:auto;">
+                            <table class="table table-bordered table-striped">
+                                <thead>
                                     <tr>                                        
-                                        <td>Clave</td>
-                                        <td>Descripción</td>
-                                        <td>Origen</td>
-                                        <td>Cantidad Req.</td>
-                                        <td>Cantidad Sur.</td>
+                                        <th>Clave</th>
+                                        <th>Descripción</th>
+                                        <th>Origen</th>
+                                        <th>Cantidad Req.</th>
+                                        <th>Cantidad Sur.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -240,19 +249,18 @@
                                             con.conectar();
                                             try {
                                                 ResultSet rset = null;
-                                                int CantReq=0,CantSur=0;
-                                                if(fecha_ini !="" && fecha_fin !=""){                        
-                                                  
-                                                //ResultSet rset = con.consulta("SELECT F.F_ClaDoc,F.F_ClaCli,U.F_NomCli,DATE_FORMAT(F.F_FecApl,'%d/%m/%Y') AS F_FecApl,SUM(F.F_Monto) AS F_Costo,DATE_FORMAT(F.F_FecEnt,'%d/%m/%Y') AS F_FecEnt, O.F_Tipo, O.F_Req FROM tb_factura F, tb_uniatn U, tb_obserfact O, tb_fecharuta FR where FR.F_ClaUni = U.F_ClaCli and  F.F_ClaDoc=O.F_IdFact AND F.F_ClaCli=U.F_ClaCli and " + UsuaJuris + " "+Query+" GROUP BY F.F_ClaDoc ORDER BY F.F_ClaDoc+0;");
-                                                    if(Origen !=""){
-                                                        rset = con.consulta("SELECT f.F_ClaPro,m.F_DesPro,FORMAT(SUM(F_CantReq),0),FORMAT(SUM(F_CantSur),0),SUM(F_CantReq),SUM(F_CantSur),l.F_Origen FROM tb_factura f LEFT JOIN tb_medica m on f.F_ClaPro=m.F_ClaPro INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE f.F_FecEnt BETWEEN '"+fecha_ini+"' AND '"+fecha_fin+"' AND F_StsFact='A' and l.F_Origen='"+Origen+"' GROUP BY f.F_ClaPro,l.F_Origen;");
-                                                    }else{
-                                                        rset = con.consulta("SELECT f.F_ClaPro,m.F_DesPro,FORMAT(SUM(F_CantReq),0),FORMAT(SUM(F_CantSur),0),SUM(F_CantReq),SUM(F_CantSur),l.F_Origen FROM tb_factura f LEFT JOIN tb_medica m on f.F_ClaPro=m.F_ClaPro INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE f.F_FecEnt BETWEEN '"+fecha_ini+"' AND '"+fecha_fin+"' AND F_StsFact='A' GROUP BY f.F_ClaPro,l.F_Origen;");
+                                                int CantReq = 0, CantSur = 0;
+                                                if (fecha_ini != "" && fecha_fin != "") {
+
+                                                    //ResultSet rset = con.consulta("SELECT F.F_ClaDoc,F.F_ClaCli,U.F_NomCli,DATE_FORMAT(F.F_FecApl,'%d/%m/%Y') AS F_FecApl,SUM(F.F_Monto) AS F_Costo,DATE_FORMAT(F.F_FecEnt,'%d/%m/%Y') AS F_FecEnt, O.F_Tipo, O.F_Req FROM tb_factura F, tb_uniatn U, tb_obserfact O, tb_fecharuta FR where FR.F_ClaUni = U.F_ClaCli and  F.F_ClaDoc=O.F_IdFact AND F.F_ClaCli=U.F_ClaCli and " + UsuaJuris + " "+Query+" GROUP BY F.F_ClaDoc ORDER BY F.F_ClaDoc+0;");
+                                                    if (Origen != "") {
+                                                        rset = con.consulta("SELECT f.F_ClaPro,m.F_DesPro,FORMAT(SUM(F_CantReq),0),FORMAT(SUM(F_CantSur),0),SUM(F_CantReq),SUM(F_CantSur),l.F_Origen FROM tb_factura f LEFT JOIN tb_medica m on f.F_ClaPro=m.F_ClaPro INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE f.F_FecEnt BETWEEN '" + fecha_ini + "' AND '" + fecha_fin + "' AND F_StsFact='A' and l.F_Origen='" + Origen + "' GROUP BY f.F_ClaPro,l.F_Origen;");
+                                                    } else {
+                                                        rset = con.consulta("SELECT f.F_ClaPro,m.F_DesPro,FORMAT(SUM(F_CantReq),0),FORMAT(SUM(F_CantSur),0),SUM(F_CantReq),SUM(F_CantSur),l.F_Origen FROM tb_factura f LEFT JOIN tb_medica m on f.F_ClaPro=m.F_ClaPro INNER JOIN tb_lote l on f.F_Lote=l.F_FolLot AND f.F_ClaPro=l.F_ClaPro AND f.F_Ubicacion=l.F_Ubica WHERE f.F_FecEnt BETWEEN '" + fecha_ini + "' AND '" + fecha_fin + "' AND F_StsFact='A' GROUP BY f.F_ClaPro,l.F_Origen;");
                                                     }
-                                                    
-                                                    
-                                                while (rset.next()) {
-                                                    
+
+                                                    while (rset.next()) {
+
                                     %>
                                     <tr>
                                         <td><%=rset.getString(1)%></td>
@@ -262,20 +270,20 @@
                                         <td><%=rset.getString(4)%></td>
                                     </tr>
                                     <%
-                                                CantReq =CantReq + rset.getInt(5);
-                                                CantSur =CantSur + rset.getInt(6);
-                                                }
-                                     %>
-                                     <tr>
+                                            CantReq = CantReq + rset.getInt(5);
+                                            CantSur = CantSur + rset.getInt(6);
+                                        }
+                                    %>
+                                    <tr>
                                         <td></td>
                                         <td>Total</td>
                                         <td></td>
                                         <td><%=format.format(CantReq)%></td>
                                         <td><%=format.format(CantSur)%></td>
                                     </tr>
-                                     <%
-                                                    CantReq=0;
-                                                    CantSur=0;
+                                    <%
+                                                    CantReq = 0;
+                                                    CantSur = 0;
                                                 }
                                             } catch (Exception e) {
 
@@ -287,14 +295,14 @@
                                     %>
                                 </tbody>
                             </table>
-                            </div>
                         </div>
                     </div>
                 </div>
-            
+            </div>
+
         </div>
 
-        
+
         <%@include file="../jspf/piePagina.jspf" %>
         <!-- 
         ================================================== -->
@@ -307,56 +315,56 @@
         <script src="../js/jquery.dataTables.js"></script>
         <script src="../js/dataTables.bootstrap.js"></script>
         <script>
-            $(document).ready(function() {
-                $('#datosCompras').dataTable();
-                $("#fecha").datepicker();
-                $("#fecha").datepicker('option', {dateFormat: 'dd/mm/yy'});
+                                $(document).ready(function () {
+                                    $('#datosCompras').dataTable();
+                                    $("#fecha").datepicker();
+                                    $("#fecha").datepicker('option', {dateFormat: 'dd/mm/yy'});
 
-                //$('#btnRecalendarizar').attr('disabled', true);
-                //$('#btnImpMult').attr('disabled', true);
-            });            
+                                    //$('#btnRecalendarizar').attr('disabled', true);
+                                    //$('#btnImpMult').attr('disabled', true);
+                                });
         </script>
         <script>
-    
-    </script>
-    <script type="text/javascript">
-          $(function() {
-               var availableTags = [
-          <%
-            try {
-                con.conectar();
-                try {
-                    ResultSet rset = con.consulta("SELECT F_NomCli FROM tb_uniatn");
-                    while (rset.next()) {
-                        out.println("'" + rset.getString(1) + "',");
-                    }
-                } catch (Exception e) {
 
-                }
-                con.cierraConexion();
-            } catch (Exception e) {
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                var availableTags = [
+            <%
+                  try {
+                      con.conectar();
+                      try {
+                          ResultSet rset = con.consulta("SELECT F_NomCli FROM tb_uniatn");
+                          while (rset.next()) {
+                              out.println("'" + rset.getString(1) + "',");
+                          }
+                      } catch (Exception e) {
 
-            }
-        %>
-               ];
-               $("#NombreUnidad").autocomplete({
-                   source: availableTags
-               });
-          });
+                      }
+                      con.cierraConexion();
+                  } catch (Exception e) {
+
+                  }
+            %>
+                ];
+                $("#NombreUnidad").autocomplete({
+                    source: availableTags
+                });
+            });
         </script>        
         <script>
-            $(document).ready(function(){
-                $('#selectjur').change(function(){
+            $(document).ready(function () {
+                $('#selectjur').change(function () {
                     var Juris = $('#juris').val();
-                     var valor = $('#selectjur').val();
-                     if(Juris !=""){
-                     $('#juris').val(Juris+","+valor);
-                     }else{
-                         $('#juris').val(valor);
-                     }
-                 });
+                    var valor = $('#selectjur').val();
+                    if (Juris != "") {
+                        $('#juris').val(Juris + "," + valor);
+                    } else {
+                        $('#juris').val(valor);
+                    }
+                });
             });
-       </script>
+        </script>
     </body>
 </html>
 

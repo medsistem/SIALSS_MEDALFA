@@ -109,7 +109,7 @@
                     String fechaDia = ft.format(dNow);
                 %>
                 <tr>
-                     <td> <img src="https://pin.it/4jyKnr5Zf" id="LogoExcel"</td>
+                   <!--  <td> <img src="https://pin.it/4jyKnr5Zf" id="LogoExcel"</td> -->
                     <td colspan="6"><h4><%=fechaDia%></h4></td>
                 </tr><tr></tr>
                 <tr>
