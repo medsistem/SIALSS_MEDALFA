@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d36d56d-e705-43d8-bec6-461dd4e714a4">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="3.897434200000003"/>
+	<property name="ireport.x" value="31"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -95,7 +95,7 @@ ORDER BY
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA CD TOLUCA]]></text>
+				<text><![CDATA[ALMACEN EMPRESA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83580f10-239f-4474-871d-820c698eb6c9" x="90" y="-60" width="198" height="20"/>

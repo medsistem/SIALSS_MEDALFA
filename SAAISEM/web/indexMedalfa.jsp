@@ -27,7 +27,7 @@
             <div id="formContent">              
                 <!-- Icon -->
                 <div class="fadeIn first">
-                    <img src="imagenes/LogoMedalfa-.png"  />
+                    <img src="imagenes/LogoMarbete-.png"  />
                     <h3>SIALSS COMPRAS</h3>
                 </div>
                 <hr/>

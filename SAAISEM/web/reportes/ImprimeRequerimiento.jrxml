@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
@@ -41,11 +41,10 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Av. Emiliano Zapata Lote 2, Parque Industrial Lerma,
-Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
+				<text><![CDATA[Av. Industria Automotriz 18 Int. 3C Bis, Corr. Industrial Toluca Lerma, Lerma Mex. 52004 Méx.]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="db87c7a7-1383-47d3-8fab-f5ffbe024537" mode="Opaque" x="393" y="9" width="130" height="13" backcolor="#FFFFFF"/>
+				<reportElement uuid="db87c7a7-1383-47d3-8fab-f5ffbe024537" mode="Opaque" x="433" y="9" width="90" height="13" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
@@ -84,7 +83,7 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e3f6c11c-610f-4690-bf0b-9a8364e5aa58" x="5" y="68" width="104" height="14"/>
@@ -133,9 +132,9 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{F_Elabo}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement uuid="158d3a02-929c-4835-975c-bdf0750b3bfb" x="5" y="0" width="127" height="47"/>
-				<imageExpression><![CDATA["LogoMedalfa.png"]]></imageExpression>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="158d3a02-929c-4835-975c-bdf0750b3bfb" x="5" y="0" width="104" height="47"/>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="3c2104cd-fbac-4ec2-b1cb-1f5e158556c7" x="192" y="41" width="184" height="12"/>

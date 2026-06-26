@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d36d56d-e705-43d8-bec6-461dd4e714a4">
-	<property name="ireport.zoom" value="1.818181818181819"/>
+	<property name="ireport.zoom" value="3.543122000000003"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
@@ -155,7 +155,7 @@ m.F_IdMov]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<text><![CDATA[ALMACEN MEDALFA]]></text>
+				<text><![CDATA[ALMACEN EMPRESA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="83580f10-239f-4474-871d-820c698eb6c9" x="90" y="-60" width="198" height="20"/>
@@ -204,7 +204,7 @@ m.F_IdMov]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Calle: Avenida Emiliano Zapata Lote 2, Parque Industrial Lerma, Bodegas Letras B-2M, B-3 y B-4, C.P. 52050, Lerma, Estado de México, R.F.C. MED140206KM0]]></text>
+				<text><![CDATA[Av. Industria Automotriz 18 Int. 3C Bis, Corr. Industrial Toluca Lerma, Lerma Mex. 52004 Méx.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="25acc526-2345-4233-a739-18c410eaeee8" x="1" y="73" width="52" height="11"/>
@@ -229,7 +229,7 @@ m.F_IdMov]]>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle" isUsingCache="false">
 				<reportElement uuid="ce9a9a69-0c1c-40f4-9591-57e350f4273c" x="1" y="0" width="90" height="35"/>
-				<imageExpression><![CDATA["/image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["/image/sialss.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="e5127f90-14c3-4b50-a436-ef99a60296de" x="112" y="69" width="389" height="15"/>

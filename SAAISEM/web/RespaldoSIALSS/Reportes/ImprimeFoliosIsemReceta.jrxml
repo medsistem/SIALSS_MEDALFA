@@ -110,7 +110,7 @@ ORDER BY
 		<band height="117">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="3abcd692-39ba-487a-a02f-18421da2001c" x="2" y="0" width="108" height="25"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="e3f6c11c-610f-4690-bf0b-9a8364e5aa58" x="447" y="1" width="43" height="14"/>

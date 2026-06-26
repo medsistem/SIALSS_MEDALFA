@@ -1,8 +1,4 @@
-<%-- 
-    Document   : index
-    Created on : 01-oct-2013, 12:05:12
-    Author     : wence
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -13,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>SIALSS</title>
+       
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -25,7 +21,7 @@
             <div id="formContent">              
                 <!-- Icon -->
                 <div class="fadeIn first">
-                    <img src="imagenes/LogoMedalfa-.png"/>
+                    <img src="imagenes/LogoMarbete.png" width="80" alt="80"/>
                     <h2>SIALSS ALMACEN</h2>
                    
                 </div>
@@ -55,8 +51,6 @@
                 </form>     
             </div>
         </div> 
-        
-        
-       
+ 
     </body>
 </html>

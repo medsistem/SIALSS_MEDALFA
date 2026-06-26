@@ -43,7 +43,9 @@ public class conection {
 
 //        this.Url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf";
 //        this.Url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf";
-        this.Url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
+//        this.Url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
+
+        this.Url = "jdbc:mariadb://127.0.0.1:3306/sialss_validacion?autoReconnect=true";
 
         this.DriverClassName = "org.mariadb.jdbc.Driver";
     }

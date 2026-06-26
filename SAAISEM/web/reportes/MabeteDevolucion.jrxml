@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Marbete" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac5afa2b-dbeb-4948-9e26-5043590070db">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folio" class="java.lang.String">
@@ -92,7 +92,7 @@ m.F_ProMov]]>
 			</textField>
 			<image>
 				<reportElement uuid="a3364528-eab7-4512-92c7-3ee4d2f6b4a9" x="3" y="0" width="92" height="56"/>
-				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/sialss.png"]]></imageExpression>
 			</image>
 		</band>
 	</columnHeader>

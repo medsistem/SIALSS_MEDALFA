@@ -57,11 +57,11 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">       
         
         <!---->
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <hr/>
             <div class="panel panel-success">

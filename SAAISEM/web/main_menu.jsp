@@ -33,16 +33,16 @@
         <link href="css/sweetalert.css" rel="stylesheet" type="text/css"/>
       <!--  <link href="css/navbar-fixed-top.css" rel="stylesheet">
         -->
-        <title>SIALSS</title>
+   
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <!--<h1>SIALSS CEDIS</h1>-->
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="jspf/menuPrincipal.jspf" %>
             <div class="text-center">
                 <br /><br /><br />
-                <img src="imagenes/LogoMedalfa.png" class="img-fluid" width="200" height="100" alt="Logo GNK claro2" />
+                <img src="imagenes/LogoMarbete.png" class="img-fluid" width="200" height="100" alt="Logo GNK claro2" />
                 <br/>
 
             </div>

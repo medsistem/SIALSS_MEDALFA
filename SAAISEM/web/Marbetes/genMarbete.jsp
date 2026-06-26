@@ -23,7 +23,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/cupertino/jquery-ui-1.10.3.custom.css"/>
         <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
@@ -33,7 +33,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="../jspf/menuPrincipal.jspf" %>  
             <div class="row">

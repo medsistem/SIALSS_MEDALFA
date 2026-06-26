@@ -49,7 +49,7 @@
         <link href="../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" >
         <link href="../css/select2.css" rel="stylesheet" type="text/css"/>
         <!---->
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body onload="muestraCalendario()" >
         <div class="container">

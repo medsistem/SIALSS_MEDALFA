@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
-	<property name="ireport.zoom" value="1.2396694214876038"/>
+	<property name="ireport.zoom" value="2.923075650000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="62"/>
 	<parameter name="Folfact" class="java.lang.String"/>
 	<parameter name="F_Obs" class="java.lang.String"/>
 	<parameter name="Usuario" class="java.lang.String"/>
@@ -93,7 +93,7 @@
 		<band height="114">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="3abcd692-39ba-487a-a02f-18421da2001c" x="2" y="0" width="127" height="23"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/sialss.png"]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true" pattern="00000">
 				<reportElement uuid="b02bb1b0-aed4-49c4-9bd2-651ce8ebfd63" x="477" y="37" width="84" height="11"/>
@@ -142,7 +142,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="86efef5e-b477-4934-a62e-e2a1dcc556ea" x="129" y="40" width="310" height="20"/>
@@ -496,7 +496,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MDF-OPE-01]]></text>
+				<text><![CDATA[INF-DT-F01]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>

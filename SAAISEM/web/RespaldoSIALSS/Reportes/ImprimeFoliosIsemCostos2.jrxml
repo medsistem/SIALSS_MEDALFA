@@ -219,7 +219,7 @@
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="3abcd692-39ba-487a-a02f-18421da2001c" x="5" y="0" width="87" height="47"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="76dc5f84-3704-4d9e-b13f-970caf7efe3d" x="6" y="90" width="98" height="13"/>
@@ -463,7 +463,7 @@
 			</line>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="e31eaff6-ac5d-48c0-8700-3522995ceeb8" x="5" y="0" width="87" height="50"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="adc20ae9-f9ef-4689-8753-c6ee07f410d7" x="5" y="92" width="98" height="13"/>

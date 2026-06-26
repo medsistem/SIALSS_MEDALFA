@@ -52,7 +52,7 @@
         dia = 31;
         MesD = "ENERO";
     } else if (mes == 2) {
-        if ((anno == 2016) || (anno == 2020) || (anno == 2024)) {
+        if ((anno == 2016) || (anno == 2020) || (anno == 2024) || (anno == 2028) || (anno == 2032)) {
             dia = 29;
         } else {
             dia = 28;
@@ -109,7 +109,7 @@
                     String fechaDia = ft.format(dNow);
                 %>
                 <tr>
-                    <td><img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"</td>
+                     <td> <img src="https://pin.it/4jyKnr5Zf" id="LogoExcel"</td>
                     <td colspan="6"><h4><%=fechaDia%></h4></td>
                 </tr><tr></tr>
                 <tr>

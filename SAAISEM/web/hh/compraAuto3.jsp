@@ -135,11 +135,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%if (tipo.equals("13") || tipo.equals("14")) {%>
             <%@include file="../jspf/menuPrincipalCompra.jspf" %>

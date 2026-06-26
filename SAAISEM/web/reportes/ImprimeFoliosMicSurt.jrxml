@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
-	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.zoom" value="3.797498335832416"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -233,14 +233,14 @@
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="158d3a02-929c-4835-975c-bdf0750b3bfb" x="1" y="0" width="105" height="35"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="7da0a11a-02f5-4927-a68c-cf6a6b561d0b" x="189" y="-1" width="184" height="13"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="662e3d36-81fb-46df-be29-4b6f4fb71e8f" x="169" y="13" width="224" height="22"/>
@@ -272,7 +272,7 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 				<textFieldExpression><![CDATA[$F{F_Direc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="e3f6c11c-610f-4690-bf0b-9a8364e5aa58" x="113" y="1" width="61" height="11"/>
+				<reportElement uuid="e3f6c11c-610f-4690-bf0b-9a8364e5aa58" x="0" y="62" width="61" height="11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>

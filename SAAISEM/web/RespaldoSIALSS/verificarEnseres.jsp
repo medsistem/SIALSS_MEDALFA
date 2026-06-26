@@ -61,11 +61,11 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/cupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
         <link href="css/sweetalert.css" rel="stylesheet" type="text/css"/>
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="jspf/menuPrincipal.jspf" %>
             <form action="verificarEnseres.jsp" method="post">

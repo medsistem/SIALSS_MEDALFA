@@ -34,7 +34,7 @@
 		<band height="83" splitType="Stretch">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="5b673ae5-8686-42a4-bf44-bf1668e33db1" x="0" y="0" width="90" height="40"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="0d3b8b2f-425d-4cd4-b0a6-4d359b96665b" x="196" y="13" width="184" height="17"/>

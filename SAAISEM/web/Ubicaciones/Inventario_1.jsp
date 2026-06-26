@@ -107,7 +107,7 @@ System.out.println(e);
 %>
 <html>
     <head>
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <script src="ckeditor/ckeditor.js"></script>
         <link href=bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -128,7 +128,7 @@ System.out.println(e);
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <!--div class="navbar navbar-default">
                 <div class="container">

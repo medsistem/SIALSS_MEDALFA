@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.536921536500002"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Folfact" class="java.lang.String"/>
@@ -149,15 +149,14 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="662e3d36-81fb-46df-be29-4b6f4fb71e8f" x="106" y="25" width="299" height="21"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Av. Emiliano Zapata Lote 2, Parque Industrial Lerma,
-Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
+				<text><![CDATA[Av. Industria Automotriz 18 Int. 3C Bis, Corr. Industrial Toluca Lerma, Lerma Mex. 52004 Méx.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3c2104cd-fbac-4ec2-b1cb-1f5e158556c7" x="181" y="46" width="184" height="12"/>
@@ -230,7 +229,7 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="158d3a02-929c-4835-975c-bdf0750b3bfb" x="1" y="0" width="104" height="35"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
@@ -332,7 +331,7 @@ CAJAS]]></text>
 				<textFieldExpression><![CDATA[$F{F_FecCad}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="71a60289-7519-482b-b5bc-0abea340fc44" x="5" y="2" width="56" height="22"/>
+				<reportElement uuid="71a60289-7519-482b-b5bc-0abea340fc44" x="-1" y="2" width="50" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
@@ -361,13 +360,6 @@ CAJAS]]></text>
 			<line>
 				<reportElement uuid="5bc2f20d-1a22-43ef-b809-d6647f8e38f5" x="572" y="0" width="1" height="27"/>
 			</line>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="469d0e6c-4708-4cfb-b712-f29be5d3f4e7" stretchType="RelativeToBandHeight" x="51" y="2" width="166" height="25"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{F_DesPro}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement uuid="c9b5b918-0eeb-4dd4-ab39-98080ace0eb7" x="-1" y="0" width="1" height="27"/>
 			</line>
@@ -399,6 +391,13 @@ CAJAS]]></text>
 				<reportElement uuid="f5b03bac-b0ae-4d9b-8cfe-ad1818fa94ec" x="390" y="4" width="72" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[Ubicacion]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="469d0e6c-4708-4cfb-b712-f29be5d3f4e7" stretchType="RelativeToBandHeight" x="52" y="1" width="165" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_DesPro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

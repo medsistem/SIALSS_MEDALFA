@@ -57,12 +57,12 @@ String ubicaciones = "";
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
 
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
             <div class="panel-title">
-                <h1>MEDALFA</h1>
+                <h1>SIALSS CEDIS</h1>
                 <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             </div>
             <%if ( tipo.equals("14")) {%>

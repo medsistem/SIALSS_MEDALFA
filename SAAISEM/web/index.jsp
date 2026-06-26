@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 01-oct-2013, 12:05:12
-    Author     : wence
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesion = request.getSession();
@@ -11,67 +5,147 @@
 
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="EN">
     <head>
-        <title>SIALSS</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Bootstrap -->
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/login.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- Basic -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
 
+        <title>SIALSS CEDIS</title>
+
+        <!-- slider stylesheet -->
+        <link rel="stylesheet" type="text/css"  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="cssindex/bootstrap.css" />
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap" rel="stylesheet" />
+
+        <!-- Custom styles for this template -->
+ 
+        <link href="cssindex/responsive.css" rel="stylesheet" />
+        <link href="cssindex/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="cssindex/style.css" rel="stylesheet" type="text/css"/>
     </head>
+
     <body>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                      
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                  <img src="imagenes/alm6.jpg" class="d-block w-100" alt="ALMACEN" width="720px" height="680px"/>
-                               
-                              <a title=" " href="/SIALSS_MDF/indexalmacen.jsp">
-                                  <div class="carousel-caption  d-none d-md-block ">
-                                <h1>SIALSS ALMACEN</h>
-                                <h3>Dar Click para Ingresar al sistema de almacen</h3>
-                               </div>
-                               </a> 
+        <div class="hero_area">
+            <!-- header section strats -->
+            <header class="header_section">
+
+            </header>
+            <!-- end header section -->
+            <!-- slider section -->
+            <section class=" slider_section position-relative">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="img-box">
+                                            <img src="imagenes/alm6.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="detail-box">`
+                                            <h1> <span>SIALSS CEDIS</span> </h1>
+
+                                            <a href="/SIALSS_MDF/indexalmacen.jsp">SIALSS ALMACÉN</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            
-                        
-                            <div class="carousel-item">
-                                <img src="imagenes/alm7.jpg" class="d-block w-100" alt="COMPRAS" width="720px" height="680px"/>
-                                <a title=" " href="/SIALSS_MDF/indexCompras.jsp">
-                                <div class="carousel-caption d-none d-md-block">
-                                <h1>SIALSS COMPRAS</h1>
-                                <h3>Ingreso al sistema de Compras</h3>
-                               </div>
-                                </a>    
-                            </div>
-                          
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="img-box">
+                                            <img src="imagenes/alm7.jpg" alt=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="detail-box">`
+                                            <h1> <span>COMPRAS SIALSS CEDIS</span> </h1>
+                                            <a href="/SIALSS_MDF/indexCompras.jsp">SIALSS COMPRAS INSUMO</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-            </div>
+
+
+            </section>
+            <!-- end slider section -->
         </div>
+
+        <script type="text/javascript" src="jsindex/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="jsindex/bootstrap.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+        </script>
+        <script type="text/javascript">
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [],
+                autoplay: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+        </script>
+        <script type="text/javascript">
+            $(".owl-2").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [],
+                autoplay: true,
+
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            });
+        </script>
+
     </body>
 </html>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-       

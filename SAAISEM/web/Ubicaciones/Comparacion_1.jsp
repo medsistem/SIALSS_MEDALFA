@@ -29,7 +29,7 @@
     
     <head>
         <link rel="shortcut icon" type="image/ico" href="img/Logo GNK claro2.jpg">
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -51,7 +51,7 @@
         </head>
 	<body id="dt_example">
             <div class="container-fluid">
-               <h1>MEDALFA</h1>
+               <h1>SIALSS CEDIS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4> 
             </div>
             <div class="container">

@@ -98,7 +98,7 @@ public class ExcelFacturado extends HttpServlet {
             sheet.setAutobreaks(true);
             sheet.setDefaultColumnWidth(width);
             
-            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMedalfa.png");
+            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMarbete.png");
             byte[] bytes = IOUtils.toByteArray(is);
             int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
             is.close();

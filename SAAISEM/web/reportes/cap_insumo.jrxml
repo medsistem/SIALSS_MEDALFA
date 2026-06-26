@@ -66,7 +66,7 @@ where folio_gnk =$P{folio_gnk}  GROUP BY id_cap_inv]]>
 				<textElement textAlignment="Center">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA CEDIS TOLUCA]]></text>
+				<text><![CDATA[ CEDIS EMPRESAS]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="96d30464-7271-4274-889c-3b4dfc9adb99" x="239" y="31" width="96" height="11"/>

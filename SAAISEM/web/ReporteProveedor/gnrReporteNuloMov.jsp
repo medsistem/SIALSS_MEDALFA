@@ -50,7 +50,7 @@
                         DateFormat ft = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
                         String fechaDia = ft.format(dNow);
                     %>
-                    <td> <img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"</td>
+                      <!-- <td><img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"></td> -->
                     <td colspan="5"> <h4><%=fechaDia%></h4></td>
                 </tr><tr></tr>
                 <tr>

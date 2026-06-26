@@ -162,11 +162,11 @@
 				</jr:barbecue>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="b134fabc-e7a1-4c7c-b8d5-4addcab7ed52" x="333" y="223" width="52" height="20"/>
+				<reportElement uuid="b134fabc-e7a1-4c7c-b8d5-4addcab7ed52" x="321" y="223" width="64" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[MDF-F08]]></text>
+				<text><![CDATA[INF-SZ-F03]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a8f7cbf3-1894-4687-98e6-659ba3804f93" x="310" y="0" width="40" height="31"/>
@@ -204,7 +204,7 @@
 				<text><![CDATA[FECHA DE IMPRESION DE ETIQUETAS]]></text>
 			</staticText>
 			<textField pattern="d/M/yyyy">
-				<reportElement uuid="d3bf8fb5-4b59-4507-a836-bf3db37064ae" x="198" y="223" width="135" height="20"/>
+				<reportElement uuid="d3bf8fb5-4b59-4507-a836-bf3db37064ae" x="192" y="223" width="129" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>

@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
@@ -27,7 +27,7 @@
             <div id="formContent">              
                 <!-- Icon -->
                 <div class="fadeIn first">
-                    <img src="imagenes/LogoMedalfa-.png"  />
+                    <img src="imagenes/LogoMarbete-.png"  />
                     <h3>SIALSS AUDITORIA</h3>
                 </div>
                 <hr/>

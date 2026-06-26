@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="425" pageHeight="283" orientation="Landscape" columnWidth="385" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d64405e-8bbb-489c-af6f-b4742ce7fcaf">
-	<property name="ireport.zoom" value="1.8150000000000004"/>
+	<property name="ireport.zoom" value="2.415765000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="folio" class="java.lang.String"/>
@@ -159,11 +159,11 @@
 				</jr:barbecue>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="8c104fa8-b84e-4728-8c1e-06865a666ae4" x="333" y="223" width="52" height="20"/>
+				<reportElement uuid="8c104fa8-b84e-4728-8c1e-06865a666ae4" x="324" y="223" width="61" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[MDF-F08]]></text>
+				<text><![CDATA[INF-SZ-F03]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="b3bd1fbe-d169-4a0f-8b01-4a179c5fb4fe" x="105" y="1" width="171" height="31"/>
@@ -194,7 +194,7 @@
 				<textFieldExpression><![CDATA[$F{F_Origen}]]></textFieldExpression>
 			</textField>
 			<textField pattern="d/M/yyyy">
-				<reportElement uuid="944cab4d-97ba-4878-aa39-17415c7e4ace" x="202" y="223" width="131" height="20"/>
+				<reportElement uuid="944cab4d-97ba-4878-aa39-17415c7e4ace" x="193" y="223" width="131" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>

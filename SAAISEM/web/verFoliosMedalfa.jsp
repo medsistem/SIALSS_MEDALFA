@@ -54,7 +54,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <link href="css/select2.css" rel="stylesheet">
@@ -62,7 +62,7 @@
     <body onload="focusLocus();">
         <div class="container">
             <div class="row">
-                <h1>MEDALFA</h1>
+                <h1>SIALSS CEDIS</h1>
                 <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
                 <%if (tipo.equals("13") || tipo.equals("14")){%>
            <%@include file="jspf/menuPrincipalCompra.jspf" %>

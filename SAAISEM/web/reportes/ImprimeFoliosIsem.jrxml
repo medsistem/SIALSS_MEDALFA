@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeFolios" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b19965c8-ecdd-4725-89f7-729f51c18b03">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.9230756500000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="2626"/>
 	<parameter name="Folfact" class="java.lang.String"/>
 	<parameter name="F_Obs" class="java.lang.String"/>
 	<parameter name="Usuario" class="java.lang.String"/>
@@ -104,7 +104,7 @@
 		<band height="109">
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="3abcd692-39ba-487a-a02f-18421da2001c" x="0" y="0" width="122" height="25"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/sialss.png"]]></imageExpression>
 			</image>
 			<image scaleImage="RetainShape" hAlign="Center" vAlign="Top">
 				<reportElement uuid="c3c5b08c-5032-4f4b-9a5e-a1a5b0f685a0" x="532" y="77" width="40" height="24">
@@ -138,7 +138,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="534b1992-1e8c-48d3-9259-51d97b20c9e1" x="129" y="11" width="305" height="22"/>
@@ -469,7 +469,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MDF-OPE-F01]]></text>
+				<text><![CDATA[INF-DT-F01]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9b33c4c3-7dd9-45db-8865-90656b0e053f" x="8" y="202" width="66" height="11"/>
@@ -823,7 +823,7 @@
 				<textElement textAlignment="Center" rotation="Left">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[MDF-OPE-F04]]></text>
+				<text><![CDATA[INF-DT-F01]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a2a076e9-0ac3-4a4f-a514-71e02f667eb2" x="59" y="447" width="14" height="148"/>
@@ -1308,7 +1308,7 @@ Nombre y firma]]></text>
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement uuid="11e49a50-6877-4f16-bb3e-241a118cab6d" x="13" y="615" width="33" height="119"/>
-				<imageExpression><![CDATA["image/LogoMedalfaVertical.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbeteVertical.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="3d3d9cc8-ffb5-4e76-9d77-b31d089899b0" x="13" y="5" width="33" height="586"/>

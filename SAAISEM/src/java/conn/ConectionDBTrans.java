@@ -50,7 +50,9 @@ public class ConectionDBTrans {
 
 //        this.url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf?autoReconnect=true";
 //        this.url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf?autoReconnect=true";
-        this.url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
+//        this.url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
+
+    this.url = "jdbc:mariadb://127.0.0.1:3306/sialss_validacion?autoReconnect=true";
         
         this.driverClassName = "org.mariadb.jdbc.Driver";
 

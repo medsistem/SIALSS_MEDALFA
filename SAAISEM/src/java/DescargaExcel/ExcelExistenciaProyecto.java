@@ -110,7 +110,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             sheet.setAutobreaks(true);
             sheet.setDefaultColumnWidth(width);
             
-            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMedalfa.png");
+            FileInputStream is = new FileInputStream("C:\\Imagenes\\LogoMarbete.png");
             byte[] bytes = IOUtils.toByteArray(is);
             int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
             is.close();
@@ -148,7 +148,7 @@ public class ExcelExistenciaProyecto extends HttpServlet {
             int totPiezas = 0, veces = 0;
             String qry = null, auxLimit;
             ResultSet rset;
-           // String imageUrl = "https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png";
+           // // String imageUrl = "https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png";
 
             int index = 0;
 

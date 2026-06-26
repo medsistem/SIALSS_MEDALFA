@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImprimeRelacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="392b3d44-c754-41fc-8dac-1951663839ac">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.9230756500000017"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Usu" class="java.lang.String"/>
@@ -97,7 +97,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA SA DE CV]]></text>
+				<text><![CDATA[GNKL BAJIO SA DE CV]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f5958fe4-60d7-4695-9f90-d00569a53658" x="193" y="14" width="175" height="14"/>
@@ -264,7 +264,7 @@
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[MDF-OPE-F02]]></text>
+				<text><![CDATA[INF-DT-F02]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

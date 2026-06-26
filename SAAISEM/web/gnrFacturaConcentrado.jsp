@@ -73,7 +73,7 @@ System.out.println("f1: "+ f1 + " f2: "+ f2 +" fol1: "+ fol1 + " fol2: "+ fol2);
                     
                 %>                    
                 <tr>
-                    <td><img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"</td>
+                   <!-- <td colspan="3"> <img src="https://4.bp.blogspot.com/-QPFcJij97lE/XkwwIpM6omI/AAAAAAAABcA/GwpuompAg60ucAtDnYPBGkf-A6SwPHAYwCLcBGAsYHQ/s1600/logoMdf.png" id="logoMdf"></td>-->
                     <td colspan="5"><h4><%=fechaDia%></h4></td>
                 </tr><tr></tr>
                 <tr>

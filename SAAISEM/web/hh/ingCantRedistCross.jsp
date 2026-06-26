@@ -73,11 +73,11 @@
         <link href="../css/sweetalert.css" rel="stylesheet" type="text/css"/>
         <!---->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SIALSS</title>
+         <!--<h1>SIALSS CEDIS</h1>-->
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
+            <h1>SIALSS CEDIS</h1>
             
             <%@include file="../jspf/menuPrincipal.jspf" %>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>

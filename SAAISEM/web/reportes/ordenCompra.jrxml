@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenCompra" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f59271d3-8d37-4164-b6ae-641800414185">
-	<property name="ireport.zoom" value="1.5026296018031564"/>
+	<property name="ireport.zoom" value="3.2210200000000038"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -207,7 +207,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MEDALFA S.A. DE C.V.]]></text>
+				<text><![CDATA[GNKL BAJIO S.A. DE C.V.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="54443725-1b9f-4ad7-b0e3-d111562d9b5a" x="1" y="66" width="55" height="15"/>
@@ -229,7 +229,7 @@ WHERE
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Calle Vicente Guerrero parque industrial exportec ll No. 302, Toluca, México. C.P. 50223.]]></text>
+				<text><![CDATA[Av. Industria Automotriz 18 Int. 3C Bis, Corr. Industrial Toluca Lerma, Lerma Mex. 52004 Méx.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="6b8b9098-6bc1-4923-a77e-7573f1531431" mode="Transparent" x="1" y="36" width="80" height="15"/>

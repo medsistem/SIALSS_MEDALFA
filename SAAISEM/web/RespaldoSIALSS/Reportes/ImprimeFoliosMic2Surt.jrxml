@@ -203,7 +203,7 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 			</line>
 			<image>
 				<reportElement uuid="158d3a02-929c-4835-975c-bdf0750b3bfb" x="5" y="0" width="127" height="47"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="3c2104cd-fbac-4ec2-b1cb-1f5e158556c7" x="192" y="53" width="184" height="12"/>
@@ -481,7 +481,7 @@ Bodegas Letras B-2, B-3 y B-4, CP 52050, Lerma, México.]]></text>
 			</textField>
 			<image>
 				<reportElement uuid="caaea411-279c-4f5f-a1df-8d6cb46d6f64" x="5" y="10" width="127" height="47"/>
-				<imageExpression><![CDATA["image/LogoMedalfa.png"]]></imageExpression>
+				<imageExpression><![CDATA["image/LogoMarbete.png"]]></imageExpression>
 			</image>
 			<rectangle>
 				<reportElement uuid="68b8485f-9704-4556-a26a-59f6f46249c3" x="429" y="57" width="132" height="22"/>
