@@ -8,7 +8,7 @@
 $('#selectClave').keyup(function() {
     var descripcion = $('#selectClave').val();
     $('#selectClave').autocomplete({
-        source: "/SIALSS_MDF/JQIngresos?accion=buscaClave&clave=" + descripcion,
+        source: "/SIALSS_MDF_1/JQIngresos?accion=buscaClave&clave=" + descripcion,
         minLenght: 2,
         select: function(event, ui) {
             $('#selectClave').val(ui.item.F_Clave);
@@ -26,7 +26,7 @@ $('#selectClave').keyup(function() {
 $('#ClaPro').keyup(function() {
     var descripcion = $('#ClaPro').val();
     $('#ClaPro').autocomplete({
-        source: "/SIALSS_MDF/JQIngresos?accion=buscaClaveTodas&clave=" + descripcion,
+        source: "/SIALSS_MDF_1/JQIngresos?accion=buscaClaveTodas&clave=" + descripcion,
         minLenght: 2,
         select: function(event, ui) {
             $('#ClaPro').val(ui.item.F_ClaPro);

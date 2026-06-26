@@ -132,8 +132,8 @@
         <div class="panel-body">
             <table class="table table-bordered table-striped" id="datosfirmas" border="0">
                 <tr>
-                    <td colspan="3"><img src="http://187.176.10.50:8081/SIALSS_MDF/imagenes/firmas/juris1/1001A.jpg" width="80" height="100"></td>
-                    <td colspan="3"><img src="http://187.176.10.50:8081/SIALSS_MDF/imagenes/firmas/juris1/1001A.jpg" width="80" height="100"></td>
+                    <td colspan="3"><img src="http://127.0.0.1:8080/SIALSS_MDF_1/imagenes/firmas/juris1/1001A.jpg" width="80" height="100"></td>
+                    <td colspan="3"><img src="http://127.0.0.1:8080/SIALSS_MDF_1/imagenes/firmas/juris1/1001A.jpg" width="80" height="100"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><h5>RESPONSABLE MEDICO</h5></td>

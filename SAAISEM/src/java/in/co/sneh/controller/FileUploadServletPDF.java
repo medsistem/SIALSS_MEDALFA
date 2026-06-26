@@ -86,7 +86,7 @@ public class FileUploadServletPDF extends HttpServlet {
             }
 
             out.println("<script>alert('Se cargo correctamente el archivo PDF.')</script>");
-            out.println("<script>window.location='/SIALSS_MDF/ListaISOModifica?Lista=formatos'</script>");
+            out.println("<script>window.location='/SIALSS_MDF_1/ListaISOModifica?Lista=formatos'</script>");
             //response.sendRedirect("indexCapR.jsp");
         }
     }

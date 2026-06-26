@@ -27,7 +27,7 @@
         usua = (String) sesion.getAttribute("nombre");
         tipo = (String) sesion.getAttribute("Tipo");
     } else {
-        response.sendRedirect("/SIALSS_MDF/indexalmacen.jsp");
+        response.sendRedirect("/SIALSS_MDF_1/indexalmacen.jsp");
     }
     
     
@@ -35,7 +35,7 @@
     ResultSet rset = null;
 
     // URl
-    //http://localhost:8080/SIALSS_MDF/consulta/isem.jsp?clues=&folio=&clave=&lote=&fecha_ini=&fecha_fin=&pagina=
+    //http://localhost:8080/SIALSS_MDF_1/consulta/isem.jsp?clues=&folio=&clave=&lote=&fecha_ini=&fecha_fin=&pagina=
     try {
         con.conectar();
         String clues = request.getParameter("clues");

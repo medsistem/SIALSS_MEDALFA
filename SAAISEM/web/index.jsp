@@ -36,7 +36,7 @@
                             <div class="carousel-item active">
                                   <img src="imagenes/alm6.jpg" class="d-block w-100" alt="ALMACEN" width="720px" height="680px"/>
                                
-                              <a title=" " href="/SIALSS_MDF/indexalmacen.jsp">
+                              <a title=" " href="/SIALSS_MDF_1/indexalmacen.jsp">
                                   <div class="carousel-caption  d-none d-md-block ">
                                 <h1>SIALSS ALMACEN</h>
                                 <h3>Dar Click para Ingresar al sistema de almacen</h3>
@@ -47,7 +47,7 @@
                         
                             <div class="carousel-item">
                                 <img src="imagenes/alm7.jpg" class="d-block w-100" alt="COMPRAS" width="720px" height="680px"/>
-                                <a title=" " href="/SIALSS_MDF/indexCompras.jsp">
+                                <a title=" " href="/SIALSS_MDF_1/indexCompras.jsp">
                                 <div class="carousel-caption d-none d-md-block">
                                 <h1>SIALSS COMPRAS</h1>
                                 <h3>Ingreso al sistema de Compras</h3>
