@@ -66,7 +66,7 @@
     </head>
     <body>
         <div class="container" >
-            <!--<h1>SIALSS CEDIS</h1>-->
+            <title>SIALSS CEDIS</title>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <%@include file="../jspf/menuPrincipal.jspf" %>
         </div> 

@@ -55,7 +55,7 @@
         <title>SAA</title>
     </head>
     <body class="container">
-        <!--<h1>SIALSS CEDIS</h1>-->
+        <title>SIALSS CEDIS</title>
         <%@include file="../jspf/menuPrincipal.jspf" %>
 
         <h3>Inventarios Operadores</h3>

@@ -65,7 +65,7 @@
         <script type="text/javascript" charset="utf-8" src="table_js/TableTools.js"></script>
         
         
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
         </head>
 	<body id="dt_example">
             <div class="container-fluid">

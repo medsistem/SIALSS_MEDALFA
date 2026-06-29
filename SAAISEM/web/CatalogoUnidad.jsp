@@ -111,7 +111,7 @@
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <link rel="stylesheet" href="css/select2.css" />
         <!---->
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

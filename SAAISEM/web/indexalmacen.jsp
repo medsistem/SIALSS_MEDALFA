@@ -14,7 +14,7 @@
         <!-- Bootstrap -->
         <link href="css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="css/login.css" rel="stylesheet" media="screen">
-        
+          <title>SIALSS CEDIS</title>
     </head>
     <body>
        <div class="wrapper fadeInDown">

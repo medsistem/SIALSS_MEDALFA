@@ -87,7 +87,7 @@
         <link href="../css/select2.css" rel="stylesheet" type="text/css"/>
         <link href="../css/sweetalert.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

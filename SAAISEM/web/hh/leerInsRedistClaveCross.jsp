@@ -73,7 +73,7 @@
         <link href="../css/navbar-fixed-top.css" rel="stylesheet">
         <!---->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

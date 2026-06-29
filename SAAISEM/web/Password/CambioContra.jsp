@@ -69,7 +69,7 @@
         <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
         <script src="ValidaPass/script.js"></script>
         <link href="css/select2.css" rel="stylesheet" type="text/css"/>
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

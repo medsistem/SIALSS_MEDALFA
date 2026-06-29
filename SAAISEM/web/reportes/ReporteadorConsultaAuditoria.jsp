@@ -36,7 +36,7 @@
         <!-- Estilos CSS -->
         <link href="../css/reporteador/datatables.min.css" rel="stylesheet">
         <!---->
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

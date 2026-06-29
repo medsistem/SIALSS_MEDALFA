@@ -100,7 +100,7 @@
     </head>
     <body>
         <div class="container">
-            <!--<h1>SIALSS CEDIS</h1>-->
+            <title>SIALSS CEDIS</title>
 
             <%@include file="../jspf/menuPrincipal.jspf" %>
             <h4>Redistribución</h4>

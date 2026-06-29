@@ -29,7 +29,7 @@
     
     <head>
         <link rel="shortcut icon" type="image/ico" href="img/Logo GNK claro2.jpg">
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">

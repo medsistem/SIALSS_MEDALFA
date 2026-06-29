@@ -38,7 +38,7 @@ String folLot = "", unidad = "", clave = "";
         
         
         
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

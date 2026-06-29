@@ -61,7 +61,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/cupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet">
         <link href="css/sweetalert.css" rel="stylesheet" type="text/css"/>
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

@@ -54,7 +54,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <link href="css/select2.css" rel="stylesheet">

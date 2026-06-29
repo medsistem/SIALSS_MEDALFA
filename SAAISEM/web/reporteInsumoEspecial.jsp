@@ -47,7 +47,7 @@
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <script type="text/javascript" src="js/tipoInsumo.js"></script>
 
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

@@ -103,7 +103,7 @@
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link href="css/sweetalert.css" rel="stylesheet" type="text/css"/>
         <!---->
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

@@ -58,7 +58,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body>
         <div class="container">

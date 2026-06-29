@@ -44,7 +44,7 @@ System.out.println("Concentrado por ruta");
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
     </head>
     <body class="container">
         <h1>SIALSS CEDIS</h1>

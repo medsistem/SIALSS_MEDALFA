@@ -26,7 +26,7 @@
 %>
 <html>
     <head>
-         <!--<h1>SIALSS CEDIS</h1>-->
+         <title>SIALSS CEDIS</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <script src="ckeditor/ckeditor.js"></script>
         <link href=bootstrap/css/bootstrap.css" rel="stylesheet">

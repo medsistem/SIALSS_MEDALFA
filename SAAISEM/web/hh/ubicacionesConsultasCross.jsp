@@ -51,7 +51,7 @@
     </head>
     <body class="container">
         <form action="ubicacionesConsultasCross.jsp" method="post">
-            <!--<h1>SIALSS CEDIS</h1>-->
+            <title>SIALSS CEDIS</title>
             <%@include file="../jspf/menuPrincipal.jspf" %>
             <hr />
             <div class="row small">
