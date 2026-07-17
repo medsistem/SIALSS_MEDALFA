@@ -43,11 +43,21 @@ public class ListaUsuario extends HttpServlet {
         String Consulta;
         HttpSession sesion = request.getSession(true);
         String Accion = request.getParameter("Accion");
+        String usua = (String) sesion.getAttribute("nombre");
+        String tipo = (String) sesion.getAttribute("Tipo");
+        String IdUsu = (String) sesion.getAttribute("IdUsu");
+        String Usuario = (String) sesion.getAttribute("Usuario");
+        System.out.println("tipo: "+tipo);
 
         try {
             con.conectar();
             if (Accion.equals("Listausuario")) {
-                Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario;";
+                if (!tipo.equals("1")) {
+                     Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario where F_IdUsu = "+ IdUsu+";";
+                } else {
+                     Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario;";
+                }
+               
                 ps = con.getConn().prepareStatement(Consulta);
                 rs = ps.executeQuery();
                 while (rs.next()) {

@@ -52,7 +52,7 @@
         <script src="${pageContext.request.contextPath}/ValidaPass/script.js"></script>
         <link href="${pageContext.request.contextPath}/css/select2.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/bootstrap-switch.css" rel="stylesheet" type="text/css"/>
-        <title>MEDALFA</title>
+        <title>SIALSS IMSS</title>
     </head>
     <body>
         <div class="container">
@@ -75,9 +75,9 @@
             <hr/>
             <form action="${pageContext.request.contextPath}/EditaPassword" method="post">
                 <input type="hidden" class="form-control" name="Id" id="Id" value="<%=IdUsu%>" />
-                <input type="hidden" class="form-control" name="Usuarios" id="Usuarios" value="${usuario.usuario}" />
+                <input type="hidden" class="form-control" name="Usuarios" id="Usuarios" value="${Usuario}" />
                 <div class="row">
-                    <label class="col-sm-12">
+                    <label class="col-sm-2">
                         <h4>Nombre: </h4>
                     </label>
                     <label class="col-sm-4">
@@ -89,7 +89,7 @@
                         <h4>Ingrese Contraseña: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" min="6" maxlength="8" name="pswd" id="pswd" placeholder="Ingrese Contraseña Nueva" autofocus="autofocus" />
+                        <input type="password" class="form-control" min="8" maxlength="16" name="pswd" id="pswd" placeholder="Ingrese Contraseña Nueva" autofocus="autofocus" />
                     </div>                    
                 </div>
                 <div class="row">
@@ -97,7 +97,7 @@
                         <h4>Repita Contraseña: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" min="6" maxlength="8" name="pswd2" id="pswd2" placeholder="Repita Contraseña Nueva" />
+                        <input type="password" class="form-control" min="8" maxlength="16" name="pswd2" id="pswd2" placeholder="Repita Contraseña Nueva" />
                     </div>
                 </div>                
                 <div class="row">
@@ -109,7 +109,7 @@
                 <br/>
             </form>
             <div style="display: none;" class="text-center" id="Loader">
-                <img src="imagenes/ajax-loader-1.gif" height="150" />
+                <img src="images/ajax-loader-1.gif" height="150" />
             </div>
             <div id="pswd_info">
                 <h4>Requerimiento del password:</h4>
@@ -117,7 +117,7 @@
                     <!--li id="letter" class="invalid">Al Menos <strong>Una Letra</strong></li-->
                     <li id="capital" class="invalid"><strong>Una Letra Mayuscula</strong></li>
                     <li id="number" class="invalid"><strong>Un Número</strong></li>
-                    <li id="length" class="invalid"><strong> 8 Caracteres</strong></li>
+                    <li id="length" class="invalid"><strong> 8 min - 16 max Caracteres</strong></li>
                     <li id="igual" class="invalid"><strong> Contraseña Igual</strong></li>
                 </ul>
             </div>

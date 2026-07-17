@@ -46,12 +46,12 @@
         <link href="css/datepicker3.css" rel="stylesheet">
         <link href="css/bootstrap-switch.css" rel="stylesheet" type="text/css"/>
         <!---->        
-        <title>SIALSS</title>
+        <title>SIALSS IMSS</title>
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
-            <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
+            <h1>SIALSS</h1>
+            <h4>Módulo - Sistema de Administraci&oacute;n de Almacenes (SAA)</h4>
             <%@include file="../jspf/menuPrincipal.jspf"%>
             <div class="row">
                 <div class="col-sm-12">

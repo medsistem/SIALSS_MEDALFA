@@ -35,7 +35,9 @@
         Area = (String) sesion.getAttribute("Area");
     } else {
         response.sendRedirect("index.jsp");
+        
     }
+    System.out.println("tipo jsp: "+tipo);
 %>
 <html>
     <head>
@@ -46,16 +48,16 @@
         <link href="css/datepicker3.css" rel="stylesheet">
         <link href="css/bootstrap-switch.css" rel="stylesheet" type="text/css"/>
         <!---->        
-        <title>SIALSS</title>
+        <title>SIALSS IMSS</title>
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
-            <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
+            <h1>SIALSS</h1>
+            <h4>Módulo - Sistema de Administraci&oacute;n de Almacenes (SAA)</h4>
             <%@include file="../jspf/menuPrincipal.jspf"%>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Usuarios</h2>
+                    <h2>Usarios</h2>
                 </div>
             </div>
             <div class="container">                           
@@ -75,10 +77,10 @@
                     <table class="table table-bordered table-striped table-condensed" id="tablaUsuario">
                         <thead>
                             <tr>
-                                <td>Id</td>
-                                <td>Nombre</td>
-                                <td>Sts</td>
-                                <td>Acciones</td>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Sts</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -3,7 +3,8 @@ $(document).ready(function () {
 
     $('#Descargar').click(function () {
         var Proyecto = $("#Nombre option:selected").val();
-        window.open("../ExcelExistenciaProyectoCliente?Proyecto=" + Proyecto + "&Tipo=");
+        var ConsultaT = $('input:radio[name=Consulta]:checked').val();
+        window.open("../ExcelExistenciaProyectoCliente?Proyecto=" + Proyecto + "&Tipo=Usuario&Consulta=" + ConsultaT + "");
     });
 
     $('#Mostrar').click(function () {
@@ -25,7 +26,10 @@ $(document).ready(function () {
     });
 
     $("#Nombre").change(function () {
-        //var Nombre = $("#Nombre option:selected").val();
+        MostrarRegistros();
+    });
+
+    $("input[name=Consulta]").change(function () {
         MostrarRegistros();
     });
 
@@ -52,9 +56,10 @@ function ObtenerProyecto() {
 
 function MostrarRegistros() {
     var Proyecto = $("#Nombre").val();
+    var Consulta = $('input:radio[name=Consulta]:checked').val();
     $.ajax({
         url: "../ExistenciaProyecto",
-        data: {accion: "MostrarRegistros", Proyecto: Proyecto},
+        data: {accion: "MostrarRegistros", Proyecto: Proyecto, Tipo: Consulta},
         type: 'GET',
         async: false,
         success: function (data)
@@ -83,12 +88,48 @@ function MostrarTabla(data) {
         var Caducidad = json[i].Caducidad;
         var Cantidad = json[i].Cantidad;
         var Origen = json[i].Origen;
+        var Presentacion = json[i].Presentacion;
+        var Costo = json[i].Costo;
+        var Monto = json[i].Monto;
+        var IdProyecto = json[i].IdProyecto;
+        var Tipo = json[i].Tipo;
+        var Ubicacion = json[i].Ubicacion;
         Contar = json[i].Contar;
         CantidadT = json[i].CantidadT;
         ContarClave = json[i].ContarClave;
 
 
-        aDataSet.push([ClaPro, Descripcion, Lote, Caducidad, Cantidad, Origen]);
+        if ((IdProyecto == 9) || (IdProyecto == 14) || (IdProyecto == 15) || (IdProyecto == 3)) {
+            switch (Tipo) {
+                case "1":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Presentacion, Cantidad]);
+                    break;
+                case "2":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Presentacion, Lote, Caducidad, Cantidad, Costo, Monto, Origen]);
+                    break;
+                case "3":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Presentacion, Lote, Caducidad, Ubicacion, Cantidad, Costo, Monto, Origen]);
+                    break;
+                default:
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Lote, Caducidad, Cantidad, Origen]);
+                    break;
+            }
+        } else {
+            switch (Tipo) {
+                case "1":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Cantidad]);
+                    break;
+                case "2":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Lote, Caducidad, Cantidad, Origen]);
+                    break;
+                case "3":
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Lote, Caducidad, Ubicacion, Cantidad, Origen]);
+                    break;
+                default:
+                    aDataSet.push([Proyecto, ClaPro, Descripcion, Lote, Caducidad, Cantidad, Origen]);
+                    break;
+            }
+        }
     }
 
     if (Contar > 0) {
@@ -100,26 +141,199 @@ function MostrarTabla(data) {
     }
 
     $(document).ready(function () {
-        $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
-        $('#example').dataTable({
-            "aaData": aDataSet, "button": 'aceptar',
-            "bScrollInfinite": true,
-            "bScrollCollapse": true,
-            //"sScrollY": "600px",
-            "bFooter": true,
-            "bProcessing": true,
-            "sPaginationType": "full_numbers",
-            "bAutoWidth": false,
-            "order": [[0, "desc"]],
-            "aoColumns": [
-                 /**{"sTitle": "Proyecto", "sClass": "center"},**/
-                {"sTitle": "Clave", "sClass": "center"},
-                {"sTitle": "Descripción", "sClass": "center"},
-                {"sTitle": "Lote", "sClass": "center"},
-                {"sTitle": "Caducidad", "sClass": "center"},
-                {"sTitle": "Cantidad", "sClass": "center"},
-                {"sTitle": "Origen", "sClass": "center"}
-            ]
-        });
+        if ((IdProyecto == 9) || (IdProyecto == 14) || (IdProyecto == 15) || (IdProyecto == 3)) {
+           switch (Tipo) {
+                case "1":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Presentación", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                case "2":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Presentación", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"},
+                            {"sTitle": "Costo", "sClass": "center"},
+                            {"sTitle": "Monto", "sClass": "center"},
+                            {"sTitle": "Origen", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                case "3":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Presentación", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Ubicación", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"},
+                            {"sTitle": "Costo", "sClass": "center"},
+                            {"sTitle": "Monto", "sClass": "center"},
+                            {"sTitle": "Origen", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                default:
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Presentación", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"}
+                        ]
+                    });
+                    break;
+            }
+        } else {
+            switch (Tipo) {
+                case "1":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                case "2":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"},
+                            {"sTitle": "Origen", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                case "3":
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Ubicación", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"},
+                            {"sTitle": "Origen", "sClass": "center"}
+                        ]
+                    });
+                    break;
+                default:
+                    $('#dynamic').html('<table class="table table-striped table-bordered table-condensed"  id="example"></table>');
+                    $('#example').dataTable({
+                        "aaData": aDataSet, "button": 'aceptar',
+                        "bScrollInfinite": true,
+                        "bScrollCollapse": true,
+                        //"sScrollY": "600px",
+                        "bFooter": true,
+                        "bProcessing": true,
+                        "sPaginationType": "full_numbers",
+                        "bAutoWidth": false,
+                        "order": [[0, "desc"]],
+                        "aoColumns": [
+                            {"sTitle": "Proyecto", "sClass": "center"},
+                            {"sTitle": "Clave", "sClass": "center"},
+                            {"sTitle": "Descripción", "sClass": "center"},
+                            {"sTitle": "Lote", "sClass": "center"},
+                            {"sTitle": "Caducidad", "sClass": "center"},
+                            {"sTitle": "Cantidad", "sClass": "center"},
+                            {"sTitle": "Origen", "sClass": "center"}
+                        ]
+                    });
+                    break;
+            }
+        }
     });
 }

@@ -49,15 +49,15 @@
         <!---->
         <link rel="stylesheet" type="text/css" media="all" href="ValidaPass/style.css" />	
         <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
-        <script src="ValidaPass/script.js"></script>
+    <script src="ValidaPass/script.js"></script>
         <link href="css/select2.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-switch.css" rel="stylesheet" type="text/css"/>
-        <title>SIALSS</title>
+        <title>SIALSS IMSS</title>
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
-            <h4><h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4></h4>
+            <h1>SIALSS</h1>
+            <h4>Módulo - Sistema de Administraci&oacute;n de Almacenes (SAA)</h4>
 
             <%@include file="../jspf/menuPrincipal.jspf"%>
             <div class="row">
@@ -82,7 +82,7 @@
                             <input type="hidden" class="form-control" name="Id" id="Id" value="${usuario.id}" />
                             <input type="hidden" class="form-control" name="Usuarios" id="Usuarios" value="${usuario.usuario}" />
                             <input type="hidden" class="form-control" name="StsActual" id="StsActual" value="${usuario.sts}" />
-                            <button class="form-control btn btn-warning glyphicon glyphicon-random" name="action" value="ModificaSts">&nbsp;Modificar Sts</button>
+                            <button class="form-control btn btn-info glyphicon glyphicon-random" name="action" value="ModificaSts">&nbsp;Modificar Sts</button>
                         </div>
                 </div>
                 <div class="row">
@@ -90,7 +90,7 @@
                         <h4>Nombre: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Ingrese Nombre" required="" readonly="" value="${usuario.nombre}" />
+                        <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Ingrese Nombre"  required="" readonly=""  value="${usuario.nombre}" />
                     </div>
                 </div>
                 <div class="row">
@@ -106,7 +106,7 @@
                         <h4>Apellido Materno: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="ApellidoM" id="ApellidoM" placeholder="Ingrese Apellido Materno" required="" readonly="" value="${usuario.amaterno}" />
+                        <input type="text" class="form-control" name="ApellidoM" id="ApellidoM" placeholder="Ingrese Apellido Materno" required="" readonly=""  value="${usuario.amaterno}" />
                     </div>
                 </div>
                 <div class="row">
@@ -122,7 +122,7 @@
                         <h4>Ingrese Contraseña: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" min="6" maxlength="8" name="pswd" id="pswd" placeholder="Ingrese Contraseña Nueva" autofocus="autofocus" />
+                        <input type="password" class="form-control" min="8" maxlength="16" name="pswd" id="pswd" placeholder="Ingrese Contraseña Nueva" autofocus="autofocus" />
                     </div>                    
                 </div>
                 <div class="row">
@@ -130,7 +130,7 @@
                         <h4>Repita Contraseña: </h4>
                     </label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" min="6" maxlength="8" name="pswd2" id="pswd2" placeholder="Repita Contraseña Nueva" />
+                        <input type="password" class="form-control" min="8" maxlength="16" name="pswd2" id="pswd2" placeholder="Repita Contraseña Nueva" />
                     </div>
                 </div>                
                 <div class="row">
@@ -141,7 +141,7 @@
                 <br/>
             </form>
             <div style="display: none;" class="text-center" id="Loader">
-                <img src="imagenes/ajax-loader-1.gif" height="150" />
+                <img src="images/ajax-loader-1.gif" height="150" />
             </div>
             <div id="pswd_info">
                 <h4>Requerimiento del password:</h4>
@@ -149,7 +149,7 @@
                     <!--li id="letter" class="invalid">Al Menos <strong>Una Letra</strong></li-->
                     <li id="capital" class="invalid"><strong>Una Letra Mayuscula</strong></li>
                     <li id="number" class="invalid"><strong>Un Número</strong></li>
-                    <li id="length" class="invalid"><strong> 8 Caracteres</strong></li>
+                    <li id="length" class="invalid"><strong> 8 min - 16 max Caracteres</strong></li>
                     <li id="igual" class="invalid"><strong> Contraseña Igual</strong></li>
                 </ul>
             </div>

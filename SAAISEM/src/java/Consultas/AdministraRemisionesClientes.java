@@ -8,8 +8,11 @@ package Consultas;
 import conn.ConectionDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,11 +60,12 @@ public class AdministraRemisionesClientes extends HttpServlet {
         Remisiones remisiones;
         Proyectos proyecto;
         PreparedStatement ps = null;
+        CallableStatement call0 = null;
         PreparedStatement psProyecto = null;
         ResultSet rs = null;
         ResultSet rsProyecto = null;
         String Consulta = "", Condicion = "", Sts = "", ConsultaProyecto = "";
-        String TipoFact = "", usua = "", tipo = "", ProyectoCL = "";
+        String TipoFact = "", usua = "", tipo = "";
         try {
             usua = (String) sesion.getAttribute("nombre");
             String Accion = request.getParameter("Accion");
@@ -71,10 +75,9 @@ public class AdministraRemisionesClientes extends HttpServlet {
             String Folio2 = request.getParameter("folio2");
             String Proyecto = request.getParameter("Proyecto");
             tipo = (String) sesion.getAttribute("Tipo");
-            ProyectoCL = (String) sesion.getAttribute("ProyectoCL");
             con.conectar();
 
-            ConsultaProyecto = "SELECT * FROM tb_proyectos WHERE F_Id IN (" + ProyectoCL + ");";
+            ConsultaProyecto = "SELECT * FROM tb_proyectos;";
             psProyecto = con.getConn().prepareStatement(ConsultaProyecto);
             rsProyecto = psProyecto.executeQuery();
             while (rsProyecto.next()) {
@@ -86,15 +89,15 @@ public class AdministraRemisionesClientes extends HttpServlet {
 
             if (Accion.equals("ListaRemision")) {
 
-                sesion.setAttribute("fecha_ini", fechaSistema2);
-                sesion.setAttribute("fecha_fin", fechaSistema2);
+               // sesion.setAttribute("fecha_ini", fechaSistema2);
+                //sesion.setAttribute("fecha_fin", fechaSistema2);
                 sesion.setAttribute("folio1", Folio1);
                 sesion.setAttribute("folio2", Folio2);
 
-                Consulta = "SELECT F_ClaDoc, f.F_ClaCli, u.F_NomCli, F_StsFact, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, o.F_Req, u.F_Tipo, f.F_Proyecto, p.F_DesProy, ps.F_DesProy AS F_DesProyFact FROM tb_factura f INNER JOIN tb_uniatn u ON f.F_ClaCli = u.F_ClaCli LEFT JOIN tb_obserfact o ON f.F_ClaDoc = o.F_IdFact INNER JOIN tb_proyectos p ON u.F_Proyecto = p.F_Id INNER JOIN tb_proyectos ps ON f.F_Proyecto = ps.F_Id WHERE F_FecEnt = CURDATE() AND f.F_Proyecto IN (" + ProyectoCL + ") GROUP BY F_ClaDoc, f.F_ClaCli, F_StsFact, f.F_Proyecto ORDER BY F.F_ClaDoc + 0;";
+                System.out.println("sin filtros");
+                call0 = con.getConn().prepareCall("CALL AdminRemisiones()");
 
-                ps = con.getConn().prepareStatement(Consulta);
-                rs = ps.executeQuery();
+                rs = call0.executeQuery();
                 while (rs.next()) {
                     remisiones = new Remisiones();
                     Sts = rs.getString(4);
@@ -129,65 +132,66 @@ public class AdministraRemisionesClientes extends HttpServlet {
                     remisiones.setIdproyecto(rs.getString(9));
                     remisiones.setProyecto(rs.getString(10));
                     remisiones.setProyectfactura(rs.getString(11));
+                    remisiones.setBan(rs.getInt(14));
+                    remisiones.setUbi(rs.getString(13));
                     remisiones.setUsuario(usua);
+                    remisiones.setBantip(rs.getInt(12));
+
                     Listaremisiones.add(remisiones);
                 }
                 request.setAttribute("listaRemision", Listaremisiones);
                 request.setAttribute("listaProyecto", Listaproyecto);
                 request.getRequestDispatcher("/reimp_remisionesCliente.jsp").forward(request, response);
             }
+
+
+            /*BOTON PARA MOSTAR  LOS PDF DE REMISIONES**/
             if (Accion.equals("mostrar")) {
                 int ProyectoSelect = 0;
-                String AND = "";
+                int Ban = 0;
+                String Proy = "", Fechapdf = "", foliopdf = "";
                 sesion.setAttribute("fecha_ini", FechaIni);
                 sesion.setAttribute("fecha_fin", FechaFin);
                 sesion.setAttribute("folio1", Folio1);
                 sesion.setAttribute("folio2", Folio2);
                 ProyectoSelect = Integer.parseInt(Proyecto);
 
-                if (ProyectoSelect == 0) {
-                    AND = "AND f.F_Proyecto IN (" + ProyectoCL + ") ";
-                } else {
-                    AND = " AND f.F_Proyecto = '" + ProyectoSelect + "'";
-                }
-
                 if ((FechaIni != "") && (FechaFin != "") && (Folio1 != "") && (Folio2 != "")) {
+                    System.out.println("Filtro Folios y fechas");
+                    call0 = con.getConn().prepareCall("CALL AdminRemiFolio(?,?,?,?,?,?)");
 
-                    Consulta = "SELECT F_ClaDoc, f.F_ClaCli, u.F_NomCli, F_StsFact, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, o.F_Req, u.F_Tipo, f.F_Proyecto, p.F_DesProy, ps.F_DesProy AS F_DesProyFact FROM tb_factura f INNER JOIN tb_uniatn u ON f.F_ClaCli = u.F_ClaCli LEFT JOIN tb_obserfact o ON f.F_ClaDoc = o.F_IdFact INNER JOIN tb_proyectos p ON u.F_Proyecto = p.F_Id INNER JOIN tb_proyectos ps ON f.F_Proyecto = ps.F_Id WHERE F_FecEnt BETWEEN ? AND ? AND F_ClaDoc BETWEEN ? AND ? " + AND + " GROUP BY F_ClaDoc,f.F_ClaCli,F_StsFact,f.F_Proyecto ORDER BY F.F_ClaDoc+0;";
+                    call0.setString(1, Folio1);
+                    call0.setString(2, Folio2);
+                    call0.setString(3, FechaIni);
+                    call0.setString(4, FechaFin);
+                    call0.setInt(5, ProyectoSelect);
+                    call0.setInt(6, 3);
 
-                    ps = con.getConn().prepareStatement(Consulta);
-                    ps.setString(1, FechaIni);
-                    ps.setString(2, FechaFin);
-                    ps.setString(3, Folio1);
-                    ps.setString(4, Folio2);
+                } else if ((FechaIni != "") && (FechaFin != "")) {
+
+                    System.out.println("Filtro Fechas");
+                    call0 = con.getConn().prepareCall("CALL AdminRemiFolio(?,?,?,?,?,?)");
+                    call0.setString(1, Folio1);
+                    call0.setString(2, Folio2);
+                    call0.setString(3, FechaIni);
+                    call0.setString(4, FechaFin);
+                    call0.setInt(5, ProyectoSelect);
+                    call0.setInt(6, 2);
+
+                } else if ((Folio1 != "") && (Folio2 != "")) {
+                    call0 = con.getConn().prepareCall("CALL AdminRemiFolio(?,?,?,?,?,?)");
+                    System.out.println("Filtro Folios");
+                    call0.setString(1, Folio1);
+                    call0.setString(2, Folio2);
+                    call0.setString(3, FechaIni);
+                    call0.setString(4, FechaFin);
+                    call0.setInt(5, ProyectoSelect);
+                    call0.setInt(6, 1);
+
                 }
 
-                if ((FechaIni != "") && (FechaFin != "")) {
-                    
-                        Consulta = "SELECT F_ClaDoc, f.F_ClaCli, u.F_NomCli, F_StsFact, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, o.F_Req, u.F_Tipo, f.F_Proyecto, p.F_DesProy, ps.F_DesProy AS F_DesProyFact FROM tb_factura f INNER JOIN tb_uniatn u ON f.F_ClaCli = u.F_ClaCli LEFT JOIN tb_obserfact o ON f.F_ClaDoc = o.F_IdFact INNER JOIN tb_proyectos p ON u.F_Proyecto = p.F_Id INNER JOIN tb_proyectos ps ON f.F_Proyecto = ps.F_Id WHERE F_FecEnt BETWEEN ? AND ? " + AND + " GROUP BY F_ClaDoc,f.F_ClaCli,F_StsFact,f.F_Proyecto ORDER BY F.F_ClaDoc+0;";
-                    
-                    ps = con.getConn().prepareStatement(Consulta);
-                    ps.setString(1, FechaIni);
-                    ps.setString(2, FechaFin);
-                }
-
-                if ((Folio1 != "") && (Folio2 != "")) {
-                    
-                        Consulta = "SELECT F_ClaDoc, f.F_ClaCli, u.F_NomCli, F_StsFact, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, o.F_Req, u.F_Tipo, f.F_Proyecto, p.F_DesProy, ps.F_DesProy AS F_DesProyFact FROM tb_factura f INNER JOIN tb_uniatn u ON f.F_ClaCli = u.F_ClaCli LEFT JOIN tb_obserfact o ON f.F_ClaDoc = o.F_IdFact INNER JOIN tb_proyectos p ON u.F_Proyecto = p.F_Id INNER JOIN tb_proyectos ps ON f.F_Proyecto = ps.F_Id WHERE F_ClaDoc BETWEEN ? AND ? " + AND + " GROUP BY F_ClaDoc,f.F_ClaCli,F_StsFact,f.F_Proyecto ORDER BY F.F_ClaDoc+0;";
-                    
-                    ps = con.getConn().prepareStatement(Consulta);
-                    ps.setString(1, Folio1);
-                    ps.setString(2, Folio2);
-                }
-
-                if ((FechaIni == "") && (FechaFin == "") && (Folio1 == "") && (Folio2 == "")) {
-                    
-                        Consulta = "SELECT F_ClaDoc, f.F_ClaCli, u.F_NomCli, F_StsFact, DATE_FORMAT(F_FecApl, '%d/%m/%Y') AS F_FecApl, DATE_FORMAT(F_FecEnt, '%d/%m/%Y') AS F_FecEnt, o.F_Req, u.F_Tipo, f.F_Proyecto, p.F_DesProy, ps.F_DesProy AS F_DesProyFact FROM tb_factura f INNER JOIN tb_uniatn u ON f.F_ClaCli = u.F_ClaCli LEFT JOIN tb_obserfact o ON f.F_ClaDoc = o.F_IdFact INNER JOIN tb_proyectos p ON u.F_Proyecto = p.F_Id INNER JOIN tb_proyectos ps ON f.F_Proyecto = ps.F_Id WHERE F_FecEnt= CURDATE() " + AND + " GROUP BY F_ClaDoc,f.F_ClaCli,F_StsFact,f.F_Proyecto ORDER BY F.F_ClaDoc+0;";
-                    
-                    ps = con.getConn().prepareStatement(Consulta);
-                }
-                System.out.println(ps);
-                rs = ps.executeQuery();
+                System.out.println(call0);
+                rs = call0.executeQuery();
                 while (rs.next()) {
                     remisiones = new Remisiones();
                     Sts = rs.getString(4);
@@ -222,7 +226,10 @@ public class AdministraRemisionesClientes extends HttpServlet {
                     remisiones.setIdproyecto(rs.getString(9));
                     remisiones.setProyecto(rs.getString(10));
                     remisiones.setProyectfactura(rs.getString(11));
+                    remisiones.setBan(rs.getInt(14));
+                    remisiones.setUbi(rs.getString(13));
                     remisiones.setUsuario(usua);
+                    remisiones.setBantip(rs.getInt(12));
                     Listaremisiones.add(remisiones);
                 }
                 request.setAttribute("listaRemision", Listaremisiones);
@@ -230,27 +237,13 @@ public class AdministraRemisionesClientes extends HttpServlet {
                 request.getRequestDispatcher("/reimp_remisionesCliente.jsp").forward(request, response);
             }
 
-            if (Accion.equals("exportar")) {
-                request.getRequestDispatcher("ExportarAbasto?accion=exportar&fecha_fin=" + FechaFin + "").forward(request, response);
-            }
-            if (Accion.equals("exportarDispen")) {
-                request.getRequestDispatcher("ExportarAbasto?accion=exportarDispen&fecha_fin=" + FechaFin + "").forward(request, response);
-            }
-
-            if (Accion.equals("DevoGlobal")) {
-                String Folio = request.getParameter("fol_gnkl");
-                request.getRequestDispatcher("DevolucionGlobal?accion=DevoGlobal&fol_gnkl=" + Folio + "").forward(request, response);
-            }
-
-            if (Accion.equals("ReenviarFactura")) {
-                String Folio = request.getParameter("fol_gnkl");
-                request.getRequestDispatcher("FacturacionManual?accion=ReenviarFactura&fol_gnkl=" + Folio + "").forward(request, response);
-            }
-
+           
             con.cierraConexion();
-        } catch (Exception e) {
-            Logger.getLogger(AdministraRemisionesClientes.class.getName()).log(Level.SEVERE, null, e);
+        } catch (IOException | NumberFormatException | SQLException | ParseException | ServletException e) {
+            Logger.getLogger(AdministraRemisiones.class.getName()).log(Level.SEVERE, null, e);
         }
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

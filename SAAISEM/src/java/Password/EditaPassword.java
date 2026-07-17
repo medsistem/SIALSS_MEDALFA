@@ -50,7 +50,7 @@ public class EditaPassword extends HttpServlet {
         }
         try {
             con.conectar();
-            if (accion.equals("Modifica") || accion.equals("ModificaPass")) {
+            if (accion.equals("Modifica")) {
                 IdUsuario = request.getParameter("Id");
                 Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario WHERE F_IdUsu=?;";
                 ps = con.getConn().prepareStatement(Consulta);
@@ -67,11 +67,6 @@ public class EditaPassword extends HttpServlet {
                 }
 
                 request.setAttribute("usuario", usuario);
-
-                if (accion.equals("ModificaPass")) {
-                    Destino = "/Password/EditapasswordUsuario.jsp";
-                }
-
                 request.getRequestDispatcher(Destino).forward(request, response);
             }
 
@@ -132,17 +127,18 @@ public class EditaPassword extends HttpServlet {
                 String ApellidoM = request.getParameter("ApellidoM");
                 String Correo = request.getParameter("Correo");
                 String pswd = request.getParameter("pswd");
-                Consulta = "UPDATE tb_usuario SET F_Pass=MD5(?),F_ApellidoM=?,F_Correo=?, F_FecMod = curdate() WHERE F_IdUsu=? AND F_Usu=?";
+                Consulta = "UPDATE tb_usuario SET F_Pass=MD5(?),F_ApellidoM=?,F_Correo=? WHERE F_IdUsu=? AND F_Usu=?";
                 ps = con.getConn().prepareStatement(Consulta);
                 ps.setString(1, pswd);
                 ps.setString(2, ApellidoM);
                 ps.setString(3, Correo);
                 ps.setString(4, Id);
                 ps.setString(5, Usu);
-                System.out.println("Password.EditaPassword.processRequest()" + ps);
+                System.out.println("Password.EditaPassword.processRequest()"+ps);
                 ps.execute();
                 //con.actualizar("UPDATE tb_usuario SET F_Pass=MD5('" + pswd + "'),F_ApellidoM='" + ApellidoM + "',F_Correo='" + Correo + "' WHERE F_IdUsu='" + Id + "' AND F_Usu='" + Usu + "';");
-                correo.enviaCorreo(Correo, Usu, pswd);
+                //DESCOMENTAR CUANDO SE VALIDE LA CUENTA DE CORREO
+//                correo.enviaCorreo(Correo, Usu, pswd);
                 request.setAttribute("modificadoOk", "Usuario Modificado Password");
                 request.getRequestDispatcher("/ListaUsuario?Accion=Listausuario").forward(request, response);
             }
@@ -175,36 +171,7 @@ public class EditaPassword extends HttpServlet {
                     request.getRequestDispatcher("/").forward(request, response);
                 }
             }
-
-            if (accion.equals("ActualizarPassCompras")) {
-                String Id = request.getParameter("Id");
-                String pswd = request.getParameter("pswd");
-                String Correo = request.getParameter("Correo");
-                String Usu = request.getParameter("Usuarios");
-                Consulta = "SELECT MD5(?), F_Pass from tb_usuariocompra where F_IdUsu = ?";
-                ps = con.getConn().prepareStatement(Consulta);
-                ps.setString(1, pswd);
-                ps.setString(2, Id);
-                ResultSet comparaPassRs = ps.executeQuery();
-                comparaPassRs.next();
-                String oldPass = comparaPassRs.getString(1);
-                String newPass = comparaPassRs.getString(2);
-                if (oldPass.equals(newPass)) {
-                    response.sendRedirect("Password/EditaPasswordUsuarioCompras.jsp?error=samePass");
-                } else {
-                    Consulta = "UPDATE tb_usuariocompra SET F_Pass=MD5(?), F_FecMod = curdate() WHERE F_IdUsu=?";
-                    ps = con.getConn().prepareStatement(Consulta);
-                    ps.setString(1, pswd);
-                    ps.setString(2, Id);
-                    System.out.println("Password.EditaPassword.processRequest()" + ps);
-                    ps.execute();
-                    //con.actualizar("UPDATE tb_usuario SET F_Pass=MD5('" + pswd + "'),F_ApellidoM='" + ApellidoM + "',F_Correo='" + Correo + "' WHERE F_IdUsu='" + Id + "' AND F_Usu='" + Usu + "';");
-                    correo.enviaCorreo(Correo, Usu, pswd);
-                    request.setAttribute("modificadoOk", "Usuario Modificado Password");
-                    request.getRequestDispatcher("/").forward(request, response);
-                }
-            }
-
+            
             con.cierraConexion();
 
         } catch (SQLException ex) {

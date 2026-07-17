@@ -1,21 +1,24 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-
+<%
+    String warName = request.getContextPath();
+    String Nombrewar = warName.replace("/", "");
+%>
 <br><br><br>
 <br><br><br>
 <div class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="text-center" style="color: white; bottom: auto">
-        MEDALFA | Desarrollo de Aplicaciones       
+        <%=Nombrewar%> | Desarrollo de Aplicaciones
         <div id="current_date">
-    <script>
-        date = new Date();
-        year = date.getFullYear();
-        month = date.getMonth() + 1;
-        day = date.getDate();
-        document.getElementById("current_date").innerHTML =  '2019 -'+ year;
-    </script>
-    <span class="glyphicon glyphicon-registration-mark"></span><br />
-     Todos los Derechos Reservados
-</div>
+            <script>
+                date = new Date();
+                year = date.getFullYear();
+                month = date.getMonth() + 1;
+                day = date.getDate();
+                document.getElementById("current_date").innerHTML = '2019 -' + year;
+            </script>
+            <span class="glyphicon glyphicon-registration-mark"></span><br />
+            Todos los Derechos Reservados
+        </div>
     </div>
 </div>

@@ -54,23 +54,18 @@
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
-        <title>SIALSS</title>
+        <title>SIALSS IMSS</title>
     </head>
     <body>
         <div class="container">
-            <h1>MEDALFA</h1>
-            <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
-            <% if (tipo.equals("13") || tipo.equals("14")) {
-            %>
-            <%@include file="jspf/menuPrincipalCompra.jspf" %>
-            <%} else {%>
+            <h1>SIALSS</h1>
+            <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD</h4>
 
             <%@include file="jspf/menuPrincipal.jspf" %>
-            <%}%>
+       
             <div class="row">
                 <h3 class="col-sm-3">Administrar Remisiones</h3>
                 <div class="col-sm-2 col-sm-offset-5">
@@ -99,7 +94,7 @@
                         <label class="control-label col-sm-1" for="fecha_ini">Proyecto</label>
                         <div class="col-sm-2">
                             <select name="Proyecto" id="Proyecto" class="form-control">
-                                <option value="0">--Seleccione --</option>
+                                <option value="0" selected disabled>--Seleccione --</option>
                                 <c:forEach items="${listaProyecto}" var="detalleP">
                                     <option value="<c:out value="${detalleP.idproyecto}"/>"><c:out value="${detalleP.desproyecto}"/></option>
                                 </c:forEach>
@@ -117,20 +112,20 @@
                 </div>  
                 <div>
                     <br />
-                    <div class="panel panel-success">
+                    <div class="panel panel-primary">
                         <div class="panel-body table-responsive">
                             <table class="table table-bordered table-striped" id="datosCompras">
                                 <thead>
                                     <tr>
-                                        <td>No. Folio</td>
-                                        <td>Punto de Entrega</td>
-                                        <td>Proyecto Unidad</td>
-                                        <td>Estatus</td>
-                                        <td>Factura</td>
-                                        <td>Fec Ent</td>
-                                        <td>Tipo</td>
-                                        <td>Folio</td>
-                                        
+                                        <th>No. Folio</th>
+                                        <th>Punto de Entrega</th>
+                                        <th>Proyecto Unidad</th>
+                                        <th>Estatus</th>
+                                        <th>Factura</th>
+                                        <th>Fec Ent</th>
+                                        <th>Tipo</th>
+                                        <th>Folio</th>
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -145,10 +140,13 @@
                                             <td><c:out value="${detalle.tipofact}" /></td>
                                             <td>
                                                 <c:if test="${detalle.ver == 'SI'}">
-                                                    <a href="ImprimeFolio?fol_gnkl=<c:out value="${detalle.folio}" />&Proyecto=<c:out value="${detalle.idproyecto}" />&idProyecto=<c:out value="${detalle.idproyecto}" />" target="_blank" class="btn btn-block btn-success"><span class="glyphicon glyphicon-print"></span></a>
-                                                    </c:if>
+                                                      <a href="ImprimeFolio?fol_gnkl=<c:out value="${detalle.folio}" />&Proyecto=<c:out value="${detalle.idproyecto}" />&BanDato=<c:out value="${detalle.ban}" />&TipBanDato=<c:out value="${detalle.bantip}" />&idProyecto=<c:out value="${detalle.idproyecto}" />&idsts=A"  target="_blank" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-print"></span></a>
+                                                <!--
+                                                    <a href="ImprimeFolio?fol_sialss=<c:out value="${detalle.folio}" />&Proyecto=<c:out value="${detalle.idproyecto}" />&idProyecto=<c:out value="${detalle.idproyecto}" />" target="_blank" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-print"></span></a>
+                                                   -->
+                                                </c:if>
                                             </td>
-                                            
+                                          
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -180,8 +178,26 @@
                 $("#fecha").datepicker();
                 $("#fecha").datepicker('option', {dateFormat: 'dd/mm/yy'});
             });
-           
-            
+            function validaCancel(e) {
+                var id = e;
+                if (document.getElementById('Obser' + id).value === "") {
+                    alert("Ingrese las observaciones de la devolución")
+                    return false;
+                }
+            }
+            function validaContra(elemento) {
+                //alert(elemento);
+                var pass = document.getElementById(elemento).value;
+                var id = elemento.split("ContraCancel");
+                if (pass === "rosalino") {
+                    //alert(pass);
+                    document.getElementById(id[1]).disabled = false;
+                    //$(id[1]).prop("disabled", false);
+                } else {
+                    document.getElementById(id[1]).disabled = true;
+                    //$(id[1]).prop("disabled", true);
+                }
+            }
         </script>
     </body>
 </html>

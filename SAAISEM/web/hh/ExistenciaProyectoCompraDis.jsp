@@ -47,8 +47,15 @@
         <div class="container">
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
+  
+  <% if (!tipo.equals("13") || !tipo.equals("14")) {
+                    %>
+            <%@include file="../jspf/menuPrincipal.jspf" %>
+            <%   } else {
+                 %>
+            <%@include file="../jspf/menuPrincipalCompra.jspf" %>
+            <% } %>
 
-            <%@include file="../jspf/menuPrincipalCompra.jspf"%>
 
             <h5>
                 Consulta Existencias

@@ -728,7 +728,59 @@
                     </ul>
                 </li>
 
-             
+             <%
+                } else if (tipo.equals("17")) {
+                    //Usuario Consultas diferentes empresas
+                %>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ENTRADAS<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/SIALSS_MDF_1/reimpresionCliente.jsp">Reimpresión de Remisiones</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">INVENTARIO<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/SIALSS_MDF_1/hh/ExistenciaProyectoCompraDis.jsp">Existencia Disponible</a></li>
+                        <li><a href="/SIALSS_MDF_1/hh/ExistenciaProyecto.jsp">Existencias por Proyecto</a></li>
+                        <!--   <li><a href="/SIALSSIMSS/kardexClaveCliente.jsp">Kardex Claves Cliente</a></li>-->
+                        <li><a href="/SIALSS_MDF_1/kardex/kardex.jsp">Kardex Claves</a></li>
+                        <li><a href="/SIALSS_MDF_1/hh/ubicacionesConsultas.jsp">Ubicaciones</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PDF<b class="caret"></b></a>
+                    <ul class="dropdown-menu">  
+                        <li><a href="/SIALSS_MDF_1/AdministraRemisionesClientes?Accion=ListaRemision">Administrar Remisiones</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATÁLOGOS<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF_1/medicamentoCliente.jsp">Catálogo</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CONSULTA<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
+                    </ul>    
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">REPORTE<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF_1/ReporteProveedor/ReporteNuloMov.jsp">Reporte Claves Nulo y Bajo Movimiento</a></li>
+                    </ul> 
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">USUARIO<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/SIALSS_MDF_1/ListaUsuario?Accion=Listausuario">Cambio Contraseña</a></li>
+                    </ul>
+                </li>
 
                 <% }%>
             </ul>
