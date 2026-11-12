@@ -80,6 +80,8 @@
 /* ============================== Barra superior ============================== */
 body.sialss-app { padding-top: var(--s-alto-barra) !important; padding-left: var(--s-ancho-menu); background: var(--s-fondo); }
 body.sialss-app.sialss-menu-oculto { padding-left: 0; }
+/* Bootstrap 3 fija .container en 1170px; con el menú lateral eso desborda la pantalla. */
+body.sialss-app .container { width: auto; max-width: 1170px; }
 .sialss-barra {
   position: fixed; inset: 0 0 auto 0; height: var(--s-alto-barra); z-index: 1040;
   display: flex; align-items: center; gap: 12px; padding: 0 14px 0 8px;

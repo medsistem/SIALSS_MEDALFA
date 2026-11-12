@@ -47,6 +47,9 @@
     var aqui = location.pathname + location.search;
     var enlaces = menu.querySelectorAll('.dropdown-menu a[href]');
     Array.prototype.forEach.call(enlaces, function (a) {
+      var href = (a.getAttribute('href') || '').trim();
+      // "#" o "javascript:" apuntan a la misma página: no son la opción actual.
+      if (!href || href.charAt(0) === '#' || href.toLowerCase().indexOf('javascript:') === 0) { return; }
       var destino = a.pathname + a.search;
       if (destino === aqui || (a.search === '' && a.pathname === location.pathname)) {
         a.setAttribute('aria-current', 'page');

@@ -17,7 +17,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Iniciar sesión</title>
-        <link href="<%=ctxLogin%>/css/sialss-app.css" rel="stylesheet">
+        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.1" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <main class="sialss-login" aria-labelledby="titulo-login">
