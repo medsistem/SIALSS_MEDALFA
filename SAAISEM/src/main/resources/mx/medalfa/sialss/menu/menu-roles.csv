@@ -1,0 +1,94 @@
+# Menú vs roles de SIALSS_MDF. Una fila por opción; 'perfiles' = F_TipUsu que la ven (separados por coma).
+# El orden de módulos y opciones lo pone MenuSialss (igual para todos los perfiles); aquí el orden no importa.
+# ventana=1 abre la opción en una ventana aparte. Generado con el skill menu-roles-sialss (extraer_menu.py).
+acceso;modulo;opcion;url;ventana;perfiles
+ALMACEN;ENTRADA;Carga Requerimiento;requerimiento.jsp;0;1,2,3,5
+ALMACEN;ENTRADA;Cargar Caducos;cargacaducos.jsp;0;1,2,3,5
+ALMACEN;ENTRADA;Cargar Inventario (APAGADO);cargaInventario.jsp;0;1
+ALMACEN;ENTRADA;Cargar OC;cargarecibo.jsp;0;1,2,3,5
+ALMACEN;ENTRADA;Cerrar OC Manual;ordenesCompra/cerrarOrden.jsp;0;1,2,3,5,6
+ALMACEN;ENTRADA;Entrada Automática ORI;hh/compraAuto3.jsp;0;1,2,3,5
+ALMACEN;ENTRADA;Entrada Manual;captura.jsp;0;1,2,3,5
+ALMACEN;ENTRADA;Verificar OC (ORI);verificarCompraAuto.jsp;0;1,2,3,5
+ALMACEN;REMISIÓN;Devoluciones Facturas;DevolucionesFacturas?Accion=ListaRemision;0;1,2,3,5
+ALMACEN;REMISIÓN;Facturación Automática;facturaAtomatica2Folio.jsp;0;1,2,3,5
+ALMACEN;REMISIÓN;Facturación Manual;facturacionManual.jsp;0;1,2,3,5
+ALMACEN;REMISIÓN;Modificar Folio;ModificarFolio?Accion=ListaRemision;0;1,2,3,5
+ALMACEN;INVENTARIO;Captura Movimiento;facturacion/CapturaMovi.jsp;0;1,2,3,5
+ALMACEN;INVENTARIO;Existencia Disponible;hh/ExistenciaProyectoCompraDis.jsp;0;17
+ALMACEN;INVENTARIO;Existencias por Proyecto;hh/ExistenciaProyecto.jsp;0;1,2,3,4,5,6,17
+ALMACEN;INVENTARIO;Kardex Claves;kardex/kardex.jsp;0;1,2,3,5,6,17
+ALMACEN;INVENTARIO;Kardex por día;kardex/kardexPorDia.jsp;0;1,2,3,5,6
+ALMACEN;INVENTARIO;Redistribución HH;hh/insumoNuevoRedist.jsp;0;1
+ALMACEN;INVENTARIO;Ubicaciones;hh/ubicacionesConsultas.jsp;0;1,2,3,4,5,6,17
+ALMACEN;PDF;Administrar Devoluciones;DevolucionesFacturas?Accion=ListaDevolucion;0;1,2,3,5,6
+ALMACEN;PDF;Administrar Movimientos;facturacion/reimp_movimientos.jsp;0;1,2,3,5,6
+ALMACEN;PDF;Administrar Remisiones;AdministraRemisiones?Accion=ListaRemision;0;1,2,3,5,6
+ALMACEN;PDF;Administrar Remisiones;AdministraRemisionesClientes?Accion=ListaRemision;0;17
+ALMACEN;PDF;Costos Remisiones;CostosRemisiones?Accion=ListaRemision;0;1
+ALMACEN;PDF;Marbete Manual;Marbetes/Marbete_Manual.jsp;0;1
+ALMACEN;PDF;Marbetes Surtido (APAGADO);Marbetes/genMarbete.jsp;0;1
+ALMACEN;PDF;Marbetes Surtido Juris (APAGADO);Marbetes/genMarbeteSur.jsp;0;1
+ALMACEN;PDF;Múltiples Remisiones/Recalendarizar;facturacion/cambioFechas.jsp;0;1,2,3,5
+ALMACEN;PDF;Reimpresión de Remisiones;reimpresion.jsp;1;1,2,3,5,6
+ALMACEN;PDF;Reimpresión de Remisiones;reimpresionCliente.jsp;0;17
+ALMACEN;CONSULTA;Concentrado Requerido por día;facturacion/Concentradoxdia.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;Concentrados por Ruta;ConcentradoxRuta;0;1,2,3,5,6
+ALMACEN;CONSULTA;Concepto Movimiento;ConMov.jsp;1;1,2,5
+ALMACEN;CONSULTA;Consulta Existencia en Cedis;reportes/ConsultasExi.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;Consulta Movimiento;facturacion/ConsultasMovi.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;Inventario por mes Cedis;reportes/ConsultasExiInv.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;Nivel Abasto Diario;facturacion/ReqvsSurt.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;OC Entregadas;ordenesCompra/BajaOrdenCerrada.jsp;0;1,2,3,4,5,6
+ALMACEN;CONSULTA;Órdenes de Compras;ordenesCompra.jsp;1;1,2,3,4,5,6
+ALMACEN;CONSULTA;Requerido Vs. Surtido;facturacion/Reporteador.jsp;0;1,2,3,5,6
+ALMACEN;CONSULTA;Semaforización;semaforo.jsp;1;1,2,3,5,6,17
+ALMACEN;REPORTE;Reporte Claves Fuera de Catálogo;ReporteProveedor/ReporteClavesFuera.jsp;0;1,2,3,5,6
+ALMACEN;REPORTE;Reporte Claves Nulo y Bajo Movimiento;ReporteProveedor/ReporteNuloMov.jsp;0;1,2,3,5,6,17
+ALMACEN;REPORTE;Reporte Concentrado Facturado;hh/Facturado.jsp;0;1,2,3,5,6
+ALMACEN;REPORTE;Reporte de Auditoría;ReporteProveedor/ReporteAuditoria.jsp;0;1,3,5,6
+ALMACEN;REPORTE;Reporte Insumo Especial;reporteInsumoEspecial.jsp;0;1,5
+ALMACEN;REPORTE;Reporte OC;facturacion/ConsultasOCRecibo.jsp;0;1,2,3,4,5,6
+ALMACEN;REPORTE;Reporte por Fecha Proveedor;ReporteProveedor/ReporteF.jsp;0;1,2,3,5,6
+ALMACEN;REPORTE;Reporte Próximos a Caducar;Almacen/Proximos.jsp;0;1,2,3,5,6
+ALMACEN;REPORTE;Reporte Red Fría;RedFria.jsp;0;1
+ALMACEN;REPORTE;Reporte Usuario Suspendidos;ListaUsuario?Accion=ListaSuspendido;0;1,5,6
+ALMACEN;REPORTE;Reporteador Estadística de Entrega;reportes/Reporteador.jsp;0;1,3,4,5,6
+ALMACEN;CATÁLOGOS;Catálogo;medicamentoCliente.jsp;0;17
+ALMACEN;CATÁLOGOS;Catálogo de CB;modula/catalogoCB.jsp;1;1,2,3,4,5,6
+ALMACEN;CATÁLOGOS;Catálogo de Marcas;marcas.jsp;1;1,2,3,5,6
+ALMACEN;CATÁLOGOS;Catálogo de Medicamento;medicamento.jsp;1;1,2,3,4,5,6
+ALMACEN;CATÁLOGOS;Catálogo de Proveedores;catalogo.jsp;1;1,2,3,4,5,6
+ALMACEN;CATÁLOGOS;Catálogo de Unidades;catalogoUnidades.jsp;1;1,2,3,4,5,6
+ALMACEN;USUARIO;Cambio Contraseña;ListaUsuario?Accion=Listausuario;0;1,5,17
+ALMACEN;USUARIO;Nuevo Usuario;NuevoUsuario.jsp;0;1,5
+ALMACEN;USUARIO;Parámetro Facturación;ParametrofacturaU.jsp;0;1,2,3,5
+AUDITORIA;ÓRDENES DE COMPRA;Ver OC;verFoliosMedalfaAud.jsp;1;28
+AUDITORIA;CONSULTA;Existencia;hh/ExistenciaProyectoAuditoria.jsp;0;28
+AUDITORIA;CONSULTA;Reporte Fecha Proveedor;ReporteProveedor/ReporteFAuditoria.jsp;0;28
+AUDITORIA;CONSULTA;Reporteador Estadística de Entrega;reportes/ReporteadorAuditoria.jsp;0;28
+COMPRAS;ENTRADA;Entrada Automática ORI;hh/compraAuto3.jsp;0;14
+COMPRAS;ENTRADA;Entrada Manual;captura.jsp;0;14
+COMPRAS;ENTRADA;Verificar OC (ORI);verificarCompraAuto.jsp;0;14
+COMPRAS;ÓRDENES DE COMPRA;Cargar OC;cargarecibo.jsp;0;13
+COMPRAS;ÓRDENES DE COMPRA;Crear OC;crearOC.jsp;0;13,14
+COMPRAS;ÓRDENES DE COMPRA;Ver OC;verFoliosMedalfaCosto.jsp;0;13,14
+COMPRAS;INVENTARIO;Captura Movimiento;facturacion/CapturaMovi.jsp;0;14
+COMPRAS;INVENTARIO;Existencias;hh/ExistenciaProyectoCompra.jsp;0;13
+COMPRAS;INVENTARIO;Existencias;hh/ExistenciaProyectoConsulta.jsp;0;14
+COMPRAS;INVENTARIO;Existencias Disponibles;hh/ExistenciaProyectoCompraDis.jsp;0;13
+COMPRAS;CONSULTA;Acuse de Recibo;archivosCargados/BuscarDocumento.jsp;0;13
+COMPRAS;CONSULTA;Consulta Global Unidad;Compras/SurtidoUnidadCompras.jsp;0;13
+COMPRAS;CONSULTA;Consulta Movimientos;facturacion/ConsultasMoviCompra.jsp;0;13
+COMPRAS;CONSULTA;Existencias por programa;hh/ExistenciaPorPrograma.jsp;0;15
+COMPRAS;CONSULTA;Reporte Claves Fuera de Catálogo;ReporteProveedor/ReporteClavesFuera.jsp;0;13
+COMPRAS;CONSULTA;Reporte Claves Nulo y Bajo Movimiento;ReporteProveedor/ReporteNuloMov.jsp;0;13
+COMPRAS;CONSULTA;Reporte Fecha Proveedor;ReporteProveedor/ReporteFCompra.jsp;0;13
+COMPRAS;CONSULTA;Reporte OC;facturacion/ConsultasOCRecibo.jsp;0;13
+COMPRAS;CONSULTA;Reporteador Estadística de Entrega;reportes/ReporteadorCompras.jsp;0;13
+COMPRAS;CONSULTA;Semaforización;semaforoCompras.jsp;0;13
+COMPRAS;CATÁLOGOS;Alta Proveedor;catalogoProveedor.jsp;0;13,14
+COMPRAS;CATÁLOGOS;Catálogo de Marcas;marcas.jsp;1;13,14
+COMPRAS;CATÁLOGOS;Catálogo de Medicamento;medicamento.jsp;1;13,14
+COMPRAS;CATÁLOGOS;Puntos de Entregas;catalogoUnidadesCompras.jsp;0;13
+COMPRAS;USUARIO;Parámetro Facturación;ParametrofacturaU.jsp;0;14

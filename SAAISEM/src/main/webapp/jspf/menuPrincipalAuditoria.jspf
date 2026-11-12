@@ -1,86 +1,24 @@
-<%-- any content can be specified here e.g.: --%>
-<%
-%>
+<%-- Menú de Auditoría. Las opciones de cada perfil están en menu-roles.csv (skill menu-roles-sialss); el orden es el mismo para todos. --%>
 <%@ page pageEncoding="UTF-8" %>
 <%@include file="sialssBarra.jspf" %>
-<div class="navbar navbar-default sialss-menu" id="sialss-menu">
-    <div class="container">
-
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span clss="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="/SIALSS_MDF_1/main_menuAuditoria.jsp">Inicio</a>
-
+<% mx.medalfa.sialss.seguridad.Acceso menuAcceso = mx.medalfa.sialss.seguridad.Acceso.AUDITORIA; %>
+<%@include file="menuSialss.jspf" %>
+<% if ("27".equals(tipo)) { %>
+<%-- Perfil 27: aviso para importar información (se conserva del menú anterior; no tiene opciones de menú). --%>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Aviso</h4>
+            </div>
+            <div class="modal-body">
+                <h4>¿Importar información?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="<%=sialssCtx%>/cargarInformacion.jsp" class="btn btn-success">Aceptar</a>
+                <a href="<%=sialssCtx%>/indexAuditoria.jsp" class="btn btn-danger">Cerrar</a>
+            </div>
         </div>
-
-        <div class="navbar-collapse collapse">
-
-            <ul class="nav navbar-nav">
-                <%if (tipo.equals("27")) {%>
-                <!-- The Modal -->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Aviso</h4>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <h4>¿Importar información?</h4>
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <a href="/SIALSS_MDF_1/cargarInformacion.jsp" class="btn btn-success" >Aceptar</a>
-                                <a  href="/SIALSS_MDF_1/indexAuditoria.jsp" class="btn btn-danger" >Cerrar</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                         
-
-
-
-                <%} else if (tipo.equals("28")) {%>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ver OC<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="divider"></li>                        
-                        <li><a href="#" onclick="window.open('/SIALSS_MDF_1/verFoliosMedalfaAud.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Ver OC</a></li>
-                        
-                    </ul>
-                </li>
-
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="divider"></li>
-                        <li> <a href="/SIALSS_MDF_1/hh/ExistenciaProyectoAuditoria.jsp">Existencia</a></li>
-                        <!--<li><a href="/SIALSS_MDF_1/kardex/kardexAuditoria.jsp">Kardex Claves</a></li>-->
-                        <li><a href="/SIALSS_MDF_1/reportes/ReporteadorAuditoria.jsp">Reporteador Estadística de Entrega</a></li>
-                        <li><a href="/SIALSS_MDF_1/ReporteProveedor/ReporteFAuditoria.jsp">Reporte Fecha Proveedor</a></li>
-                    </ul>         
-
-                
-                <% }%>
-                </li>
-            </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%=nombre%></a></li>
-                    <li class="active"><a href="/SIALSS_MDF_1/indexAuditoria.jsp"><span class="glyphicon glyphicon-log-out"></span></a></li>
-                </ul>
-                
-        </div><!--/.nav-collapse -->
     </div>
 </div>
+<% } %>
