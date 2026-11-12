@@ -6,6 +6,10 @@
 <%
     String mensajeLogin = (String) session.getAttribute("mensaje");
     session.invalidate();
+    if (mensajeLogin == null && "inactividad".equals(request.getParameter("motivo"))) {
+        mensajeLogin = "Su sesión se cerró por " + (mx.medalfa.sialss.seguridad.PoliticaSesion.cierreMs() / 60000)
+                + " minutos sin actividad. Vuelva a iniciar sesión.";
+    }
     if (mensajeLogin != null) {
         mensajeLogin = mensajeLogin.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
     }
@@ -17,9 +21,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Iniciar sesión</title>
-        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.1" rel="stylesheet">
+        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.3" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
+        <!-- Fondo animado: cadena de suministro de medicamento y material de curación -->
+        <div class="sialss-login-fondo" aria-hidden="true">
+            <img src="<%=ctxLogin%>/imagenes/login-fondo-cadena.gif" alt="" width="1144" height="748">
+        </div>
         <main class="sialss-login" aria-labelledby="titulo-login">
             <div class="sialss-login__titulo">
                 <img src="<%=ctxLogin%>/imagenes/LogoMedalfa.png" alt="Medalfa" width="175" height="34">
@@ -50,7 +58,7 @@
             </form>
 
             <p class="sialss-aviso-legal">Uso exclusivo del personal autorizado. Cada acceso queda registrado.
-                Tras cuatro intentos fallidos el usuario se suspende.</p>
+                Tras <%=mx.medalfa.sialss.seguridad.PoliticaSesion.intentosMaximos()%> intentos fallidos el usuario se bloquea y debe comunicarse con el administrador del sistema.</p>
 
             <div class="sialss-login__pie">
                 <span>Versión 2.0.0 · Java 17 · Tomcat 11</span>

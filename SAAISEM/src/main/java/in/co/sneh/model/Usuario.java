@@ -16,6 +16,16 @@ public class Usuario {
     private Integer id;
     private String area;
     private String proyecto;
+    /** F_Status: A activo, S suspendido/bloqueado, B baja. */
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getUsuario() {
         return usuario;

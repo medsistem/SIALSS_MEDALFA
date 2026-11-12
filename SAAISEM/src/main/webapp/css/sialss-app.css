@@ -17,6 +17,9 @@
   --s-activo-fondo: #e3f3f1;
   --s-lima-texto: #23300a;
   --s-blanco: #ffffff;
+  --s-velo: rgba(11, 84, 80, .55);   /* fondo de la pantalla de bloqueo */
+  --s-velo-centro: rgba(6, 50, 48, .35);   /* velo del fondo animado del login */
+  --s-velo-orilla: rgba(6, 50, 48, .05);
   --s-error: #b00020;
   --s-error-fondo: #fde8eb;
   --s-radio: 8px;
@@ -33,6 +36,15 @@
   display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box;
 }
 .sialss-login-pagina *, .sialss-login-pagina *::before, .sialss-login-pagina *::after { box-sizing: border-box; }
+/* Fondo animado del login (imagenes/login-fondo-cadena.gif) con un velo para que la tarjeta se lea bien */
+.sialss-login-fondo { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--s-barra); }
+.sialss-login-fondo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sialss-login-fondo::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, var(--s-velo-centro) 0, var(--s-velo-orilla) 75%);
+}
+@media (prefers-reduced-motion: reduce) { .sialss-login-fondo img { visibility: hidden; } }
+.sialss-login { position: relative; z-index: 1; }
 .sialss-login {
   width: min(420px, 100%); background: var(--s-superficie); border-radius: 12px;
   box-shadow: 0 24px 48px rgba(0, 40, 60, .28); padding: 28px 28px 22px;
@@ -174,6 +186,17 @@ body.sialss-app.sialss-menu-oculto .navbar-fixed-bottom { left: 0; }
   .sialss-barra__lema { display: none; }
   .sialss-barra__nombre { display: none; }
 }
+
+/* ============================== Pantalla de bloqueo por inactividad ============================== */
+.sialss-bloqueo {
+  position: fixed; inset: 0; z-index: 3000; display: grid; place-items: center; padding: 24px 16px;
+  background: var(--s-velo); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  font-family: var(--s-fuente); font-size: 15px; color: var(--s-texto);
+}
+.sialss-bloqueo *, .sialss-bloqueo *::before, .sialss-bloqueo *::after { box-sizing: border-box; }
+.sialss-bloqueo__tarjeta { margin: 0; }
+.sialss-bloqueo__usuario { margin: 0 0 4px; font-weight: 600; color: var(--s-turquesa-osc); }
+body.sialss-bloqueada { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .sialss-menu .nav.navbar-nav > li > a .caret { transition: none; }

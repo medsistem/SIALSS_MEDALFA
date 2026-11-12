@@ -1008,6 +1008,15 @@
         <servlet-name>ReporteadorConsulta</servlet-name>
         <url-pattern>/ReporteadorConsulta</url-pattern>
     </servlet-mapping>
+    <!-- Bloqueo de pantalla por inactividad y cierre de sesión (mx.medalfa.sialss.seguridad) -->
+    <filter>
+        <filter-name>SesionFilter</filter-name>
+        <filter-class>mx.medalfa.sialss.seguridad.SesionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SesionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <!-- Primero: carga el .env y cierra los pools al detener -->
     <listener>
         <listener-class>mx.medalfa.sialss.config.ArranqueSialss</listener-class>
@@ -1020,8 +1029,6 @@
         <listener-class>in.co.sneh.service.SessionManagerService</listener-class>
     </listener>
     <session-config>
-        <session-timeout>
-            3600
-        </session-timeout>
+        <session-timeout>60</session-timeout>
     </session-config>
 </web-app>

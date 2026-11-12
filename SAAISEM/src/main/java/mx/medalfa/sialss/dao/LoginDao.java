@@ -5,26 +5,31 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import mx.medalfa.sialss.seguridad.Acceso;
 
 /**
- * Consultas del inicio de sesión (antes concatenadas dentro de servlets.login).
- * Todas con parámetros: el usuario y la contraseña ya no entran al texto del SQL.
+ * Consultas del inicio de sesión y del desbloqueo de pantalla, para cualquiera de las tablas
+ * de usuarios ({@link Acceso}). Todas con parámetros; la contraseña se guarda en MD5.
  */
 public class LoginDao {
 
-    /** Intentos fallidos con los que se suspende al usuario (regla existente). */
-    public static final int INTENTOS_MAXIMOS = 4;
-
     private final Connection c;
+    private final Acceso acceso;
 
     public LoginDao(Connection c) {
-        this.c = c;
+        this(c, Acceso.ALMACEN);
     }
 
-    /** Usuario activo con esa contraseña (la contraseña se guarda en MD5), o null. */
-    public Usuario buscarActivo(String usuario, String contrasena) throws SQLException {
-        String sql = "SELECT F_Usu, F_Nombre, F_TipUsu, F_IdUsu, F_Area, F_Proyecto "
-                + "FROM tb_usuario WHERE F_Usu = ? AND F_Pass = MD5(?) AND F_Status = 'A'";
+    public LoginDao(Connection c, Acceso acceso) {
+        this.c = c;
+        this.acceso = acceso;
+    }
+
+    /** Usuario con esa contraseña y su estatus (A activo, S suspendido, B baja), o null si no coinciden. */
+    public Usuario buscar(String usuario, String contrasena) throws SQLException {
+        String area = acceso.registroSuspension ? ", F_Area" : "";
+        String sql = "SELECT F_Usu, F_Nombre, F_TipUsu, F_IdUsu, F_Proyecto, F_Status" + area
+                + " FROM " + acceso.tabla + " WHERE F_Usu = ? AND F_Pass = MD5(?)";
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, usuario);
             ps.setString(2, contrasena);
@@ -37,16 +42,37 @@ public class LoginDao {
                 u.setNombre(rs.getString("F_Nombre"));
                 u.setTipo(rs.getString("F_TipUsu"));
                 u.setId(rs.getInt("F_IdUsu"));
-                u.setArea(rs.getString("F_Area"));
                 u.setProyecto(rs.getString("F_Proyecto"));
+                u.setStatus(rs.getString("F_Status"));
+                if (acceso.registroSuspension) {
+                    u.setArea(rs.getString("F_Area"));
+                }
                 return u;
+            }
+        }
+    }
+
+    /** Usuario activo con esa contraseña, o null. */
+    public Usuario buscarActivo(String usuario, String contrasena) throws SQLException {
+        Usuario u = buscar(usuario, contrasena);
+        return u != null && "A".equals(u.getStatus()) ? u : null;
+    }
+
+    /** Para el desbloqueo de pantalla: la contraseña corresponde al usuario de la sesión y sigue activo. */
+    public boolean contrasenaCorrecta(int idUsuario, String contrasena) throws SQLException {
+        try (PreparedStatement ps = c.prepareStatement(
+                "SELECT 1 FROM " + acceso.tabla + " WHERE F_IdUsu = ? AND F_Pass = MD5(?) AND F_Status = 'A'")) {
+            ps.setInt(1, idUsuario);
+            ps.setString(2, contrasena);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
             }
         }
     }
 
     /** Días desde el último cambio de contraseña; null si nunca se ha registrado. */
     public Integer diasDesdeCambioContrasena(int idUsuario) throws SQLException {
-        try (PreparedStatement ps = c.prepareStatement("SELECT DATEDIFF(CURDATE(), F_FecMod) FROM tb_usuario WHERE F_IdUsu = ?")) {
+        try (PreparedStatement ps = c.prepareStatement("SELECT DATEDIFF(CURDATE(), F_FecMod) FROM " + acceso.tabla + " WHERE F_IdUsu = ?")) {
             ps.setInt(1, idUsuario);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -67,7 +93,7 @@ public class LoginDao {
         }
     }
 
-    /** Intento fallido: lo registra y devuelve cuántos lleva. */
+    /** Intento fallido: lo registra y devuelve cuántos lleva desde su última entrada correcta. */
     public int registrarIntentoFallido(String usuario) throws SQLException {
         registrarEntrada(usuario, 0);
         try (PreparedStatement ps = c.prepareStatement("SELECT COUNT(F_Usu) FROM tb_registroentradas WHERE F_Usu = ? AND F_Correcto = 0")) {
@@ -78,11 +104,24 @@ public class LoginDao {
         }
     }
 
-    /** Suspende al usuario y abre su registro de suspensión si no tiene uno abierto. */
+    /** true si el usuario existe en la tabla de este acceso (para no bloquear nombres inventados). */
+    public boolean existe(String usuario) throws SQLException {
+        try (PreparedStatement ps = c.prepareStatement("SELECT 1 FROM " + acceso.tabla + " WHERE F_Usu = ?")) {
+            ps.setString(1, usuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    /** Bloquea (F_Status = 'S') y, en tb_usuario, abre su registro de suspensión si no tiene uno abierto. */
     public void suspender(String usuario) throws SQLException {
-        try (PreparedStatement ps = c.prepareStatement("UPDATE tb_usuario SET F_Status = 'S' WHERE F_Usu = ?")) {
+        try (PreparedStatement ps = c.prepareStatement("UPDATE " + acceso.tabla + " SET F_Status = 'S' WHERE F_Usu = ?")) {
             ps.setString(1, usuario);
             ps.executeUpdate();
+        }
+        if (!acceso.registroSuspension) {
+            return;
         }
         boolean abierto;
         try (PreparedStatement ps = c.prepareStatement(
