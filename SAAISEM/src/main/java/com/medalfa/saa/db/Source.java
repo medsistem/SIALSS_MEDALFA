@@ -5,20 +5,25 @@
  */
 package com.medalfa.saa.db;
 
+import mx.medalfa.sialss.config.BaseDatos;
+
 /**
  *
  * @author IngMa
  */
 public enum Source 
 {
-    SAA_RECEPTION("java:comp/env/jdbc/recepcion_sialss_mdf"),
-    SAA_AUDIT("java:comp/env/jdbc/auditoria_sialss_mdf"),
-    SAA_WAREHOUSE("java:comp/env/jdbc/almacen_sialss_mdf"),
-    SAA_BILLING("java:comp/env/jdbc/facturacion_sialss_mdf");
+    SAA_RECEPTION(BaseDatos.RECEPCION),
+    SAA_AUDIT(BaseDatos.AUDITORIA),
+    SAA_WAREHOUSE(BaseDatos.ALMACEN),
+    SAA_BILLING(BaseDatos.FACTURACION);
     public final String text;
+    /** Pool real: JNDI del context.xml o el .env (ver {@link BaseDatos}). */
+    public final BaseDatos baseDatos;
 
-    private Source(final String text) {
-        this.text = text;
+    private Source(final BaseDatos baseDatos) {
+        this.baseDatos = baseDatos;
+        this.text = "java:comp/env/" + baseDatos.jndi();
     }
 
     @Override

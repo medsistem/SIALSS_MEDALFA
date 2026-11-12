@@ -2,7 +2,8 @@
 
 
 <%@ page pageEncoding="UTF-8" %>
-<div class="navbar navbar-default">
+<%@include file="sialssBarra.jspf" %>
+<div class="navbar navbar-default sialss-menu" id="sialss-menu">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

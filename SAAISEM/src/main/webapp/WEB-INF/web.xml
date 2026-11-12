@@ -1008,6 +1008,10 @@
         <servlet-name>ReporteadorConsulta</servlet-name>
         <url-pattern>/ReporteadorConsulta</url-pattern>
     </servlet-mapping>
+    <!-- Primero: carga el .env y cierra los pools al detener -->
+    <listener>
+        <listener-class>mx.medalfa.sialss.config.ArranqueSialss</listener-class>
+    </listener>
     <listener>
         <listener-class>com.gnk.service.SessionManagerService</listener-class>
     </listener>

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mx.medalfa.sialss.config.BaseDatos;
 
 /**
  * Conexión a la Base de Datos isem transaccional
@@ -42,18 +43,9 @@ public class ConectionDBTrans {
 
     //Constructor que crea la conexion sin parametros con unos definidos en la clase
     //(meter los datos correspondientes)
+    /** Usa el pool GENERAL de {@link BaseDatos} (context.xml o .env); ya no lleva datos de conexión en el código. */
     public ConectionDBTrans() {
-
-
-        this.usuario = "sialss_mdf";
-        this.clave = "S1a15s_MdF@2025";
-
-        this.url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf?autoReconnect=true";
-//        this.url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf?autoReconnect=true";
-//        this.url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
-        
-        this.driverClassName = "org.mariadb.jdbc.Driver";
-
+        this.driverClassName = null;
     }
 
     //metodos para recuperar los datos de conexion
@@ -101,10 +93,13 @@ public class ConectionDBTrans {
 //la conexion propiamente dicha
     public void conectar() throws SQLException {
         try {
-            Class.forName(this.driverClassName).newInstance();
-            this.conn = DriverManager.getConnection(this.url, this.usuario, this.clave);
-
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+            if (this.driverClassName == null) {
+                this.conn = BaseDatos.GENERAL.conexion();
+            } else {
+                Class.forName(this.driverClassName);
+                this.conn = DriverManager.getConnection(this.url, this.usuario, this.clave);
+            }
+        } catch (ClassNotFoundException | SQLException | RuntimeException e) {
             Logger.getLogger(ConectionDB.class.getName()).log(Level.SEVERE, null, e);
         }
     }

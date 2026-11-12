@@ -25,6 +25,14 @@
         <jasper.version>5.1.0</jasper.version>
     </properties>
 
+    <!-- JAR que no están en Maven Central (se agregan con deploy:deploy-file, ver el skill migracion-sialss) -->
+    <repositories>
+        <repository>
+            <id>lib-local</id>
+            <url>file://${project.basedir}/lib-local</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Los pone Tomcat 11 -->
         <dependency>
@@ -163,6 +171,11 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>${zxing.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jbarcodebean</groupId>
+            <artifactId>jbarcodebean</artifactId>
+            <version>1.2.0</version>
         </dependency>
 
         <!-- Utilerías -->

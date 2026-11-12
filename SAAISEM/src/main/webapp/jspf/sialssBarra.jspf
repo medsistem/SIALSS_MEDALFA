@@ -1,0 +1,41 @@
+<%-- Barra superior estilo SALPE. La incluyen jspf/menuPrincipal*.jspf antes del menú.
+     Variables con prefijo sialss para no chocar con las de las páginas que lo incluyen. --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    String sialssCtx = request.getContextPath();
+    String sialssNombre = session.getAttribute("nombre") != null ? String.valueOf(session.getAttribute("nombre")) : "";
+    String sialssUsuario = session.getAttribute("Usuario") != null ? String.valueOf(session.getAttribute("Usuario")) : "";
+    String sialssIniciales = "";
+    for (String sialssParte : sialssNombre.trim().split("\\s+")) {
+        if (!sialssParte.isEmpty() && sialssIniciales.length() < 2) {
+            sialssIniciales += Character.toUpperCase(sialssParte.charAt(0));
+        }
+    }
+    sialssNombre = sialssNombre.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+    sialssUsuario = sialssUsuario.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+%>
+<link href="<%=sialssCtx%>/css/sialss-app.css" rel="stylesheet">
+<header class="sialss-barra" id="sialss-barra">
+    <button type="button" class="sialss-barra__alternar" id="sialss-alternar-menu" aria-controls="sialss-menu" aria-expanded="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="sr-only" id="sialss-alternar-texto">Ocultar menú</span>
+    </button>
+    <a class="sialss-barra__marca" href="<%=sialssCtx%>/main_menu.jsp">
+        <span class="sialss-barra__logo"><img src="<%=sialssCtx%>/imagenes/LogoMedalfa.png" alt="Medalfa" width="113" height="22"></span>
+        <span>SIALSS</span>
+    </a>
+    <span class="sialss-barra__lema">Administración y logística para servicios de salud</span>
+    <div class="sialss-barra__usuario">
+        <button type="button" class="sialss-barra__usuario-boton" id="sialss-boton-usuario" aria-expanded="false" aria-controls="sialss-menu-usuario">
+            <span class="sialss-barra__avatar" aria-hidden="true"><%=sialssIniciales%></span>
+            <span class="sialss-barra__nombre"><%=sialssNombre%></span>
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="sialss-barra__desplegable" id="sialss-menu-usuario" hidden>
+            <div class="sialss-barra__desplegable-nombre"><%=sialssNombre%></div>
+            <div class="sialss-barra__desplegable-rol">Usuario: <%=sialssUsuario%></div>
+            <a class="sialss-boton" href="<%=sialssCtx%>/indexalmacen.jsp">Cerrar sesión</a>
+        </div>
+    </div>
+</header>
+<script src="<%=sialssCtx%>/js/sialss-menu.js" defer></script>

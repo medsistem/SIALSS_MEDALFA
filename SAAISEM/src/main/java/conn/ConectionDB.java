@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import mx.medalfa.sialss.config.BaseDatos;
 
 /**
  * Conexión a la Base de Datos isem
@@ -49,18 +50,9 @@ public class ConectionDB {
 
     //Constructor que crea la conexion sin parametros con unos definidos en la clase
     //(meter los datos correspondientes)
+    /** Usa el pool GENERAL de {@link BaseDatos} (context.xml o .env); ya no lleva datos de conexión en el código. */
     public ConectionDB() {
-        //poner los datos apropiados
-
-
-       this.usuario = "sialss_mdf";
-        this.clave = "S1a15s_MdF@2025";
-
-        this.url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf?autoReconnect=true";
-//        this.url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf?autoReconnect=true";
-//        this.url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf"; 
-        
-        this.driverClassName = "org.mariadb.jdbc.Driver";
+        this.driverClassName = null;
     }
 
     //metodos para recuperar los datos de conexion
@@ -78,13 +70,20 @@ public class ConectionDB {
 
     public Connection getConn() {
         try {
-            Class.forName(this.driverClassName).newInstance();
-            this.conn = DriverManager.getConnection(this.url, this.usuario, this.clave);
-            System.out.print("");
+            this.conn = abrir();
         } catch (Exception err) {
             err.printStackTrace();
         }
         return conn;
+    }
+
+    /** Pool GENERAL, salvo que se hayan dado datos de conexión explícitos en el constructor. */
+    private Connection abrir() throws Exception {
+        if (this.driverClassName == null) {
+            return BaseDatos.GENERAL.conexion();
+        }
+        Class.forName(this.driverClassName);
+        return DriverManager.getConnection(this.url, this.usuario, this.clave);
     }
 
     public String getDriverClassName() {
@@ -115,10 +114,7 @@ public class ConectionDB {
 //la conexion propiamente dicha
     public void conectar() throws SQLException {
         try {
-            Class.forName(this.driverClassName).newInstance();
-            this.conn = DriverManager.getConnection(this.url, this.usuario, this.clave);
-            System.out.print("");
-
+            this.conn = abrir();
         } catch (Exception err) {
             System.out.println("Error " + err.getMessage());
         }

@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/SIALSS_MDF_1">
-    <!-- conexion a Local-->
-   
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/recepcion_sialss_mdf" password="S1@L%S_re3cEpt1on" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="recepcion_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/auditoria_sialss_mdf" password="S1@L%S_ad1toRi44$s" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="auditoria_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/almacen_sialss_mdf" password="S1@L%S_alM4c3n$a" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="almacen_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/facturacion_sialss_mdf" password="S1@L%S_faCt0r4cI0n$c" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf" username="facturacion_sialss_mdf" validationQuery="SELECT 1"/>
+<!--
+  Las conexiones se leen del archivo .env (ver .env.example y despliegue/LEEME.txt).
+  Si en algún servidor se prefiere el context.xml, declare aquí el recurso con el mismo nombre
+  y ese recurso gana sobre el .env. Nombres: jdbc/sialss_mdf (general), jdbc/recepcion_sialss_mdf,
+  jdbc/auditoria_sialss_mdf, jdbc/almacen_sialss_mdf, jdbc/facturacion_sialss_mdf. Ejemplo:
 
-    <!-- conexion a Produccion-->
-    <!--
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/recepcion_sialss_mdf" password="S1@L%S_re3cEpt1on" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.9.180:3306/sialss_mdf" username="recepcion_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/auditoria_sialss_mdf" password="S1@L%S_ad1toRi44$s" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.9.180:3306/sialss_mdf" username="auditoria_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/almacen_sialss_mdf" password="S1@L%S_alM4c3n$a" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.9.180:3306/sialss_mdf" username="almacen_sialss_mdf" validationQuery="SELECT 1"/>
-    <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/facturacion_sialss_mdf" password="S1@L%S_faCt0r4cI0n$c" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.9.180:3306/sialss_mdf" username="facturacion_sialss_mdf" validationQuery="SELECT 1"/>
-    -->
-    <!-- conexion a QA-->
-    <!-- 
-     <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/recepcion_sialss_mdf" password="S1@L%S_re3cEpt1on" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="recepcion_sialss_mdf" validationQuery="SELECT 1"/>
-     <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/auditoria_sialss_mdf" password="S1@L%S_ad1toRi44$s" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="auditoria_sialss_mdf" validationQuery="SELECT 1"/>
-     <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/almacen_sialss_mdf" password="S1@L%S_alM4c3n$a" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="almacen_sialss_mdf" validationQuery="SELECT 1"/>
-     <Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxIdle="3" maxTotal="8" name="jdbc/facturacion_sialss_mdf" password="S1@L%S_faCt0r4cI0n$c" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.0.184:3306/sialss_mdf" username="facturacion_sialss_mdf" validationQuery="SELECT 1"/>
-    --> 
+  <Resource name="jdbc/sialss_mdf" auth="Container" type="javax.sql.DataSource"
+            driverClassName="org.mariadb.jdbc.Driver" url="jdbc:mariadb://127.0.0.1:3306/sialss_mdf"
+            username="sialss_mdf" password="..." maxTotal="30" maxIdle="5" validationQuery="SELECT 1"
+            removeAbandonedOnBorrow="true" removeAbandonedTimeout="120"/>
+-->
+<Context path="/SIALSS_MDF_1">
 </Context>

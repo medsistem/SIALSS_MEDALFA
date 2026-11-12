@@ -52,9 +52,8 @@ public class ConnectionManager {
     private static DataSource createDataSource(Source source)
             throws NamingException {
 
-        InitialContext ctx = new InitialContext();
-        // nombre del recurso en el context.xml
-        return (DataSource) ctx.lookup(source.text);
+        // JNDI del context.xml si existe; si no, pool armado desde el .env.
+        return source.baseDatos.dataSource();
     }
 
     /**

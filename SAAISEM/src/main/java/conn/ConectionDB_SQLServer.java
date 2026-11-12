@@ -42,9 +42,10 @@ public class ConectionDB_SQLServer {
     //Constructor que crea la conexion sin parametros con unos definidos en la clase
     //(meter los datos correspondientes)
     public ConectionDB_SQLServer() {
-        //poner los datos apropiados
-        this.usuario = "HOST";
-        this.clave = "HOST";
+        // Modula (SQL Server): datos en el .env; sin SQLSERVER_URL la conexión queda deshabilitada como antes.
+        this.usuario = mx.medalfa.sialss.config.Entorno.get("SQLSERVER_USUARIO");
+        this.clave = mx.medalfa.sialss.config.Entorno.get("SQLSERVER_CONTRASENA");
+        this.url = mx.medalfa.sialss.config.Entorno.get("SQLSERVER_URL");
         //this.url = "jdbc:sqlserver://192.168.2.160\\BUSINESS\\SQLEXPRESS:49457;databaseName=HOST_IMPEXP_GNK";
 //        this.url = "jdbc:sqlserver://192.168.8.160\\DESKTOP-EELHNCP\\SQLEXPRESS:1433;databaseName=HOST_IMPEXP_GNK";
 //             this.url = "jdbc:sqlserver://192.168.8.160\\MDF-MODULA\\SQLEXPRESS:1433;databaseName=HOST_IMPEXPA";

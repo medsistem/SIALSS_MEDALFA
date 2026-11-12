@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import mx.medalfa.sialss.config.BaseDatos;
 
 /**
  * Conexión a la Base de Datos isem
@@ -34,18 +35,9 @@ public class conection {
         this.DriverClassName = DriverClassName;
     }
 
+    /** Usa el pool GENERAL de {@link BaseDatos} (context.xml o .env); ya no lleva datos de conexión en el código. */
     public conection() {
-
-
-        
-        this.UsuarioBD = "sialss_mdf";
-        this.Password = "S1a15s_MdF@2025";
-
-        this.Url = "jdbc:mariadb://127.0.0.1:3306/sialss_mdf";
-//        this.Url = "jdbc:mariadb://192.168.9.180:3306/sialss_mdf";
-//        this.Url = "jdbc:mariadb://192.168.0.184:3306/sialss_mdf?autoReconnect=true";
-
-        this.DriverClassName = "org.mariadb.jdbc.Driver";
+        this.DriverClassName = null;
     }
 
     // Metodo de Recuperación los datos de Conexión
@@ -90,10 +82,12 @@ public class conection {
     public void conectar() throws SQLException {
 
         try {
-            Class.forName(this.DriverClassName).newInstance();
-            this.Conn = DriverManager.getConnection(this.Url, this.UsuarioBD, this.Password);
-            System.out.println("Conexión Exitosa mysql gnklmex_consolidada");
-
+            if (this.DriverClassName == null) {
+                this.Conn = BaseDatos.GENERAL.conexion();
+            } else {
+                Class.forName(this.DriverClassName);
+                this.Conn = DriverManager.getConnection(this.Url, this.UsuarioBD, this.Password);
+            }
         } catch (Exception err) {
             System.out.println("Error" + err.getMessage());
         }

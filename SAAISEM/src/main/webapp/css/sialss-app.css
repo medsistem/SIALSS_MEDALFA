@@ -1,0 +1,178 @@
+/* SIALSS: login, barra superior y menú lateral con la estructura de SALPE y los colores de Medalfa.
+   Convive con Bootstrap 3 en las pantallas antiguas: todo va bajo .sialss-*. */
+:root {
+  --s-turquesa: #13b5a8;          /* logo Medalfa */
+  --s-turquesa-osc: #0b7d74;      /* botones y texto activo (contraste AA con blanco) */
+  --s-barra: #0b5450;             /* barra superior */
+  --s-barra-texto-2: #bfe6e2;     /* texto secundario sobre la barra */
+  --s-lima: #c5d84a;              /* logo Medalfa: indicador de opción activa */
+  --s-cielo: #56baed;             /* fondo del login anterior */
+  --s-fondo: #f3f6f8;
+  --s-superficie: #ffffff;
+  --s-superficie-2: #eef6f5;
+  --s-borde: #d3dfdd;
+  --s-texto: #17232a;
+  --s-texto-2: #4f5f66;
+  --s-borde-campo: #9fb3b1;
+  --s-activo-fondo: #e3f3f1;
+  --s-lima-texto: #23300a;
+  --s-blanco: #ffffff;
+  --s-error: #b00020;
+  --s-error-fondo: #fde8eb;
+  --s-radio: 8px;
+  --s-sombra: 0 1px 3px rgba(10, 40, 40, .14), 0 1px 2px rgba(10, 40, 40, .07);
+  --s-fuente: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --s-alto-barra: 56px;
+  --s-ancho-menu: 250px;
+}
+
+/* ============================== Inicio de sesión ============================== */
+.sialss-login-pagina {
+  margin: 0; min-height: 100vh; font-family: var(--s-fuente); font-size: 15px; color: var(--s-texto);
+  background: linear-gradient(135deg, var(--s-cielo) 0%, var(--s-turquesa) 100%);
+  display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box;
+}
+.sialss-login-pagina *, .sialss-login-pagina *::before, .sialss-login-pagina *::after { box-sizing: border-box; }
+.sialss-login {
+  width: min(420px, 100%); background: var(--s-superficie); border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(0, 40, 60, .28); padding: 28px 28px 22px;
+}
+.sialss-login__titulo { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--s-borde); }
+.sialss-login__titulo img { height: 34px; width: auto; }
+.sialss-login__sistema { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 3px; color: var(--s-barra); }
+.sialss-login__lema { margin: 2px 0 0; font-size: 12.5px; color: var(--s-texto-2); }
+.sialss-login h1 { font-size: 22px; margin: 0 0 4px; color: var(--s-texto); }
+.sialss-login .sialss-secundario { margin: 0 0 18px; color: var(--s-texto-2); font-size: 14px; }
+.sialss-login label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+.sialss-login input[type=text], .sialss-login input[type=password] {
+  width: 100%; height: 42px; padding: 8px 12px; font: inherit; color: var(--s-texto);
+  border: 1px solid var(--s-borde-campo); border-radius: var(--s-radio); background: var(--s-superficie);
+}
+.sialss-login input:focus-visible, .sialss-boton:focus-visible, .sialss-boton-texto:focus-visible {
+  outline: 3px solid var(--s-lima); outline-offset: 2px; border-color: var(--s-turquesa-osc);
+}
+.sialss-campo-contrasena { position: relative; }
+.sialss-campo-contrasena input { padding-right: 84px; }
+.sialss-campo-contrasena .sialss-boton-texto { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); }
+.sialss-boton-texto {
+  background: none; border: 0; color: var(--s-turquesa-osc); font: inherit; font-size: 13.5px; font-weight: 600;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+}
+.sialss-boton-texto:hover { background: var(--s-superficie-2); }
+.sialss-boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 8px 18px;
+  font: inherit; font-weight: 600; border-radius: var(--s-radio); border: 1px solid var(--s-turquesa-osc);
+  background: var(--s-blanco); color: var(--s-turquesa-osc); cursor: pointer; text-decoration: none;
+}
+.sialss-boton--primario { background: var(--s-turquesa-osc); color: var(--s-blanco); }
+.sialss-boton--primario:hover { background: var(--s-barra); border-color: var(--s-barra); color: var(--s-blanco); }
+.sialss-boton--ancho { width: 100%; margin-top: 20px; }
+.sialss-mensaje { margin: 16px 0 0; padding: 10px 12px; border-radius: var(--s-radio); font-size: 14px; }
+.sialss-mensaje--error { background: var(--s-error-fondo); color: var(--s-error); border-left: 4px solid var(--s-error); }
+.sialss-login__pie {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; padding-top: 14px;
+  border-top: 1px solid var(--s-borde); font-size: 12.5px; color: var(--s-texto-2);
+}
+.sialss-login__pie a { color: var(--s-turquesa-osc); font-weight: 600; text-decoration: none; }
+.sialss-login__pie a:hover { text-decoration: underline; }
+.sialss-aviso-legal { margin: 14px 0 0; font-size: 12.5px; color: var(--s-texto-2); }
+
+/* ============================== Barra superior ============================== */
+body.sialss-app { padding-top: var(--s-alto-barra) !important; padding-left: var(--s-ancho-menu); background: var(--s-fondo); }
+body.sialss-app.sialss-menu-oculto { padding-left: 0; }
+.sialss-barra {
+  position: fixed; inset: 0 0 auto 0; height: var(--s-alto-barra); z-index: 1040;
+  display: flex; align-items: center; gap: 12px; padding: 0 14px 0 8px;
+  background: var(--s-barra); color: var(--s-blanco); font-family: var(--s-fuente); box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+}
+.sialss-barra__alternar {
+  display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--s-blanco); cursor: pointer;
+}
+.sialss-barra__alternar:hover { background: rgba(255, 255, 255, .12); }
+.sialss-barra__alternar:focus-visible { outline: 3px solid var(--s-lima); outline-offset: 1px; }
+.sialss-barra__marca { display: flex; align-items: center; gap: 10px; color: var(--s-blanco) !important; text-decoration: none !important; font-weight: 700; letter-spacing: 2px; font-size: 18px; }
+.sialss-barra__logo { display: grid; place-items: center; background: var(--s-blanco); border-radius: 6px; padding: 3px 7px; height: 38px; }
+.sialss-barra__logo img { height: 22px; width: auto; }
+.sialss-barra__lema { font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--s-barra-texto-2); padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .2); }
+.sialss-barra__usuario { margin-left: auto; position: relative; }
+.sialss-barra__usuario-boton {
+  display: flex; align-items: center; gap: 8px; height: 42px; padding: 0 10px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--s-blanco); font: inherit; font-size: 14px; cursor: pointer;
+}
+.sialss-barra__usuario-boton:hover, .sialss-barra__usuario-boton[aria-expanded=true] { background: rgba(255, 255, 255, .12); }
+.sialss-barra__avatar {
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--s-lima); color: var(--s-lima-texto); font-weight: 700; font-size: 13px;
+}
+.sialss-barra__nombre { max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sialss-barra__desplegable {
+  position: absolute; right: 0; top: calc(100% + 6px); min-width: 230px; padding: 14px;
+  background: var(--s-blanco); color: var(--s-texto); border: 1px solid var(--s-borde); border-radius: var(--s-radio); box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
+}
+.sialss-barra__desplegable[hidden] { display: none; }
+.sialss-barra__desplegable-nombre { font-weight: 600; }
+.sialss-barra__desplegable-rol { font-size: 13px; color: var(--s-texto-2); margin-bottom: 12px; }
+.sialss-barra__desplegable .sialss-boton { width: 100%; }
+
+/* ============================== Menú lateral ==============================
+   Toma el menú Bootstrap 3 de jspf/menuPrincipal*.jspf (con sus permisos por tipo de usuario)
+   y lo muestra como el menú lateral de SALPE: grupos que se abren y cierran. */
+.navbar.sialss-menu {
+  position: fixed; top: var(--s-alto-barra); bottom: 0; left: 0; width: var(--s-ancho-menu); z-index: 1030;
+  margin: 0; min-height: 0; border: 0; border-right: 1px solid var(--s-borde); border-radius: 0;
+  background: var(--s-superficie); font-family: var(--s-fuente); overflow-y: auto;
+}
+body.sialss-menu-oculto .navbar.sialss-menu { display: none; }
+.sialss-menu > .container { width: auto; padding: 8px 0; margin: 0; }
+.sialss-menu .navbar-header { display: none; }
+.sialss-menu .navbar-collapse { display: block !important; height: auto !important; padding: 0; border: 0; box-shadow: none; overflow: visible; }
+.sialss-menu .nav.navbar-nav { float: none; margin: 0; display: block; }
+.sialss-menu .nav.navbar-nav > li { float: none; display: block; }
+.sialss-menu .nav.navbar-nav > li > a {
+  display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px 8px 13px;
+  color: var(--s-texto); font-size: 13px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase;
+  border-left: 3px solid transparent; background: none;
+}
+.sialss-menu .nav.navbar-nav > li > a .caret {
+  margin-left: auto; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0;
+  transform: rotate(45deg); transition: transform .2s;
+}
+.sialss-menu .nav.navbar-nav > li.abierto > a .caret { transform: rotate(-135deg); }
+.sialss-menu .nav.navbar-nav > li > a:hover, .sialss-menu .nav.navbar-nav > li > a:focus {
+  background: var(--s-superficie-2); color: var(--s-turquesa-osc);
+}
+.sialss-menu .nav.navbar-nav > li.activo > a { color: var(--s-turquesa-osc); }
+.sialss-menu .dropdown-menu {
+  position: static; float: none; display: none; min-width: 0; margin: 0; padding: 2px 0 8px;
+  border: 0; border-radius: 0; box-shadow: none; background: transparent;
+}
+.sialss-menu li.abierto > .dropdown-menu { display: block; }
+.sialss-menu .dropdown-menu > li > a {
+  display: block; padding: 7px 14px 7px 30px; font-size: 14px; color: var(--s-texto); white-space: normal;
+  border-left: 3px solid transparent;
+}
+.sialss-menu .dropdown-menu > li > a:hover, .sialss-menu .dropdown-menu > li > a:focus { background: var(--s-superficie-2); color: var(--s-turquesa-osc); }
+.sialss-menu .dropdown-menu > li > a[aria-current=page] { background: var(--s-activo-fondo); border-left-color: var(--s-lima); color: var(--s-turquesa-osc); font-weight: 600; }
+.sialss-menu .dropdown-menu .divider { height: 1px; margin: 6px 14px 6px 30px; background: var(--s-borde); }
+.sialss-menu .dropdown-header { padding: 8px 14px 4px 30px; font-size: 12px; color: var(--s-texto-2); }
+.sialss-menu .navbar-right { float: none !important; margin: 0; }
+.sialss-menu a:focus-visible { outline: 3px solid var(--s-lima); outline-offset: -3px; }
+
+/* El pie antiguo (navbar-fixed-bottom) no debe quedar bajo el menú. */
+body.sialss-app .navbar-fixed-bottom { left: var(--s-ancho-menu); }
+body.sialss-app.sialss-menu-oculto .navbar-fixed-bottom { left: 0; }
+
+/* Teléfono y tableta: el menú se superpone y empieza oculto. */
+@media (max-width: 900px) {
+  body.sialss-app { padding-left: 0; }
+  body.sialss-app .navbar-fixed-bottom { left: 0; }
+  body.sialss-app:not(.sialss-menu-abierto) .navbar.sialss-menu { display: none; }
+  body.sialss-app.sialss-menu-abierto .navbar.sialss-menu { display: block; box-shadow: 4px 0 16px rgba(0, 0, 0, .2); }
+  .sialss-barra__lema { display: none; }
+  .sialss-barra__nombre { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sialss-menu .nav.navbar-nav > li > a .caret { transition: none; }
+}
