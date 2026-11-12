@@ -3,3 +3,5 @@ SAAISEM/nbproject/*
 SAAISEM/build/*
 
 !.gitkeep
+SAAISEM/target/
+SAAISEM/respaldos_sialss/netbeans/nbproject/
