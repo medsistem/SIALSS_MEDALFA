@@ -80,6 +80,9 @@
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/CostosRemisiones?Accion=ListaRemision">Costos Remisiones</a></li>
                         <li class="divider"></li>
+                        <li><a href="/SIALSS_MDF_1/Marbetes/Marbete_Manual.jsp">Marbete Manual</a></li>
+                        <li><a href="/SIALSS_MDF_1/Marbetes/genMarbete.jsp">Marbetes Surtido (APAGADO)</a></li>
+                        <li><a href="/SIALSS_MDF_1/Marbetes/genMarbeteSur.jsp">Marbetes Surtido Juris (APAGADO)</a></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/cambioFechas.jsp">Multiples Remisiones/Recalendarizar</a></li>
                         <li class="divider"></li>
                         <li><a href="#" onclick="window.open('/SIALSS_MDF_1/reimpresion.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Reimpresión de Remisiones</a></li>
@@ -103,7 +106,7 @@
                         <li><a href="/SIALSS_MDF_1/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
@@ -248,7 +251,7 @@
                         <li><a href="/SIALSS_MDF_1/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
@@ -374,7 +377,7 @@
                         <li><a href="/SIALSS_MDF_1/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
@@ -451,7 +454,7 @@
                     <ul class="dropdown-menu">
                         
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                       
                     </ul>
                 </li>
@@ -559,7 +562,7 @@
                         <li><a href="/SIALSS_MDF_1/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>
@@ -677,7 +680,7 @@
                         <li><a href="/SIALSS_MDF_1/facturacion/ReqvsSurt.jsp">Nivel Abasto Diario</a></li>
                         <li class="divider"></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/ordenesCompra.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Órdenes de Compras</a></li>
-                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC ENTREGADAS</a></li>
+                        <li><a href="/SIALSS_MDF_1/ordenesCompra/BajaOrdenCerrada.jsp">OC Entregadas</a></li>
                         <li class="divider"></li>
                         <li><a href="/SIALSS_MDF_1/facturacion/Reporteador.jsp">Requerido Vs. Surtido</a></li>
                         <li><a href="#"  onclick="window.open('/SIALSS_MDF_1/semaforo.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Semaforización</a></li>

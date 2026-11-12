@@ -45,13 +45,10 @@ public class MarbeteCat extends HttpServlet {
         int ban1 = 0;
 
         ConectionDB con = new ConectionDB();
-        //ConectionDB_SQLServer consql = new ConectionDB_SQLServer();
+        
         try {
 
-            /**
-             * Para validar varios registros por auditoria del concentrado
-             * global
-             */
+          
             if (request.getParameter("accion").equals("generarCarta")) {
                 con.conectar();
                 int tarimas = 0, cajas = 0, resto = 0, Ptarima = 0, pcajas = 0;
@@ -59,14 +56,6 @@ public class MarbeteCat extends HttpServlet {
 
                 clave = request.getParameter("clave");
                 lote = request.getParameter("lote");
-                cadu = request.getParameter("cadu");
-                cb = request.getParameter("cb");
-//                    tarimas = Integer.parseInt(request.getParameter("tarimas"));
-//                    cajas = Integer.parseInt(request.getParameter("cajas"));
-//                    pcajas = Integer.parseInt(request.getParameter("pcajas"));
-                //tarimasi = Integer.parseInt(request.getParameter("tarimasi"));
-                resto = Integer.parseInt(request.getParameter("resto"));
-//                Ptarima = pcajas * cajas;
 
                 con.actualizar("delete from tb_marbetecap");
 

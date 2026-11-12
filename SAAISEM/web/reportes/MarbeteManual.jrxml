@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Marbete" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="ac5afa2b-dbeb-4948-9e26-5043590070db">
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAA"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="Clave" class="java.lang.String"/>
+	<parameter name="Lote" class="java.lang.String"/>
+	<parameter name="Proyecto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[CALL MarbeteManual($P{Clave},$P{Lote},$P{Proyecto})]]>
+	</queryString>
+	<field name="row_number" class="java.lang.String"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="caducidad" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="ubicacion" class="java.lang.String"/>
+	<field name="fabrica" class="java.lang.String"/>
+	<field name="F_Cb" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="origen" class="java.lang.String"/>
+	<field name="tarima" class="java.lang.String"/>
+	<field name="proyecto" class="java.lang.String"/>
+	<field name="F_Modelo" class="java.lang.String"/>
+	<field name="observa" class="java.lang.String"/>
+	<field name="F_ClaProclaveDad" class="java.lang.String"/>
+	<field name="F_DesProDesProDad" class="java.lang.String"/>
+	<field name="F_DesModeloDad" class="java.lang.String"/>
+	<field name="F_TarimaDad" class="java.lang.String"/>
+	<field name="F_ClaLotDad" class="java.lang.String"/>
+	<field name="F_observacionDad" class="java.lang.String"/>
+	<variable name="v_lotes" class="java.lang.String" resetType="Group" resetGroup="GrupoPartida">
+		<variableExpression><![CDATA[($V{v_lotes} == null || $V{v_lotes}.length() == 0 ? "" : $V{v_lotes} + "\n\n")
+        + " " + ($F{row_number} == null ? "" : $F{row_number})
+        + "  " + ($F{F_ClaProclaveDad} == null ? "" : $F{F_ClaProclaveDad})
+        + "  " + ($F{F_DesProDesProDad} == null ? "" : $F{F_DesProDesProDad})
+        + "  " + ($F{F_DesModeloDad} == null ? "" : $F{F_DesModeloDad})]]></variableExpression>
+		<initialValueExpression><![CDATA[""]]></initialValueExpression>
+	</variable>
+	<group name="GrupoPartida" keepTogether="true">
+		<groupExpression><![CDATA[String.valueOf($F{row_number}) + "|" + String.valueOf($F{clave})]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="73951a9c-382e-48a4-a2f4-1620019c5b23" style="table" x="0" y="0" width="33" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{row_number}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="c321e46e-99f7-4718-9e3d-52844c28179d" style="table" x="33" y="0" width="67" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_TarimaDad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="4dcad4ef-0304-4502-a529-34eee89d2e71" style="table" x="100" y="0" width="106" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_ClaProclaveDad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="11335df0-e21f-4867-af69-ed63d57665dc" style="table" x="206" y="0" width="246" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_DesProDesProDad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="022af0f8-91eb-4ce8-8a5a-0ee60ae362e7" style="table" x="452" y="0" width="161" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_DesModeloDad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="deb65569-7551-4372-acf2-22c05290949a" style="table" x="613" y="0" width="137" height="18"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_ClaLotDad}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="115">
+			<staticText>
+				<reportElement uuid="031b2931-e75a-406a-b9c0-1b49a1f3e42c" x="0" y="0" width="100" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Tarimas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b9bdb145-88c1-473a-a0a7-2f1274fa60c4" x="100" y="0" width="255" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tarima}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="32b90b03-4326-4999-853e-e19e1348ac95" x="355" y="0" width="120" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Clave:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="848f9e9e-2ed9-44dd-80b5-b9a6f5f37717" x="475" y="0" width="277" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c8459dc4-5cbe-4b66-801f-c28fca29075c" x="0" y="23" width="100" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Marca:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="477bc50d-941c-4f2e-8016-31fe3bee1118" x="100" y="23" width="257" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3d3303ed-9b60-4ea9-bbd6-c71f617fdcd9" x="100" y="46" width="255" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_Modelo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9b8b5e8e-1bf4-4a00-9f3e-518f0f8a3447" x="0" y="46" width="100" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Modelo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0250b1a5-ce25-4e5f-957f-f7f28fa41403" x="355" y="23" width="120" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[No. Serie:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2db13673-d14f-4158-b4c7-ce844736a338" x="475" y="23" width="277" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="97640192-faa5-400f-9ee4-12fc8e83dfe7" x="100" y="69" width="652" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0d2f226c-5ed5-45b9-929a-e15d595227d1" x="0" y="69" width="100" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="31fb7bcd-49dd-4ba0-a352-382f9a4fe959" positionType="Float" x="355" y="46" width="120" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Cantidad:]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement uuid="05b34e54-71e4-47b5-8862-bd51f6c7eef7" positionType="Float" x="475" y="46" width="275" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="80b2a3a0-77f2-4797-b64c-d498f2b13c86" x="0" y="92" width="652" height="23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+					<paragraph firstLineIndent="2" leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="19f92293-4ff2-4a6f-aaef-8cda1140bbae" style="table" x="0" y="0" width="33" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c456b7b-52e7-4e4b-97a5-f05b426eea68" style="table" x="33" y="0" width="67" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TARIMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ccef8048-d89a-4a19-a5a4-af2c75b3ff0a" style="table" x="206" y="0" width="246" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6fa39cda-a53e-404c-94de-5f981fd17dd8" style="table" x="452" y="0" width="161" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="886f321c-1638-40da-8f99-7f2c6aa94fd1" style="table" x="613" y="0" width="137" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No. SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="291393b2-3708-41e0-80d5-b1b25c929dff" style="table" x="100" y="0" width="106" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CLAVE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<lastPageFooter>
+		<band height="18">
+			<staticText>
+				<reportElement uuid="e257f5d5-99e7-4c10-b29a-9d0e41255ff9" x="658" y="0" width="94" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MDF-OPE-F26]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="209">
+			<image hAlign="Center">
+				<reportElement uuid="fd8bb583-20f2-4383-88ba-fedab779e4e7" x="221" y="1" width="323" height="208" isPrintWhenDetailOverflows="true"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+    new com.google.zxing.qrcode.QRCodeWriter().encode(
+        $F{clave}+"|"+$F{lote}+"|"+$F{caducidad}+"|"+$F{cantidad}
+        +"|"+$F{F_Cb}+"||"+$F{ubicacion}+"|"+$F{fabrica}+"|"+$F{marca}
+        +"|"+$F{proyecto}+"|"+$F{nombre}+"|"+$F{origen}+"|"+$F{F_Modelo}+"|"+$F{observa},com.google.zxing.BarcodeFormat.QR_CODE, 300, 300
+    )
+)]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>

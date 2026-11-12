@@ -29,24 +29,26 @@
         <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
         <script src="../js/bootstrap.js"></script>
         <script src="../js/jquery-ui.js"></script>
-        <script src="../js/marbetesGeneracion.js"></script>
+        <script src="../js/marbetes/marbetesGeneracion.js"></script>
     </head>
     <body>
         <div class="container">
+            
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
+            
             <%@include file="../jspf/menuPrincipal.jspf" %>  
+            
             <div class="row">
                 <h3 class="col-sm-3">Generar Marbetes</h3>
                 <div class="col-sm-2 col-sm-offset-2">
-                    <br/>
                     <input id="tipoUsuario" value="<%=tipo%>"  type="hidden">
-
                 </div>
                 <br/>
                 <br/>
                 <hr/>
             </div> 
+                    
             <div class=" panel panel-success" >
                 <div class="panel-heading">
                     <h4>Ingresar datos</h4>
@@ -80,17 +82,17 @@
                                 %>
                             </select>
                         </div>
-                       
+
                         <h5 class="col-sm-1 text-success" style="font-weight: bold;">Ruta</h5>      
                         <div class="col-sm-2">
                             <select id="RutaN" name="RutaN" class="form-control">
                                 <option value="0">--Seleccione--</option>
                                 <option value="1">RUTA ORDINARIA</option>
-                               
+
                                 <option value="3">URGENTE</option>
                             </select>
                         </div>
-                         <div class="col-lg-1 col-md-1 col-sm-1" >
+                        <div class="col-lg-1 col-md-1 col-sm-1" >
                             <button class="btn btn-success" type="button" id="searchButton" ><span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>  
@@ -129,58 +131,58 @@
                 </div>
             </div>
         </div> 
-      
-         <script src="js/jquery-1.9.1.js"></script>
+        <%@include file="../jspf/piePagina.jspf"%>
+        <script src="js/jquery-1.9.1.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/bootstrap3-typeahead.js" type="text/javascript"></script>                    
-                            
-        <script> 
-                            
-            function filterInteger(evt,input) {
-   
-                var key = window.Event ? evt.which : evt.keyCode;    
-                var chark = String.fromCharCode(key);
-                var tempValue = input.value+chark;
-                    
-                    if((key >= 48 && key <= 57) ) {
-                        return filter(tempValue);
-                    } else {
-                        return key == 8 || key == 13 || key == 0;
-                    }
-                }
-                
-            function filter(__val__) {
-                var preg = /^[0-9]*$/;
-            return preg.test(__val__);
-            }
-            
-            document.getElementById('marbetNumber').addEventListener('keypress', function(evt) {
-                if (filterInteger(evt, evt.target) === false) {
-            evt.preventDefault();
-            }
-            });
-            
-            document.getElementById('folNumber').addEventListener('keypress', function(evt) {
-                if (filterInteger(evt, evt.target) === false) {
-            evt.preventDefault();
-            }
-            });
-            
-            document.getElementById('ruta').addEventListener('keypress', function(evt) {
-                if (filterInteger(evt, evt.target) === false) {
-            evt.preventDefault();
-            }
-            });
-            
-           
-            
-            const campoNumerico = document.getElementById('marbetNumber');
 
-if (campoNumerico === 0) {
-    
-    alert('valor no valido')
-}
-            
+        <script>
+
+                                function filterInteger(evt, input) {
+
+                                    var key = window.Event ? evt.which : evt.keyCode;
+                                    var chark = String.fromCharCode(key);
+                                    var tempValue = input.value + chark;
+
+                                    if ((key >= 48 && key <= 57)) {
+                                        return filter(tempValue);
+                                    } else {
+                                        return key == 8 || key == 13 || key == 0;
+                                    }
+                                }
+
+                                function filter(__val__) {
+                                    var preg = /^[0-9]*$/;
+                                    return preg.test(__val__);
+                                }
+
+                                document.getElementById('marbetNumber').addEventListener('keypress', function (evt) {
+                                    if (filterInteger(evt, evt.target) === false) {
+                                        evt.preventDefault();
+                                    }
+                                });
+
+                                document.getElementById('folNumber').addEventListener('keypress', function (evt) {
+                                    if (filterInteger(evt, evt.target) === false) {
+                                        evt.preventDefault();
+                                    }
+                                });
+
+                                document.getElementById('ruta').addEventListener('keypress', function (evt) {
+                                    if (filterInteger(evt, evt.target) === false) {
+                                        evt.preventDefault();
+                                    }
+                                });
+
+
+
+                                const campoNumerico = document.getElementById('marbetNumber');
+
+                                if (campoNumerico === 0) {
+
+                                    alert('valor no valido')
+                                }
+
         </script>                           
     </body>
 </html>

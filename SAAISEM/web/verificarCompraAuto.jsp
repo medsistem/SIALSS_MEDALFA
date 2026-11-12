@@ -808,108 +808,6 @@
     <!--FIN MODAL PARA EDITAR-->               
 
 
-
-    <!--MODAL PARA RECHAZAR
-    <div class="modal fade" id="Rechazar" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="Rechazos" method="get">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h4 class="modal-title" id="myModalLabel">Rechazar Orden de Compra</h4>
-                            </div>
-                            <div class="col-sm-2">
-                                <input name="NoCompraRechazo" id="NoCompraRechazo" value="" class="form-control" readonly="" />
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-sm-12">
-                                Proveedor:
-                            </div>
-                            <div class="col-sm-12">
-                                Fecha y Hora 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4>Observaciones de Rechazo</h4>
-                            </div>
-                            <div class="col-sm-12">
-                                <textarea class="form-control" placeholder="Observaciones" name="rechazoObser" id="rechazoObser" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4>Fecha de nueva recepción</h4>
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="date" class="form-control" id="FechaOrden" name="FechaOrden" />
-                            </div>
-                            <div class="col-sm-6">
-                                <select class="form-control" id="HoraOrden" name="HoraOrden">
-                                    <option value=":00">:00</option>
-                                    <option value=":30">:30</option>
-                                    <option value=":00">:00</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4>Correo del proveedor</h4>
-                                <input type="email" class="form-control" id="correoProvee" name="correoProvee" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h4>Claves a Cancelar</h4>
-                                <h6>*Deseleccione las claves que no va a cancelar</h6>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="checkbox">
-                                    <h4><input type="checkbox" checked name="todosChk" id="todosChk" onclick="checkea(this)">Seleccionar todas</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="table table-bordered">
-
-                                    <tr>
-
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" checked="" name="chkCancela" value="">
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-                                </table>
-                            </div>
-                        </div>
-                        <div class="text-center" id="imagenCarga" style="display: none;" > 
-                            <img src="imagenes/ajax-loader-1.gif" alt="loader">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" onclick="return validaRechazo();
-                                " name="accion" value="Rechazar">Rechazar OC</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>-->
-    <!--FIN MODAL PARA RECHAZAR-->
-
-
     <%@include file="jspf/piePagina.jspf" %>
 
     <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
@@ -920,7 +818,6 @@
     <script src="js/select2.js" type="text/javascript"></script>        
     <script src="js/sweetalert.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!--script src="./js/reporteador/datatables.min.js"></script-->
 
     <script>
 
@@ -1065,7 +962,6 @@
                     Nomcor = data.marcaComercial;
                     ClaveComer = data.ClaPro;
 
-
                     if (data.volumetria) {
                         $("#pesoPiezaNuevo").val(data.volumetria.pesoPieza);
                         $("#unidadPesoPiezaNuevo").val(data.volumetria.unidadPesoPieza);
@@ -1102,8 +998,6 @@
                     $("#btnModal").click();
 
                     console.log("MArca Comercial: " + Nomcor);
-                    //  $("#NombreRNuevo").select2();
-
 
                     if (Nomcor !== null && Nomcor !== "") {
 
@@ -1117,26 +1011,6 @@
                     } else {
                         $('#NombreRNuevo').prop('disabled', 'disabled');
                     }
-
-
-
-
-                    /*para la unidad*/
-                    /* if (unifon !== null && unifon !== ""){
-                     
-                     let tempfon = data.arrayjsonfon;
-                     let arr2 = tempfon.sort();
-                     var $select1 = $('#UFonnuevo');
-                     $select1.append('<option value='+unifon +'>' +unifon+ '</option>');
-                     
-                     }else{
-                     $('#UFonnuevo').prop('disabled', 'disabled');  
-                     }*/
-
-
-
-                    /**/
-
 
                     validaOrigen();
                     validaCad();

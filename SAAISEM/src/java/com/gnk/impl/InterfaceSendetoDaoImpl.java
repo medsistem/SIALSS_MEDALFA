@@ -94,7 +94,7 @@ private static String DATOS_FONSABI_CONTAR = "SELECT COUNT(*) FROM tb_uniatn AS 
 
     private static String INSERTAR_COMPRA_REGISTRO = "INSERT INTO tb_compraregistro SET F_FecApl=CURDATE(),F_ClaPro=?,F_Lote=?,F_FecCad=?,F_FecFab=?,F_Marca=?,F_ProVee=?,F_Cb=?,F_Tarimas=?,F_Cajas=?,F_Pz=?,F_TarimasI=0,F_CajasI=0,F_Resto=?,F_Costo=?,F_ImpTo=?,F_ComTot=?,F_Obser='',F_FolRemi=?,F_OrdCom=?,F_ClaOrg=?,F_User=?,F_Proyecto=?, F_FuenteFinanza = ?;";
 
-    private static String INSERTAR_TB_CB = "INSERT INTO tb_cb SET F_Cb=?,F_ClaPro=?,F_ClaLot=?,F_FecCad=?,F_FecFab=?,F_ClaMar=?,F_FactorEmpaque = ?;";
+    private static String INSERTAR_TB_CB = "INSERT INTO tb_cb SET F_Cb=?,F_ClaPro=?,F_ClaLot=?,F_FecCad=?,F_FecFab=?,F_ClaMar=?,F_FactorEmpaque = ?,F_Observacion = ?;";
 
     private static String INSERTAR_TB_UNIDADFONSABI = "INSERT INTO tb_unidadfonsabi SET F_Clacli = ?, F_FolLot = ?";
     
@@ -504,6 +504,7 @@ private ResultSet rsnom, rsfon;
                 psTbCb.setString(5, c.getFabricacion());
                 psTbCb.setInt(6, c.getMarca());
                 psTbCb.setInt(7, c.getFactorEmpaque());
+                psTbCb.setString(8, "-");
                 psTbCb.execute();
                 psTbCb.clearParameters();
 
@@ -757,6 +758,7 @@ private ResultSet rsnom, rsfon;
                 psTbCb.setString(5, c.getFabricacion());
                 psTbCb.setInt(6, c.getMarca());
                 psTbCb.setInt(7, c.getFactorEmpaque());
+                psTbCb.setString(8, "-");
                 psTbCb.execute();
                 psTbCb.clearParameters();
                 
@@ -1630,6 +1632,7 @@ private ResultSet rsnom, rsfon;
                 psTbCb.setString(5, c.getFabricacion());
                 psTbCb.setInt(6, c.getMarca());
                 psTbCb.setInt(7, c.getFactorEmpaque());
+                psTbCb.setString(8, "-");
                 psTbCb.execute();
                 psTbCb.clearParameters();
                 

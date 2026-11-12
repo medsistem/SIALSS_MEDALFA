@@ -19,6 +19,7 @@ import servlets.Facturacion;
 import ISEM.*;
 import Modula.AbastoModula;
 import Modula.RequerimientoModula;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -547,6 +548,8 @@ public class FacturacionManual extends HttpServlet {
                 } catch (Exception e) {
                 }
             }
+            
+            /***yA NO ES vALIDA*///
             if (request.getParameter("accion").equals("remisionCamion")) {
 
                 try {
@@ -668,7 +671,7 @@ public class FacturacionManual extends HttpServlet {
                     //Aqui tenemos que poner en nulo la variable de folio de dactura
                     out.println("<script>window.open('reimpFactura.jsp?fol_gnkl=" + idFact + "','_blank')</script>");
                     out.println("<script>window.location='remisionarCamion.jsp'</script>");
-                } catch (Exception e) {
+                } catch (UnsupportedEncodingException | NumberFormatException | SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -821,27 +824,11 @@ public class FacturacionManual extends HttpServlet {
                     System.out.println(e.getMessage());
                 }
             }
+            
+            
+            /**********/
             if (request.getParameter("accion").equals("ConfirmarFactura")) {
-                try {
-                    con.conectar();
-                    //RequerimientoModula reqMod = new RequerimientoModula();
-                    //reqMod.enviaRequerimiento((String) sesion.getAttribute("F_IndGlobal"));
-                    //con.insertar("update tb_facttemp set F_StsFact = '0' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
-                    con.cierraConexion();
-                    /*
-                     sesion.setAttribute("F_IndGlobal", null);
-                     sesion.setAttribute("ClaCliFM", "");
-                     sesion.setAttribute("FechaEntFM", "");
-                     sesion.setAttribute("ClaProFM", "");
-                     sesion.setAttribute("DesProFM", "");
-                     response.sendRedirect("facturacionManual.jsp");
-                     */
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-
-                ////----------------------------------------------------------------------------------------------------
-                ////----------------------------------------------------------------------------------------------------
+               
                 int FolioFactura = 0, FolFact = 0;
                 String FechaE = "";
                 try {
@@ -849,7 +836,6 @@ public class FacturacionManual extends HttpServlet {
                     con.conectar();
 
                     ResultSet rsetFactTemp = con.consulta("select F_Id, F_IdFact, F_ClaCli from tb_facttemp where F_StsFact=3 and F_User = '" + (String) sesion.getAttribute("nombre") + "' group by F_IdFact  ");
-//consql.conectar();
 
                     while (rsetFactTemp.next()) {
                         FolioFactura = 0;
@@ -947,6 +933,7 @@ public class FacturacionManual extends HttpServlet {
                         }
 
                         con.insertar("insert into tb_obserfact values ('" + idFact + "','" + Observaciones + "',0,'M', '" + tipo + "')");
+                        
                         //out.println("<script>window.open('reimpFactura.jsp?fol_gnkl=" + idFact + "','_blank')</script>");
                         //Finaliza
                         //consql.cierraConexion();
@@ -959,10 +946,12 @@ public class FacturacionManual extends HttpServlet {
                     sesion.setAttribute("F_IndGlobal", null);
                     //Aqui tenemos que poner en nulo la variable de folio de dactura
                     out.println("<script>window.location='facturacionManual.jsp'</script>");
-                } catch (Exception e) {
+                } catch (UnsupportedEncodingException | NumberFormatException | SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }
+           
+            
             if (request.getParameter("accion").equals("ReenviarFactura")) {
                 RequerimientoModula reqMod = new RequerimientoModula();
                 reqMod.enviaRequerimiento(request.getParameter("fol_gnkl"), request.getParameter("idproyecto"));

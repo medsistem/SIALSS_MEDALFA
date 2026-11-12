@@ -145,6 +145,31 @@ public class marbetesGenerar extends HttpServlet {
                 } catch (NumberFormatException | IOException e) {
                     Logger.getLogger(marbetesGenerar.class.getName()).log(Level.SEVERE, null, e);
                 }
+            case 2:
+                try {
+                    String Clave = request.getParameter("Clave");
+                    String Lote = request.getParameter("unidad");
+                    int Proyecto = Integer.parseInt(request.getParameter("Proyecto"));
+               
+                    Map marbeteMap = new LinkedHashMap();
+                    marbetesDao marbete = new marbeteDaoImpl();
+                    
+                    System.out.println("Lote: "+Lote);
+                  //  boolean guardado = marbete.insertar(unidad, folio, marbeteCantidad, Proyecto, ruta, RutaN);
+                 //  if (guardado) {
+                        marbeteMap.put("msj", "realizado");
+                //    } else {
+               //         marbeteMap.put("msj", "fallo");
+               //     }
+                    String json1;
+                    json1 = new Gson().toJson(marbeteMap);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(json1);
+
+                } catch (NumberFormatException | IOException e) {
+                    Logger.getLogger(marbetesGenerar.class.getName()).log(Level.SEVERE, null, e);
+                }    
                 break;
         }
 

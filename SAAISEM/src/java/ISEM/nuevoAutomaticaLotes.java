@@ -120,7 +120,7 @@ public class nuevoAutomaticaLotes extends HttpServlet {
 
                         con.insertar("update tb_compratemp set F_Cb = '" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "', F_FecCad = '" + F_FecCadAct + "', F_FecFab='" + fecFab + "', F_Marca = '" + F_MarcaAct + "' where F_IdCom='" + rsetComTemp.getString("F_IdCom") + "'");
 
-                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + rsetComTemp.getString("F_FecCad") + "','" + rsetComTemp.getString("F_FecFab") + "','" + rsetComTemp.getString("F_Marca") + "')");
+                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + rsetComTemp.getString("F_FecCad") + "','" + rsetComTemp.getString("F_FecFab") + "','" + rsetComTemp.getString("F_Marca") + "', '-')");
                     }
                     //ConectionDB_SQLServer conModula = new ConectionDB_SQLServer();
                     //conModula.conectar();
@@ -333,7 +333,7 @@ public class nuevoAutomaticaLotes extends HttpServlet {
 
                         con.insertar("update tb_compratempisem set F_Cb = '" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "', F_FecCad = '" + F_FecCadAct + "', F_FecFab='" + fecFab + "', F_Marca = '" + F_MarcaAct + "' where F_IdCom='" + rsetComTemp.getString("F_IdCom") + "'");
 
-                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + rsetComTemp.getString("F_FecCad") + "','" + rsetComTemp.getString("F_FecFab") + "','" + rsetComTemp.getString("F_Marca") + "')");
+                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + rsetComTemp.getString("F_FecCad") + "','" + rsetComTemp.getString("F_FecFab") + "','" + rsetComTemp.getString("F_Marca") + "', '-')");
                     }
                     //ConectionDB_SQLServer conModula = new ConectionDB_SQLServer();
                     //conModula.conectar();
@@ -556,7 +556,7 @@ public class nuevoAutomaticaLotes extends HttpServlet {
 
                         con.insertar("update tb_compratemp set F_Estado='2', F_Cb = '" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "', F_FecCad = '" + F_FecCadAct + "', F_FecFab='" + fecFab + "', F_Marca = '" + F_MarcaAct + "' where F_IdCom='" + rsetComTemp.getString("F_IdCom") + "'");
 
-                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "')");
+                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + rsetComTemp.getString("F_Lote") + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "', '-')");
                     }
                     con.cierraConexion();
                     out.println("<script>alert('Remisión Validada Correctamente')</script>");
@@ -605,7 +605,7 @@ public class nuevoAutomaticaLotes extends HttpServlet {
 
                         con.insertar("update tb_compratemp set F_Lote= '" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "',F_Pz= '" + request.getParameter("F_Cant" + rsetComTemp.getString("F_IdCom")) + "',F_Cb = '" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "', F_FecCad = '" + F_FecCadAct + "', F_FecFab='" + fecFab + "', F_Marca = '" + F_MarcaAct + "' where F_IdCom='" + rsetComTemp.getString("F_IdCom") + "'");
 
-                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "')");
+                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "', '-')");
                     }
                     //conModula.conectar();
                     //consql.conectar();
@@ -819,7 +819,7 @@ public class nuevoAutomaticaLotes extends HttpServlet {
 
                         con.insertar("update tb_compratempisem set F_Lote= '" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "',F_Pz= '" + request.getParameter("F_Cant" + rsetComTemp.getString("F_IdCom")) + "',F_Cb = '" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "', F_FecCad = '" + F_FecCadAct + "', F_FecFab='" + fecFab + "', F_Marca = '" + F_MarcaAct + "' where F_IdCom='" + rsetComTemp.getString("F_IdCom") + "';");
 
-                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "');");
+                        con.insertar("insert into tb_cb values (0,'" + request.getParameter("F_Cb" + rsetComTemp.getString("F_IdCom")) + "','" + rsetComTemp.getString("F_ClaPro") + "','" + request.getParameter("F_Lote" + rsetComTemp.getString("F_IdCom")) + "','" + F_FecCadAct + "','" + fecFab + "','" + F_MarcaAct + "', '-');");
                     }
                     //conModula.conectar();
                     //consql.conectar();

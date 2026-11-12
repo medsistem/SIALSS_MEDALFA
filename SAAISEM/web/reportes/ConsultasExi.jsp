@@ -98,11 +98,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Estilos CSS -->
         <link href="../css/bootstrap.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="../css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="../css/cupertino/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
         <link href="../css/datepicker3.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../css/dataTables.bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/table-fixed.css">
+        <link href="../css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" >
+        <link href="../css/table-fixed.css" rel="stylesheet" type="text/css">
         <!---->
         <title>SIALSS</title>
 

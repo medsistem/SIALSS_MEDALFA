@@ -307,14 +307,8 @@
 
 
         </script>
-      <!-- < % if (ingreso.equals("normal")) {%>-->
        
         <script src="${generalContext}/js/kardex/kardexReload.js" ></script>
-              
-     <!--      < % } else { %>
-           
-        <script src="${generalContext}/js/kardex/kardexCliente.js" ></script>
-        < % } %>
-        -->
+    
     </body>
 </html>

@@ -106,11 +106,15 @@
             <% } else {%>
             <%@include file="jspf/menuPrincipal.jspf" %>
             <% }%>
+
             <div class="panel panel-success">
+
                 <div class="panel-heading">
                     <h3 class="panel-title">Captura de Insumo</h3>
                 </div>
+
                 <form class="form-horizontal" role="form" name="formulario1" id="formulario1" method="post" action="Altas">
+
                     <div class="panel-body">
                         <div class="row">
                             <label for="folio" class="col-sm-2 control-label">No. Folio MEDALFA</label>
@@ -185,6 +189,7 @@
                         <!--button class="btn btn-block btn-info">Guardar</button-->
                         <!-- En duda -->
                     </div>
+
                     <div class="panel-footer">
                         <div class="row">
                             <label for="codigo" class="col-sm-1 control-label">C.B</label>
@@ -238,7 +243,8 @@
                                 <textarea   class="form-control" name="descripci" id="descripci" readonly onKeyPress="return tabular(event, this)"><%=descrip%></textarea>
                             </div>
                         </div>
-
+                    </div>     
+                    <div class="panel-body">
                         <br/>
                         <div class="row">                           
                             <div class="col-md-6">
@@ -308,6 +314,7 @@
                                 <label for="prov" class="control-label"><a href="marcas.jsp" target="_blank">Alta de Marca</a></label>
                             </div>
                         </div>
+                        <br/>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cb" class=" control-label">Código de Barras</label>
@@ -332,7 +339,7 @@
                                 <input type="text" class="form-control" id="confirm_Lote" placeholder="Lote" onKeyPress="return tabular(event, this)" onfocusout="confirmaCampo('Lote')" onpaste="return false"/>
                             </div>
                         </div>
-                        <br>
+                        <hr/>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="Caducidad" class="col-sm-4 control-label">Caducidad</label>
@@ -553,7 +560,9 @@
                         </div>
                     </div>
                     <%}%>
-                    <br/>
+
+                    <hr/>
+
                     <div class="row">
 
 
@@ -563,7 +572,7 @@
                                 <%
                                     try {
                                         con.conectar();
-                                        ResultSet rsetOrigen = con.consulta("SELECT * FROM tb_origen WHERE F_ClaOri <> '2';");
+                                        ResultSet rsetOrigen = con.consulta("SELECT * FROM tb_origen;");
                                         while (rsetOrigen.next()) {
                                 %>
                                 <option value="<%=rsetOrigen.getString(1)%>"><%=rsetOrigen.getString(2)%></option>
@@ -595,7 +604,7 @@
                                             if (rset.next()) {
                                                 Proyecto = rset.getString(9);
                                             }
-                                            rset3 = con.consulta("SELECT * FROM tb_proyectos p WHERE p.F_Id IN ("+Proyecto+");");
+                                            rset3 = con.consulta("SELECT * FROM tb_proyectos p WHERE p.F_Id IN (" + Proyecto + ");");
                                         } else {
                                             rset3 = con.consulta("SELECT * FROM tb_proyectos;");
                                         }
@@ -628,7 +637,7 @@
                                         con.conectar();
                                         ResultSet rset3 = null;
                                         System.out.println("");
-                                        rset3 = con.consulta("select F_Id,F_NombreComercial from tb_nombrecomercial where F_ClaPro = " + clave);
+                                        rset3 = con.consulta("select F_Id,F_NombreComercial from tb_nombrecomercial");
                                         while (rset3.next()) {
                                 %>
                                 <option value="<%=rset3.getString("F_NombreComercial")%>"><%=rset3.getString("F_NombreComercial")%></option>
@@ -646,53 +655,10 @@
                                     }
                                 %>
                             </select>  
-
-
-
                         </div>    
-
-
                     </div>  
 
-
-                    <br/>
-                    <!-- <div class="row">
-                         <div class="col-sm-4">
-                             <strong>Orden de Suministro:</strong>
-                             <input name="ordenSuministro" id="ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" style="-webkit-text-security: disc;" autocomplete="off" />
-                         </div>
-                         <div class="col-sm-4">
-                             <strong>Confirmar Orden de Suministro:</strong>
-                             <input name="confirm_ordenSuministro" id="confirm_ordenSuministro" type="text" class="form-control" onkeypress="return tabular(event, this)" onpaste="return false" onfocusout="confirmaCampo('ordenSuministro')" autocomplete="off"/>
-                         </div>
-                         <div class="col-sm-4">
-                             <strong>Unidad:</strong>
-                             <select class="form-control" name="unidadFonsabi" id="unidadFonsabi"  onChange="validaUnidad(this.value)">
-                                 <option value="S/U">Sin conocimieno de unidad destino</option>
-                    <%                                            try {
-                            con.conectar();
-
-                            ResultSet rset3 = con.consulta("SELECT * FROM tb_uniatn AS U WHERE U.F_ClaCli LIKE '%%AI' AND F_StsCli = 'A';");
-                            while (rset3.next()) {
-                    %>
-                    
-                    <option value="<%=rset3.getString(1)%>"><%=rset3.getString(2)%></option>
-                    <%
-                            }
-                        } catch (Exception e) {
-                            Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, e);
-                        } finally {
-                            try {
-                                con.cierraConexion();
-                            } catch (Exception ex) {
-                                Logger.getLogger("compraAuto3.jsp").log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    %>
-                </select>
-            </div>
-        </div>-->
-                    <br/>
+                    <hr/>
                     <h5><strong>Tarimas Completas</strong></h5>
                     <div class="row form-inline" style="text-align: right;">
                         <div class="col-md-4">
@@ -755,34 +721,6 @@
                         </div>
                     </div>
 
-                    <hr/>
-                    <h5><strong>Totales</strong></h5>
-                    <div class="row">
-
-                        <label for="Cajas" class="col-sm-1 control-label">Tarimas</label>
-                        <div class="col-sm-1">
-                            <input type="text" class="form-control" id="Tarimas" name="Tarimas" placeholder="0" readonly="" onKeyPress="return justNumbers(event);
-                                    return handleEnter(even);" onkeyup="totalPiezas();" onclick="" />
-                        </div>
-                        <label for="pzsxcaja" class="col-sm-1 control-label">Cajas Completas</label>
-                        <div class="col-sm-1">
-                            <input type="text" class="form-control" id="Cajas" name="Cajas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
-                        </div>
-                        <label for="CajasIn" class="col-sm-1 control-label">Cajas Incompletas</label>
-                        <div class="col-sm-1">
-                            <input type="text" class="form-control" id="CajasIn" name="CajasIn" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
-                        </div>
-                        <label for="TCajas" class="col-sm-1 control-label">Total Cajas</label>
-                        <div class="col-sm-1">
-                            <input type="text" class="form-control" id="TCajas" name="TCajas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
-                        </div>
-                        <label for="Resto" class="col-sm-1 control-label">Piezas</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="Piezas" name="Piezas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick="" />
-                        </div>
-                    </div>
-
-
                     <hr>
                     <h4><strong>Confirmar cantidades</strong></h4>
                     <h5><strong>Tarimas Completas</strong></h5>
@@ -806,7 +744,9 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+
+                    <hr/>
+
                     <h5><strong>Tarimas Incompletas</strong></h5>
                     <div class="row form-inline" style="text-align: right;">
                         <div class="col-md-4">
@@ -842,14 +782,44 @@
                             </div>
                         </div>
                     </div>
-                    <hr/>
+                    <br/>
+
+                    <div class="panel panel-footer">
+                        <h5><strong>Totales</strong></h5>
+                        <div class="row">
+
+                            <label for="Cajas" class="col-sm-1 control-label">Tarimas</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="Tarimas" name="Tarimas" placeholder="0" readonly="" onKeyPress="return justNumbers(event);
+                                        return handleEnter(even);" onkeyup="totalPiezas();" onclick="" />
+                            </div>
+                            <label for="pzsxcaja" class="col-sm-1 control-label">Cajas Completas</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="Cajas" name="Cajas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
+                            </div>
+                            <label for="CajasIn" class="col-sm-1 control-label">Cajas Incompletas</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="CajasIn" name="CajasIn" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
+                            </div>
+                            <label for="TCajas" class="col-sm-1 control-label">Total Cajas</label>
+                            <div class="col-sm-1">
+                                <input type="text" class="form-control" id="TCajas" name="TCajas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick=""/>
+                            </div>
+                            <label for="Resto" class="col-sm-1 control-label">Piezas</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="Piezas" name="Piezas" placeholder="0" readonly="" onKeyPress="return justNumbers(event); return handleEnter(event);" onkeyup="totalPiezas();" onclick="" />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
                     <div class="row">
                         <label for="Cajas" class="col-sm-2 control-label">Observaciones</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" name="Observaciones" id="Observaciones" rows="3"></textarea>
                         </div>
                     </div>
-                    <hr/>
+                    <br/>
                     <div class="row">
                         <div class="col-sm-12">
                             <!-- En duda -->
@@ -867,10 +837,12 @@
                             <!-- En duda -->
                         </div>
                     </div>
+
                 </form>
             </div>
 
         </div>
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tr>
@@ -934,6 +906,7 @@
 
 
         </div>
+
 
         <%
             if (banCompra == 1) {
@@ -1129,8 +1102,7 @@
                             document.getElementById('list_marca').focus();
                             window.scrollTo(0, 380);
                         }
-    <%
-        try {
+    <%        try {
             if (sesion.getAttribute("CBInex").equals("1") && Cuenta == 0) {
     %>
                         if (document.formulario1.cb.value === "") {
