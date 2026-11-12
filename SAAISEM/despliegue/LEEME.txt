@@ -1,0 +1,23 @@
+﻿SIALSS_MDF_1 - instalación en Tomcat 11 (Java 17)
+
+Compilar
+  JDK 17 y Maven 3.9:  mvn -DskipTests package   ->  target\SIALSS_MDF_1.war
+
+Configuración (.env)
+  1. Copie ..\.env.example a C:\Despliegue\SIALSS_MDF_1\sialss.env
+     (o a otra ruta y ponga esa ruta en la variable de entorno SIALSS_ENV del servicio de Tomcat).
+     Revise que el nombre sea exactamente sialss.env (no sialss.env.txt).
+  2. Llene las contraseñas: BD_CONTRASENA (usuario sialss_mdf) y las de recepción, auditoría,
+     almacén y facturación. Son los mismos usuarios de base que ya usaba el sistema.
+  3. BD_URL apunta a 127.0.0.1; si la base está en otro equipo, cámbielo.
+  Alternativa: declarar los recursos jdbc/... en META-INF/context.xml (ver el comentario de ese archivo);
+  si existen, ganan sobre el .env.
+
+Instalar
+  1. En el Manager de Tomcat 11: "Replegar" /SIALSS_MDF_1 si ya existe.
+  2. Desplegar target\SIALSS_MDF_1.war.
+  3. Entrar a http://<servidor>:8080/SIALSS_MDF_1/indexalmacen.jsp
+
+Si falla
+  logs\catalina.<fecha>.log: busque "Configuración leída de" (ruta del .env que se usó) o
+  "Falta BD_..." (dato faltante en el .env).
