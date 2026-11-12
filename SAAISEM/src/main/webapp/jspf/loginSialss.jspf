@@ -1,0 +1,96 @@
+<%-- Pantalla de inicio de sesión común (diseño de SALPE, colores de Medalfa, fondo animado).
+     La página que lo incluye define antes, con estos nombres exactos:
+       String loginModulo  -> "Almacén", "Compras", "Auditoría" (lema bajo SIALSS y título de la pestaña)
+       String loginAccion  -> servlet que valida ("login", "loginISEM", "LoginAuditoria")
+       String loginCampo   -> nombre del campo de usuario que espera ese servlet ("nombre" o "usuario")
+     Al mostrarse cierra la sesión anterior (sirve también como "Cerrar sesión"). --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    String mensajeLogin = (String) session.getAttribute("mensaje");
+    session.invalidate();
+    if (mensajeLogin == null && "inactividad".equals(request.getParameter("motivo"))) {
+        long minutosCierre = mx.medalfa.sialss.seguridad.PoliticaSesion.cierreMs() / 60000;
+        mensajeLogin = "Su sesión se cerró por " + minutosCierre + (minutosCierre == 1 ? " minuto" : " minutos")
+                + " sin actividad. Vuelva a iniciar sesión.";
+    }
+    if (mensajeLogin != null) {
+        mensajeLogin = mensajeLogin.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
+    }
+    String ctxLogin = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SIALSS <%=loginModulo%> · Iniciar sesión</title>
+        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.4" rel="stylesheet">
+    </head>
+    <body class="sialss-login-pagina">
+        <!-- Fondo animado: cadena de suministro de medicamento y material de curación -->
+        <div class="sialss-login-fondo" aria-hidden="true">
+            <img src="<%=ctxLogin%>/imagenes/login-fondo-cadena.gif" alt="" width="1144" height="748">
+        </div>
+        <main class="sialss-login" aria-labelledby="titulo-login">
+            <div class="sialss-login__titulo">
+                <img src="<%=ctxLogin%>/imagenes/LogoMedalfa.png" alt="Medalfa" width="175" height="34">
+                <div>
+                    <p class="sialss-login__sistema">SIALSS</p>
+                    <p class="sialss-login__lema">Administración y logística para servicios de salud · <%=loginModulo%></p>
+                </div>
+            </div>
+            <h1 id="titulo-login">Iniciar sesión</h1>
+            <p class="sialss-secundario">Use el usuario que le asignó el departamento de sistemas.</p>
+
+            <form id="forma-login" action="<%=ctxLogin%>/<%=loginAccion%>" method="post" novalidate>
+                <label for="<%=loginCampo%>">Usuario</label>
+                <input type="text" id="<%=loginCampo%>" name="<%=loginCampo%>" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
+
+                <label for="pass">Contraseña</label>
+                <div class="sialss-campo-contrasena">
+                    <input type="password" id="pass" name="pass" autocomplete="current-password" required>
+                    <button type="button" class="sialss-boton-texto" id="ver-contrasena" aria-pressed="false" aria-controls="pass">Mostrar</button>
+                </div>
+
+                <% if (mensajeLogin != null) { %>
+                <p class="sialss-mensaje sialss-mensaje--error" role="alert"><%=mensajeLogin%></p>
+                <% } %>
+                <p id="login-error" class="sialss-mensaje sialss-mensaje--error" role="alert" hidden></p>
+
+                <button type="submit" class="sialss-boton sialss-boton--primario sialss-boton--ancho">Entrar</button>
+            </form>
+
+            <p class="sialss-aviso-legal">Uso exclusivo del personal autorizado. Cada acceso queda registrado.
+                Tras <%=mx.medalfa.sialss.seguridad.PoliticaSesion.intentosMaximos()%> intentos fallidos el usuario se bloquea y debe comunicarse con el administrador del sistema.</p>
+
+            <div class="sialss-login__pie">
+                <span>Versión 2.0.0 · Java 17 · Tomcat 11</span>
+                <a href="<%=ctxLogin%>/index.jsp">Volver al inicio</a>
+            </div>
+        </main>
+
+        <script>
+            (function () {
+                var boton = document.getElementById('ver-contrasena');
+                var campo = document.getElementById('pass');
+                var usuario = document.getElementById('<%=loginCampo%>');
+                boton.addEventListener('click', function () {
+                    var mostrar = campo.type === 'password';
+                    campo.type = mostrar ? 'text' : 'password';
+                    boton.textContent = mostrar ? 'Ocultar' : 'Mostrar';
+                    boton.setAttribute('aria-pressed', mostrar ? 'true' : 'false');
+                    campo.focus();
+                });
+                document.getElementById('forma-login').addEventListener('submit', function (ev) {
+                    var error = document.getElementById('login-error');
+                    if (!usuario.value.trim() || !campo.value) {
+                        ev.preventDefault();
+                        error.textContent = !usuario.value.trim() ? 'Escriba su usuario.' : 'Escriba su contraseña.';
+                        error.hidden = false;
+                        (!usuario.value.trim() ? usuario : campo).focus();
+                    }
+                });
+            })();
+        </script>
+    </body>
+</html>

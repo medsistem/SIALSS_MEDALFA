@@ -7,20 +7,23 @@ package mx.medalfa.sialss.seguridad;
 public enum Acceso {
 
     /** indexalmacen.jsp → servlet /login */
-    ALMACEN("tb_usuario", "indexalmacen.jsp", true),
+    ALMACEN("tb_usuario", "indexalmacen.jsp", "main_menu.jsp", true),
     /** indexCompras.jsp e indexMedalfa.jsp → servlet loginISEM */
-    COMPRAS("tb_usuariocompra", "indexCompras.jsp", false),
+    COMPRAS("tb_usuariocompra", "indexCompras.jsp", "main_menuCompras.jsp", false),
     /** indexAuditoria.jsp → servlet /LoginAuditoria (la tabla no existe en sialss_mdf) */
-    AUDITORIA("tb_usuarioauditoria", "indexAuditoria.jsp", false);
+    AUDITORIA("tb_usuarioauditoria", "indexAuditoria.jsp", "main_menuAuditoria.jsp", false);
 
     public final String tabla;
     public final String paginaLogin;
+    /** Menú principal de este acceso (logotipo de la barra y regreso tras desbloquear). */
+    public final String menu;
     /** Solo tb_usuario lleva además el registro en tb_usuariosuspendidos y la columna F_Area. */
     public final boolean registroSuspension;
 
-    Acceso(String tabla, String paginaLogin, boolean registroSuspension) {
+    Acceso(String tabla, String paginaLogin, String menu, boolean registroSuspension) {
         this.tabla = tabla;
         this.paginaLogin = paginaLogin;
+        this.menu = menu;
         this.registroSuspension = registroSuspension;
     }
 }

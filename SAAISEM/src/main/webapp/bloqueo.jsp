@@ -15,7 +15,7 @@
     // Solo rutas internas: evita redirigir a otro sitio.
     String volverBloqueo = request.getParameter("volver");
     if (volverBloqueo == null || !volverBloqueo.startsWith("/") || volverBloqueo.startsWith("//") || volverBloqueo.contains("\\")) {
-        volverBloqueo = "/main_menu.jsp";
+        volverBloqueo = "/" + accesoBloqueo.menu;
     }
     String nombreBloqueo = String.valueOf(session.getAttribute("nombre") == null ? "" : session.getAttribute("nombre"));
     java.util.function.UnaryOperator<String> attr = s -> s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
@@ -26,11 +26,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Sesión bloqueada</title>
-        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.3" rel="stylesheet">
+        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.4" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <noscript><p class="sialss-login">Active JavaScript para desbloquear la sesión.</p></noscript>
-        <script src="<%=ctxBloqueo%>/js/sialss-sesion.js?v=2.0.3" defer
+        <script src="<%=ctxBloqueo%>/js/sialss-sesion.js?v=2.0.4" defer
                 data-ctx="<%=ctxBloqueo%>"
                 data-bloqueo="<%=PoliticaSesion.bloqueoMs() / 1000%>"
                 data-cierre="<%=PoliticaSesion.cierreMs() / 1000%>"

@@ -65,7 +65,7 @@ public class SesionFilter extends HttpFilter {
         }
         String volver = "GET".equalsIgnoreCase(req.getMethod())
                 ? ruta + (req.getQueryString() == null ? "" : "?" + req.getQueryString())
-                : "/main_menu.jsp";
+                : "/" + PoliticaSesion.acceso(s).menu;
         res.sendRedirect(req.getContextPath() + "/bloqueo.jsp?volver=" + URLEncoder.encode(volver, StandardCharsets.UTF_8));
     }
 
