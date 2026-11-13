@@ -24,7 +24,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS <%=loginModulo%> · Iniciar sesión</title>
-        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.5" rel="stylesheet">
+        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.6" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <!-- Fondo animado: cadena de suministro de medicamento y material de curación -->

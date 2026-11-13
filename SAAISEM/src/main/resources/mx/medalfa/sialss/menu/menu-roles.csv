@@ -95,3 +95,4 @@ COMPRAS;USUARIO;Parámetro Facturación;ParametrofacturaU.jsp;0;14
 ALMACEN;USUARIO;Menús por Perfil y Usuario;MenuRoles.jsp;0;1,5
 ALMACEN;USUARIO;Mi PIN de Acceso;MiPin.jsp;0;1,2,3,4,5,6,17
 COMPRAS;USUARIO;Mi PIN de Acceso;MiPin.jsp;0;13,14,15
+ALMACEN;INVENTARIO;Etiquetas de Ubicación;EtiquetasUbicacion.jsp;0;1,2,3,5
