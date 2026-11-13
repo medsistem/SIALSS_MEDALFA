@@ -99,6 +99,7 @@
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
         <title>SIALSS</title>
+        <link href="css/sialss-app.css?v=2.0.8" rel="stylesheet">
     </head>
     <body>
         <div class="container">

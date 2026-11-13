@@ -48,203 +48,167 @@
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
+        <link href="css/sialss-app.css?v=2.0.8" rel="stylesheet">
         <!---->
         <title>SIALSS</title>
     </head>
     <body>
-        <div class="container">
+        <%
+            int anioCatalogo = java.time.LocalDate.now().getYear();
+            String[][] nivelesUnidad = {
+                {"1", "UM y C"}, {"2", "CSR"}, {"3", "CSU, CAT, UNEMES y geriátricos"}, {"4", "CEAPS"},
+                {"5", "CISAME"}, {"6", "MAT"}, {"7", "MOyCAE"}, {"8", "HM"},
+                {"9", "HG"}, {"10", "HMI"}, {"11", "HSV"}, {"12", "HMI Pretelini"},
+                {"13", "CM"}, {"14", "HP"}, {"15", "S.U.E.M."}, {"16", "LESP"}};
+        %>
+        <div class="container sialss-insumo">
             <h1>MEDALFA</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
             <hr/>
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Catalogo de Insumo para la Salud</h3>
+                    <h3 class="panel-title">Catálogo de Insumo para la Salud</h3>
                 </div>
-                <div class="panel-body ">
-                    <form class="form-horizontal" role="form" name="formulario1" id="formulario1" method="post" action="Medicamentos">
-                        <div class="row">
-                            <div class="form-group">                                
-                                <label for="Clave" class="col-xs-1 control-label">CLAVE</label>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" id="Clave" name="Clave" maxlength="60" placeholder="CLAVE" value="" required="" />
-                                </div>
-                                <label for="Clave" class="col-xs-1 control-label">CLAVE SS</label>
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" id="ClaveSS" name="ClaveSS" maxlength="250" placeholder="CLAVE SS" value="" required="" />
-                                </div>
-                                 <label for="Sts" class="col-xs-1 control-label">Status</label>
-                                <div class="col-xs-2">                                                                        
-                                    <input type="radio" name="radiosts" id="radiosts" checked="" value="A">Activo&nbsp;
-                                    <input type="radio" name="radiosts" id="radiosts" value="S">Suspendido                                    
-                                </div>
+                <div class="panel-body">
+                    <form role="form" name="formulario1" id="formulario1" method="post" action="Medicamentos">
+                        <div class="sialss-insumo__rejilla">
+                            <div class="sialss-insumo__campo">
+                                <label for="Clave">Clave *</label>
+                                <input type="text" class="form-control" id="Clave" name="Clave" maxlength="60" required>
                             </div>
-                            <div class="row">
-                                <label for="Descripcion" class="col-xs-1 control-label">Descripción</label>
-                                <div class="col-xs-8">
-                                    <input type="text" class="form-control" id="Descripcion" maxlength="250" name="Descripcion" placeholder="Descripcion" required=""   />
-                                </div>
-                                
+                            <div class="sialss-insumo__campo">
+                                <label for="ClaveSS">Clave SS *</label>
+                                <input type="text" class="form-control" id="ClaveSS" name="ClaveSS" maxlength="250" required>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <label for="Presentacion" class="col-xs-1 control-label">Presentación</label>
-                                <div class="col-xs-8">
-                                    <input type="text" class="form-control" id="Descripcion" maxlength="60" name="Presentacion" placeholder="Presentacion" required=""   />
+                            <fieldset class="sialss-insumo__campo">
+                                <legend>Estatus</legend>
+                                <div class="sialss-insumo__opciones">
+                                    <label><input type="radio" name="radiosts" value="A" checked> Activo</label>
+                                    <label><input type="radio" name="radiosts" value="S"> Suspendido</label>
                                 </div>
-                               
+                            </fieldset>
+                            <div class="sialss-insumo__campo sialss-insumo__campo--ancho">
+                                <label for="Descripcion">Descripción *</label>
+                                <input type="text" class="form-control" id="Descripcion" maxlength="250" name="Descripcion" required>
                             </div>
-                        </div>
-                           <br/>
-                        <div class="row">
-                            
-                            <label for="list_medica" class="col-xs-1 control-label">ORIGEN</label>
-                            <div class="col-xs-2">                                                                    
-                               
-                              
-                                <select class="form-control" name="radiorigen" id="radiorigen">
-                                        <option value="0">-Selec Origen-</option>
-                                        <%
-                                            try {
-                                                con.conectar();
-                                                ResultSet rset = con.consulta("SELECT * FROM tb_origen;");
-                                                while (rset.next()) {
-                                        %>
-                                        <option value="<%=rset.getString(1)%>"><%=rset.getString(2)%></option>
-                                        <%
-                                                }
-                                                con.cierraConexion();
-                                            } catch (Exception e) {
-                                                out.println(e.getMessage());
+                            <div class="sialss-insumo__campo sialss-insumo__campo--ancho">
+                                <label for="Presentacion">Presentación *</label>
+                                <input type="text" class="form-control" id="Presentacion" maxlength="60" name="Presentacion" required>
+                            </div>
+                            <div class="sialss-insumo__campo">
+                                <label for="radiorigen">Origen *</label>
+                                <select class="form-control" name="radiorigen" id="radiorigen" required>
+                                    <option value="">Seleccione el origen</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_origen;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"><%=rset.getString(2)%></option>
+                                    <%
                                             }
-                                        %>
-                                    </select>
-                            
-                            </div>  
-                                 <label for="list_medica" class="col-xs-1 control-label">Tipo de Insumo</label>
-                            <!--label for="list_medica" class="col-xs-1 control-label">PARTIDA</label-->
-                            <div class="col-xs-3">    
-                                 
-                               <select class="form-control" name="radiotipo" id="radiotipo">
-                                        <option value="0">-Selec Tipo Medicamento-</option>
-                                        <%
-                                            try {
-                                                con.conectar();
-                                                ResultSet rset = con.consulta("SELECT * FROM tb_tipmed;");
-                                                while (rset.next()) {
-                                        %>
-                                        <option value="<%=rset.getString(1)%>"><%=rset.getString(2)%></option>
-                                        <%
-                                                }
-                                                con.cierraConexion();
-                                            } catch (Exception e) {
-                                                out.println(e.getMessage());
+                                            con.cierraConexion();
+                                        } catch (Exception e) {
+                                            out.println(e.getMessage());
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="sialss-insumo__campo">
+                                <label for="radiotipo">Tipo de insumo *</label>
+                                <select class="form-control" name="radiotipo" id="radiotipo" required>
+                                    <option value="">Seleccione el tipo</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_tipmed;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(1)%>"><%=rset.getString(2)%></option>
+                                    <%
                                             }
-                                        %>
-                                    </select>
-                                <!--input type="radio" name="radiotipo" id="radiotipo" checked="" value="2504">Medicamento&nbsp;
-                                <input type="radio" name="radiotipo" id="radiotipo" value="2505">Mat. Curación-->                                
-                            </div> 
-                                    <label for="CatalogoNim" class="col-sm-1 control-label">CatalogoNim</label>
-                            <div class="col-sm-2">
-                                <select name="CatalogoNim" id="origennim" class="form-control" required="">
-                                    <option value="0">-select año-</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
+                                            con.cierraConexion();
+                                        } catch (Exception e) {
+                                            out.println(e.getMessage());
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                            <div class="sialss-insumo__campo">
+                                <label for="CatalogoNim">Catálogo (año) *</label>
+                                <%-- Desde 2018 hasta el año en curso: cada año nuevo aparece solo y viene elegido. --%>
+                                <select name="CatalogoNim" id="CatalogoNim" class="form-control" required>
+                                    <% for (int anio = anioCatalogo; anio >= 2018; anio--) { %>
+                                    <option value="<%=anio%>"<%= anio == anioCatalogo ? " selected" : "" %>><%=anio%></option>
+                                    <% } %>
                                 </select>
                             </div>
                         </div>
-                        <hr/>            
-                        <div class="row ">                            
-                            <label for="list_medica" class="col-xs-1 control-label">NIVEL UNIDAD</label>
-                            <div class="col-xs-11 table-responsive">
-                                <table  class="table" id="datosOrigen">     
-                                    <tbody>
-                                        <tr>    
-                                            <td><input type="checkbox" name="cat1" id="cat1" value="1">(1) UM y C&nbsp; </td>
-                                            <td><input type="checkbox" name="cat2" id="cat2" value="2">(2) CSR&nbsp;</td>
-                                            <td><input type="checkbox" name="cat3" id="cat3" value="3">(3) CSU,CAT,UNEMES y GERIATRICOS&nbsp;</td>
-                                            <td><input type="checkbox" name="cat4" id="cat4" value="4">(4) CEAPS&nbsp;</td>
-                                             </tr><tr>
-                                            <td><input type="checkbox" name="cat5" id="cat5" value="5">(5) CISAME&nbsp;</td>
-                                            <td><input type="checkbox" name="cat6" id="cat6" value="6">(6) MAT&nbsp;</td>
-                                            <td><input type="checkbox" name="cat7" id="cat7" value="7">(7) MOyCAE&nbsp;</td>
-                                            <td><input type="checkbox" name="cat8" id="cat8" value="8">(8) HM&nbsp;</td>
-                                             </tr><tr>
-                                            <td><input type="checkbox" name="cat9" id="cat9" value="9">(9) HG&nbsp;</td>
-                                            <td><input type="checkbox" name="cat10" id="cat10" value="10">(10) HMI&nbsp;</td>
-                                            <td><input type="checkbox" name="cat11" id="cat11" value="11">(11) HSV&nbsp;</td>
-                                            <td><input type="checkbox" name="cat12" id="cat12" value="12">(12) HMI PRETELINI&nbsp;</td>
-                                            </tr><tr>
-                                            <td> <input type="checkbox" name="cat13" id="cat13" value="13">(13) CM &nbsp;</td>
-                                            <td><input type="checkbox" name="cat14" id="cat14" value="14">(14) HP&nbsp;</td>
-                                            <td><input type="checkbox" name="cat15" id="cat15" value="15">(15) S.U.E.M.&nbsp;</td>
-                                            <td><input type="checkbox" name="cat16" id="cat16" value="16">(16) LESP&nbsp;</td>
-                                     
-                                        </tr>
-                                    </tbody>
-                                </table>
+
+                        <fieldset class="sialss-insumo__grupo">
+                            <legend>Nivel de unidad</legend>
+                            <div class="sialss-insumo__acciones">
+                                <button type="button" class="btn btn-default btn-sm" data-niveles="1">Marcar todos</button>
+                                <button type="button" class="btn btn-default btn-sm" data-niveles="0">Quitar todos</button>
                             </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <label for="Costo" class="col-xs-1 control-label">Precio</label>
-                            <div class="col-xs-2">
-                                <input type="text" class="form-control" id="Costo" name="Costo" placeholder="Costo" value="<%=F_Costo%>" required=""  />
-                            </div>                                                              
-                            <label for="origennim" class="col-sm-1 control-label">OrigenNim</label>
-                            <div class="col-sm-2">
-                                <select name="origennim" id="origennim" class="form-control" required="">
-                                    <option value="0">OrigenNim</option>
+                            <div class="sialss-insumo__casillas">
+                                <% for (String[] nivel : nivelesUnidad) { %>
+                                <label for="cat<%=nivel[0]%>"><input type="checkbox" name="cat<%=nivel[0]%>" id="cat<%=nivel[0]%>" value="<%=nivel[0]%>" checked> (<%=nivel[0]%>) <%=nivel[1]%></label>
+                                <% } %>
+                            </div>
+                        </fieldset>
+
+                        <div class="sialss-insumo__rejilla">
+                            <div class="sialss-insumo__campo">
+                                <label for="Costo">Precio *</label>
+                                <input type="text" class="form-control" id="Costo" name="Costo" inputmode="decimal" value="<%=F_Costo%>" required>
+                            </div>
+                            <div class="sialss-insumo__campo">
+                                <label for="origennim">Origen NIM *</label>
+                                <select name="origennim" id="origennim" class="form-control" required>
+                                    <option value="">Seleccione</option>
                                     <option value="LP">LP</option>
                                     <option value="CC">CC</option>
                                     <option value="CC/LP">CC/LP</option>
                                 </select>
                             </div>
-                            
-                            <label for="GrupoNim" class="col-sm-1 control-label">Grupo</label>
-                            <div class="col-sm-2">
-                                <!--input type="text" class="form-control" id="GrupoNim" name="GrupoNim" placeholder="Grupo Nim" value="" required=""/-->
-                                <select class="form-control" name="GrupoNim" id="GrupoNim">
-                                        <option value="0">-Selec GrupoNim-</option>
-                                        <%
-                                            try {
-                                                con.conectar();
-                                                ResultSet rset = con.consulta("SELECT * FROM tb_gruptera;");
-                                                while (rset.next()) {
-                                        %>
-                                        <option value="<%=rset.getString(2)%>"><%=rset.getString(2)%></option>
-                                        <%
-                                                }
-                                                con.cierraConexion();
-                                            } catch (Exception e) {
-                                                out.println(e.getMessage());
+                            <div class="sialss-insumo__campo">
+                                <label for="GrupoNim">Grupo terapéutico *</label>
+                                <select class="form-control" name="GrupoNim" id="GrupoNim" required>
+                                    <option value="">Seleccione el grupo</option>
+                                    <%
+                                        try {
+                                            con.conectar();
+                                            ResultSet rset = con.consulta("SELECT * FROM tb_gruptera;");
+                                            while (rset.next()) {
+                                    %>
+                                    <option value="<%=rset.getString(2)%>"><%=rset.getString(2)%></option>
+                                    <%
                                             }
-                                        %>
-                                    </select>
+                                            con.cierraConexion();
+                                        } catch (Exception e) {
+                                            out.println(e.getMessage());
+                                        }
+                                    %>
+                                </select>
                             </div>
-                            <label for="CantRecibir" class="col-sm-1 control-label">Cant. Recibir</label>
-                            <div class="col-sm-2">
-                                <input type="number" min="0" class="form-control" id="CantRecibir" name="CantRecibir" placeholder="Cantidad Max. Recibir" value="" required=""  />
+                            <div class="sialss-insumo__campo">
+                                <label for="CantRecibir">Cantidad máxima a recibir *</label>
+                                <input type="number" min="0" class="form-control" id="CantRecibir" name="CantRecibir" required>
                             </div>
                         </div>
+
                         <% java.util.Set<String> proyectosMarcados = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER); proyectosMarcados.add("F_ProIsem"); %>
                         <%@include file="jspf/proyectosInsumo.jspf" %>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <button class="btn btn-block btn-success" type="submit" name="accion" value="Agregar">Agregar</button>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="medicamento.jsp" class="btn btn-block btn-warning">Regresar</a>   
-                            </div>
+
+                        <div class="sialss-insumo__botones">
+                            <button class="btn btn-success" type="submit" name="accion" value="Agregar">Agregar</button>
+                            <a href="medicamento.jsp" class="btn btn-warning">Regresar</a>
                         </div>
                     </form>
-                    <div>
-                        <h6>Los campos marcados con * son obligatorios</h6>
-                    </div>
+                    <p class="sialss-insumo__nota">Los campos marcados con * son obligatorios.</p>
                 </div>
-
             </div>
         </div>
         <%@include file="jspf/piePagina.jspf" %>
@@ -258,9 +222,13 @@
         <script src="js/jquery.dataTables.js"></script>
         <script src="js/dataTables.bootstrap.js"></script>
         <script>
-                                    $(document).ready(function () {
-                                        $('#datosOrigen').dataTable();
-                                    });
+            // Nivel de unidad: marcar o quitar todos.
+            document.querySelectorAll('[data-niveles]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var valor = b.getAttribute('data-niveles') === '1';
+                    document.querySelectorAll('.sialss-insumo__casillas input[type=checkbox]').forEach(function (c) { c.checked = valor; });
+                });
+            });
         </script>
         <script>
 
