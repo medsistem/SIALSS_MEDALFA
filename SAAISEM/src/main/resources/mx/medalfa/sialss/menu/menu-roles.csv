@@ -92,3 +92,4 @@ COMPRAS;CATÁLOGOS;Catálogo de Marcas;marcas.jsp;1;13,14
 COMPRAS;CATÁLOGOS;Catálogo de Medicamento;medicamento.jsp;1;13,14
 COMPRAS;CATÁLOGOS;Puntos de Entregas;catalogoUnidadesCompras.jsp;0;13
 COMPRAS;USUARIO;Parámetro Facturación;ParametrofacturaU.jsp;0;14
+ALMACEN;USUARIO;Menús por Perfil y Usuario;MenuRoles.jsp;0;1,5

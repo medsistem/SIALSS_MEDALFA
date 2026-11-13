@@ -1,7 +1,7 @@
 <%-- Menú por perfil común a todos los accesos. Lo incluyen jspf/menuPrincipal*.jspf después de definir
        mx.medalfa.sialss.seguridad.Acceso menuAcceso
      y requiere la variable "tipo" (perfil F_TipUsu) que ya define cada página.
-     Qué ve cada perfil: src/main/resources/mx/medalfa/sialss/menu/menu-roles.csv (skill menu-roles-sialss). --%>
+     Qué ve cada perfil y usuario: tablas tb_menu_* (pantalla MenuRoles.jsp); sin tablas, menu-roles.csv. --%>
 <%@ page pageEncoding="UTF-8" %>
 <div class="navbar navbar-default sialss-menu" id="sialss-menu">
     <div class="container">
@@ -15,12 +15,9 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-<%=mx.medalfa.sialss.menu.MenuSialss.html(menuAcceso, tipo, sialssCtx)%>
+<%=mx.medalfa.sialss.menu.MenuSialss.html(menuAcceso, tipo, mx.medalfa.sialss.menu.MenuSialss.idUsuario(session.getAttribute("IdUsu")), sialssCtx)%>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%=sialssUsuario.isEmpty() ? sialssNombre : sialssUsuario%></a></li>
-                <li class="active"><a href="<%=sialssCtx%>/<%=menuAcceso.paginaLogin%>" title="Cerrar sesión"><span class="glyphicon glyphicon-log-out"></span><span class="sr-only">Cerrar sesión</span></a></li>
-            </ul>
+            <%-- El nombre del usuario y "Cerrar sesión" están solo en la barra superior (jspf/sialssBarra.jspf). --%>
         </div>
     </div>
 </div>

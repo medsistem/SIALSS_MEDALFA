@@ -1,0 +1,431 @@
+-- Menú vs roles: tablas y carga inicial (generado por el skill menu-roles-sialss desde menu-roles.csv).
+-- Ejecutar con un usuario que tenga permiso CREATE sobre sialss_mdf. Es repetible: no borra asignaciones existentes.
+-- Después de ejecutarlo la aplicación toma el menú de estas tablas (sin reiniciar: se recarga al guardar en la
+-- pantalla "Menús por Perfil y Usuario"; para tomar una carga hecha por fuera, reiniciar la aplicación).
+USE `sialss_mdf`;
+SET NAMES utf8mb4;
+
+CREATE TABLE IF NOT EXISTS tb_menu_opcion (
+  F_IdOpcion INT NOT NULL AUTO_INCREMENT,
+  F_Acceso   VARCHAR(20)  NOT NULL COMMENT 'ALMACEN, COMPRAS o AUDITORIA (pantalla de login)',
+  F_Modulo   VARCHAR(40)  NOT NULL COMMENT 'Módulo del menú (orden común lo pone la aplicación)',
+  F_Opcion   VARCHAR(100) NOT NULL COMMENT 'Texto de la opción',
+  F_Url      VARCHAR(200) NOT NULL COMMENT 'Ruta dentro de la aplicación, sin contexto',
+  F_Ventana  TINYINT(1)   NOT NULL DEFAULT 0 COMMENT '1 = abre en ventana aparte',
+  F_Status   CHAR(1)      NOT NULL DEFAULT 'A' COMMENT 'A = activa, B = dada de baja (nadie la ve)',
+  PRIMARY KEY (F_IdOpcion),
+  UNIQUE KEY uk_menu_opcion (F_Acceso, F_Url)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Opciones del menú SIALSS';
+
+CREATE TABLE IF NOT EXISTS tb_menu_perfil (
+  F_IdOpcion INT NOT NULL,
+  F_TipUsu   INT NOT NULL COMMENT 'Perfil (tb_tipusuario.F_IdTipo)',
+  PRIMARY KEY (F_IdOpcion, F_TipUsu),
+  KEY ix_menu_perfil_tipo (F_TipUsu),
+  CONSTRAINT fk_menu_perfil_opcion FOREIGN KEY (F_IdOpcion) REFERENCES tb_menu_opcion (F_IdOpcion)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Opciones que ve cada perfil';
+
+CREATE TABLE IF NOT EXISTS tb_menu_usuario (
+  F_IdOpcion INT NOT NULL,
+  F_IdUsu    INT NOT NULL COMMENT 'Usuario de la tabla del acceso de la opción (tb_usuario, tb_usuariocompra...)',
+  F_Permiso  CHAR(1) NOT NULL COMMENT 'P = permitir además de su perfil, B = bloquear (oculta y niega la página)',
+  F_UsuMod   VARCHAR(60) NOT NULL,
+  F_FecMod   DATETIME NOT NULL,
+  PRIMARY KEY (F_IdOpcion, F_IdUsu),
+  KEY ix_menu_usuario_usu (F_IdUsu),
+  CONSTRAINT fk_menu_usuario_opcion FOREIGN KEY (F_IdOpcion) REFERENCES tb_menu_opcion (F_IdOpcion),
+  CONSTRAINT ck_menu_usuario_permiso CHECK (F_Permiso IN ('P', 'B'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Excepciones del menú por usuario';
+
+CREATE TABLE IF NOT EXISTS tb_menu_bitacora (
+  F_Id      INT NOT NULL AUTO_INCREMENT,
+  F_FecHora DATETIME NOT NULL,
+  F_UsuMod  VARCHAR(60) NOT NULL COMMENT 'Quién hizo el cambio',
+  F_Acceso  VARCHAR(20) NOT NULL,
+  F_Tipo    VARCHAR(10) NOT NULL COMMENT 'PERFIL o USUARIO',
+  F_Destino VARCHAR(60) NOT NULL COMMENT 'Perfil o usuario modificado',
+  F_Detalle VARCHAR(2000) NOT NULL,
+  PRIMARY KEY (F_Id),
+  KEY ix_menu_bitacora_fecha (F_FecHora)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bitácora de cambios del menú';
+
+-- Carga inicial: las opciones y perfiles de menu-roles.csv (91 opciones).
+
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Carga Requerimiento', 'requerimiento.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'requerimiento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'requerimiento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'requerimiento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'requerimiento.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Cargar Caducos', 'cargacaducos.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargacaducos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargacaducos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargacaducos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargacaducos.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Cargar Inventario (APAGADO)', 'cargaInventario.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargaInventario.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Cargar OC', 'cargarecibo.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargarecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargarecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargarecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'cargarecibo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Cerrar OC Manual', 'ordenesCompra/cerrarOrden.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/cerrarOrden.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/cerrarOrden.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/cerrarOrden.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/cerrarOrden.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/cerrarOrden.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Entrada Automática ORI', 'hh/compraAuto3.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/compraAuto3.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/compraAuto3.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/compraAuto3.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/compraAuto3.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Entrada Manual', 'captura.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'captura.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'captura.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'captura.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'captura.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Verificar OC (ORI)', 'verificarCompraAuto.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'verificarCompraAuto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'verificarCompraAuto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'verificarCompraAuto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'verificarCompraAuto.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REMISIÓN', 'Devoluciones Facturas', 'DevolucionesFacturas?Accion=ListaRemision', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaRemision';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REMISIÓN', 'Facturación Automática', 'facturaAtomatica2Folio.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturaAtomatica2Folio.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturaAtomatica2Folio.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturaAtomatica2Folio.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturaAtomatica2Folio.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REMISIÓN', 'Facturación Manual', 'facturacionManual.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacionManual.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacionManual.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacionManual.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacionManual.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REMISIÓN', 'Modificar Folio', 'ModificarFolio?Accion=ListaRemision', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ModificarFolio?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ModificarFolio?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ModificarFolio?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ModificarFolio?Accion=ListaRemision';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Captura Movimiento', 'facturacion/CapturaMovi.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/CapturaMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/CapturaMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/CapturaMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/CapturaMovi.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Existencia Disponible', 'hh/ExistenciaProyectoCompraDis.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyectoCompraDis.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Existencias por Proyecto', 'hh/ExistenciaProyecto.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ExistenciaProyecto.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Kardex Claves', 'kardex/kardex.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardex.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Kardex por día', 'kardex/kardexPorDia.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardexPorDia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardexPorDia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardexPorDia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardexPorDia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'kardex/kardexPorDia.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Redistribución HH', 'hh/insumoNuevoRedist.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/insumoNuevoRedist.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'INVENTARIO', 'Ubicaciones', 'hh/ubicacionesConsultas.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/ubicacionesConsultas.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Administrar Devoluciones', 'DevolucionesFacturas?Accion=ListaDevolucion', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaDevolucion';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaDevolucion';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaDevolucion';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaDevolucion';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'DevolucionesFacturas?Accion=ListaDevolucion';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Administrar Movimientos', 'facturacion/reimp_movimientos.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/reimp_movimientos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/reimp_movimientos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/reimp_movimientos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/reimp_movimientos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/reimp_movimientos.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Administrar Remisiones', 'AdministraRemisiones?Accion=ListaRemision', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisiones?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisiones?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisiones?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisiones?Accion=ListaRemision';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisiones?Accion=ListaRemision';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Administrar Remisiones', 'AdministraRemisionesClientes?Accion=ListaRemision', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'AdministraRemisionesClientes?Accion=ListaRemision';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Costos Remisiones', 'CostosRemisiones?Accion=ListaRemision', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'CostosRemisiones?Accion=ListaRemision';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Marbete Manual', 'Marbetes/Marbete_Manual.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Marbetes/Marbete_Manual.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Marbetes Surtido (APAGADO)', 'Marbetes/genMarbete.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Marbetes/genMarbete.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Marbetes Surtido Juris (APAGADO)', 'Marbetes/genMarbeteSur.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Marbetes/genMarbeteSur.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Múltiples Remisiones/Recalendarizar', 'facturacion/cambioFechas.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/cambioFechas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/cambioFechas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/cambioFechas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/cambioFechas.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Reimpresión de Remisiones', 'reimpresion.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresion.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresion.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresion.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresion.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresion.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'PDF', 'Reimpresión de Remisiones', 'reimpresionCliente.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reimpresionCliente.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Concentrado Requerido por día', 'facturacion/Concentradoxdia.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Concentradoxdia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Concentradoxdia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Concentradoxdia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Concentradoxdia.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Concentradoxdia.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Concentrados por Ruta', 'ConcentradoxRuta', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConcentradoxRuta';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConcentradoxRuta';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConcentradoxRuta';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConcentradoxRuta';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConcentradoxRuta';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Concepto Movimiento', 'ConMov.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ConMov.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Consulta Existencia en Cedis', 'reportes/ConsultasExi.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExi.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Consulta Movimiento', 'facturacion/ConsultasMovi.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasMovi.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasMovi.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Inventario por mes Cedis', 'reportes/ConsultasExiInv.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExiInv.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExiInv.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExiInv.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExiInv.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/ConsultasExiInv.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Nivel Abasto Diario', 'facturacion/ReqvsSurt.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ReqvsSurt.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ReqvsSurt.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ReqvsSurt.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ReqvsSurt.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ReqvsSurt.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'OC Entregadas', 'ordenesCompra/BajaOrdenCerrada.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra/BajaOrdenCerrada.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Órdenes de Compras', 'ordenesCompra.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ordenesCompra.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Requerido Vs. Surtido', 'facturacion/Reporteador.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/Reporteador.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CONSULTA', 'Semaforización', 'semaforo.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'semaforo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Claves Fuera de Catálogo', 'ReporteProveedor/ReporteClavesFuera.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Claves Nulo y Bajo Movimiento', 'ReporteProveedor/ReporteNuloMov.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Concentrado Facturado', 'hh/Facturado.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/Facturado.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/Facturado.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/Facturado.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/Facturado.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'hh/Facturado.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte de Auditoría', 'ReporteProveedor/ReporteAuditoria.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteAuditoria.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteAuditoria.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteAuditoria.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteAuditoria.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Insumo Especial', 'reporteInsumoEspecial.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reporteInsumoEspecial.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reporteInsumoEspecial.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte OC', 'facturacion/ConsultasOCRecibo.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte por Fecha Proveedor', 'ReporteProveedor/ReporteF.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteF.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteF.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteF.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteF.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ReporteProveedor/ReporteF.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Próximos a Caducar', 'Almacen/Proximos.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Almacen/Proximos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Almacen/Proximos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Almacen/Proximos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Almacen/Proximos.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'Almacen/Proximos.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Red Fría', 'RedFria.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'RedFria.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporte Usuario Suspendidos', 'ListaUsuario?Accion=ListaSuspendido', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=ListaSuspendido';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=ListaSuspendido';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=ListaSuspendido';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'REPORTE', 'Reporteador Estadística de Entrega', 'reportes/Reporteador.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/Reporteador.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'reportes/Reporteador.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo', 'medicamentoCliente.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamentoCliente.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo de CB', 'modula/catalogoCB.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'modula/catalogoCB.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo de Marcas', 'marcas.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'marcas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'marcas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'marcas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'marcas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'marcas.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo de Medicamento', 'medicamento.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'medicamento.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo de Proveedores', 'catalogo.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Catálogo de Unidades', 'catalogoUnidades.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 4 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 6 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'catalogoUnidades.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'USUARIO', 'Cambio Contraseña', 'ListaUsuario?Accion=Listausuario', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=Listausuario';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=Listausuario';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 17 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ListaUsuario?Accion=Listausuario';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'USUARIO', 'Nuevo Usuario', 'NuevoUsuario.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'NuevoUsuario.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'NuevoUsuario.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'USUARIO', 'Parámetro Facturación', 'ParametrofacturaU.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ParametrofacturaU.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ParametrofacturaU.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ParametrofacturaU.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ParametrofacturaU.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('AUDITORIA', 'ÓRDENES DE COMPRA', 'Ver OC', 'verFoliosMedalfaAud.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 28 FROM tb_menu_opcion WHERE F_Acceso = 'AUDITORIA' AND F_Url = 'verFoliosMedalfaAud.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('AUDITORIA', 'CONSULTA', 'Existencia', 'hh/ExistenciaProyectoAuditoria.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 28 FROM tb_menu_opcion WHERE F_Acceso = 'AUDITORIA' AND F_Url = 'hh/ExistenciaProyectoAuditoria.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('AUDITORIA', 'CONSULTA', 'Reporte Fecha Proveedor', 'ReporteProveedor/ReporteFAuditoria.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 28 FROM tb_menu_opcion WHERE F_Acceso = 'AUDITORIA' AND F_Url = 'ReporteProveedor/ReporteFAuditoria.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('AUDITORIA', 'CONSULTA', 'Reporteador Estadística de Entrega', 'reportes/ReporteadorAuditoria.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 28 FROM tb_menu_opcion WHERE F_Acceso = 'AUDITORIA' AND F_Url = 'reportes/ReporteadorAuditoria.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ENTRADA', 'Entrada Automática ORI', 'hh/compraAuto3.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'hh/compraAuto3.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ENTRADA', 'Entrada Manual', 'captura.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'captura.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ENTRADA', 'Verificar OC (ORI)', 'verificarCompraAuto.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'verificarCompraAuto.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ÓRDENES DE COMPRA', 'Cargar OC', 'cargarecibo.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'cargarecibo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ÓRDENES DE COMPRA', 'Crear OC', 'crearOC.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'crearOC.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'crearOC.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'ÓRDENES DE COMPRA', 'Ver OC', 'verFoliosMedalfaCosto.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'verFoliosMedalfaCosto.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'verFoliosMedalfaCosto.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'INVENTARIO', 'Captura Movimiento', 'facturacion/CapturaMovi.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'facturacion/CapturaMovi.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'INVENTARIO', 'Existencias', 'hh/ExistenciaProyectoCompra.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'hh/ExistenciaProyectoCompra.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'INVENTARIO', 'Existencias', 'hh/ExistenciaProyectoConsulta.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'hh/ExistenciaProyectoConsulta.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'INVENTARIO', 'Existencias Disponibles', 'hh/ExistenciaProyectoCompraDis.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'hh/ExistenciaProyectoCompraDis.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Acuse de Recibo', 'archivosCargados/BuscarDocumento.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'archivosCargados/BuscarDocumento.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Consulta Global Unidad', 'Compras/SurtidoUnidadCompras.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'Compras/SurtidoUnidadCompras.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Consulta Movimientos', 'facturacion/ConsultasMoviCompra.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'facturacion/ConsultasMoviCompra.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Existencias por programa', 'hh/ExistenciaPorPrograma.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 15 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'hh/ExistenciaPorPrograma.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Reporte Claves Fuera de Catálogo', 'ReporteProveedor/ReporteClavesFuera.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'ReporteProveedor/ReporteClavesFuera.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Reporte Claves Nulo y Bajo Movimiento', 'ReporteProveedor/ReporteNuloMov.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'ReporteProveedor/ReporteNuloMov.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Reporte Fecha Proveedor', 'ReporteProveedor/ReporteFCompra.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'ReporteProveedor/ReporteFCompra.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Reporte OC', 'facturacion/ConsultasOCRecibo.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'facturacion/ConsultasOCRecibo.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Reporteador Estadística de Entrega', 'reportes/ReporteadorCompras.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'reportes/ReporteadorCompras.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CONSULTA', 'Semaforización', 'semaforoCompras.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'semaforoCompras.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CATÁLOGOS', 'Alta Proveedor', 'catalogoProveedor.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'catalogoProveedor.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'catalogoProveedor.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CATÁLOGOS', 'Catálogo de Marcas', 'marcas.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'marcas.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'marcas.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CATÁLOGOS', 'Catálogo de Medicamento', 'medicamento.jsp', 1) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'medicamento.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'medicamento.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'CATÁLOGOS', 'Puntos de Entregas', 'catalogoUnidadesCompras.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 13 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'catalogoUnidadesCompras.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('COMPRAS', 'USUARIO', 'Parámetro Facturación', 'ParametrofacturaU.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 14 FROM tb_menu_opcion WHERE F_Acceso = 'COMPRAS' AND F_Url = 'ParametrofacturaU.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'USUARIO', 'Menús por Perfil y Usuario', 'MenuRoles.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'MenuRoles.jsp';
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'MenuRoles.jsp';
+
+SELECT F_Acceso, COUNT(*) opciones FROM tb_menu_opcion GROUP BY F_Acceso;

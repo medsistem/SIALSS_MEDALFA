@@ -1,0 +1,9 @@
+<%-- Secciones del módulo de usuarios. La página define antes: String seccionUsuarios = "nuevo" | "menus".
+     "Menús por perfil y usuario" solo aparece a quien tiene esa opción en su menú. --%>
+<%@ page pageEncoding="UTF-8" %>
+<nav class="sialss-pestanas" aria-label="Secciones de usuarios">
+    <a href="<%=request.getContextPath()%>/NuevoUsuario.jsp"<%= "nuevo".equals(seccionUsuarios) ? " aria-current=\"page\"" : "" %>>Nuevo usuario</a>
+    <% if (mx.medalfa.sialss.menu.MenuRolesServlet.autorizado(session)) { %>
+    <a href="<%=request.getContextPath()%>/MenuRoles.jsp"<%= "menus".equals(seccionUsuarios) ? " aria-current=\"page\"" : "" %>>Menús por perfil y usuario</a>
+    <% } %>
+</nav>

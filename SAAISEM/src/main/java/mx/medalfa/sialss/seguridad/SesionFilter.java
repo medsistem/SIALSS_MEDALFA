@@ -52,6 +52,18 @@ public class SesionFilter extends HttpFilter {
             if (!deFondo) {
                 PoliticaSesion.registrarActividad(s);
             }
+            // Opción del menú bloqueada a este usuario (pantalla "Menús por Perfil y Usuario"): también se niega la página.
+            if (mx.medalfa.sialss.menu.MenuSialss.paginaBloqueada(PoliticaSesion.acceso(s), (String) s.getAttribute("Tipo"),
+                    mx.medalfa.sialss.menu.MenuSialss.idUsuario(s.getAttribute("IdUsu")), ruta, req.getQueryString())) {
+                res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                if (deFondo) {
+                    res.setContentType("application/json;charset=UTF-8");
+                    res.getWriter().write("{\"error\":\"Opción bloqueada para su usuario.\"}");
+                } else {
+                    req.getRequestDispatcher("/sinPermiso.jsp").forward(req, res);
+                }
+                return;
+            }
             chain.doFilter(req, res);
             return;
         }

@@ -26,11 +26,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Sesión bloqueada</title>
-        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.4" rel="stylesheet">
+        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.5" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <noscript><p class="sialss-login">Active JavaScript para desbloquear la sesión.</p></noscript>
-        <script src="<%=ctxBloqueo%>/js/sialss-sesion.js?v=2.0.4" defer
+        <script src="<%=ctxBloqueo%>/js/sialss-sesion.js?v=2.0.5" defer
                 data-ctx="<%=ctxBloqueo%>"
                 data-bloqueo="<%=PoliticaSesion.bloqueoMs() / 1000%>"
                 data-cierre="<%=PoliticaSesion.cierreMs() / 1000%>"

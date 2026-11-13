@@ -18,7 +18,7 @@
     String sialssMenu = sialssAcceso != null ? sialssAcceso.menu : "main_menu.jsp";
     String sialssLogin = sialssAcceso != null ? sialssAcceso.paginaLogin : "indexalmacen.jsp";
 %>
-<link href="<%=sialssCtx%>/css/sialss-app.css?v=2.0.4" rel="stylesheet">
+<link href="<%=sialssCtx%>/css/sialss-app.css?v=2.0.5" rel="stylesheet">
 <header class="sialss-barra" id="sialss-barra">
     <button type="button" class="sialss-barra__alternar" id="sialss-alternar-menu" aria-controls="sialss-menu" aria-expanded="true">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -42,9 +42,9 @@
         </div>
     </div>
 </header>
-<script src="<%=sialssCtx%>/js/sialss-menu.js?v=2.0.4" defer></script>
+<script src="<%=sialssCtx%>/js/sialss-menu.js?v=2.0.5" defer></script>
 <% if (sialssAcceso != null) { %>
-<script src="<%=sialssCtx%>/js/sialss-sesion.js?v=2.0.4" defer
+<script src="<%=sialssCtx%>/js/sialss-sesion.js?v=2.0.5" defer
         data-ctx="<%=sialssCtx%>"
         data-bloqueo="<%=mx.medalfa.sialss.seguridad.PoliticaSesion.bloqueoMs() / 1000%>"
         data-cierre="<%=mx.medalfa.sialss.seguridad.PoliticaSesion.cierreMs() / 1000%>"

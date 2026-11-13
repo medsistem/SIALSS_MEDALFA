@@ -80,6 +80,8 @@
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD (SIALSS)</h4>
 
             <%@include file="jspf/menuPrincipal.jspf"%>
+            <% String seccionUsuarios = "nuevo"; %>
+            <%@include file="jspf/usuariosSecciones.jspf"%>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>Nuevo Usuario</h2>
