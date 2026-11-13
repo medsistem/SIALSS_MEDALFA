@@ -263,3 +263,26 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-mr__usuario { margin: 0 0 14px; padding: 10px 12px; background: var(--s-superficie); border: 1px solid var(--s-borde); border-radius: var(--s-radio); }
 .sialss-mr__vacio { padding: 18px; text-align: center; color: var(--s-texto-2); background: var(--s-superficie); border: 1px dashed var(--s-borde); border-radius: var(--s-radio); }
 .sialss-mr [hidden] { display: none !important; }
+
+/* ============================== PIN: login y pantalla "Mi PIN" ============================== */
+.sialss-modo-acceso { display: block; margin: 16px 0 0; padding: 0; border: 0; min-width: 0; }
+.sialss-modo-acceso legend { display: block; width: 100%; margin: 0 0 6px; padding: 0; border: 0; font-size: 14px; font-weight: 600; color: var(--s-texto); }
+.sialss-login .sialss-modo-acceso label, .sialss-modo-acceso label {
+  width: calc(50% - 4px); display: inline-flex; vertical-align: top; align-items: center; justify-content: center; gap: 6px; margin: 0; min-height: 40px;
+  border: 1px solid var(--s-borde-campo); border-radius: var(--s-radio); font-weight: 600; font-size: 14px; cursor: pointer;
+}
+.sialss-modo-acceso label + label { margin-left: 4px; }
+.sialss-modo-acceso label:has(input:checked) { border-color: var(--s-turquesa-osc); background: var(--s-activo-fondo); color: var(--s-turquesa-osc); }
+.sialss-modo-acceso input { accent-color: var(--s-turquesa-osc); margin: 0; }
+.sialss-modo-acceso label:has(input:focus-visible) { outline: 3px solid var(--s-lima); outline-offset: 2px; }
+.sialss-pin { max-width: 460px; }
+.sialss-pin__tarjeta { padding: 18px 20px; background: var(--s-superficie); border: 1px solid var(--s-borde); border-radius: var(--s-radio); box-shadow: var(--s-sombra); margin-bottom: 16px; }
+.sialss-pin__tarjeta h2 { font-size: 18px; margin: 0 0 8px; }
+.sialss-pin label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+.sialss-pin input[type=password] {
+  width: 100%; height: 42px; padding: 8px 12px; font: inherit; color: var(--s-texto);
+  border: 1px solid var(--s-borde-campo); border-radius: var(--s-radio); background: var(--s-superficie);
+}
+.sialss-pin input:focus-visible, .sialss-pin .sialss-boton:focus-visible { outline: 3px solid var(--s-lima); outline-offset: 2px; }
+.sialss-pin__ayuda { margin: 6px 0 0; font-size: 13px; color: var(--s-texto-2); }
+.sialss-mensaje--ok { background: var(--s-activo-fondo); color: var(--s-turquesa-osc); border-left: 4px solid var(--s-turquesa-osc); }

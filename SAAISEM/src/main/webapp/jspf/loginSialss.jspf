@@ -46,7 +46,13 @@
                 <label for="<%=loginCampo%>">Usuario</label>
                 <input type="text" id="<%=loginCampo%>" name="<%=loginCampo%>" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
 
-                <label for="pass">Contraseña</label>
+                <fieldset class="sialss-modo-acceso">
+                    <legend>Entrar con</legend>
+                    <label><input type="radio" name="modo" value="contrasena" checked> Contraseña</label>
+                    <label><input type="radio" name="modo" value="pin"> PIN</label>
+                </fieldset>
+
+                <label for="pass" id="etiqueta-pass">Contraseña</label>
                 <div class="sialss-campo-contrasena">
                     <input type="password" id="pass" name="pass" autocomplete="current-password" required>
                     <button type="button" class="sialss-boton-texto" id="ver-contrasena" aria-pressed="false" aria-controls="pass">Mostrar</button>
@@ -74,6 +80,27 @@
                 var boton = document.getElementById('ver-contrasena');
                 var campo = document.getElementById('pass');
                 var usuario = document.getElementById('<%=loginCampo%>');
+                var etiqueta = document.getElementById('etiqueta-pass');
+                var digitosPin = <%=mx.medalfa.sialss.seguridad.Pin.digitos()%>;
+                function modoPin() { return document.querySelector('input[name=modo]:checked').value === 'pin'; }
+                function aplicarModo() {
+                    var pin = modoPin();
+                    etiqueta.textContent = pin ? 'PIN (' + digitosPin + ' números)' : 'Contraseña';
+                    campo.setAttribute('inputmode', pin ? 'numeric' : 'text');
+                    campo.setAttribute('autocomplete', pin ? 'off' : 'current-password');
+                    if (pin) { campo.setAttribute('maxlength', digitosPin); } else { campo.removeAttribute('maxlength'); }
+                    campo.value = '';
+                    try { localStorage.setItem('sialss.modoAcceso', pin ? 'pin' : 'contrasena'); } catch (e) { /* sin almacenamiento */ }
+                }
+                document.querySelectorAll('input[name=modo]').forEach(function (r) {
+                    r.addEventListener('change', function () { aplicarModo(); campo.focus(); });
+                });
+                try {
+                    if (localStorage.getItem('sialss.modoAcceso') === 'pin') {
+                        document.querySelector('input[name=modo][value=pin]').checked = true;
+                        aplicarModo();
+                    }
+                } catch (e) { /* sin almacenamiento */ }
                 boton.addEventListener('click', function () {
                     var mostrar = campo.type === 'password';
                     campo.type = mostrar ? 'text' : 'password';
@@ -83,9 +110,12 @@
                 });
                 document.getElementById('forma-login').addEventListener('submit', function (ev) {
                     var error = document.getElementById('login-error');
-                    if (!usuario.value.trim() || !campo.value) {
+                    var faltaPin = modoPin() && campo.value && !new RegExp('^[0-9]{' + digitosPin + '}$').test(campo.value);
+                    if (!usuario.value.trim() || !campo.value || faltaPin) {
                         ev.preventDefault();
-                        error.textContent = !usuario.value.trim() ? 'Escriba su usuario.' : 'Escriba su contraseña.';
+                        error.textContent = !usuario.value.trim() ? 'Escriba su usuario.'
+                                : faltaPin ? 'El PIN tiene ' + digitosPin + ' números.'
+                                : (modoPin() ? 'Escriba su PIN.' : 'Escriba su contraseña.');
                         error.hidden = false;
                         (!usuario.value.trim() ? usuario : campo).focus();
                     }

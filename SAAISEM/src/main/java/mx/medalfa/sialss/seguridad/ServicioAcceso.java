@@ -29,18 +29,24 @@ public final class ServicioAcceso {
     private ServicioAcceso() {
     }
 
+    /**
+     * Valida usuario y contraseña, o usuario y PIN cuando el formulario manda {@code modo=pin}
+     * (el PIN llega en el mismo campo que la contraseña). Los intentos fallidos con PIN o contraseña suman juntos.
+     */
     public static Resultado autenticar(HttpServletRequest request, Acceso acceso, String nombre, String contrasena) {
         nombre = nombre == null ? "" : nombre.trim();
         contrasena = contrasena == null ? "" : contrasena;
+        boolean conPin = "pin".equals(request.getParameter("modo"));
         if (nombre.isEmpty() || contrasena.isEmpty()) {
-            return new Resultado(Estado.INCORRECTO, null, null, null, false, "Escriba su usuario y su contraseña.");
+            return new Resultado(Estado.INCORRECTO, null, null, null, false,
+                    conPin ? "Escriba su usuario y su PIN." : "Escriba su usuario y su contraseña.");
         }
         try (Connection c = BaseDatos.GENERAL.conexion()) {
             LoginDao dao = new LoginDao(c, acceso);
-            Usuario u = dao.buscar(nombre, contrasena);
+            Usuario u = conPin ? dao.buscarConPin(nombre, contrasena.trim()) : dao.buscar(nombre, contrasena);
 
             if (u != null && !"A".equals(u.getStatus())) {
-                // Contraseña correcta pero el usuario está bloqueado o dado de baja.
+                // Contraseña o PIN correcto pero el usuario está bloqueado o dado de baja.
                 return new Resultado(Estado.BLOQUEADO, u, null, null, false, PoliticaSesion.MENSAJE_BLOQUEADO);
             }
             if (u == null) {

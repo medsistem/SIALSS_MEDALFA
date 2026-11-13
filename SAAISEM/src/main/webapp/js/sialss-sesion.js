@@ -75,9 +75,9 @@
       '  </div>' +
       '  <h1 id="sialss-bloqueo-titulo">Pantalla bloqueada</h1>' +
       '  <p class="sialss-secundario">Por seguridad, la pantalla se bloqueó tras ' + minutos(bloqueoMs) +
-      '    sin actividad. Escriba su contraseña para continuar.</p>' +
+      '    sin actividad. Escriba su contraseña o su PIN para continuar.</p>' +
       '  <p class="sialss-bloqueo__usuario"></p>' +
-      '  <label for="sialss-bloqueo-pass">Contraseña</label>' +
+      '  <label for="sialss-bloqueo-pass">Contraseña o PIN</label>' +
       '  <div class="sialss-campo-contrasena">' +
       '    <input type="password" id="sialss-bloqueo-pass" autocomplete="current-password" required>' +
       '    <button type="button" class="sialss-boton-texto" aria-pressed="false" aria-controls="sialss-bloqueo-pass">Mostrar</button>' +
@@ -101,14 +101,14 @@
     });
     d.querySelector('form').addEventListener('submit', function (ev) {
       ev.preventDefault();
-      if (!campo.value) { error.textContent = 'Escriba su contraseña.'; error.hidden = false; campo.focus(); return; }
+      if (!campo.value) { error.textContent = 'Escriba su contraseña o su PIN.'; error.hidden = false; campo.focus(); return; }
       enviar.disabled = true;
       post({ accion: 'desbloquear', contrasena: campo.value }).then(function (r) {
         enviar.disabled = false;
         campo.value = '';
         if (r.ok) { desbloqueada(true); return; }
         if (r.cerrada) { irLogin('inactividad'); return; }
-        error.textContent = r.mensaje || 'Contraseña incorrecta.';
+        error.textContent = r.mensaje || 'Contraseña o PIN incorrecto.';
         error.hidden = false;
         if (r.bloqueado) {
           enviar.disabled = true;

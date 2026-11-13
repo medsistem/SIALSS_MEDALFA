@@ -116,11 +116,11 @@ public class ModificacionPass extends HttpServlet {
                         if (Correo.matches(regex)) {
                             
                             if(TipUsu.equals("13") || TipUsu.equals("14") || TipUsu.equals("15")){
-                            con.insertar("INSERT INTO tb_usuariocompra VALUES(0,'" + Usu + "','" + Password + "','" + Usu + "','" + Concat + "','" + ApellidoM + "','A','" + TipUsu + "','" + Proyecto + "','" + Correo + "',CURDATE());");
+                            con.insertar("INSERT INTO tb_usuariocompra (F_IdUsu, F_Usu, F_Pass, F_Nombre, F_Apellido, F_ApellidoM, F_Status, F_TipUsu, F_Proyecto, F_Correo, F_FecMod) VALUES(0,'" + Usu + "','" + Password + "','" + Usu + "','" + Concat + "','" + ApellidoM + "','A','" + TipUsu + "','" + Proyecto + "','" + Correo + "',CURDATE());");
                             out.println("<script>alert('Usuario creado correctamente')</script>");
                             }else{
                             
-                            con.insertar("INSERT INTO tb_usuario VALUES(0,'" + Usu + "','" + Password + "','" + Usu + "','" + Concat + "','" + ApellidoM + "','A','" + TipUsu + "','" + Juris + "','" + Correo + "','" + (String) sesion.getAttribute("Area") + "','" + Proyecto + "',CURDATE());");
+                            con.insertar("INSERT INTO tb_usuario (F_IdUsu, F_Usu, F_Pass, F_Nombre, F_Apellido, F_ApellidoM, F_Status, F_TipUsu, F_Juris, F_Correo, F_Area, F_Proyecto, F_FecMod) VALUES(0,'" + Usu + "','" + Password + "','" + Usu + "','" + Concat + "','" + ApellidoM + "','A','" + TipUsu + "','" + Juris + "','" + Correo + "','" + (String) sesion.getAttribute("Area") + "','" + Proyecto + "',CURDATE());");
                             out.println("<script>alert('Usuario creado correctamente')</script>");
                             }
                             correo.NuevoUsuario(Correo, Usu, pswd);

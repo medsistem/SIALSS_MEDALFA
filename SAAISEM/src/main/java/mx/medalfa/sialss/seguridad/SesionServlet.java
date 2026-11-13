@@ -80,12 +80,14 @@ public class SesionServlet extends HttpServlet {
         Object id = s.getAttribute(PoliticaSesion.ID_USUARIO);
         String usuario = String.valueOf(s.getAttribute(PoliticaSesion.USUARIO));
         if (contrasena == null || contrasena.isEmpty() || !(id instanceof Integer idUsuario)) {
-            res.getWriter().write("{\"ok\":false,\"mensaje\":\"Escriba su contraseña.\"}");
+            res.getWriter().write("{\"ok\":false,\"mensaje\":\"Escriba su contraseña o su PIN.\"}");
             return;
         }
         try (Connection c = BaseDatos.GENERAL.conexion()) {
             LoginDao dao = new LoginDao(c, acceso);
-            if (dao.contrasenaCorrecta(idUsuario, contrasena)) {
+            // Se acepta la contraseña o, si el usuario creó uno, su PIN.
+            if (dao.contrasenaCorrecta(idUsuario, contrasena)
+                    || (contrasena.trim().matches("\\d{4,8}") && pinSeguro(dao, idUsuario, contrasena.trim()))) {
                 PoliticaSesion.desbloquear(s);
                 res.getWriter().write("{\"ok\":true}");
                 return;
@@ -106,7 +108,7 @@ public class SesionServlet extends HttpServlet {
                 return;
             }
             int restan = PoliticaSesion.intentosMaximos() - intentos;
-            res.getWriter().write("{\"ok\":false,\"mensaje\":\"Contraseña incorrecta. "
+            res.getWriter().write("{\"ok\":false,\"mensaje\":\"Contraseña o PIN incorrecto. "
                     + (restan == 1 ? "Le queda 1 intento antes de que su usuario se bloquee." : "Le quedan " + restan + " intentos.") + "\"}");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al desbloquear la sesión", e);
@@ -126,5 +128,14 @@ public class SesionServlet extends HttpServlet {
 
     private static String json(String t) {
         return t.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
+
+    /** El PIN solo existe si se aplicó despliegue/pin_usuarios.sql; sin esas columnas se ignora. */
+    private static boolean pinSeguro(LoginDao dao, int idUsuario, String pin) {
+        try {
+            return dao.pinCorrecto(idUsuario, pin);
+        } catch (java.sql.SQLException e) {
+            return false;
+        }
     }
 }
