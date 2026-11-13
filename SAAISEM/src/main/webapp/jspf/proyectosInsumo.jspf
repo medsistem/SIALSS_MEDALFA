@@ -1,0 +1,29 @@
+<%-- Casillas "Proyectos del insumo" para AltaClave.jsp y ModiClave.jsp. Salen de tb_proyectos (F_Campo), así un proyecto
+     nuevo aparece solo. La página define antes: java.util.Set<String> proyectosMarcados (columnas marcadas; vacío = ninguna).
+     Envía proyecto=<columna> por cada casilla y proyectosEnviados=1 (para que el servlet sepa que debe actualizarlos). --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    java.util.List<mx.medalfa.sialss.proyectos.CamposProyecto.Campo> camposProyectoInsumo = java.util.List.of();
+    try (java.sql.Connection cxProyectos = mx.medalfa.sialss.config.BaseDatos.GENERAL.conexion()) {
+        camposProyectoInsumo = mx.medalfa.sialss.proyectos.CamposProyecto.listar(cxProyectos);
+    } catch (Exception exProyectos) {
+        java.util.logging.Logger.getLogger("proyectosInsumo.jspf").log(java.util.logging.Level.SEVERE, null, exProyectos);
+    }
+%>
+<div class="form-group">
+    <fieldset class="col-sm-12 sialss-proyectos-insumo">
+        <legend>Proyectos del insumo</legend>
+        <input type="hidden" name="proyectosEnviados" value="1">
+        <% for (mx.medalfa.sialss.proyectos.CamposProyecto.Campo cpi : camposProyectoInsumo) {
+               String idCasilla = "proyecto_" + cpi.columna();
+               String nombreProyecto = cpi.proyecto() == null ? "" : cpi.proyecto().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"); %>
+        <label for="<%=idCasilla%>">
+            <input type="checkbox" name="proyecto" id="<%=idCasilla%>" value="<%=cpi.columna()%>"<%= proyectosMarcados.contains(cpi.columna()) ? " checked" : "" %>>
+            (<%=cpi.idProyecto()%>) <%=nombreProyecto%>
+        </label>
+        <% } %>
+        <% if (camposProyectoInsumo.isEmpty()) { %>
+        <p class="text-danger">No se pudieron leer los proyectos.</p>
+        <% } %>
+    </fieldset>
+</div>

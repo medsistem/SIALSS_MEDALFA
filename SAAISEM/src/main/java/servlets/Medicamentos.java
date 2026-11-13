@@ -311,6 +311,14 @@ public class Medicamentos extends HttpServlet {
                     if ((Clave != "") && (Descripcion != "") && (radiosts != "") && (radiorigen != "") && (radiotipo != "") && (Costo != "") && (OrigeNim != "") && (GrupoNim != "") && (CantRecibir != "")) {
 
                         con.actualizar("UPDATE tb_medica SET F_DesPro='" + Descripcion + "',F_StsPro='" + radiosts + "',F_TipMed='" + radiotipo + "',F_Costo='" + Costo + "',F_PrePro='" + Presentacion + "',F_Origen='" + radiorigen + "',F_N1='" + ban1 + "',F_N2='" + ban2 + "',F_N3='" + ban3 + "',F_N4='" + ban4 + "',F_N5='" + ban5 + "',F_N6='" + ban6 + "',F_N7='" + ban7 + "',F_N8='" + ban8 + "',F_N9='" + ban9 + "',F_N10='" + ban10 + "',F_N11='" + ban11 + "',F_N12='" + ban12 + "',F_N13='" + ban13 + "',F_N14='" + ban14 + "',F_N15='" + ban15 + "',F_N16='" + ban16 + "',F_N17='" + ban17 + "',F_OriNim='" + OrigeNim + "',F_Grupo='" + GrupoNim + "',F_CantMax='" + CantRecibir + "' WHERE F_ClaPro='" + Clave + "';");
+                        // Proyectos del insumo (casillas de jspf/proyectosInsumo.jspf; solo si el formulario las trae).
+                        if ("1".equals(request.getParameter("proyectosEnviados"))) {
+                            String[] proyectosClave = request.getParameterValues("proyecto");
+                            try (java.sql.Connection cx = mx.medalfa.sialss.config.BaseDatos.GENERAL.conexion()) {
+                                mx.medalfa.sialss.proyectos.InsumoProyectos.actualizar(cx, Clave,
+                                        proyectosClave == null ? java.util.List.of() : java.util.Arrays.asList(proyectosClave));
+                            }
+                        }
                         //Borrar de las ordenes de compra insumo cambiado a estatus 'S'
                         if (radiosts.equals("S")) {
 //                            con.actualizar("update tb_pedido_sialss set F_StsPed= 3 where F_StsPed < 2 AND F_Recibido = 0 AND F_Clave = '"+Clave + "';");
@@ -703,7 +711,29 @@ public class Medicamentos extends HttpServlet {
                             out.println("<script>alert('Medicamento Ya Se Encuntra Registrado.')</script>");
                             out.println("<script>window.location='AltaClave.jsp'</script>");
                         } else {
-                            con.actualizar("INSERT INTO tb_medica VALUES('" + Clave + "','" + ClaveSS + "','" + Descripcion + "','" + radiosts + "','" + radiotipo + "','" + Costo + "','" + Presentacion + "','" + radiorigen + "','0','0','0','0','" + Incmen + "','" + ban1 + "','" + ban2 + "','" + ban3 + "','" + ban4 + "','" + ban5 + "','" + ban6 + "','" + ban7 + "','" + ban8 + "','" + ban9 + "','" + ban10 + "','" + ban11 + "','" + ban12 + "','" + ban13 + "','" + ban14 + "','" + ban15 + "','" + ban16 + "','" + ban17 + "','" + ban217 + "','" + ban18 + "','" + ban19 + "','" + ban20 + "','" + ban30 + "','" + OrigeNim + "','" + CostoNim + "','" + GrupoNim + "','" + ComentarioNim + "','" + CatalogoNim + "','" + CantRecibir + "','1','1','','','','');");
+                            // INSERT con columnas nombradas; las columnas de proyecto (F_ProIsem, F_Project2...) salen de tb_proyectos
+                            // (mx.medalfa.sialss.proyectos.InsumoProyectos), así un proyecto nuevo no rompe el alta.
+                            java.util.LinkedHashMap<String, Object> base = new java.util.LinkedHashMap<>();
+                            base.put("F_ClaPro", Clave); base.put("F_ClaProSS", ClaveSS); base.put("F_DesPro", Descripcion);
+                            base.put("F_StsPro", radiosts); base.put("F_TipMed", radiotipo); base.put("F_Costo", Costo);
+                            base.put("F_PrePro", Presentacion); base.put("F_Origen", radiorigen); base.put("F_Catipo", "0");
+                            base.put("F_Cp7", "0"); base.put("F_Tipo", "0"); base.put("F_PesoGra", "0"); base.put("F_IncMen", Incmen);
+                            int[] bans = {ban1, ban2, ban3, ban4, ban5, ban6, ban7, ban8, ban9, ban10, ban11, ban12, ban13, ban14, ban15, ban16, ban17};
+                            for (int n = 0; n < bans.length; n++) {
+                                base.put("F_N" + (n + 1), bans[n]);
+                            }
+                            base.put("F_N217", ban217); base.put("F_N18", ban18); base.put("F_N19", ban19); base.put("F_N20", ban20);
+                            base.put("F_N30", ban30); base.put("F_OriNim", OrigeNim); base.put("F_CostoNim", CostoNim);
+                            base.put("F_Grupo", GrupoNim); base.put("F_Comentario", ComentarioNim); base.put("F_Catalogo", CatalogoNim);
+                            base.put("F_CantMax", CantRecibir); base.put("F_Prioridad", "1"); base.put("F_NomGen", "");
+                            base.put("F_FormaFarm", ""); base.put("F_Concentracion", ""); base.put("F_DesProEsp", "");
+                            // Campos que el formulario no manda (p. ej. CostoNim): el INSERT anterior guardaba el texto "null".
+                            base.replaceAll((k, v) -> v == null ? "" : v);
+                            String[] proyectosClave = request.getParameterValues("proyecto");
+                            try (java.sql.Connection cx = mx.medalfa.sialss.config.BaseDatos.GENERAL.conexion()) {
+                                mx.medalfa.sialss.proyectos.InsumoProyectos.insertar(cx, base,
+                                        proyectosClave == null ? java.util.List.of() : java.util.Arrays.asList(proyectosClave));
+                            }
                             out.println("<script>alert('Medicamento Guardado correctamente.')</script>");
                             out.println("<script>window.location='AltaClave.jsp'</script>");
                         }

@@ -318,6 +318,11 @@
                             </div>
                         </div>
                         <br/>
+                        <% java.util.Set<String> proyectosMarcados = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+                           try (java.sql.Connection cxMarcados = mx.medalfa.sialss.config.BaseDatos.GENERAL.conexion()) {
+                               proyectosMarcados = mx.medalfa.sialss.proyectos.InsumoProyectos.marcadas(cxMarcados, request.getParameter("Clave"));
+                           } catch (Exception exMarcados) { } %>
+                        <%@include file="jspf/proyectosInsumo.jspf" %>
                         <div class="row">
                            
                             <div class="col-sm-6">

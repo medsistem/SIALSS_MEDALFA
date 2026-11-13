@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS tb_menu_bitacora (
   KEY ix_menu_bitacora_fecha (F_FecHora)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Bitácora de cambios del menú';
 
--- Carga inicial: las opciones y perfiles de menu-roles.csv (94 opciones).
+-- Carga inicial: las opciones y perfiles de menu-roles.csv (95 opciones).
 
 INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'ENTRADA', 'Carga Requerimiento', 'requerimiento.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
 INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'requerimiento.jsp';
@@ -444,5 +444,7 @@ INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FR
 INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 2 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'EtiquetasUbicacion.jsp';
 INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 3 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'EtiquetasUbicacion.jsp';
 INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 5 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'EtiquetasUbicacion.jsp';
+INSERT INTO tb_menu_opcion (F_Acceso, F_Modulo, F_Opcion, F_Url, F_Ventana) VALUES ('ALMACEN', 'CATÁLOGOS', 'Alta de Proyecto', 'ProyectoNuevo.jsp', 0) ON DUPLICATE KEY UPDATE F_IdOpcion = F_IdOpcion;
+INSERT IGNORE INTO tb_menu_perfil (F_IdOpcion, F_TipUsu) SELECT F_IdOpcion, 1 FROM tb_menu_opcion WHERE F_Acceso = 'ALMACEN' AND F_Url = 'ProyectoNuevo.jsp';
 
 SELECT F_Acceso, COUNT(*) opciones FROM tb_menu_opcion GROUP BY F_Acceso;

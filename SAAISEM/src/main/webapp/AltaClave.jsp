@@ -228,6 +228,8 @@
                                 <input type="number" min="0" class="form-control" id="CantRecibir" name="CantRecibir" placeholder="Cantidad Max. Recibir" value="" required=""  />
                             </div>
                         </div>
+                        <% java.util.Set<String> proyectosMarcados = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER); proyectosMarcados.add("F_ProIsem"); %>
+                        <%@include file="jspf/proyectosInsumo.jspf" %>
                         <br/>
                         <div class="row">
                             <div class="col-sm-6">

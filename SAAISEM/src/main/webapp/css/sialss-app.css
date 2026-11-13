@@ -317,3 +317,26 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-etq__subtitulo { font-size: 18px; margin: 8px 0 10px; }
 .sialss-etq__col-sel { width: 48px; }
 .sialss-etq .sialss-mr__tabla input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--s-turquesa-osc); }
+
+/* ============================== Alta de proyecto y proyectos del insumo ============================== */
+.sialss-proy { max-width: 1170px; }
+.sialss-proy__columnas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .sialss-proy__columnas { grid-template-columns: 1fr; } }
+.sialss-proy input[type=text], .sialss-proy textarea {
+  width: 100%; padding: 8px 12px; font: inherit; color: var(--s-texto); min-height: 42px;
+  border: 1px solid var(--s-borde-campo); border-radius: var(--s-radio); background: var(--s-superficie);
+}
+.sialss-proy textarea { resize: vertical; }
+.sialss-proy input:focus-visible, .sialss-proy textarea:focus-visible { outline: 3px solid var(--s-lima); outline-offset: 2px; }
+.sialss-proy label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; }
+.sialss-proy__mayus { text-transform: uppercase; }
+.sialss-proy__opcional { font-weight: 400; color: var(--s-texto-2); }
+.sialss-proy__previa { position: sticky; top: calc(var(--s-alto-barra) + 12px); }
+.sialss-proy__plan { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 14px; font-size: 14px; }
+.sialss-proy__plan dt { font-weight: 600; color: var(--s-texto-2); }
+.sialss-proy__plan dd { margin: 0; word-break: break-word; font-weight: 600; }
+.sialss-proy__nota { font-weight: 400; color: var(--s-texto-2); }
+.sialss-proy__titulo-error { margin: 0 0 4px; font-weight: 700; color: var(--s-error); }
+.sialss-proy__errores { margin: 0 0 14px; padding-left: 20px; color: var(--s-error); font-size: 14px; }
+.sialss-proyectos-insumo legend { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.sialss-proyectos-insumo label { display: inline-flex; align-items: center; gap: 6px; margin: 0 18px 8px 0; font-weight: 400; }

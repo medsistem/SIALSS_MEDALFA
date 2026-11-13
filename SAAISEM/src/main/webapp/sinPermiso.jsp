@@ -10,7 +10,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Sin permiso</title>
-        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.6" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.7" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <main class="sialss-login" aria-labelledby="titulo-sin-permiso">

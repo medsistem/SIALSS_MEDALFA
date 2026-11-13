@@ -138,9 +138,14 @@ public final class MenuSialss {
 
     /** ¿Puede este usuario abrir la página de administración del menú? */
     public static boolean administra(Acceso acceso, String perfil, Integer idUsuario) {
+        return tieneOpcion(acceso, perfil, idUsuario, PAGINA_ADMINISTRACION);
+    }
+
+    /** ¿Tiene el usuario en su menú la opción que lleva a esta página? (para proteger pantallas de administración). */
+    public static boolean tieneOpcion(Acceso acceso, String perfil, Integer idUsuario, String url) {
         return acceso != null && para(acceso, perfil, idUsuario).stream()
                 .flatMap(m -> m.opciones().stream())
-                .anyMatch(o -> PAGINA_ADMINISTRACION.equals(o.url()));
+                .anyMatch(o -> url.equals(o.url()));
     }
 
     /**
