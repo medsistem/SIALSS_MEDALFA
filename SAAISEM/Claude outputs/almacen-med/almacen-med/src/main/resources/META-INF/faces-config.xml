@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
+
+    <application>
+        <!--
+            Resuelve los beans de Spring desde EL. JoinFaces normalmente lo
+            registra solo; se declara aquí también para no depender de ese
+            detalle y para que quede a la vista de quien lea el proyecto.
+            Es lo que hace que #{sesionBean} encuentre el @Component.
+        -->
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+
+        <locale-config>
+            <default-locale>es_MX</default-locale>
+            <supported-locale>es_MX</supported-locale>
+        </locale-config>
+    </application>
+
+    <!--
+        Vistas protegidas: JSF rechaza un POST a estas páginas si no trae un
+        ViewState válido de la misma sesión. Es la defensa propia de JSF y
+        suma a la de Spring Security.
+    -->
+    <protected-views>
+        <url-pattern>/inicio.xhtml</url-pattern>
+        <url-pattern>/entradas/recepcion.xhtml</url-pattern>
+        <url-pattern>/entradas/devolucion.xhtml</url-pattern>
+        <url-pattern>/entradas/consulta.xhtml</url-pattern>
+        <url-pattern>/salidas/surtido.xhtml</url-pattern>
+        <url-pattern>/salidas/caducidad.xhtml</url-pattern>
+        <url-pattern>/salidas/consulta.xhtml</url-pattern>
+        <url-pattern>/impresiones/marbetes.xhtml</url-pattern>
+        <url-pattern>/impresiones/folios.xhtml</url-pattern>
+        <url-pattern>/impresiones/existencias.xhtml</url-pattern>
+        <url-pattern>/admin/usuarios.xhtml</url-pattern>
+        <url-pattern>/admin/roles.xhtml</url-pattern>
+        <url-pattern>/admin/menus.xhtml</url-pattern>
+        <url-pattern>/admin/bitacora.xhtml</url-pattern>
+    </protected-views>
+
+</faces-config>

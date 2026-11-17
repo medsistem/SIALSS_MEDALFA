@@ -48,7 +48,7 @@
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
-        <link href="css/sialss-app.css?v=2.0.8" rel="stylesheet">
+        <link href="css/sialss-app.css?v=2.0.9" rel="stylesheet">
         <!---->
         <title>SIALSS</title>
     </head>

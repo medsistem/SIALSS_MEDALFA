@@ -369,3 +369,13 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-insumo__botones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 @media (max-width: 560px) { .sialss-insumo__botones { grid-template-columns: 1fr; } }
 .sialss-insumo__nota { margin: 12px 0 0; font-size: 13px; color: var(--s-texto-2); }
+
+/* ====================== Botones de las pantallas anteriores ====================== */
+/* Con el menú lateral el contenido es más angosto y columnas como col-sm-1 ya no
+   alcanzan para el texto del botón. Bootstrap 3 lo deja en una sola línea (nowrap)
+   y el texto se sale. Aquí el texto se parte entre palabras y el botón de ancho
+   completo crece hasta su palabra más larga cuando la columna es más angosta. */
+body.sialss-app .btn { white-space: normal; }
+body.sialss-app .input-group-btn > .btn,
+body.sialss-app .btn-group > .btn { white-space: nowrap; }
+body.sialss-app .btn-block { width: min-content; min-width: 100%; padding-left: 8px; padding-right: 8px; }

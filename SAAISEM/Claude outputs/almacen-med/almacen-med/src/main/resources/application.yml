@@ -1,0 +1,70 @@
+# ---------------------------------------------------------------------------
+# Configuración de la aplicación.
+#
+# Las credenciales se leen de variables de entorno y solo caen al valor de
+# desarrollo si no están definidas. En el servidor, define BD_URL, BD_USUARIO
+# y BD_CLAVE y este archivo no lleva ningún secreto.
+# ---------------------------------------------------------------------------
+
+server:
+  port: ${PUERTO:8080}
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        # Ponlo en true cuando la aplicación quede detrás de HTTPS.
+        secure: ${COOKIE_SEGURA:false}
+        same-site: lax
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: almacen-med
+
+  datasource:
+    url: ${BD_URL:jdbc:mariadb://localhost:3306/almacen_med?useUnicode=true&characterEncoding=UTF-8}
+    username: ${BD_USUARIO:app_almacen}
+    password: ${BD_CLAVE:cambia_esta_clave}
+    driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 3
+      connection-timeout: 10000
+      max-lifetime: 1700000
+      pool-name: almacen-pool
+
+  jpa:
+    # none a propósito: el esquema lo manda sql/01_esquema.sql, no Hibernate.
+    # Dejar que la aplicación altere tablas en producción es cómodo hasta el
+    # día en que borra una columna.
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        jdbc:
+          time_zone: America/Mexico_City
+    show-sql: false
+
+joinfaces:
+  jsf:
+    # Development muestra los errores de Facelets con detalle. En el servidor
+    # cámbialo a Production: además de ocultar rastros, activa las cachés.
+    project-stage: ${ETAPA_JSF:Development}
+  faces-servlet:
+    url-mappings: "*.xhtml"
+  primefaces:
+    theme: saga
+    font-awesome: false
+
+logging:
+  level:
+    root: INFO
+    mx.medicalminds.almacen: INFO
+    org.springframework.security: INFO
+    # Para ver el SQL en desarrollo:
+    # org.hibernate.SQL: DEBUG

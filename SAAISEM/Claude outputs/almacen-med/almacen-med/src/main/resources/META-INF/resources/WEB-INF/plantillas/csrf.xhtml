@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!--
+        Token CSRF para los formularios de JSF.
+
+        Spring Security exige el token en todo POST. Un <h:form> no lo incluye
+        por su cuenta, así que este fragmento se inserta dentro de cada uno:
+
+            <h:form>
+                <ui:include src="/WEB-INF/plantillas/csrf.xhtml"/>
+                ...
+            </h:form>
+
+        Es HTML plano dentro del formulario, así que JSF lo deja pasar tal cual
+        y queda dentro del <form> que se envía. Las peticiones AJAX de JSF
+        serializan el formulario completo, de modo que el token también viaja
+        en ellas.
+
+        requestScope._csrf y no _csrf a secas: el filtro de Spring Security deja
+        el token como atributo de la petición, y esa es la forma que siempre
+        resuelve en EL de Facelets.
+    -->
+    <input type="hidden"
+           name="#{requestScope._csrf.parameterName}"
+           value="#{requestScope._csrf.token}"/>
+</ui:composition>

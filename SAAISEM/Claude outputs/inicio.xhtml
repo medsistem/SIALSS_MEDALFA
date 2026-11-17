@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/plantillas/plantilla.xhtml">
+
+    <ui:define name="titulo">Inicio</ui:define>
+
+    <ui:define name="subtitulo">
+        <h:outputText value="Estas son las opciones disponibles para tu perfil."/>
+    </ui:define>
+
+    <ui:define name="contenido">
+
+        <!--
+            Los atajos salen del mismo árbol que el menú de arriba, así que
+            siempre coinciden: lo que no aparece en el menú tampoco aparece aquí.
+        -->
+        <h:panelGroup layout="block" styleClass="rejilla"
+                      rendered="#{not empty sesionBean.arbol}">
+            <ui:repeat value="#{sesionBean.arbol}" var="grupo">
+                <ui:repeat value="#{grupo.hijos}" var="opcion">
+                    <a class="atajo" href="#{request.contextPath}#{opcion.destino}">
+                        <div class="atajo__titulo">
+                            <h:outputText value="#{opcion.etiqueta}"/>
+                        </div>
+                        <div class="atajo__nota">
+                            <h:outputText value="#{grupo.etiqueta}"/>
+                        </div>
+                    </a>
+                </ui:repeat>
+            </ui:repeat>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="vacio"
+                      rendered="#{empty sesionBean.arbol}">
+            Tu usuario no tiene ninguna opción asignada.
+            Pide al administrador que te asigne un perfil.
+        </h:panelGroup>
+
+    </ui:define>
+
+</ui:composition>

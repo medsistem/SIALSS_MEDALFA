@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="es-MX">
+
+<!--
+    Plantilla común de las pantallas internas.
+
+    Cada vista la usa así:
+
+        <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+            <ui:define name="titulo">Recepción de compra</ui:define>
+            <ui:define name="contenido"> ... </ui:define>
+        </ui:composition>
+
+    El menú sale de #{sesionBean.modeloMenu}, que se arma leyendo la base según
+    los roles de quien entró. Agregar una opción es capturar un renglón en la
+    tabla menu y su permiso en rol_menu: no hay que tocar este archivo.
+-->
+
+<h:head>
+    <f:facet name="first">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
+    <title><ui:insert name="titulo">Almacén</ui:insert> · Almacén de medicamentos e insumos</title>
+    <h:outputStylesheet library="css" name="app.css"/>
+</h:head>
+
+<h:body>
+
+    <header class="barra">
+        <div class="barra__marca">
+            <svg width="26" height="26" viewBox="0 0 48 48" fill="none"
+                 stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M6 10 h36 M8 10 v30 a4 4 0 0 0 4 4 h24 a4 4 0 0 0 4 -4 v-30"/>
+                <path d="M8 24 h32"/>
+            </svg>
+            <span>Almacén de medicamentos e insumos</span>
+        </div>
+
+        <div class="barra__sep"></div>
+
+        <div class="barra__usuario">
+            <strong><h:outputText value="#{sesionBean.usuario}"/></strong>
+            <span class="barra__roles"><h:outputText value="#{sesionBean.rolesComoTexto}"/></span>
+        </div>
+
+        <!--
+            Cerrar sesión va como formulario POST, no como enlace.
+            Spring Security rechaza el cierre por GET cuando CSRF está activo, y
+            con razón: un GET se puede disparar desde una imagen en otra página.
+        -->
+        <form method="post" action="#{request.contextPath}/logout">
+            <input type="hidden"
+                   name="#{requestScope._csrf.parameterName}"
+                   value="#{requestScope._csrf.token}"/>
+            <button type="submit" class="barra__salir">Salir</button>
+        </form>
+    </header>
+
+    <!-- Menú dinámico -->
+    <h:form id="formMenu">
+        <ui:include src="/WEB-INF/plantillas/csrf.xhtml"/>
+        <p:menubar model="#{sesionBean.modeloMenu}" styleClass="menu-barra"/>
+    </h:form>
+
+    <main class="contenido">
+        <h1 class="titulo-pantalla"><ui:insert name="titulo">Almacén</ui:insert></h1>
+        <p class="subtitulo-pantalla"><ui:insert name="subtitulo"></ui:insert></p>
+
+        <ui:insert name="contenido">
+            <div class="vacio">Esta pantalla todavía no tiene contenido.</div>
+        </ui:insert>
+    </main>
+
+</h:body>
+</html>

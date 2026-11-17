@@ -1,0 +1,282 @@
+/* ---------------------------------------------------------------------------
+   Pantalla de acceso — fondo animado de almacén de medicamentos e insumos.
+
+   Todo es CSS y SVG en línea: ni una imagen que descargar, ni una línea de
+   JavaScript. Tres capas que se mueven a velocidades distintas:
+
+     1. degradado base, quieto;
+     2. silueta de anaqueles que recorre la pantalla muy despacio;
+     3. unos cuantos frascos y cajas que flotan.
+
+   Quien tenga activado "reducir movimiento" en su sistema operativo ve lo
+   mismo pero estático. No es un detalle estético: el movimiento continuo
+   molesta a quien tiene vértigo o migraña, y esta pantalla la abren todos los
+   días. Ver la regla prefers-reduced-motion al final.
+   --------------------------------------------------------------------------- */
+
+:root {
+    --fondo-1:   #0f2027;
+    --fondo-2:   #15323b;
+    --fondo-3:   #1b4650;
+    --tinta:     #e8eef1;
+    --tinta-sua: #9fb3bd;
+    --acento:    #2e9e8f;
+    --acento-os: #227a6f;
+    --error:     #e2635c;
+    --panel:     rgba(16, 36, 43, .82);
+    --borde:     rgba(232, 238, 241, .14);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body.acceso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    color: var(--tinta);
+    background: var(--fondo-1);
+    overflow: hidden;
+}
+
+/* --- Capa 1: degradado base -------------------------------------------- */
+.fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(1200px 600px at 20% 15%, var(--fondo-3) 0%, transparent 60%),
+        radial-gradient(900px 500px at 85% 85%, var(--fondo-2) 0%, transparent 55%),
+        linear-gradient(160deg, var(--fondo-1) 0%, #0b171c 100%);
+}
+
+/* --- Capa 2: anaqueles ------------------------------------------------- */
+/* El patrón es un SVG embebido: un módulo de anaquel con cajas y frascos que
+   se repite en mosaico. Mide 240x180 y se desplaza justo 240px, de modo que el
+   ciclo cierra sin salto visible. */
+.fondo__anaqueles {
+    position: fixed;
+    inset: -20px -260px;
+    z-index: 1;
+    opacity: .16;
+    background-repeat: repeat;
+    background-size: 240px 180px;
+    background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='240' height='180' viewBox='0 0 240 180'>\
+<g fill='none' stroke='%23bfe3dd' stroke-width='2'>\
+<path d='M10 20 H230 M10 80 H230 M10 140 H230'/>\
+<path d='M14 14 V170 M226 14 V170'/>\
+</g>\
+<g fill='%23bfe3dd' opacity='.55'>\
+<rect x='26' y='44' width='34' height='34' rx='2'/>\
+<rect x='68' y='52' width='26' height='26' rx='2'/>\
+<rect x='150' y='40' width='40' height='38' rx='2'/>\
+<rect x='34' y='108' width='30' height='30' rx='2'/>\
+<rect x='120' y='100' width='44' height='38' rx='2'/>\
+</g>\
+<g fill='%238fd3c8' opacity='.7'>\
+<rect x='104' y='48' width='12' height='30' rx='3'/>\
+<rect x='106' y='42' width='8' height='7' rx='2'/>\
+<rect x='198' y='46' width='12' height='32' rx='3'/>\
+<rect x='200' y='40' width='8' height='7' rx='2'/>\
+<rect x='76' y='110' width='12' height='28' rx='3'/>\
+<rect x='78' y='104' width='8' height='7' rx='2'/>\
+<rect x='182' y='106' width='12' height='32' rx='3'/>\
+<rect x='184' y='100' width='8' height='7' rx='2'/>\
+</g>\
+</svg>");
+    animation: desplazar-anaqueles 90s linear infinite;
+}
+
+@keyframes desplazar-anaqueles {
+    from { background-position: 0 0; }
+    to   { background-position: 240px 0; }
+}
+
+/* --- Capa 3: piezas sueltas flotando ----------------------------------- */
+.fondo__piezas {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.pieza {
+    position: absolute;
+    opacity: .10;
+    color: #bfe3dd;
+    animation: flotar 18s ease-in-out infinite;
+}
+
+.pieza svg { display: block; }
+
+.pieza--1 { top:  12%; left:  8%; width:  86px; animation-duration: 21s; }
+.pieza--2 { top:  68%; left: 14%; width:  64px; animation-duration: 17s; animation-delay: -4s; }
+.pieza--3 { top:  22%; left: 78%; width: 100px; animation-duration: 24s; animation-delay: -8s; }
+.pieza--4 { top:  74%; left: 84%; width:  72px; animation-duration: 19s; animation-delay: -2s; }
+.pieza--5 { top:  46%; left: 46%; width:  58px; animation-duration: 26s; animation-delay: -11s; opacity: .07; }
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0)     rotate(0deg); }
+    50%      { transform: translateY(-22px) rotate(3deg); }
+}
+
+/* --- Tarjeta de acceso -------------------------------------------------- */
+.acceso__tarjeta {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 400px;
+    padding: 36px 32px 32px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    /* backdrop-filter es un extra: donde no exista, el panel ya es opaco. */
+    backdrop-filter: blur(9px);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .45);
+}
+
+.acceso__marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+}
+
+.acceso__marca svg { flex: 0 0 auto; color: var(--acento); }
+
+.acceso__titulo {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.acceso__subtitulo {
+    margin: 2px 0 0;
+    font-size: .78rem;
+    color: var(--tinta-sua);
+}
+
+.campo { margin-bottom: 18px; }
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--tinta-sua);
+    letter-spacing: .3px;
+}
+
+.campo input {
+    width: 100%;
+    padding: 11px 13px;
+    font: inherit;
+    color: var(--tinta);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--borde);
+    border-radius: 7px;
+    transition: border-color .15s, background .15s;
+}
+
+.campo input::placeholder { color: rgba(159, 179, 189, .55); }
+
+.campo input:hover { background: rgba(255, 255, 255, .09); }
+
+.campo input:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 1px;
+    border-color: var(--acento);
+    background: rgba(255, 255, 255, .11);
+}
+
+.boton {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px;
+    font: inherit;
+    font-weight: 600;
+    color: #06201c;
+    background: var(--acento);
+    border: 1px solid var(--acento);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.boton:hover { background: #35b3a2; }
+.boton:active { background: var(--acento-os); }
+
+.boton:focus-visible {
+    outline: 2px solid var(--tinta);
+    outline-offset: 2px;
+}
+
+/* --- Avisos ------------------------------------------------------------- */
+.aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    font-size: .83rem;
+    line-height: 1.4;
+    border-radius: 7px;
+}
+
+.aviso--error {
+    color: #ffd9d7;
+    background: rgba(226, 99, 92, .16);
+    border: 1px solid rgba(226, 99, 92, .4);
+}
+
+.aviso--info {
+    color: #cfe9e4;
+    background: rgba(46, 158, 143, .14);
+    border: 1px solid rgba(46, 158, 143, .35);
+}
+
+.acceso__pie {
+    margin: 22px 0 0;
+    font-size: .72rem;
+    line-height: 1.5;
+    text-align: center;
+    /* .85 y no .75: sobre el panel da 5.76 de contraste en vez de 4.76.
+       Los dos pasan el mínimo AA de 4.5, pero este texto es de 0.72rem y
+       conviene no ir al filo. */
+    color: rgba(159, 179, 189, .85);
+}
+
+/* --- Pantallas chicas --------------------------------------------------- */
+@media (max-width: 420px) {
+    .acceso__tarjeta { padding: 28px 22px 24px; }
+    .pieza--3, .pieza--4, .pieza--5 { display: none; }
+}
+
+/* --- Sin movimiento ----------------------------------------------------- */
+/* Quien pidió reducir el movimiento ve el mismo fondo, quieto. No se esconde
+   nada: solo se detienen las animaciones. */
+@media (prefers-reduced-motion: reduce) {
+    .fondo__anaqueles,
+    .pieza {
+        animation: none;
+    }
+    .campo input,
+    .boton {
+        transition: none;
+    }
+}
+
+/* --- Contraste alto ----------------------------------------------------- */
+@media (prefers-contrast: more) {
+    .fondo__anaqueles { opacity: .08; }
+    .pieza            { opacity: .05; }
+    .acceso__tarjeta  { background: #0d2026; }
+}
