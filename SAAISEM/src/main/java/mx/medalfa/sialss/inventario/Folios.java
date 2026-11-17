@@ -28,6 +28,11 @@ public final class Folios {
         return siguiente(c, "F_IndMov");
     }
 
+    /** Folio de compra (tb_compra.F_ClaDoc): {@code tb_indice.F_IndCom} es el siguiente, como en la Entrada Manual. */
+    public static int siguienteCompra(Connection c) throws SQLException {
+        return siguiente(c, "F_IndCom");
+    }
+
     private static int siguiente(Connection c, String columna) throws SQLException {
         int valor;
         try (PreparedStatement ps = c.prepareStatement("SELECT " + columna + " FROM tb_indice LIMIT 1 FOR UPDATE");

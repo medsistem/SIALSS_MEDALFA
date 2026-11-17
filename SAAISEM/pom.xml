@@ -96,6 +96,13 @@
         </dependency>
 
         <!-- Reportes -->
+        <!-- Códigos de barras de los reportes Jasper (marbetes de tarimas y cajas): faltaba en la migración y los
+             marbetes de Reimpresión de compras fallaban con ClassNotFoundException net.sourceforge.barbecue. -->
+        <dependency>
+            <groupId>net.sourceforge.barbecue</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>1.5-beta1</version>
+        </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>

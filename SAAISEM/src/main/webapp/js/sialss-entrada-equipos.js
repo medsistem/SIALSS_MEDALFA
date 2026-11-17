@@ -110,6 +110,55 @@
     }).catch(function (e) { estado(e.message, 'error'); }).then(function () { b.disabled = false; });
   });
 
+  // Empaque: mismo cálculo que la Entrada Manual (captura.jsp, totalPiezas) ----------------
+  function num(id) { var v = parseInt(($(id).value || '').replace(/,/g, ''), 10); return isNaN(v) || v < 0 ? 0 : v; }
+  function miles(n) { return n.toLocaleString('es-MX'); }
+  function empaque() {
+    var tc = num('eq-tarimas-c'), cxt = num('eq-cajas-xt'), pxc = num('eq-piezas-xc'),
+        ti = num('eq-tarimas-i'), ci = num('eq-cajas-i'), resto = num('eq-resto');
+    var vacio = !(tc || cxt || pxc || ti || ci || resto);
+    var cajas = tc * cxt + ci;
+    var piezas = vacio ? 1 : cajas * pxc + resto;
+    var tarimas = tc + ti;
+    if (tarimas === 0 && (resto > 0 || vacio)) { tarimas = vacio ? 0 : 1; }
+    $('eq-total-tarimas').textContent = miles(tarimas);
+    $('eq-total-cajas').textContent = miles(cajas + (resto > 0 ? 1 : 0));
+    $('eq-total-piezas').textContent = miles(piezas);
+    // Con una pieza es número de serie; con varias, lote.
+    $('eq-serie-etiqueta').textContent = piezas === 1 ? 'No. de serie' : 'Lote';
+    $('eq-serie-ayuda').textContent = piezas === 1
+      ? 'Si no tiene, use "Generar CB": el código queda también como serie.'
+      : 'Son ' + miles(piezas) + ' piezas: escriba el lote; si no tiene, se usa el código de barras.';
+    return piezas;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.eq-empaque'), function (el) {
+    el.addEventListener('input', empaque);
+  });
+
+  // Formatos de Reimpresión de compras (acuse, marbetes de tarimas y de cajas) -----------------
+  function ligas(x) {
+    var base = { F_FolRemi: x.remision, F_OrdCom: x.oc, fol_gnkl: x.compra };
+    function url(pagina, extra) { return CTX + '/' + pagina + '?' + new URLSearchParams(Object.assign({}, base, extra)); }
+    return {
+      acuse: url('reimpReporte.jsp', { fecha: x.fechaCompra }),
+      tarimasC: url('reimp_marbete.jsp', { Ban: 1 }),
+      tarimasA: url('reimp_marbete.jsp', { Ban: 2 }),
+      cajas: url('reimp_marbeteCajas.jsp', { Ban: 2 })
+    };
+  }
+  function abrir(ev) {
+    var v = window.open(this.href, 'sialss-formato-equipo', 'width=1000,height=800,left=60,top=40');
+    if (v) { ev.preventDefault(); v.focus(); }
+  }
+  function mostrarFormatos(x) {
+    var l = ligas(x);
+    Array.prototype.forEach.call($('eq-formatos').querySelectorAll('a[data-formato]'), function (a) {
+      a.href = l[a.getAttribute('data-formato')];
+      a.onclick = abrir;
+    });
+    $('eq-formatos').hidden = false;
+  }
+
   // Últimas entradas ------------------------------------------------------------------
   function celda(t) { var td = document.createElement('td'); td.textContent = t == null ? '' : t; return td; }
   function recientes() {
@@ -118,23 +167,40 @@
       tb.innerHTML = '';
       if (!r.equipos.length) {
         var tr = document.createElement('tr'); var td = celda('Todavía no hay entradas de equipos.');
-        td.colSpan = 12; td.className = 'sialss-mr__vacio'; tr.appendChild(td); tb.appendChild(tr);
+        td.colSpan = 14; td.className = 'sialss-mr__vacio'; tr.appendChild(td); tb.appendChild(tr);
         return;
       }
       r.equipos.forEach(function (x) {
         var tr = document.createElement('tr');
-        [x.fecha, x.clave, x.descripcion, x.serie, x.cb, x.marca, x.modelo, x.categoria, x.condicion, x.costo, x.ubicacion, x.folio]
+        [x.fecha, x.clave, x.descripcion, x.serie, x.cb, x.marca, x.modelo, x.categoria, x.condicion, x.costo, x.piezas, x.ubicacion, x.folio]
           .forEach(function (v) { tr.appendChild(celda(v)); });
+        var td = document.createElement('td');
+        if (x.compra) {
+          var l = ligas(x), div = document.createElement('div');
+          div.className = 'eq-formatos-fila';
+          [['acuse', 'Acuse'], ['tarimasC', 'Tarimas C'], ['tarimasA', 'Tarimas A'], ['cajas', 'Cajas']].forEach(function (f) {
+            var a = document.createElement('a');
+            a.href = l[f[0]]; a.target = '_blank'; a.rel = 'noopener'; a.textContent = f[1]; a.onclick = abrir;
+            div.appendChild(a);
+          });
+          td.appendChild(div);
+        } else {
+          td.textContent = 'Sin compra';
+        }
+        tr.appendChild(td);
         tb.appendChild(tr);
       });
     }).catch(function (e) { estado(e.message, 'error'); });
   }
   recientes();
+  empaque();
 
   // Guardar ------------------------------------------------------------------------
   function limpiarEquipo() {
     ['eq-clave', 'eq-serie', 'eq-cb', 'eq-costo', 'eq-tarima', 'eq-compra', 'eq-garantia', 'eq-accesorios', 'eq-notas',
-     'eq-marca-nueva', 'eq-modelo-nuevo'].forEach(function (id) { $(id).value = ''; });
+     'eq-marca-nueva', 'eq-modelo-nuevo', 'eq-tarimas-c', 'eq-cajas-xt', 'eq-piezas-xc', 'eq-tarimas-i', 'eq-cajas-i', 'eq-resto']
+      .forEach(function (id) { $(id).value = ''; });
+    empaque();
     $('eq-elegido').textContent = '';
     $('eq-buscar').focus();
   }
@@ -160,9 +226,12 @@
       method: 'POST', body: datos, credentials: 'same-origin',
       headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
     }).then(respuesta).then(function (r) {
-      estado('Equipo guardado: serie ' + r.serie + ', CB ' + r.cb + ', folio de lote ' + r.folio + ', documento ' + r.documento + '.', 'ok');
+      estado('Entrada guardada: ' + miles(r.piezas) + (r.piezas === 1 ? ' pieza, serie ' : ' piezas, lote ') + r.serie + ', CB ' + r.cb
+        + ', folio de lote ' + r.folio + ', documento ' + r.documento + ' (OC ' + r.oc + ', remisión ' + r.remision + ').', 'ok');
+      mostrarFormatos(r);
       limpiarEquipo();
       recientes();
+  empaque();
     }).catch(function (e) { estado(e.message, 'error'); }).then(function () { boton.disabled = false; });
   });
 })();

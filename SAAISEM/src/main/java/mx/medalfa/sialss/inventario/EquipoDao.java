@@ -17,9 +17,10 @@ import mx.medalfa.sialss.dao.Consultas;
 import mx.medalfa.sialss.dao.Fila;
 
 /**
- * Entrada de equipos: cada equipo es un lote de una pieza en tb_lote (serie en F_ClaLot, marca en
- * F_ClaMar, modelo en F_Modelo, código en F_Cb, tarima en F_tarima), su movimiento de entrada en
- * tb_movinv (concepto 49 ENTRADA DE EQUIPOS) y el resto de sus datos en tb_equipo (por clave + folio).
+ * Entrada de equipos: el lote en tb_lote (serie o lote en F_ClaLot, marca en F_ClaMar, modelo en F_Modelo, código
+ * en F_Cb, tarima en F_tarima) con la cantidad que da el empaque (tarimas, cajas y piezas, como la Entrada Manual),
+ * su movimiento de entrada en tb_movinv (concepto 49 ENTRADA DE EQUIPOS), la compra en tb_compra (para el acuse y
+ * los marbetes de Reimpresión de compras) y el resto de sus datos en tb_equipo (por clave + folio).
  */
 public class EquipoDao {
 
@@ -87,13 +88,16 @@ public class EquipoDao {
         for (Fila f : Consultas.lista(c,
                 "SELECT DATE_FORMAT(e.F_FecAlta, '%d/%m/%Y %H:%i') AS fecha, e.F_ClaPro AS clave, m.F_DesPro AS descripcion, "
                 + "l.F_ClaLot AS serie, l.F_Cb AS cb, ma.F_DesMar AS marca, mo.F_DesModelo AS modelo, e.F_Categoria AS categoria, "
-                + "e.F_Condicion AS condicion, e.F_Costo AS costo, l.F_Ubica AS ubicacion, e.F_FolLot AS folio, e.F_Usuario AS usuario "
+                + "e.F_Condicion AS condicion, e.F_Costo AS costo, l.F_Ubica AS ubicacion, e.F_FolLot AS folio, e.F_Usuario AS usuario, "
+                + "COALESCE(co.F_CanCom, 1) AS piezas, co.F_ClaDoc AS compra, co.F_OrdCom AS oc, co.F_FolRemi AS remision, "
+                + "DATE_FORMAT(co.F_FecApl, '%Y-%m-%d') AS fechaCompra "
                 + "FROM tb_equipo e JOIN tb_lote l ON l.F_IdLote = e.F_IdLoteAlta JOIN tb_medica m ON m.F_ClaPro = e.F_ClaPro "
                 + "LEFT JOIN tb_marca ma ON ma.F_ClaMar = l.F_ClaMar LEFT JOIN tb_modelo mo ON mo.F_ClaModelo = l.F_Modelo "
+                + "LEFT JOIN tb_compra co ON co.F_Lote = e.F_FolLot AND co.F_ClaPro = e.F_ClaPro "
                 + "ORDER BY e.F_IdEquipo DESC LIMIT 20")) {
             Map<String, String> p = new LinkedHashMap<>();
             for (String k : List.of("fecha", "clave", "descripcion", "serie", "cb", "marca", "modelo", "categoria",
-                    "condicion", "costo", "ubicacion", "folio", "usuario")) {
+                    "condicion", "costo", "ubicacion", "folio", "usuario", "piezas", "compra", "oc", "remision", "fechaCompra")) {
                 p.put(k, f.get(k));
             }
             l.add(p);
@@ -105,10 +109,44 @@ public class EquipoDao {
     public record Equipo(String clave, Integer marca, String marcaNueva, Integer modelo, String modeloNuevo,
                          String serie, String cb, String categoria, BigDecimal costo, String condicion,
                          LocalDate fechaCompra, LocalDate garantiaHasta, String accesorios, String notas,
-                         int proyecto, int origen, int proveedor, String ubicacion, String tarima, String remision) {
+                         int proyecto, int origen, int proveedor, String ubicacion, String tarima, String remision,
+                         String ordenCompra, Empaque empaque) {
     }
 
-    public record Resultado(int folio, int documento, int idLote, String serie, String cb) {
+    /**
+     * Empaque como en la Entrada Manual (captura.jsp, totalPiezas): cajas = tarimas completas × cajas por tarima +
+     * cajas de las tarimas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque = 1 pieza (resto 1).
+     */
+    public record Empaque(int tarimasCompletas, int cajasPorTarima, int piezasPorCaja, int tarimasIncompletas,
+                          int cajasIncompletas, int resto) {
+        public static final Empaque UNA_PIEZA = new Empaque(0, 0, 0, 0, 0, 1);
+
+        public int cajasCompletas() {
+            return tarimasCompletas * cajasPorTarima;
+        }
+
+        public int cajas() {
+            return cajasCompletas() + cajasIncompletas;
+        }
+
+        public int piezas() {
+            return cajas() * piezasPorCaja + resto;
+        }
+
+        public int tarimas() {
+            int t = tarimasCompletas + tarimasIncompletas;
+            return t == 0 && resto > 0 ? 1 : t;
+        }
+
+        public boolean vacio() {
+            return tarimasCompletas == 0 && cajasPorTarima == 0 && piezasPorCaja == 0 && tarimasIncompletas == 0
+                    && cajasIncompletas == 0 && resto == 0;
+        }
+    }
+
+    /** Datos del alta. {@code compra} es tb_compra.F_ClaDoc, con F_OrdCom, F_FolRemi y F_FecApl (para los formatos). */
+    public record Resultado(int folio, int documento, int idLote, String serie, String cb, int piezas, int compra,
+                            String ordenCompra, String remision, String fecha) {
     }
 
     /** Problema que se le muestra al usuario tal cual (no es una falla del sistema). */
@@ -141,10 +179,26 @@ public class EquipoDao {
             Integer modelo = e.modelo() != null ? e.modelo()
                     : (e.modeloNuevo() == null ? null : alta("tb_modelo", "F_DesModelo", e.modeloNuevo()));
 
+            Empaque emp = e.empaque() == null || e.empaque().vacio() ? Empaque.UNA_PIEZA : e.empaque();
+            if (emp.tarimasCompletas() > 0 && emp.cajasPorTarima() == 0) {
+                throw new Rechazo("Indique cuántas cajas trae cada tarima completa.");
+            }
+            if (emp.cajas() > 0 && emp.piezasPorCaja() == 0) {
+                throw new Rechazo("Indique cuántas piezas trae cada caja.");
+            }
+            if (emp.tarimasIncompletas() > 0 && emp.cajasIncompletas() == 0 && emp.resto() == 0) {
+                throw new Rechazo("Indique las cajas o el resto de las tarimas incompletas.");
+            }
+            int piezas = emp.piezas();
+            if (piezas < 1) {
+                throw new Rechazo("La entrada debe tener al menos una pieza.");
+            }
+
             String cb = e.cb() == null ? Folios.siguienteCb(c) : e.cb();
             String serie = e.serie() == null ? cb : e.serie();
 
-            List<Fila> conSerie = Consultas.lista(c,
+            // Una pieza = número de serie: no puede repetirse con existencia. Varias piezas = lote.
+            List<Fila> conSerie = piezas > 1 ? List.of() : Consultas.lista(c,
                     "SELECT F_FolLot, F_Ubica FROM tb_lote WHERE F_ClaPro = ? AND F_ClaLot = ? AND F_ExiLot > 0 LIMIT 1",
                     e.clave(), serie);
             if (!conSerie.isEmpty()) {
@@ -160,7 +214,10 @@ public class EquipoDao {
             }
 
             int folio = Folios.siguienteLote(c);
-            int documento = Folios.siguienteDocumento(c);
+            // Mismo folio para el movimiento y la compra, como la Entrada Manual (tb_indice.F_IndCom).
+            int documento = Folios.siguienteCompra(c);
+            String ordenCompra = e.ordenCompra() == null ? "EQUIPOS" : e.ordenCompra();
+            String remision = e.remision() == null ? "S/R" : e.remision();
             LocalDate fabricacion = e.fechaCompra() != null ? e.fechaCompra() : LocalDate.now();
             BigDecimal costo = e.costo() != null ? e.costo() : BigDecimal.ZERO;
 
@@ -168,11 +225,12 @@ public class EquipoDao {
             try (PreparedStatement ps = c.prepareStatement(
                     "INSERT INTO tb_lote (F_ClaPro, F_ClaLot, F_FecCad, F_ExiLot, F_FolLot, F_ClaOrg, F_Ubica, F_FecFab, F_Cb, "
                     + "F_ClaMar, F_Origen, F_ClaPrv, F_tarima, F_Proyecto, F_Modelo, F_observacion) "
-                    + "VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
                 int i = 1;
                 ps.setString(i++, e.clave());
                 ps.setString(i++, serie);
                 ps.setDate(i++, Date.valueOf(CADUCIDAD_EQUIPO));
+                ps.setInt(i++, piezas);
                 ps.setInt(i++, folio);
                 ps.setInt(i++, e.proveedor());
                 ps.setString(i++, e.ubicacion());
@@ -196,12 +254,13 @@ public class EquipoDao {
                 }
             }
 
-            String comentario = "Entrada de equipos" + (e.remision() == null ? "" : " · remisión " + e.remision());
+            String comentario = "Entrada de equipos · OC " + ordenCompra + " · remisión " + remision;
+            BigDecimal total = costo.multiply(BigDecimal.valueOf(piezas));
             try (PreparedStatement ps = c.prepareStatement(
                     "INSERT INTO tb_movinv (F_FecMov, F_DocMov, F_ConMov, F_ProMov, F_CantMov, F_CostMov, F_TotMov, F_SigMov, "
                     + "F_LotMov, F_UbiMov, F_ClaProve, F_hora, F_User, F_Comentarios) "
-                    + "VALUES (CURDATE(), ?, ?, ?, 1, ?, ?, 1, ?, ?, ?, CURTIME(), ?, ?)")) {
-                Consultas.asignar(ps, String.valueOf(documento), CONCEPTO_ENTRADA, e.clave(), costo, costo, folio,
+                    + "VALUES (CURDATE(), ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, CURTIME(), ?, ?)")) {
+                Consultas.asignar(ps, String.valueOf(documento), CONCEPTO_ENTRADA, e.clave(), piezas, costo, total, folio,
                         e.ubicacion(), e.proveedor(), usuario, comentario.length() > 100 ? comentario.substring(0, 100) : comentario);
                 ps.executeUpdate();
             }
@@ -223,13 +282,41 @@ public class EquipoDao {
                 ps.setString(i, usuario);
                 ps.executeUpdate();
             }
+            compra(e, emp, documento, folio, cb, costo, ordenCompra, remision, usuario);
+            String fecha = Consultas.lista(c, "SELECT CURDATE()").get(0).get(1);
             c.commit();
-            return new Resultado(folio, documento, idLote, serie, cb);
+            return new Resultado(folio, documento, idLote, serie, cb, piezas, documento, ordenCompra, remision, fecha);
         } catch (SQLException | Rechazo | RuntimeException ex) {
             c.rollback();
             throw ex;
         } finally {
             c.setAutoCommit(auto);
+        }
+    }
+
+    /**
+     * Renglón de tb_compra con los mismos campos que la Entrada Manual (InterfaceSendetoDaoImpl.INSERTAR_COMPRA), para que
+     * Reimpresión de compras imprima el acuse (reportes/compras.jasper) y los marbetes de tarimas y cajas.
+     * IVA: 0 si la clave es medicamento (F_TipMed 2504), 16 % en lo demás (como servlets/Altas).
+     */
+    private void compra(Equipo e, Empaque emp, int folioCompra, int folioLote, String cb, BigDecimal costo,
+                        String ordenCompra, String remision, String usuario) throws SQLException {
+        List<Fila> tipo = Consultas.lista(c, "SELECT F_TipMed FROM tb_medica WHERE F_ClaPro = ?", e.clave());
+        BigDecimal iva = !tipo.isEmpty() && "2504".equals(tipo.get(0).get(1)) ? BigDecimal.ZERO : new BigDecimal("0.16");
+        BigDecimal subtotal = costo.multiply(BigDecimal.valueOf(emp.piezas()));
+        BigDecimal impuesto = subtotal.multiply(iva).setScale(2, java.math.RoundingMode.HALF_UP);
+        String obser = e.notas() == null ? "ENTRADA DE EQUIPOS" : e.notas();
+        try (PreparedStatement ps = c.prepareStatement(
+                "INSERT INTO tb_compra SET F_ClaDoc=?, F_ProVee=?, F_StsCom='A', F_FecApl=CURDATE(), F_ClaPro=?, F_CanCom=?, "
+                + "F_Costo=?, F_Cajas=?, F_ImpTo=?, F_ComTot=?, F_FolRemi=?, F_OrdCom=?, F_ClaOrg=?, F_Cb=?, F_Hora=CURTIME(), "
+                + "F_User=?, F_Obser=?, F_Web=0, F_Lote=?, F_Tarimas=?, F_TarimasI=?, F_CajasI=?, F_Pz=?, F_Resto=?, F_Proyecto=?, "
+                + "F_UserIngreso=?, F_FecCaptura=CURDATE(), F_HoraCaptura=CURTIME(), F_FactorEmpaque=?, F_OrdenSuministro='', "
+                + "F_IdVolumetria=0, F_CartaCanje='', F_FuenteFinanza='', F_MarcaComercial=''")) {
+            Consultas.asignar(ps, folioCompra, e.proveedor(), e.clave(), emp.piezas(), costo, emp.cajasCompletas(), impuesto,
+                    subtotal.add(impuesto), remision, ordenCompra, e.proveedor(), cb, usuario, obser, folioLote,
+                    emp.tarimasCompletas(), emp.tarimasIncompletas(), emp.cajasIncompletas(), emp.piezasPorCaja(), emp.resto(),
+                    e.proyecto(), usuario, Math.max(1, emp.piezasPorCaja()));
+            ps.executeUpdate();
         }
     }
 
