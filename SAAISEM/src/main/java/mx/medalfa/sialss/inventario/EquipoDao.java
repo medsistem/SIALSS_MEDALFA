@@ -35,7 +35,11 @@ public class EquipoDao {
         this.c = c;
     }
 
-    /** Catálogos de la pantalla. Las ubicaciones no van aquí (son miles): se valida la que se escriba. */
+    /** Ubicaciones de ingreso activas de tb_ubicanueva: generales (F_ClaCli "-") o de un proyecto (F_ClaCli = id). */
+    static final String UBICACIONES_INGRESO =
+            "SELECT DescUbi, F_ClaCli FROM tb_ubicanueva WHERE Status = 'A' ORDER BY F_ClaCli <> '-', DescUbi";
+
+    /** Catálogos de la pantalla. Ubicaciones: las de ingreso de tb_ubicanueva (como el Alta de Proyecto las crea). */
     public Map<String, Object> catalogos() throws SQLException {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("proyectos", pares("SELECT F_Id, F_DesProy FROM tb_proyectos ORDER BY F_Id"));
@@ -43,6 +47,11 @@ public class EquipoDao {
         m.put("proveedores", pares("SELECT F_ClaProve, F_NomPro FROM tb_proveedor ORDER BY F_NomPro"));
         m.put("marcas", pares("SELECT F_ClaMar, F_DesMar FROM tb_marca ORDER BY F_DesMar"));
         m.put("modelos", pares("SELECT F_ClaModelo, F_DesModelo FROM tb_modelo ORDER BY F_DesModelo"));
+        List<Map<String, String>> ubicaciones = new ArrayList<>();
+        for (Fila f : Consultas.lista(c, UBICACIONES_INGRESO)) {
+            ubicaciones.add(Map.of("id", f.get(1), "nombre", f.get(1), "proyecto", f.get(2) == null ? "-" : f.get(2).trim()));
+        }
+        m.put("ubicaciones", ubicaciones);
         List<String> cat = new ArrayList<>();
         for (Fila f : Consultas.lista(c, "SELECT DISTINCT F_Categoria FROM tb_equipo WHERE F_Categoria <> '' ORDER BY F_Categoria")) {
             cat.add(f.get(1));
@@ -156,16 +165,39 @@ public class EquipoDao {
         }
     }
 
-    /** Valida y guarda en una sola transacción: lote, movimiento de entrada y datos del equipo. */
+    /** Valida y guarda en una sola transacción: lote, movimiento de entrada, compra y datos del equipo. */
     public Resultado guardar(Equipo e, String usuario) throws SQLException, Rechazo {
         boolean auto = c.getAutoCommit();
         c.setAutoCommit(false);
         try {
+            Resultado r = registrar(e, usuario, null);
+            c.commit();
+            return r;
+        } catch (SQLException | Rechazo | RuntimeException ex) {
+            c.rollback();
+            throw ex;
+        } finally {
+            c.setAutoCommit(auto);
+        }
+    }
+
+    /**
+     * Valida y guarda un equipo dentro de la transacción de quien llama (no hace commit ni rollback); lo usan
+     * {@link #guardar} y la Carga de Equipos por Excel. {@code documento}: folio de compra ya tomado para agrupar
+     * varios equipos en un mismo acuse; null = folio nuevo de tb_indice.F_IndCom.
+     */
+    public Resultado registrar(Equipo e, String usuario, Integer documentoDado) throws SQLException, Rechazo {
+        {
             if (!existe("SELECT 1 FROM tb_medica WHERE F_ClaPro = ?", e.clave())) {
                 throw new Rechazo("La clave " + e.clave() + " no existe en el catálogo de insumos.");
             }
-            if (!existe("SELECT 1 FROM tb_ubica WHERE F_ClaUbi = ?", e.ubicacion())) {
-                throw new Rechazo("La ubicación " + e.ubicacion() + " no existe.");
+            List<Fila> ubi = Consultas.lista(c, "SELECT F_ClaCli FROM tb_ubicanueva WHERE Status = 'A' AND DescUbi = ?", e.ubicacion());
+            if (ubi.isEmpty()) {
+                throw new Rechazo("La ubicación " + e.ubicacion() + " no es una ubicación de ingreso activa (tb_ubicanueva).");
+            }
+            String deProyecto = ubi.get(0).get(1) == null ? "-" : ubi.get(0).get(1).trim();
+            if (!"-".equals(deProyecto) && !deProyecto.equals(String.valueOf(e.proyecto()))) {
+                throw new Rechazo("La ubicación " + e.ubicacion() + " es del proyecto " + deProyecto + ", no del proyecto elegido.");
             }
             if (!existe("SELECT 1 FROM tb_proyectos WHERE F_Id = ?", e.proyecto())
                     || !existe("SELECT 1 FROM tb_origen WHERE F_ClaOri = ?", e.origen())
@@ -215,7 +247,7 @@ public class EquipoDao {
 
             int folio = Folios.siguienteLote(c);
             // Mismo folio para el movimiento y la compra, como la Entrada Manual (tb_indice.F_IndCom).
-            int documento = Folios.siguienteCompra(c);
+            int documento = documentoDado != null ? documentoDado : Folios.siguienteCompra(c);
             String ordenCompra = e.ordenCompra() == null ? "EQUIPOS" : e.ordenCompra();
             String remision = e.remision() == null ? "S/R" : e.remision();
             LocalDate fabricacion = e.fechaCompra() != null ? e.fechaCompra() : LocalDate.now();
@@ -284,13 +316,7 @@ public class EquipoDao {
             }
             compra(e, emp, documento, folio, cb, costo, ordenCompra, remision, usuario);
             String fecha = Consultas.lista(c, "SELECT CURDATE()").get(0).get(1);
-            c.commit();
             return new Resultado(folio, documento, idLote, serie, cb, piezas, documento, ordenCompra, remision, fecha);
-        } catch (SQLException | Rechazo | RuntimeException ex) {
-            c.rollback();
-            throw ex;
-        } finally {
-            c.setAutoCommit(auto);
         }
     }
 

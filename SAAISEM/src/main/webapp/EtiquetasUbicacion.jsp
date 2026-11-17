@@ -1,4 +1,4 @@
-<%-- Etiquetas de ubicación: poste 5×4 cm (varias por hoja carta o A4), barra 15×10 cm y QR 15×10 cm, en PDF.
+<%-- Etiquetas de ubicación: poste 5×4 cm (3 columnas por hoja carta o A4), barra 15×10 cm y QR 15×10 cm, en PDF.
      Servlet /EtiquetasUbicacion (mx.medalfa.sialss.etiquetas). --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -39,7 +39,7 @@
                         <input type="radio" name="tipo" value="POSTE" checked>
                         <span class="sialss-etq__muestra sialss-etq__muestra--poste" aria-hidden="true"><i></i><b>2PS01-L1-F1</b></span>
                         <strong>Poste</strong>
-                        <span>5 × 4 cm · código de barras y ubicación · varias por hoja</span>
+                        <span>5 × 4 cm · código de barras y ubicación · 3 columnas por hoja</span>
                     </label>
                     <label class="sialss-etq__tipo">
                         <input type="radio" name="tipo" value="BARRA">

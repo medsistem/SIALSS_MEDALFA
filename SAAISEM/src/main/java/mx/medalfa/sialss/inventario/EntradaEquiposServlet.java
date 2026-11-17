@@ -97,7 +97,7 @@ public class EntradaEquiposServlet extends HttpServlet {
             throw new EquipoDao.Rechazo("Busque y elija el equipo (clave o descripción).");
         }
         if (ubicacion == null) {
-            throw new EquipoDao.Rechazo("Escriba la ubicación.");
+            throw new EquipoDao.Rechazo("Elija la ubicación de ingreso.");
         }
         Integer marca = entero(r, "marca");
         String marcaNueva = texto(r, "marcaNueva", 80);
@@ -134,7 +134,7 @@ public class EntradaEquiposServlet extends HttpServlet {
         return new EquipoDao.Equipo(clave, marca, marcaNueva, entero(r, "modelo"), texto(r, "modeloNuevo", 80),
                 serie, texto(r, "cb", 255), texto(r, "categoria", 80), costo, condicion, compra, garantia,
                 texto(r, "accesorios", 500), texto(r, "notas", 1000), proyecto, origen, proveedor,
-                ubicacion.toUpperCase(), texto(r, "tarima", 100), texto(r, "remision", 40), texto(r, "ordenCompra", 40),
+                ubicacion, texto(r, "tarima", 100), texto(r, "remision", 40), texto(r, "ordenCompra", 40),
                 empaque(r));
     }
 

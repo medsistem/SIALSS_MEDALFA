@@ -1,5 +1,11 @@
 # Historial de cambios del manual
 
+## 2026-11-17 · 1c9c276
+
+Mensaje del commit: Entrada de Equipos: empaque por tarimas, cajas y piezas, acuse y marbetes.
+
+Se actualizó `almacen-entrada.md`, sección **Entrada de Equipos**: nuevo bloque **Empaque** con total calculado, campos **Orden de compra** y **No. de tarima**, serie o lote según las piezas, mensajes nuevos de empaque, botones de formatos (acuse y marbetes) y columnas **Piezas** y **Formatos** en la tabla de últimas entradas. El cambio en `pom.xml` no afecta lo que ve el usuario.
+
 ## 2026-11-17 · 16b98f5
 
 Mensaje del commit: Carga de Archivos, Entrada de Equipos, Perfiles/Superusuario, Manual de Usuario y ajustes de pantallas.

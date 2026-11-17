@@ -29,7 +29,7 @@ import mx.medalfa.sialss.menu.MenuSialss;
  * de la sesión, 3 intentos) aplica en una transacción; POST {@code accion=cancelar}.
  * La carga se elige por la ruta.
  */
-@WebServlet({"/CargaArchivoRequerimiento", "/CargaArchivoCaducos", "/CargaArchivoOC"})
+@WebServlet({"/CargaArchivoRequerimiento", "/CargaArchivoCaducos", "/CargaArchivoOC", "/CargaArchivoEquipos"})
 @MultipartConfig(maxFileSize = 10 * 1024 * 1024, maxRequestSize = 11 * 1024 * 1024)
 public class CargaArchivoServlet extends HttpServlet {
 
@@ -41,7 +41,8 @@ public class CargaArchivoServlet extends HttpServlet {
     private static final Map<String, CargaArchivo> CARGAS = Map.of(
             "/CargaArchivoRequerimiento", new CargaRequerimiento(),
             "/CargaArchivoCaducos", new CargaCaducos(),
-            "/CargaArchivoOC", new CargaOC());
+            "/CargaArchivoOC", new CargaOC(),
+            "/CargaArchivoEquipos", new CargaEquipos());
 
     /** ¿Puede la sesión usar la carga de esta página? (lo usan también las JSP). */
     public static boolean autorizado(HttpSession s, String ruta) {

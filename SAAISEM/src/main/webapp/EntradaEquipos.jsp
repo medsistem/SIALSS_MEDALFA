@@ -161,7 +161,7 @@
                         </div>
                         <div class="sialss-filtros__campo">
                             <label for="eq-ubicacion">Ubicación <span class="sialss-captura__requerido" aria-hidden="true">*</span></label>
-                            <input type="text" class="form-control" id="eq-ubicacion" name="ubicacion" maxlength="40" value="NUEVA" required>
+                            <select class="form-control" id="eq-ubicacion" name="ubicacion" required><option value="">Cargando…</option></select>
                         </div>
                         <div class="sialss-filtros__campo">
                             <label for="eq-oc">Orden de compra</label>
@@ -198,7 +198,7 @@
                 <tbody id="eq-recientes"><tr><td colspan="14" class="sialss-mr__vacio">Cargando…</td></tr></tbody>
             </table>
         </div>
-        <script src="<%=request.getContextPath()%>/js/sialss-entrada-equipos.js?v=2" defer data-ctx="<%=request.getContextPath()%>"></script>
+        <script src="<%=request.getContextPath()%>/js/sialss-entrada-equipos.js?v=3" defer data-ctx="<%=request.getContextPath()%>"></script>
         <%@include file="jspf/piePagina.jspf" %>
     </body>
 </html>

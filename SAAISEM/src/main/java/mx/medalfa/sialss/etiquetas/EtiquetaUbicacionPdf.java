@@ -24,8 +24,9 @@ import java.util.Map;
  * PDF de etiquetas de ubicación (iText 2.1.7 + ZXing, ambos ya en el proyecto). Todo vectorial: el código se imprime
  * nítido a cualquier resolución.
  * <ul>
- *   <li>{@link Tipo#POSTE}: 5 cm × 4 cm, código de barras centrado y abajo la ubicación; varias por hoja carta o A4,
- *       con guías de corte.</li>
+ *   <li>{@link Tipo#POSTE}: 5 cm × 4 cm, código de barras centrado y abajo la ubicación; en 3 columnas por hoja carta
+ *       o A4 con espacio entre columnas y guías de corte, llenando cada columna de arriba abajo (la lista se lee en orden
+ *       por columna).</li>
  *   <li>{@link Tipo#BARRA}: 15 cm × 10 cm, una etiqueta por página del tamaño de la etiqueta.</li>
  *   <li>{@link Tipo#QR}: 15 cm × 10 cm, QR y ubicación, una por página del tamaño de la etiqueta.</li>
  * </ul>
@@ -74,11 +75,26 @@ public final class EtiquetaUbicacionPdf {
         return mm * 72f / 25.4f;
     }
 
+    /** Columnas de etiquetas de poste por hoja (pedido del usuario: el PDF dividido en 3 columnas). */
+    static final int COLUMNAS_POSTE = 3;
+    /** Espacio máximo entre columnas de poste, para cortar. */
+    static final float SEPARACION_MAX_MM = 12f;
+
     /** Cuántas etiquetas de poste caben por hoja: {columnas, filas}. */
     public static int[] cuadricula(Papel papel) {
-        int columnas = (int) Math.floor((papel.anchoMm - 2 * MARGEN_HOJA_MM + 0.001f) / Tipo.POSTE.anchoMm);
+        int caben = (int) Math.floor((papel.anchoMm - 2 * MARGEN_HOJA_MM + 0.001f) / Tipo.POSTE.anchoMm);
+        int columnas = Math.min(COLUMNAS_POSTE, caben);
         int filas = (int) Math.floor((papel.altoMm - 2 * MARGEN_HOJA_MM + 0.001f) / Tipo.POSTE.altoMm);
         return new int[] {columnas, filas};
+    }
+
+    /** Separación entre columnas de poste en mm: la que sobra en la hoja, hasta {@link #SEPARACION_MAX_MM}. */
+    static float separacionMm(Papel papel, int columnas) {
+        if (columnas < 2) {
+            return 0f;
+        }
+        float sobra = papel.anchoMm - 2 * MARGEN_HOJA_MM - columnas * Tipo.POSTE.anchoMm;
+        return Math.max(0f, Math.min(SEPARACION_MAX_MM, sobra / (columnas - 1)));
     }
 
     public static void generar(List<Ubicacion> ubicaciones, Tipo tipo, Papel papel, OutputStream salida)
@@ -124,16 +140,18 @@ public final class EtiquetaUbicacionPdf {
         int[] cq = cuadricula(papel);
         int columnas = cq[0], filas = cq[1], porHoja = columnas * filas;
         float ancho = mm(Tipo.POSTE.anchoMm), alto = mm(Tipo.POSTE.altoMm);
-        // Cuadrícula centrada en la hoja.
-        float x0 = (mm(papel.anchoMm) - columnas * ancho) / 2;
+        float paso = ancho + mm(separacionMm(papel, columnas));
+        // Columnas centradas en la hoja, con espacio entre ellas.
+        float x0 = (mm(papel.anchoMm) - (columnas * ancho + (columnas - 1) * (paso - ancho))) / 2;
         float yTope = mm(papel.altoMm) - (mm(papel.altoMm) - filas * alto) / 2;
         for (int i = 0; i < ubicaciones.size(); i++) {
             if (i > 0 && i % porHoja == 0) {
                 doc.newPage();
             }
             int pos = i % porHoja;
-            float x = x0 + (pos % columnas) * ancho;
-            float y = yTope - (pos / columnas + 1) * alto;
+            // Por columna: de arriba abajo en la primera, luego la segunda y la tercera.
+            float x = x0 + (pos / filas) * paso;
+            float y = yTope - (pos % filas + 1) * alto;
             guiaCorte(cb, x, y, ancho, alto);
             Ubicacion u = ubicaciones.get(i);
             // Código: hasta 44 mm de ancho (3 mm libres a cada lado) y 17 mm de alto; abajo la ubicación.

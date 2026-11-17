@@ -53,11 +53,23 @@
     opciones($('eq-proyecto'), c.proyectos, '-- Seleccione --');
     opciones($('eq-origen'), c.origenes, '-- Seleccione --');
     opciones($('eq-proveedor'), c.proveedores, '-- Seleccione --');
+    ubicaciones = c.ubicaciones;
+    filtrarUbicaciones();
     var cond = $('eq-condicion');
     c.condiciones.forEach(function (x) { var o = document.createElement('option'); o.value = x; o.textContent = x; cond.appendChild(o); });
     var dl = $('eq-categorias');
     c.categorias.forEach(function (x) { var o = document.createElement('option'); o.value = x; dl.appendChild(o); });
   }).catch(function (e) { estado(e.message, 'error'); });
+  // Ubicaciones de ingreso (tb_ubicanueva): generales ('-') y las del proyecto elegido.
+  var ubicaciones = [];
+  function filtrarUbicaciones() {
+    var sel = $('eq-ubicacion'), antes = sel.value, proyecto = $('eq-proyecto').value;
+    var lista = ubicaciones.filter(function (u) { return u.proyecto === '-' || u.proyecto === proyecto; });
+    opciones(sel, lista, lista.length ? '-- Seleccione --' : 'Sin ubicaciones de ingreso');
+    if (lista.some(function (u) { return u.id === antes; })) { sel.value = antes; }
+    else if (lista.length) { sel.value = lista[0].id; }
+  }
+  $('eq-proyecto').addEventListener('change', filtrarUbicaciones);
   enlazarOtra($('eq-marca'), $('eq-marca-nueva'));
   enlazarOtra($('eq-modelo'), $('eq-modelo-nuevo'));
 

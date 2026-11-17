@@ -123,7 +123,7 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 
 ## Entrada de Equipos
 
-**Para qué sirve:** Registrar la entrada de equipos (con serie o lote) al almacén.
+**Para qué sirve:** Registrar la entrada de equipos al almacén, de una pieza con su serie o de varias piezas como lote. La cantidad sale del empaque (tarimas, cajas y piezas), igual que en la Entrada Manual.
 
 **Quién la ve:** Perfiles 100, 1, 2, 3 y 5.
 
@@ -131,11 +131,13 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 
 **Paso a paso:**
 1. Busca el equipo con **Buscar por clave o descripción**.
-2. Captura **Marca**, **Modelo**, **Categoría**, **Condición** y **No. de serie o lote**.
+2. Captura **Marca**, **Modelo**, **Categoría**, **Condición** y **No. de serie** (con varias piezas el campo cambia a **Lote**).
 3. Captura el **Código de barras** o da clic en **Generar CB**.
-4. Captura costo, tarima, fecha de compra, garantía, accesorios y notas.
-5. Elige **Proyecto**, **Origen**, **Proveedor**, **Ubicación** y escribe la **Remisión o factura**.
-6. Da clic en **Guardar entrada**. Para empezar de nuevo, da clic en **Limpiar equipo**.
+4. Captura costo, **No. de tarima**, fecha de compra, garantía, accesorios y notas.
+5. En **Empaque**, captura las tarimas completas, las incompletas y el resto. Si lo dejas vacío, entra una pieza. Revisa el **Total de la entrada** (Tarimas, Cajas y Piezas).
+6. Elige **Proyecto**, **Origen**, **Proveedor**, **Ubicación**, y escribe la **Orden de compra** y la **Remisión o factura**.
+7. Da clic en **Guardar entrada**. Para empezar de nuevo, da clic en **Limpiar equipo**.
+8. Al guardar aparecen los botones de formatos de la entrada: **Acuse de entrada**, **Marbetes tarimas completas**, **Marbetes todas las tarimas** y **Marbetes de cajas**. Se abren en una ventana aparte.
 
 **Campos:**
 
@@ -146,10 +148,10 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 | Modelo | Elige el modelo; si no está, elige "Otra (escribir)" y captura el modelo nuevo (hasta 80 caracteres) | No |
 | Categoría | Texto libre, con sugerencias de las ya usadas (hasta 80 caracteres) | No |
 | Condición | Nuevo, Usado, Reacondicionado o Dañado | No |
-| No. de serie o lote | Serie del equipo (hasta 150 caracteres). Si lo dejas vacío, se usa el código de barras como serie | No |
+| No. de serie / Lote | Con una pieza se llama **No. de serie**; con varias, **Lote** (hasta 150 caracteres). Si lo dejas vacío, se usa el código de barras | No |
 | Código de barras | Código del equipo, o da clic en **Generar CB** para que el sistema lo genere. Si lo dejas vacío, se genera uno al guardar | No |
 | Costo | Costo del equipo, número sin signo negativo | No |
-| Tarima | Tarima donde se coloca (hasta 100 caracteres) | No |
+| No. de tarima | Tarima donde se coloca (hasta 100 caracteres) | No |
 | Fecha de compra | Fecha de compra; no puede ser futura | No |
 | Garantía hasta | Fecha en que termina la garantía; no puede ser anterior a la fecha de compra | No |
 | Accesorios | Accesorios que incluye (hasta 500 caracteres) | No |
@@ -158,9 +160,24 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 | Origen | Origen del equipo | Sí |
 | Proveedor | Proveedor que entrega | Sí |
 | Ubicación | Ubicación de destino; el sistema propone NUEVA y debe existir | Sí |
-| Remisión o factura | Folio del documento del proveedor (hasta 40 caracteres) | No |
+| Tarimas (completas) | Número de tarimas completas | No |
+| Cajas por tarima | Cajas que trae cada tarima completa | Solo si hay tarimas completas |
+| Piezas por caja | Piezas que trae cada caja | Solo si hay cajas |
+| Tarimas (incompletas) | Número de tarimas incompletas | No |
+| Cajas (total de las incompletas) | Cajas de todas las tarimas incompletas | No |
+| Resto (piezas sueltas) | Piezas sueltas | No |
+| Orden de compra | Número de la orden (hasta 40 caracteres). Si lo dejas vacío se usa "EQUIPOS" | No |
+| Remisión o factura | Folio del documento del proveedor (hasta 40 caracteres). Si lo dejas vacío se usa "S/R" | No |
+
+Los campos de empaque aceptan números enteros de 0 a 9,999,999. El **Total de la entrada** se calcula solo: Cajas = tarimas completas × cajas por tarima + cajas de las incompletas; Piezas = cajas × piezas por caja + resto.
 
 **Mensajes y errores frecuentes:**
+- "Indique cuántas cajas trae cada tarima completa.": captura **Cajas por tarima**.
+- "Indique cuántas piezas trae cada caja.": captura **Piezas por caja**.
+- "Indique las cajas o el resto de las tarimas incompletas.": captura **Cajas** o **Resto** de las incompletas.
+- "La entrada debe tener al menos una pieza.": revisa el empaque.
+- "La entrada pasa de 10,000,000 de piezas: revise tarimas, cajas y piezas.": corrige el empaque.
+- "En … escriba un número entero de 0 a 9,999,999.": corrige el campo de empaque que menciona.
 - "Falta: el equipo, la marca, proyecto, origen, proveedor, ubicación.": completa los campos que menciona.
 - "Busque y elija el equipo (clave o descripción).": elige el equipo de la lista de resultados; no basta con escribir.
 - "Elija la marca o escriba una nueva.": elige una marca o captura la nueva.
@@ -171,10 +188,10 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 - "La serie … ya tiene existencia con la clave …": ese equipo ya está en el almacén; no se puede repetir la serie.
 - "El código de barras … ya está en la clave …": el código ya lo usa otro lote; captura otro o da clic en **Generar CB**.
 - "Código generado: …": se llenó el campo con el código nuevo.
-- "Equipo guardado: serie …, CB …, folio de lote … , documento …": la entrada quedó registrada.
+- "Entrada guardada: … pieza, serie … / … piezas, lote …, CB …, folio de lote …, documento … (OC …, remisión …)": la entrada quedó registrada y aparecen los botones de formatos.
 - "Su sesión terminó o no es de Almacén. Vuelva a iniciar sesión.": entra de nuevo al sistema.
 
-**Notas:** Cada equipo entra como una sola pieza con su serie, por eso no se repiten series ni códigos de barras. Abajo de la pantalla aparece la tabla **Últimas entradas de equipos** (Fecha, Clave, Equipo, Serie, CB, Marca, Modelo, Categoría, Condición, Costo, Ubicación, Folio).
+**Notas:** Con una sola pieza no se permite repetir la serie de un equipo que ya tiene existencia; con varias piezas se captura un lote y esa validación de serie no aplica. El código de barras no se puede repetir. Los formatos son los mismos de **Reimpresión de compras**. Abajo de la pantalla aparece la tabla **Últimas entradas de equipos** (Fecha, Clave, Equipo, Serie, CB, Marca, Modelo, Categoría, Condición, Costo, Piezas, Ubicación, Folio y Formatos). En **Formatos** de cada renglón están los vínculos **Acuse**, **Tarimas C**, **Tarimas A** y **Cajas**; si el renglón es una entrada anterior sin compra, dice "Sin compra".
 
 ## Verificar OC (ORI)
 
