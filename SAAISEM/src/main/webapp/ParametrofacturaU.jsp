@@ -52,7 +52,6 @@ String ubicaciones = "";
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
@@ -72,7 +71,7 @@ String ubicaciones = "";
             <% }%>
 
             <div class="panel-heading">
-                <h3 class="panel-title">Parametro facturacón para Usuarios SIALSS</h3>
+                <h3 class="panel-title">Parámetro de facturación para usuarios SIALSS</h3>
             </div>
             <form action="ParametroCsrd" method="post">
 
@@ -94,14 +93,13 @@ String ubicaciones = "";
 
                             %>   
 
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <label>Parametro:</label>
+                            <div class="sialss-filtros">
+                                <div class="sialss-filtros__campo">
+                                    <label for="ParametroActual">Parámetro actual</label>
+                                    <input type="text" class="form-control" readonly="" id="ParametroActual" name="Proyecto" value="<%=Parametro1%>" />
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" readonly="" id="Proyecto" name="Proyecto" value="<%=Parametro1%>" />
-                                </div>
-                                <div class="col-sm-4">
+                                <div class="sialss-filtros__campo">
+                                    <label for="SltParametro">Nuevo parámetro</label>
                                     <select name="SltParametro" id="SltParametro" class="form-control">
                                         <option value="0">-- Seleccione --</option>
                                         <%
@@ -115,17 +113,13 @@ String ubicaciones = "";
                                             }
                                         %>
                                     </select>
-                                </div>   
-                            </div>    
-                            <br/>
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <label>Proyecto:</label>
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" readonly="" id="Proyecto" name="Proyecto" value="<%=Proyecto%>" />
+                                <div class="sialss-filtros__campo">
+                                    <label for="ProyectoActual">Proyecto actual</label>
+                                    <input type="text" class="form-control" readonly="" id="ProyectoActual" name="Proyecto" value="<%=Proyecto%>" />
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="sialss-filtros__campo">
+                                    <label for="SltProyecto">Nuevo proyecto</label>
                                     <select name="SltProyecto" id="SltProyecto" class="form-control">
                                         <option value="0">-- Seleccione --</option>
                                         <%

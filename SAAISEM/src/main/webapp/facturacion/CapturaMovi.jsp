@@ -299,8 +299,8 @@ response.setContentType("text/html;charset=UTF-8");
         <script src="../js/bootstrap.js"></script>
         <script src="../js/jquery-ui-1.10.3.custom.js"></script>
         <script src="../js/funcIngresos.js"></script>
-       <script src="../js/asf/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="../js/capturamovi/capturamovi.js" type="text/javascript"></script>
+        <script src="../js/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="../js/capturamovi/capturamovi.js?v=2" type="text/javascript"></script>
 
     </body>
 

@@ -15,7 +15,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-<%=mx.medalfa.sialss.menu.MenuSialss.html(menuAcceso, tipo, mx.medalfa.sialss.menu.MenuSialss.idUsuario(session.getAttribute("IdUsu")), sialssCtx)%>
+<%=mx.medalfa.sialss.menu.MenuSialss.html(menuAcceso, mx.medalfa.sialss.seguridad.PoliticaSesion.perfil(session) != null ? mx.medalfa.sialss.seguridad.PoliticaSesion.perfil(session) : tipo, mx.medalfa.sialss.menu.MenuSialss.idUsuario(session.getAttribute("IdUsu")), sialssCtx)%>
             </ul>
             <%-- El nombre del usuario y "Cerrar sesión" están solo en la barra superior (jspf/sialssBarra.jspf). --%>
         </div>

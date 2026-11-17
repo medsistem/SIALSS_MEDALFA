@@ -188,7 +188,7 @@ public class FacturacionManual extends HttpServlet {
                     //consql.conectar();
                     String ClaPro = "", CantSur = "", ClaDoc = "", Proveedor = "", Monto = "", Costo = "", FolLote = "", F_IdFact;
                     int FolioMovi = 0, FolMov;
-                    ResultSet rset = con.consulta("select f.F_ClaCli, f.F_IdFact, f.F_StsFact, f.F_ClaPro, l.F_ClaLot, l.F_FecCad, DATE_FORMAT(l.F_FecCad,'%d/%m/%Y') AS FECAD, f.F_CantSur, f.F_FecEnt, f.F_Ubicacion, f.F_ClaDoc, l.F_ClaOrg, l.F_FecFab, DATE_FORMAT(l.F_FecFab,'%d/%m/%Y') AS FEFAB, l.F_Cb, l.F_ClaMar, f.F_Monto, f.F_Costo, f.F_Lote, f.F_Iva,l.F_Origen,l.F_UniMed  from tb_factdevol f, tb_lote l where f.F_Lote = l.F_FolLot and f.F_ClaDoc='" + F_ClaDoc + "' and f.F_FactSts = 0 group by f.F_IdFact");
+                    ResultSet rset = con.consulta("select f.F_ClaCli, f.F_IdFact, f.F_StsFact, f.F_ClaPro, l.F_ClaLot, l.F_FecCad, DATE_FORMAT(l.F_FecCad,'%d/%m/%Y') AS FECAD, f.F_CantSur, f.F_FecEnt, f.F_Ubicacion, f.F_ClaDoc, l.F_ClaOrg, l.F_FecFab, DATE_FORMAT(l.F_FecFab,'%d/%m/%Y') AS FEFAB, l.F_Cb, l.F_ClaMar, f.F_Monto, f.F_Costo, f.F_Lote, f.F_Iva,l.F_Origen,l.F_tarima  from tb_factdevol f, tb_lote l where f.F_Lote = l.F_FolLot and f.F_ClaDoc='" + F_ClaDoc + "' and f.F_FactSts = 0 group by f.F_IdFact");
                     while (rset.next()) {
                         CantSur = rset.getString("F_CantSur");
                         ClaDoc = rset.getString("F_ClaDoc");
@@ -317,7 +317,7 @@ public class FacturacionManual extends HttpServlet {
                     String Observaciones = (new String(a, "UTF-8")).toUpperCase();
 
                     //FolioModula = Modula.consulta("");
-                    FolioMySQL = con.consulta("SELECT F.F_ClaPro, F_Lote, F_Ubicacion, F_CantSur, M.F_Costo, M.F_TipMed, L.F_ClaPrv, F.F_IdFact, DATE_FORMAT( DATE_ADD(F.F_FecEnt, INTERVAL - 1 DAY), '%d/%m/%Y' ) AS F_FecEnt, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_FecFab, L.F_Cb, L.F_ClaMar, L.F_UniMed, L.F_Proyecto FROM tb_factura F INNER JOIN tb_medica M ON F.F_ClaPro = M.F_ClaPro INNER JOIN tb_lote L ON F.F_Lote = L.F_FolLot AND F.F_Ubicacion = L.F_Ubica AND F.F_ClaPro = L.F_ClaPro WHERE F.F_ClaDoc='" + Folio + "' AND F.F_StsFact='A' AND F.F_Proyecto = '" + IdProyecto + "' AND F_CantSur>0; ");
+                    FolioMySQL = con.consulta("SELECT F.F_ClaPro, F_Lote, F_Ubicacion, F_CantSur, M.F_Costo, M.F_TipMed, L.F_ClaPrv, F.F_IdFact, DATE_FORMAT( DATE_ADD(F.F_FecEnt, INTERVAL - 1 DAY), '%d/%m/%Y' ) AS F_FecEnt, L.F_ClaLot, L.F_FecCad, L.F_Origen, L.F_FecFab, L.F_Cb, L.F_ClaMar, L.F_tarima, L.F_Proyecto FROM tb_factura F INNER JOIN tb_medica M ON F.F_ClaPro = M.F_ClaPro INNER JOIN tb_lote L ON F.F_Lote = L.F_FolLot AND F.F_Ubicacion = L.F_Ubica AND F.F_ClaPro = L.F_ClaPro WHERE F.F_ClaDoc='" + Folio + "' AND F.F_StsFact='A' AND F.F_Proyecto = '" + IdProyecto + "' AND F_CantSur>0; ");
                     while (FolioMySQL.next()) {
                         F_ClaPro = FolioMySQL.getString(1);
                         F_Lote = FolioMySQL.getInt(2);
@@ -375,7 +375,7 @@ public class FacturacionManual extends HttpServlet {
                         con.actualizar("update tb_factura set F_StsFact='C' where F_ClaDoc='" + Folio + "' AND F_IdFact='" + F_IdFact + "';");
                     }
 
-                    FolioMySQL2 = con.consulta("SELECT F.F_ClaPro,F_Lote,F_Ubicacion,F_CantSur,M.F_Costo,M.F_TipMed,L.F_ClaPrv,F.F_IdFact,DATE_FORMAT(DATE_ADD(F.F_FecEnt,INTERVAL -1 DAY),'%d/%m/%Y') AS F_FecEnt,L.F_ClaLot,L.F_FecCad,L.F_Origen,L.F_FecFab,L.F_Cb,L.F_ClaMar,L.F_UniMed FROM tb_factura F INNER JOIN tb_medica M ON F.F_ClaPro=M.F_ClaPro INNER JOIN tb_lote L ON F.F_Lote=L.F_FolLot AND F.F_Ubicacion=L.F_Ubica WHERE F.F_ClaDoc='" + Folio + "' AND F.F_StsFact='A' AND F_CantSur=0 AND F.F_Proyecto = '" + IdProyecto + "';");
+                    FolioMySQL2 = con.consulta("SELECT F.F_ClaPro,F_Lote,F_Ubicacion,F_CantSur,M.F_Costo,M.F_TipMed,L.F_ClaPrv,F.F_IdFact,DATE_FORMAT(DATE_ADD(F.F_FecEnt,INTERVAL -1 DAY),'%d/%m/%Y') AS F_FecEnt,L.F_ClaLot,L.F_FecCad,L.F_Origen,L.F_FecFab,L.F_Cb,L.F_ClaMar,L.F_tarima FROM tb_factura F INNER JOIN tb_medica M ON F.F_ClaPro=M.F_ClaPro INNER JOIN tb_lote L ON F.F_Lote=L.F_FolLot AND F.F_Ubicacion=L.F_Ubica WHERE F.F_ClaDoc='" + Folio + "' AND F.F_StsFact='A' AND F_CantSur=0 AND F.F_Proyecto = '" + IdProyecto + "';");
                     while (FolioMySQL2.next()) {
                         F_IdFact2 = FolioMySQL2.getInt(8);
                         con.actualizar("update tb_factura set F_StsFact='C' where F_ClaDoc='" + Folio + "' AND F_IdFact='" + F_IdFact2 + "';");

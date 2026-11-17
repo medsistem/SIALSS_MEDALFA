@@ -52,8 +52,9 @@ public class ListaUsuario extends HttpServlet {
         try {
             con.conectar();
             if (Accion.equals("Listausuario")) {
-                if (!tipo.equals("1")) {
-                     Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario where F_IdUsu = "+ IdUsu+";";
+                // Solo superusuario, ADMINISTRADOR y ADMIN ALMACEN ven a todos; los demás, solo su propio usuario.
+                if (!mx.medalfa.sialss.seguridad.PoliticaSesion.esAdministrador(sesion)) {
+                     Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario where F_IdUsu = "+ Integer.parseInt(String.valueOf(IdUsu).trim()) +";";
                 } else {
                      Consulta = "SELECT F_IdUsu,F_Usu,F_Nombre,F_Apellido,F_ApellidoM,F_Correo,F_Status FROM tb_usuario;";
                 }

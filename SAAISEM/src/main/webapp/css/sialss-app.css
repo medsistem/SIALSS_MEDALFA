@@ -379,3 +379,69 @@ body.sialss-app .btn { white-space: normal; }
 body.sialss-app .input-group-btn > .btn,
 body.sialss-app .btn-group > .btn { white-space: nowrap; }
 body.sialss-app .btn-block { width: min-content; min-width: 100%; padding-left: 8px; padding-right: 8px; }
+
+/* ============================== Tablas anchas ============================== */
+/* js/sialss-tablas.js envuelve cada table.table en .sialss-tabla-scroll: si la tabla no cabe en
+   el panel, se desplaza a los lados en vez de salirse. En DataTables se desplaza el contenedor
+   .dataTables_wrapper. Sin body.sialss-app: también aplica en las pantallas sin menú que cargan
+   esta hoja y js/sialss-tablas.js. */
+.sialss-tabla-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin-bottom: 20px; }
+.sialss-tabla-scroll > .table { margin-bottom: 0; }
+.dataTables_wrapper { max-width: 100%; overflow-x: auto; }
+.table-responsive { overflow-x: auto; }
+
+/* ======================= Página que se mueve a los lados ======================= */
+/* .row y .form-horizontal .form-group de Bootstrap 3 llevan márgenes de -15px: el .container
+   debe tener 15px de relleno (aquí tenía 10px y cada fila sobresalía 5px). Un .container dentro
+   de otro no lleva ancho fijo. Las filas que aun así se salgan (dentro de un panel o de otra fila
+   sin relleno) las corrige js/sialss-tablas.js quitándoles el margen negativo. */
+.container { padding-left: 15px; padding-right: 15px; }
+.container .container { width: auto; max-width: 100%; margin-left: 0; margin-right: 0; }
+/* select2 fija su ancho en píxeles al iniciar (antes de que el menú angoste la página): que no
+   pase del ancho de su columna. */
+.select2-container { max-width: 100%; }
+
+/* ============================ Barra de filtros ============================ */
+/* Reemplaza las filas de Bootstrap con label col-sm-1 + campos col-sm-2/col-lg-1, que con el
+   menú lateral recortan fechas y selectores. Cada campo lleva la etiqueta arriba; todos miden
+   lo mismo y la cuadrícula se acomoda sola al ancho disponible.
+   <div class="sialss-filtros">
+     <div class="sialss-filtros__campo">
+       <label for="a">Folios</label>
+       <div class="sialss-filtros__rango"><input id="a" class="form-control"><span>al</span><input class="form-control"></div>
+     </div>
+     <div class="sialss-filtros__campo"><label for="p">Proyecto</label><select id="p" class="form-control">…</select></div>
+   </div> */
+.sialss-filtros {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px 24px; align-items: end;
+}
+.sialss-filtros__campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sialss-filtros__campo > label { margin: 0; font-weight: 600; font-size: 14px; color: var(--s-texto); }
+.sialss-filtros__rango { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; }
+.sialss-filtros__rango > span { font-size: 13.5px; color: var(--s-texto-2); }
+.sialss-filtros .form-control { width: 100%; min-width: 0; height: 40px; }
+.sialss-filtros input[type=date].form-control { padding-left: 8px; padding-right: 6px; }
+@media (max-width: 420px) { .sialss-filtros { grid-template-columns: 1fr; } }
+.sialss-filtros__campo--ancho { grid-column: 1 / -1; }
+.sialss-filtros textarea.form-control { height: auto; min-height: 64px; resize: vertical; }
+.sialss-filtros__ayuda { margin: 0; font-size: 13px; color: var(--s-texto-2); }
+.sialss-filtros__grupo { display: flex; gap: 8px; }
+.sialss-filtros__grupo > .form-control { flex: 1; }
+.sialss-filtros__grupo > .sialss-boton { min-height: 40px; white-space: nowrap; }
+
+/* ===================== Formularios de captura (equipos, carga) ===================== */
+.sialss-captura { max-width: 1170px; }
+.sialss-captura [hidden] { display: none !important; }
+.sialss-captura fieldset { margin: 0 0 18px; padding: 16px; border: 1px solid var(--s-borde); border-radius: var(--s-radio); background: var(--s-superficie); }
+.sialss-captura legend { width: auto; margin: 0; padding: 0 6px; border: 0; font-size: 16px; font-weight: 600; color: var(--s-texto); }
+.sialss-captura__requerido { color: var(--s-error); }
+.sialss-captura__resultados { list-style: none; margin: 4px 0 0; padding: 0; max-height: 240px; overflow-y: auto; border: 1px solid var(--s-borde); border-radius: var(--s-radio); background: var(--s-superficie); }
+.sialss-captura__resultados:empty { display: none; }
+.sialss-captura__resultados button { display: block; width: 100%; text-align: left; padding: 8px 12px; border: 0; border-bottom: 1px solid var(--s-borde); background: none; font: inherit; color: var(--s-texto); cursor: pointer; }
+.sialss-captura__resultados button:hover, .sialss-captura__resultados button:focus-visible { background: var(--s-activo-fondo); outline: none; }
+.sialss-captura__elegido { margin: 0; padding: 8px 12px; border-radius: var(--s-radio); background: var(--s-activo-fondo); font-weight: 600; }
+.sialss-captura__elegido:empty { display: none; }
+.sialss-captura__acciones { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 4px 0 18px; }
+.sialss-captura__errores { margin: 0 0 16px; padding: 10px 12px 10px 30px; border-radius: var(--s-radio); background: var(--s-error-fondo); color: var(--s-error); max-height: 260px; overflow-y: auto; }
+.sialss-captura__confirmar { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 0 0 18px; padding: 16px; border: 1px solid var(--s-aviso-borde); border-radius: var(--s-radio); background: var(--s-aviso-fondo); color: var(--s-aviso-texto); }
+.sialss-captura__confirmar[hidden] { display: none; }

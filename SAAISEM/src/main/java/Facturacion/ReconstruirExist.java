@@ -74,7 +74,7 @@ public class ReconstruirExist extends HttpServlet {
                         con.actualizar("UPDATE tb_lote SET F_ExiLot='" + F_CantMov + "' WHERE F_ClaPro='" + F_ProMov + "' AND F_Ubica='" + F_UbiMov + "' AND F_FolLot='" + F_LotMov + "' LIMIT 1;");
                         Contar = 0;
                     } else {
-                        DatosC = con.consulta("SELECT F_ClaLot,F_FecCad,F_FecFab,F_ClaOrg,F_Cb,F_ClaMar,F_Origen,F_ClaPrv,F_UniMed FROM tb_lote WHERE F_ClaPro='" + F_ProMov + "' AND F_FolLot='" + F_LotMov + "';");
+                        DatosC = con.consulta("SELECT F_ClaLot,F_FecCad,F_FecFab,F_ClaOrg,F_Cb,F_ClaMar,F_Origen,F_ClaPrv,F_tarima FROM tb_lote WHERE F_ClaPro='" + F_ProMov + "' AND F_FolLot='" + F_LotMov + "';");
                         if (DatosC.next()) {
                             con.actualizar("INSERT INTO TB_LOTE VALUES (0,'" + F_ProMov + "','" + DatosC.getString(1) + "','" + DatosC.getString(2) + "','" + F_CantMov + "','" + F_LotMov + "','" + DatosC.getString(4) + "','" + F_UbiMov + "','" + DatosC.getString(3) + "','" + DatosC.getString(5) + "','" + DatosC.getString(6) + "','" + DatosC.getString(7) + "','" + DatosC.getString(8) + "','" + DatosC.getString(9) + "')");
                         }
@@ -99,7 +99,7 @@ public class ReconstruirExist extends HttpServlet {
                             con.actualizar("UPDATE tb_lote SET F_ExiLot='" + F_CantMov + "' WHERE F_ClaPro='" + F_ProMov + "' AND F_Ubica='" + F_UbiMov + "' AND F_FolLot='" + F_LotMov + "' LIMIT 1;");
                             Contar = 0;
                         } else {
-                            DatosC = con.consulta("SELECT F_ClaLot,F_FecCad,F_FecFab,F_ClaOrg,F_Cb,F_ClaMar,F_Origen,F_ClaPrv,F_UniMed FROM tb_lote WHERE F_ClaPro='" + F_ProMov + "' AND F_FolLot='" + F_LotMov + "';");
+                            DatosC = con.consulta("SELECT F_ClaLot,F_FecCad,F_FecFab,F_ClaOrg,F_Cb,F_ClaMar,F_Origen,F_ClaPrv,F_tarima FROM tb_lote WHERE F_ClaPro='" + F_ProMov + "' AND F_FolLot='" + F_LotMov + "';");
                             if (DatosC.next()) {
                                 con.actualizar("INSERT INTO TB_LOTE VALUES (0,'" + F_ProMov + "','" + DatosC.getString(1) + "','" + DatosC.getString(2) + "','" + F_CantMov + "','" + F_LotMov + "','" + DatosC.getString(4) + "','" + F_UbiMov + "','" + DatosC.getString(3) + "','" + DatosC.getString(5) + "','" + DatosC.getString(6) + "','" + DatosC.getString(7) + "','" + DatosC.getString(8) + "','" + DatosC.getString(9) + "')");
                             }

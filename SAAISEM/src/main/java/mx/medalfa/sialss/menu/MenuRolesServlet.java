@@ -52,7 +52,7 @@ public class MenuRolesServlet extends HttpServlet {
         if (s == null) {
             return false;
         }
-        return MenuSialss.administra(PoliticaSesion.acceso(s), (String) s.getAttribute("Tipo"),
+        return PoliticaSesion.esSuperusuario(s) && MenuSialss.administra(PoliticaSesion.acceso(s), PoliticaSesion.perfil(s),
                 MenuSialss.idUsuario(s.getAttribute("IdUsu")));
     }
 
@@ -153,7 +153,7 @@ public class MenuRolesServlet extends HttpServlet {
             r.put("usuarios", List.of());
             r.put("errorUsuarios", "Este acceso no tiene tabla de usuarios en la base (" + acceso.tabla + ").");
         }
-        r.put("yo", Map.of("acceso", String.valueOf(PoliticaSesion.acceso(s)), "perfil", String.valueOf(s.getAttribute("Tipo")),
+        r.put("yo", Map.of("acceso", String.valueOf(PoliticaSesion.acceso(s)), "perfil", String.valueOf(PoliticaSesion.perfil(s)),
                 "id", String.valueOf(s.getAttribute("IdUsu"))));
         return r;
     }
@@ -163,7 +163,7 @@ public class MenuRolesServlet extends HttpServlet {
         int perfil = Integer.parseInt(req.getParameter("perfil"));
         Map<Integer, MenuSialss.Opcion> catalogo = indice(acceso);
         Set<Integer> nuevas = ids(req.getParameter("opciones"), catalogo);
-        if (esMio(s, acceso) && String.valueOf(perfil).equals(String.valueOf(s.getAttribute("Tipo")))) {
+        if (esMio(s, acceso) && String.valueOf(perfil).equals(PoliticaSesion.perfil(s))) {
             Integer admin = idAdministracion(catalogo);
             Integer yo = MenuSialss.idUsuario(s.getAttribute("IdUsu"));
             Character mio = admin == null ? null : MenuSialss.excepciones(acceso, yo).get(admin);

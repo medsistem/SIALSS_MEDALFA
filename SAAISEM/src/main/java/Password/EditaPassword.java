@@ -48,6 +48,17 @@ public class EditaPassword extends HttpServlet {
         if (accion == null) {
             accion = "";
         }
+        // Quien no es superusuario, ADMINISTRADOR ni ADMIN ALMACEN solo cambia su propia contraseña y no el estatus.
+        jakarta.servlet.http.HttpSession sesionPermiso = request.getSession(false);
+        if (!mx.medalfa.sialss.seguridad.PoliticaSesion.esAdministrador(sesionPermiso)) {
+            Object propio = sesionPermiso == null ? null : sesionPermiso.getAttribute("IdUsu");
+            String pedido = request.getParameter("Id");
+            if (accion.equals("ModificaSts") || propio == null || pedido == null
+                    || !String.valueOf(propio).trim().equals(pedido.trim())) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Solo puede modificar su propio usuario.");
+                return;
+            }
+        }
         try {
             con.conectar();
             if (accion.equals("Modifica")) {

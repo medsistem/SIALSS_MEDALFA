@@ -53,7 +53,7 @@ public class SesionFilter extends HttpFilter {
                 PoliticaSesion.registrarActividad(s);
             }
             // Opción del menú bloqueada a este usuario (pantalla "Menús por Perfil y Usuario"): también se niega la página.
-            if (mx.medalfa.sialss.menu.MenuSialss.paginaBloqueada(PoliticaSesion.acceso(s), (String) s.getAttribute("Tipo"),
+            if (mx.medalfa.sialss.menu.MenuSialss.paginaBloqueada(PoliticaSesion.acceso(s), PoliticaSesion.perfil(s),
                     mx.medalfa.sialss.menu.MenuSialss.idUsuario(s.getAttribute("IdUsu")), ruta, req.getQueryString())) {
                 res.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 if (deFondo) {

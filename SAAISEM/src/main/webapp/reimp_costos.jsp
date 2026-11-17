@@ -54,7 +54,6 @@
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
@@ -80,26 +79,27 @@
             </div>
             <form name="forma1" id="forma1" action="CostosRemisiones" method="post">
                 <div class="panel-footer">
-                    <div class="row">                    
-                        <label class="control-label col-sm-1" for="fecha_ini">Folios</label>
-                        <div class="col-lg-1">
-                            <input class="form-control" id="folio1" name="folio1" type="text" value="" onchange="habilitar(this.value);" />
+                    <div class="sialss-filtros">
+                        <div class="sialss-filtros__campo">
+                            <label for="folio1">Folios</label>
+                            <div class="sialss-filtros__rango">
+                                <input class="form-control" id="folio1" name="folio1" type="text" value="" aria-label="Folio inicial" onchange="habilitar(this.value);" />
+                                <span>al</span>
+                                <input class="form-control" id="folio2" name="folio2" type="text" value="" aria-label="Folio final" onchange="habilitar(this.value);"/>
+                            </div>
                         </div>
-                        <div class="col-lg-1">
-                            <input class="form-control" id="folio2" name="folio2" type="text" value="" onchange="habilitar(this.value);"/>
+                        <div class="sialss-filtros__campo">
+                            <label for="fecha_ini">Fechas</label>
+                            <div class="sialss-filtros__rango">
+                                <input class="form-control" id="fecha_ini" name="fecha_ini" value="<%=Fecha1%>" type="date" aria-label="Fecha inicial" onchange="habilitar(this.value);"/>
+                                <span>al</span>
+                                <input class="form-control" id="fecha_fin" name="fecha_fin" value="<%=Fecha2%>" type="date" aria-label="Fecha final" onchange="habilitar(this.value);"/>
+                            </div>
                         </div>
-
-                        <label class="control-label col-sm-1" for="fecha_ini">Fechas</label>
-                        <div class="col-sm-2">
-                            <input class="form-control" id="fecha_ini" name="fecha_ini" value="<%=Fecha1%>" type="date" onchange="habilitar(this.value);"/>
-                        </div>
-                        <div class="col-sm-2">
-                            <input class="form-control" id="fecha_fin" name="fecha_fin" value="<%=Fecha2%>" type="date" onchange="habilitar(this.value);"/>
-                        </div>
-                        <label class="control-label col-sm-1" for="fecha_ini">Proyecto</label>
-                        <div class="col-sm-2">
+                        <div class="sialss-filtros__campo">
+                            <label for="Proyecto">Proyecto</label>
                             <select name="Proyecto" id="Proyecto" class="form-control">
-                                <option value="0">--Seleccione --</option>
+                                <option value="0">-- Seleccione --</option>
                                 <c:forEach items="${listaProyecto}" var="detalleP">
                                     <option value="<c:out value="${detalleP.idproyecto}"/>"><c:out value="${detalleP.desproyecto}"/></option>
                                 </c:forEach>

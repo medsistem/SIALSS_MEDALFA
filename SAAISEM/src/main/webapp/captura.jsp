@@ -92,7 +92,6 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <!---->
         <title>SIALSS</title>
     </head>
@@ -1445,22 +1444,20 @@
                     }
 
 
+                    // Habilita "orden de suministro" y "unidad FONSABI" según el origen.
+                    // Si la pantalla no tiene esos campos, no hace nada.
                     function validaOS(value) {
-                        if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19') {
-                            document.getElementById('ordenSuministro').value = "";
-                            document.getElementById('ordenSuministro').disabled = true;
-                            document.getElementById('confirm_ordenSuministro').value = "";
-                            document.getElementById('confirm_ordenSuministro').disabled = true;
-                        } else {
-                            document.getElementById('ordenSuministro').disabled = false;
-                            document.getElementById('confirm_ordenSuministro').disabled = false;
+                        var origen = String(value);
+                        var conOrden = ['4', '5', '10', '11', '14', '15', '16', '17', '18', '19'].indexOf(origen) !== -1;
+                        function campo(id, deshabilitar) {
+                            var c = document.getElementById(id);
+                            if (!c) { return; }
+                            if (deshabilitar) { c.value = ""; }
+                            c.disabled = deshabilitar;
                         }
-                        if (value !== '19') {
-                            document.getElementById('unidadFonsabi').value = "";
-                            document.getElementById('unidadFonsabi').disabled = true;
-                        } else {
-                            document.getElementById('unidadFonsabi').disabled = false;
-                        }
+                        campo('ordenSuministro', !conOrden);
+                        campo('confirm_ordenSuministro', !conOrden);
+                        campo('unidadFonsabi', origen !== '19');
                     }
 
                     validaOS(0);

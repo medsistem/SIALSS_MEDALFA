@@ -94,7 +94,7 @@
                 <tbody id="etq-lista"><tr><td colspan="4" class="sialss-mr__vacio">Busque por sección o por texto.</td></tr></tbody>
             </table>
         </div>
-        <script src="<%=request.getContextPath()%>/js/sialss-etiquetas-ubicacion.js?v=2.0.6" defer
+        <script src="<%=request.getContextPath()%>/js/sialss-etiquetas-ubicacion.js?v=2.0.9" defer
                 data-ctx="<%=request.getContextPath()%>" data-maximo="<%=mx.medalfa.sialss.etiquetas.EtiquetasUbicacionServlet.MAXIMO%>"></script>
         <%@include file="jspf/piePagina.jspf" %>
     </body>

@@ -109,6 +109,7 @@
     }
   }
 
+  // Las tablas anchas las atiende js/sialss-tablas.js (lo carga jspf/sialssBarra.jspf).
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
   } else {

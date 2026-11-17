@@ -49,6 +49,10 @@ public final class ServicioAcceso {
                 // Contraseña o PIN correcto pero el usuario está bloqueado o dado de baja.
                 return new Resultado(Estado.BLOQUEADO, u, null, null, false, PoliticaSesion.MENSAJE_BLOQUEADO);
             }
+            if (u != null && acceso == Acceso.ALMACEN && mx.medalfa.sialss.usuarios.PerfilDao.suspendido(c, u.getTipo())) {
+                // Perfil suspendido en la pantalla "Perfiles de Usuario": nadie con ese perfil entra.
+                return new Resultado(Estado.BLOQUEADO, u, null, null, false, PoliticaSesion.MENSAJE_PERFIL_SUSPENDIDO);
+            }
             if (u == null) {
                 if (!dao.existe(nombre)) {
                     dao.registrarIntentoFallido(nombre);

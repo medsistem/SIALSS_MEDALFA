@@ -37,7 +37,10 @@ out.println(Folio);
         <link href="css/flat-ui.css" rel="stylesheet">
         <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/gnkl_style_default.css" rel="stylesheet">
-    </head>
+            <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
+</head>
     <body>
         <div class="container-fluid">
             <div class="row-fluid">

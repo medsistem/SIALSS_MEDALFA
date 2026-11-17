@@ -67,7 +67,8 @@
             </div>
             <hr/>
             <form action="EditaPassword" method="post">
-                <div class="row">
+                <%-- El estatus solo lo cambian superusuario, ADMINISTRADOR y ADMIN ALMACEN (EditaPassword lo valida). --%>
+                <div class="row"<%= mx.medalfa.sialss.seguridad.PoliticaSesion.esAdministrador(session) ? "" : " hidden style=\"display:none\"" %>>
                     <label class="col-sm-2">
                         Estatus
                     </label>

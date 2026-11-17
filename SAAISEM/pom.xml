@@ -228,6 +228,18 @@
                 <version>3.4.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- Manual de usuario (ManualUsuario.jsp y /ManualUsuario PDF): la carpeta Manuales va a WEB-INF/manuales. En local se lee
+                         directo de la carpeta si .env trae MANUALES_DIR. -->
+                    <webResources>
+                        <resource>
+                            <directory>Manuales</directory>
+                            <targetPath>WEB-INF/manuales</targetPath>
+                            <includes>
+                                <include>*.md</include>
+                                <include>.ultimo_commit</include>
+                            </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>

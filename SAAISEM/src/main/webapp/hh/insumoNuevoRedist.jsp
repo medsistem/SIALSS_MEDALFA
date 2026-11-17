@@ -36,7 +36,6 @@
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="../css/navbar-fixed-top.css" rel="stylesheet">
         <!---->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>SIALSS</title>

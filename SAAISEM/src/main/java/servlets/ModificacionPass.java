@@ -95,6 +95,19 @@ public class ModificacionPass extends HttpServlet {
                 String pswd = request.getParameter("pswd");
                 String TipUsu = request.getParameter("TipUsuario");
                 String Proyecto = request.getParameter("ListProyect");
+                // Solo superusuario, ADMINISTRADOR y ADMIN ALMACEN crean usuarios; los perfiles 1 y 100 solo los asigna
+                // el superusuario, y nunca un perfil suspendido.
+                boolean superusuario = mx.medalfa.sialss.seguridad.PoliticaSesion.esSuperusuario(sesion);
+                if (!mx.medalfa.sialss.seguridad.PoliticaSesion.esAdministrador(sesion) || TipUsu == null
+                        || !TipUsu.trim().matches("\\d+")
+                        || (!superusuario && (TipUsu.trim().equals("1") || TipUsu.trim().equals(mx.medalfa.sialss.seguridad.PoliticaSesion.SUPERUSUARIO)))
+                        || mx.medalfa.sialss.usuarios.PerfilDao.suspendido(con.getConn(), TipUsu)) {
+                    out.println("<script>alert('No tiene permiso para crear usuarios con ese perfil')</script>");
+                    out.println("<script>window.location='NuevoUsuario.jsp'</script>");
+                    con.cierraConexion();
+                    return;
+                }
+                TipUsu = TipUsu.trim();
 
                 ResultSet Consulta = con.consulta("SELECT COUNT(F_Usu) FROM tb_usuario WHERE F_Usu='" + Usu + "';");
                 if (Consulta.next()) {

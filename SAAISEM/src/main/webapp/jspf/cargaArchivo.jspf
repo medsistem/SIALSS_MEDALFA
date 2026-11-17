@@ -1,0 +1,56 @@
+<%-- Pantalla común de "Carga de Archivos" (modelo de CargaInventarioExcel.jsp). La página define antes:
+       String caPagina      ruta del servlet sin diagonal ("CargaArchivoOC")
+       String caTitulo      título visible
+       String caDescripcion qué hace la carga (texto plano)
+       String caPlantilla   qué trae la plantilla (texto plano)
+       String[] caColumnas  encabezados de la vista previa
+     Servlet: mx.medalfa.sialss.cargas.CargaArchivoServlet. Guion: js/sialss-carga-archivo.js. --%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    String caUsuario = String.valueOf(session.getAttribute(mx.medalfa.sialss.seguridad.PoliticaSesion.USUARIO))
+            .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+%>
+<div class="container sialss-mr sialss-captura">
+    <h1><%=caTitulo%></h1>
+    <p class="sialss-secundario"><%=caDescripcion%> Primero se revisa todo el archivo sin guardar nada; si no hay
+        errores, confirmas con tu contraseña y se guarda a nombre de <strong><%=caUsuario%></strong>.</p>
+
+    <fieldset>
+        <legend>1. Archivo</legend>
+        <div class="sialss-filtros">
+            <div class="sialss-filtros__campo">
+                <label for="ca-archivo">Excel (.xlsx o .xls)</label>
+                <input type="file" class="form-control" id="ca-archivo" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+            </div>
+            <div class="sialss-filtros__campo">
+                <span class="sialss-filtros__ayuda"><%=caPlantilla%></span>
+                <a class="sialss-boton" href="<%=request.getContextPath()%>/<%=caPagina%>?accion=plantilla">Descargar plantilla</a>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="sialss-captura__acciones">
+        <button type="button" class="sialss-boton sialss-boton--primario" id="ca-revisar">Revisar archivo</button>
+        <button type="button" class="sialss-boton" id="ca-cancelar" hidden>Cancelar carga</button>
+    </div>
+    <p class="sialss-mr__estado" id="ca-estado" role="status" aria-live="polite"></p>
+    <ul class="sialss-captura__errores" id="ca-errores" hidden></ul>
+
+    <form class="sialss-captura__confirmar" id="ca-confirmar" hidden>
+        <div class="sialss-filtros__campo">
+            <label for="ca-contrasena">2. Para confirmar, escribe tu contraseña</label>
+            <input type="password" class="form-control" id="ca-contrasena" autocomplete="current-password">
+        </div>
+        <button type="submit" class="sialss-boton sialss-boton--primario" id="ca-aplicar">Confirmar carga</button>
+        <span id="ca-resumen"></span>
+    </form>
+
+    <h2 class="sialss-etq__subtitulo">Vista previa</h2>
+    <table class="sialss-mr__tabla">
+        <caption class="sr-only">Primeros 200 renglones válidos del archivo</caption>
+        <thead><tr><% for (String caCol : caColumnas) { %><th scope="col"><%=caCol%></th><% } %></tr></thead>
+        <tbody id="ca-muestra"><tr><td colspan="<%=caColumnas.length%>" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
+    </table>
+</div>
+<script src="<%=request.getContextPath()%>/js/sialss-carga-archivo.js?v=1" defer
+        data-ctx="<%=request.getContextPath()%>" data-servlet="<%=caPagina%>"></script>

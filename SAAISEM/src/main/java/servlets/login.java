@@ -50,7 +50,9 @@ public class login extends HttpServlet {
     private static void llenarSesion(HttpSession sesion, Usuario usuario) {
         sesion.setAttribute("Usuario", usuario.getUsuario());
         sesion.setAttribute("nombre", usuario.getNombre());
-        sesion.setAttribute("Tipo", usuario.getTipo());
+        // Perfil real aparte; "Tipo" ve al superusuario (100) como ADMINISTRADOR (1) en las pantallas antiguas.
+        sesion.setAttribute(mx.medalfa.sialss.seguridad.PoliticaSesion.PERFIL, usuario.getTipo());
+        sesion.setAttribute("Tipo", mx.medalfa.sialss.seguridad.PoliticaSesion.tipoCompatible(usuario.getTipo()));
         sesion.setAttribute("IdUsu", usuario.getId() + "");
         sesion.setAttribute("Area", usuario.getArea());
         sesion.setAttribute("ProyectoCL", usuario.getProyecto());

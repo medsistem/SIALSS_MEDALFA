@@ -120,15 +120,17 @@ $(document).ready(function () {
     $('#tablaMovimiento').dataTable();
 });
 
+// Pone el foco en la clave o, si ya hay una clave elegida, en la cantidad.
+// El formulario solo aparece cuando ya se eligió un cliente: si no está, no hace nada.
 function foco() {
-    document.formulario1.ClaPro.focus();
-    var ClaveSel = document.formulario1.ClaveSel.value;
-    if (ClaveSel !== "") {
-        document.formulario1.Cantidad.focus();
+    var claPro = document.getElementById('ClaPro');
+    var claveSel = document.getElementById('ClaveSel');
+    var cantidad = document.getElementById('Cantidad');
+    if (claveSel && claveSel.value !== "" && cantidad) {
+        cantidad.focus();
         window.scrollTo(0, 380);
-    } else {
-        document.formulario1.ClaPro.focus();
+    } else if (claPro) {
+        claPro.focus();
     }
-
 }
 /* Selecciona Lote*/

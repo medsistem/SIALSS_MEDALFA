@@ -48,7 +48,7 @@ public class ProyectoNuevoServlet extends HttpServlet {
     }
 
     public static boolean autorizado(HttpSession s) {
-        return s != null && MenuSialss.tieneOpcion(PoliticaSesion.acceso(s), (String) s.getAttribute("Tipo"),
+        return s != null && PoliticaSesion.esAdministrador(s) && MenuSialss.tieneOpcion(PoliticaSesion.acceso(s), PoliticaSesion.perfil(s),
                 MenuSialss.idUsuario(s.getAttribute("IdUsu")), PAGINA);
     }
 

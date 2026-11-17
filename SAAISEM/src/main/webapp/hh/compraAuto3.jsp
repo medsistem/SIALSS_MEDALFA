@@ -153,7 +153,7 @@
                         <h4>Proveedor</h4>
                     </label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="Proveedor" id="Proveedor" onchange="SelectProve(this.form); document.getElementById('Fecha').focus()">
+                        <select class="form-control" name="Proveedor" id="Proveedor" onchange="document.getElementById('Fecha').focus()">
 
                             <option value="">--Proveedor--</option>
                             <%
@@ -2141,22 +2141,20 @@
                                 }
 
 
+                                // Habilita "orden de suministro" y "unidad FONSABI" según el origen.
+                                // Los campos solo existen cuando ya se eligió una orden: si no están, no hace nada.
                                 function validaOS(value) {
-                                    if (value !== '4' && value !== '5' && value !== '10' && value !== '11' && value !== '14' && value !== '15' && value !== '16' && value !== '17' && value !== '18' && value !== '19' && value !== '20' && value !== '22') {
-                                        document.getElementById('ordenSuministro').value = "";
-                                        document.getElementById('ordenSuministro').disabled = true;
-                                        document.getElementById('confirm-ordenSuministro').value = "";
-                                        document.getElementById('confirm-ordenSuministro').disabled = true;
-                                    } else {
-                                        document.getElementById('ordenSuministro').disabled = false;
-                                        document.getElementById('confirm-ordenSuministro').disabled = false;
+                                    var origen = String(value);
+                                    var conOrden = ['4', '5', '10', '11', '14', '15', '16', '17', '18', '19', '20', '22'].indexOf(origen) !== -1;
+                                    function campo(id, deshabilitar) {
+                                        var c = document.getElementById(id);
+                                        if (!c) { return; }
+                                        if (deshabilitar) { c.value = ""; }
+                                        c.disabled = deshabilitar;
                                     }
-                                    if (value !== '19') {
-                                        document.getElementById('unidadFonsabi').value = "";
-                                        document.getElementById('unidadFonsabi').disabled = true;
-                                    } else {
-                                        document.getElementById('unidadFonsabi').disabled = false;
-                                    }
+                                    campo('ordenSuministro', !conOrden);
+                                    campo('confirm-ordenSuministro', !conOrden);
+                                    campo('unidadFonsabi', origen !== '19');
                                 }
 
                                 validaOS(0);

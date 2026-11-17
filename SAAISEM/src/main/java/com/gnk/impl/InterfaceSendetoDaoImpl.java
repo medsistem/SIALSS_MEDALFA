@@ -77,7 +77,7 @@ private static String DATOS_FONSABI_CONTAR = "SELECT COUNT(*) FROM tb_uniatn AS 
 
     private static final String INDICE_LOTE = "SELECT F_IndCom,F_IndLote FROM tb_indice;";
 
-    private static final String INSERTAR_TB_LOTE = "INSERT INTO tb_lote SET F_ClaPro=?, F_ClaLot=?, F_FecCad=?, F_ExiLot=?, F_FolLot=?, F_ClaOrg=?, F_Ubica=?, F_FecFab=?, F_Cb=?, F_ClaMar=?, F_Origen=?, F_ClaPrv=?, F_UniMed=?, F_Proyecto=?;";
+    private static final String INSERTAR_TB_LOTE = "INSERT INTO tb_lote SET F_ClaPro=?, F_ClaLot=?, F_FecCad=?, F_ExiLot=?, F_FolLot=?, F_ClaOrg=?, F_Ubica=?, F_FecFab=?, F_Cb=?, F_ClaMar=?, F_Origen=?, F_ClaPrv=?, F_tarima=?, F_Proyecto=?;";
 
     private static final String ACTUALIZA_INDICE_MOVIMIENTO = "UPDATE tb_indice SET F_IndMov=F_IndMov+1";
 

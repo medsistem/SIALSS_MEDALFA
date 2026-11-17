@@ -115,7 +115,7 @@ public class Ubicaciones extends HttpServlet {
             F_ClaMar = rset.getString("F_ClaMar");
             F_ExiLot = rset.getInt("F_ExiLot");
             F_Origen = rset.getString("F_Origen");
-            F_UniMed = rset.getString("F_UniMed");
+            F_UniMed = rset.getString("F_tarima");
         }
 
         if (F_ExiLot - CantMov >= 0) {

@@ -309,7 +309,7 @@ public class CargaExcelInvIni {
                         F_Cantidad = 0;
                         F_TipMed = 0;
                     } else {
-                        ConsulUbi = con.consulta("SELECT F_FolLot,F_ClaOrg,F_FecFab,F_Cb,F_ClaMar,F_Origen,F_UniMed FROM tb_lote WHERE F_ClaPro='" + F_ClaPro + "' AND F_ClaLot='" + F_ClaLot + "' AND F_FecCad='" + F_FecCad + "' LIMIT 1;");
+                        ConsulUbi = con.consulta("SELECT F_FolLot,F_ClaOrg,F_FecFab,F_Cb,F_ClaMar,F_Origen,F_tarima FROM tb_lote WHERE F_ClaPro='" + F_ClaPro + "' AND F_ClaLot='" + F_ClaLot + "' AND F_FecCad='" + F_FecCad + "' LIMIT 1;");
                         if (ConsulUbi.next()) {
                             F_FolLot = ConsulUbi.getInt(1);
                             F_ClaOrg = ConsulUbi.getString(2);

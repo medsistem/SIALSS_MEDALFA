@@ -30,12 +30,14 @@
         <!-- Estilos CSS -->
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/cupertino/jquery-ui-1.10.3.custom.css" />
-        <link href="../css/navbar-fixed-top.css" rel="stylesheet">
         <link href="../css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../css/dataTables.bootstrap.css">
         <!---->
         <title>SIALSS</title>
-    </head>
+            <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
+</head>
     <body>
         <div class="container">
             <h1>MEDALFA</h1>

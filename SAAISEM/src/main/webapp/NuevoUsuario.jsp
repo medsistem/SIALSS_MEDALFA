@@ -36,6 +36,13 @@
         Area = (String) sesion.getAttribute("Area");
     } else {
         response.sendRedirect("index.jsp");
+        return;
+    }
+    // Alta de usuarios: solo superusuario, ADMINISTRADOR y ADMIN ALMACEN (ModificacionPass también lo valida).
+    if (!mx.medalfa.sialss.seguridad.PoliticaSesion.esAdministrador(sesion)) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        request.getRequestDispatcher("/sinPermiso.jsp").forward(request, response);
+        return;
     }
 
     ConectionDB con = new ConectionDB();
@@ -157,7 +164,9 @@
                                     con.conectar();
                                     ResultSet rset = null;
 
-                                    rset = con.consulta("SELECT tu.F_IdTipo, tu.F_DesTipo FROM tb_tipusuario tu WHERE tu.F_IdTipo not in  (1) ORDER BY tu.F_DesTipo;");
+                                    // Sin perfiles suspendidos; ADMINISTRADOR y SUPERUSUARIO solo los asigna el superusuario.
+                                    rset = con.consulta(mx.medalfa.sialss.usuarios.PerfilDao.consultaParaAltaDeUsuarios(con.getConn(),
+                                            mx.medalfa.sialss.seguridad.PoliticaSesion.esSuperusuario(session)));
 
                                     while (rset.next()) {
                             %>

@@ -90,10 +90,72 @@
     document.querySelectorAll('input[name=tipo]').forEach(function (r) { r.addEventListener('change', mostrarPapel); });
     mostrarPapel();
 
+    // El PDF se abre en una ventana aparte (siempre la misma, "sialss-etiquetas-pdf").
+    // 1) La ventana se abre dentro del clic para que el navegador no la bloquee.
+    // 2) La selección se envía con fetch (POST) y el servidor contesta la dirección GET del PDF.
+    // 3) La ventana navega a esa dirección. No se envía el formulario a otra ventana porque
+    //    algunos navegadores integrados abren el "action" como GET y pierden los datos.
+    var NOMBRE_VENTANA = 'sialss-etiquetas-pdf';
+    function caracteristicasVentana() {
+        var ancho = Math.min(1000, screen.availWidth - 40);
+        var alto = Math.min(800, screen.availHeight - 60);
+        return 'popup=yes,width=' + ancho + ',height=' + alto
+            + ',left=' + Math.round((screen.availWidth - ancho) / 2) + ',top=' + Math.round((screen.availHeight - alto) / 2)
+            + ',resizable=yes,scrollbars=yes';
+    }
+    function mostrarEnlace(url, texto) {
+        var e = $('etq-estado');
+        e.textContent = texto + ' ';
+        e.className = 'sialss-mr__estado sialss-mr__estado--ok';
+        var a = document.createElement('a');
+        a.href = url; a.target = NOMBRE_VENTANA; a.textContent = 'Abrir PDF';
+        e.appendChild(a);
+    }
+
     $('etq-generar').addEventListener('click', function () {
+        var boton = this;
         $('etq-claves').value = Array.from(seleccion).join('\n');
-        $('forma-etq').submit();
-        estado('Se abrió el PDF en otra pestaña (' + seleccion.size + ' etiquetas).', 'ok');
+        var datos = new URLSearchParams(new FormData($('forma-etq')));
+        datos.set('respuesta', 'json');
+        var total = seleccion.size;
+        var cuantas = total === 1 ? '1 etiqueta' : total + ' etiquetas';
+
+        var ventana = null;
+        try { ventana = window.open('', NOMBRE_VENTANA, caracteristicasVentana()); } catch (e) { ventana = null; }
+        if (ventana) {
+            try {
+                ventana.document.title = 'Generando PDF…';
+                ventana.document.body.style.cssText = 'font-family:Segoe UI,Arial,sans-serif;padding:24px';
+                ventana.document.body.textContent = 'Generando el PDF de ' + cuantas + '…';
+            } catch (e) { /* ventana de otro origen: se reutiliza tal cual */ }
+        }
+
+        boton.disabled = true;
+        estado('Generando el PDF de ' + cuantas + '…');
+        fetch(CTX + '/EtiquetasUbicacion', {
+            method: 'POST', body: datos, credentials: 'same-origin',
+            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        }).then(function (r) {
+            return r.json().catch(function () { return {}; }).then(function (j) {
+                if (!r.ok || !j.url) { throw new Error(j.error || 'No se pudo generar el PDF (' + r.status + ').'); }
+                return j;
+            });
+        }).then(function (j) {
+            if (ventana && !ventana.closed) {
+                ventana.location.href = j.url;
+                ventana.focus();
+                estado('Se abrió el PDF en una ventana aparte (' + cuantas + ').', 'ok');
+            } else if (window.open(j.url, NOMBRE_VENTANA, caracteristicasVentana())) {
+                estado('Se abrió el PDF en una ventana aparte (' + cuantas + ').', 'ok');
+            } else {
+                mostrarEnlace(j.url, 'El PDF está listo (' + cuantas + '), pero el navegador bloqueó la ventana aparte.');
+            }
+        }).catch(function (e) {
+            if (ventana && !ventana.closed) { ventana.close(); }
+            estado(e.message, 'error');
+        }).then(function () {
+            boton.disabled = seleccion.size === 0 || seleccion.size > MAXIMO;
+        });
     });
 
     pedir({ accion: 'secciones' }).then(function (r) {

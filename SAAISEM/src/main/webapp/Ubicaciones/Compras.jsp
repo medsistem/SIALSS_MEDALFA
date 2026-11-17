@@ -45,6 +45,9 @@ if(!Valida.equals("Valido")){
         <script type="text/javascript" charset="utf-8" src="table_js/ZeroClipboard.js"></script>
         <script type="text/javascript" charset="utf-8" src="table_js/TableTools.js"></script>
         <script type="text/javascript" src="table_js/TableTools.min.js"></script>
+        <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
 </head>
 <body>
 	<div class="container-fluid">

@@ -20,9 +20,19 @@ public final class PoliticaSesion {
     public static final String ULTIMA_ACTIVIDAD = "sialss.ultimaActividad";
     public static final String BLOQUEADA = "sialss.bloqueada";
     public static final String INTENTOS_DESBLOQUEO = "sialss.intentosDesbloqueo";
+    /** Perfil real (F_TipUsu). "Tipo" puede valer "1" para el superusuario, por compatibilidad con pantallas antiguas. */
+    public static final String PERFIL = "sialss.perfil";
+
+    /** Perfil SUPERUSUARIO (tb_tipusuario 100): todo lo del administrador más perfiles y menús por perfil. */
+    public static final String SUPERUSUARIO = "100";
+    /** Perfiles que administran usuarios y proyectos: superusuario, ADMINISTRADOR y ADMIN ALMACEN. */
+    public static final java.util.Set<String> ADMINISTRADORES = java.util.Set.of(SUPERUSUARIO, "1", "5");
 
     public static final String MENSAJE_BLOQUEADO =
             "Su usuario está bloqueado. Comuníquese con el administrador del sistema para desbloquearlo.";
+
+    public static final String MENSAJE_PERFIL_SUSPENDIDO =
+            "Su perfil de usuario está suspendido. Comuníquese con el administrador del sistema.";
 
     private PoliticaSesion() {
     }
@@ -53,6 +63,35 @@ public final class PoliticaSesion {
         s.removeAttribute(BLOQUEADA);
         s.removeAttribute(INTENTOS_DESBLOQUEO);
         s.setMaxInactiveInterval((int) (cierreMs() / 1000));
+    }
+
+    /**
+     * Perfil real del usuario (F_TipUsu): el guardado al iniciar sesión o, si no hay, el atributo "Tipo".
+     * Úsese para el menú y los permisos nuevos; "Tipo" queda para las pantallas antiguas.
+     */
+    public static String perfil(HttpSession s) {
+        if (s == null) {
+            return null;
+        }
+        Object p = s.getAttribute(PERFIL);
+        if (p == null) {
+            p = s.getAttribute("Tipo");
+        }
+        return p == null ? null : p.toString().trim();
+    }
+
+    /** Valor de "Tipo" para las pantallas antiguas: el superusuario se ve como ADMINISTRADOR (1). */
+    public static String tipoCompatible(String perfil) {
+        return SUPERUSUARIO.equals(perfil) ? "1" : perfil;
+    }
+
+    public static boolean esSuperusuario(HttpSession s) {
+        return acceso(s) == Acceso.ALMACEN && SUPERUSUARIO.equals(perfil(s));
+    }
+
+    /** Superusuario, ADMINISTRADOR o ADMIN ALMACEN del acceso de Almacén. */
+    public static boolean esAdministrador(HttpSession s) {
+        return acceso(s) == Acceso.ALMACEN && ADMINISTRADORES.contains(perfil(s));
     }
 
     /** Acceso con el que se autenticó la sesión, o null si no pasó por ServicioAcceso. */

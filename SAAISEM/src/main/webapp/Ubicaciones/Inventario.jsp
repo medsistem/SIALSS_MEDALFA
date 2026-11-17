@@ -128,7 +128,10 @@
         <script src="js_auto/jquery-1.9.1.js"></script>
         <script src="js_auto/jquery-ui.js"></script>
 
-    </head>
+            <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
+</head>
     <body>
         <div class="container">
             <h1>MEDALFA</h1>

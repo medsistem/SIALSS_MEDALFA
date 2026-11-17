@@ -44,7 +44,7 @@ public final class MenuSialss {
 
     /** Orden común de los módulos (los que no estén aquí van al final, en orden alfabético). */
     public static final List<String> ORDEN_MODULOS = List.of(
-            "ENTRADA", "ÓRDENES DE COMPRA", "REMISIÓN", "INVENTARIO", "PDF",
+            "ENTRADA", "CARGA DE ARCHIVOS", "ÓRDENES DE COMPRA", "REMISIÓN", "INVENTARIO", "PDF",
             "CONSULTA", "REPORTE", "FARMACIA", "CATÁLOGOS", "USUARIO");
 
     /** Página de administración de este catálogo (sirve también para saber quién puede administrarlo). */
