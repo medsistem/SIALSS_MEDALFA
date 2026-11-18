@@ -119,6 +119,7 @@ public class CargaArchivoServlet extends HttpServlet {
             m.put("errores", r.errores().size() > MAXIMO_ERRORES ? r.errores().subList(0, MAXIMO_ERRORES) : r.errores());
             m.put("totalErrores", r.errores().size());
             m.put("muestra", r.muestra());
+            m.put("muestraMaxima", CargaArchivo.MAX_MUESTRA);
             m.put("resumen", r.resumen());
             m.put("omitidos", r.omitidos().size() > MAXIMO_ERRORES ? r.omitidos().subList(0, MAXIMO_ERRORES) : r.omitidos());
             m.put("totalOmitidos", r.omitidos().size());

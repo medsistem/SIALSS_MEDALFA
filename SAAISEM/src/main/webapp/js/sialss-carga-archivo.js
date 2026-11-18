@@ -29,8 +29,6 @@
 
   function cuantos(n, uno, varios) { return n + ' ' + (n === 1 ? uno : varios); }
 
-  function celda(t) { var td = document.createElement('td'); td.textContent = t == null ? '' : t; return td; }
-
   function mostrarErrores(lista, total) {
     var ul = $('ca-errores');
     ul.textContent = '';
@@ -58,19 +56,9 @@
     caja.open = false;
   }
 
-  function mostrarMuestra(filas) {
-    var tb = $('ca-muestra');
-    tb.textContent = '';
-    if (!filas.length) {
-      var tr = document.createElement('tr'); var td = celda('Sin renglones válidos.');
-      td.colSpan = columnas; td.className = 'sialss-mr__vacio'; tr.appendChild(td); tb.appendChild(tr);
-      return;
-    }
-    filas.forEach(function (f) {
-      var tr = document.createElement('tr');
-      f.forEach(function (v) { tr.appendChild(celda(v)); });
-      tb.appendChild(tr);
-    });
+  /* 50 renglones por página con desplazamiento (js/sialss-tabla-paginada.js). */
+  function mostrarMuestra(filas, maximo) {
+    SialssTablaPaginada.mostrar($('ca-muestra'), filas, columnas, function (f) { return f; }, maximo);
   }
 
   function reiniciar() {
@@ -96,7 +84,7 @@
     enviar(datos).then(function (r) {
       mostrarErrores(r.errores, r.totalErrores);
       mostrarOmitidos(r.omitidos, r.totalOmitidos || 0);
-      mostrarMuestra(r.muestra);
+      mostrarMuestra(r.muestra, r.muestraMaxima);
       if (r.sinNuevos) {
         estado(r.resumen, 'aviso');
       } else if (r.valida) {

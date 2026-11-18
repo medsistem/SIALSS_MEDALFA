@@ -19,6 +19,9 @@ import mx.medalfa.sialss.seguridad.PoliticaSesion;
  */
 public interface CargaArchivo {
 
+    /** Renglones válidos que se mandan a la vista previa; la pantalla los muestra de 50 en 50 (js/sialss-tabla-paginada.js). */
+    int MAX_MUESTRA = 5000;
+
     /**
      * Resultado de revisar. {@code datos} es lo que necesita {@link #aplicar}; null si hubo errores o si no quedó nada
      * nuevo. {@code omitidos}: renglones repetidos (ya cargados o repetidos en el archivo) que no se suben; no son error.

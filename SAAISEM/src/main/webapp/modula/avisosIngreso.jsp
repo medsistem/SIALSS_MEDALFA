@@ -43,7 +43,7 @@
         <!---->
         <title>SIALSS</title>
             <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
-        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.20" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.21" rel="stylesheet">
         <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
 </head>
     <body class="container">

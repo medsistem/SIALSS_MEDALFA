@@ -89,7 +89,7 @@ public final class CargaMarcas implements CargaArchivo {
             }
             archivo2.agregar(marca);
             marcas.add(marca);
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), marca));
             }
         }

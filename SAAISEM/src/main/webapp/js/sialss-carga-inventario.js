@@ -25,8 +25,6 @@
 
   function cuantos(n, uno, varios) { return n + ' ' + (n === 1 ? uno : varios); }
 
-  function celda(t) { var td = document.createElement('td'); td.textContent = t == null ? '' : t; return td; }
-
   function mostrarErrores(lista, total) {
     var ul = $('ci-errores');
     ul.innerHTML = '';
@@ -53,20 +51,11 @@
     caja.open = false;
   }
 
-  function mostrarMuestra(filas) {
-    var tb = $('ci-muestra');
-    tb.innerHTML = '';
-    if (!filas.length) {
-      var tr = document.createElement('tr'); var td = celda('Sin renglones válidos.');
-      td.colSpan = 9; td.className = 'sialss-mr__vacio'; tr.appendChild(td); tb.appendChild(tr);
-      return;
-    }
-    filas.forEach(function (x) {
-      var tr = document.createElement('tr');
-      [x.renglon, x.clave, x.descripcion, x.lote, x.caducidad, x.cantidad, x.ubicacion, x.proyecto, x.tarima]
-        .forEach(function (v) { tr.appendChild(celda(v)); });
-      tb.appendChild(tr);
-    });
+  /* 50 renglones por página con desplazamiento (js/sialss-tabla-paginada.js). */
+  function mostrarMuestra(filas, maximo) {
+    SialssTablaPaginada.mostrar($('ci-muestra'), filas, 9, function (x) {
+      return [x.renglon, x.clave, x.descripcion, x.lote, x.caducidad, x.cantidad, x.ubicacion, x.proyecto, x.tarima];
+    }, maximo);
   }
 
   function reiniciar() {
@@ -92,7 +81,7 @@
     enviar(datos).then(function (r) {
       mostrarErrores(r.errores, r.totalErrores);
       mostrarOmitidos(r.omitidos, r.totalOmitidos || 0);
-      mostrarMuestra(r.muestra);
+      mostrarMuestra(r.muestra, r.muestraMaxima);
       var omit = r.totalOmitidos ? (r.totalOmitidos === 1 ? ' Se omite ' : ' Se omiten ') + cuantos(r.totalOmitidos, 'renglón repetido', 'renglones repetidos') + '.' : '';
       if (r.sinNuevos) {
         estado('No hay lotes nuevos: ' + (r.totalOmitidos === 1 ? 'el renglón ya tiene existencia o se repite.'

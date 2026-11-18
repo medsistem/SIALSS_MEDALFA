@@ -178,7 +178,7 @@ public final class CargaUnidades implements CargaArchivo {
             Unidad un = new Unidad(clave, nombre, Integer.parseInt(tipo.get(1)), Integer.parseInt(mun.get(1)), mun.get(2),
                     Integer.parseInt(proyecto), direccion, cluesU, nivel, tipo.get(3), ruta == null ? "R1001" : ruta);
             nuevas.add(un);
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), clave, nombre, tipo.get(4), mun.get(3) + " (jur. " + mun.get(2) + ")",
                         proyectos.get(proyecto), Campos.oGuion(cluesU), String.valueOf(nivel)));
             }

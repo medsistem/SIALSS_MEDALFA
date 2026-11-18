@@ -160,7 +160,7 @@ public final class CargaOC implements CargaArchivo {
             String claveSS = ins.get(4) == null || ins.get(4).isEmpty() ? clave : ins.get(4);
             renglones.add(new Renglon(cr.numero(), orden, proveedor, clave, claveSS, cantidad, Integer.parseInt(proyecto), fuente));
             piezas += cantidad;
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), orden, proveedor + " · " + proveedores.get(proveedor), clave,
                         ins.get(2), String.valueOf(cantidad), proyecto + " · " + proyectos.get(proyecto), fuente));
             }

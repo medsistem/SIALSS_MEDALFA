@@ -1,5 +1,11 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · 1ca830f
+
+Mensaje del commit: Tablas: DataTables ya no desaparece junto a columnas flotantes.
+
+- Sin cambios visibles para el usuario en los módulos: solo se corrigió un detalle de estilos para que las tablas de consulta no desaparezcan al terminar de cargar, y se actualizó la versión de la hoja de estilos en las pantallas. No se modificó ninguna sección.
+
 ## 2026-11-18 · 9bb755d
 
 Mensaje del commit: Manual: nombre del perfil en el selector en lugar de Perfil N.

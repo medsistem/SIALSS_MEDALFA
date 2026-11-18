@@ -69,15 +69,18 @@
             </form>
 
             <h2 class="sialss-etq__subtitulo">Vista previa</h2>
+            <div class="sialss-mr__desplaza" tabindex="0" aria-label="Vista previa, con desplazamiento">
             <table class="sialss-mr__tabla">
-                <caption class="sr-only">Primeros 200 renglones del archivo</caption>
+                <caption class="sr-only">Renglones del archivo, 50 por página</caption>
                 <thead><tr><th scope="col">Renglón</th><th scope="col">Clave</th><th scope="col">Descripción</th><th scope="col">Lote</th>
                         <th scope="col">Caducidad</th><th scope="col">Cantidad</th><th scope="col">Ubicación</th><th scope="col">Proyecto</th>
                         <th scope="col">Tarima</th></tr></thead>
                 <tbody id="ci-muestra"><tr><td colspan="9" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
             </table>
+            </div>
         </div>
-        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=4" defer data-ctx="<%=request.getContextPath()%>"></script>
+        <script src="<%=request.getContextPath()%>/js/sialss-tabla-paginada.js?v=1" defer></script>
+        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=5" defer data-ctx="<%=request.getContextPath()%>"></script>
         <%@include file="jspf/piePagina.jspf" %>
     </body>
 </html>

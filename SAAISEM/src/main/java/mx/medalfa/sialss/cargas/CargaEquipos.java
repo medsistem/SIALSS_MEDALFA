@@ -299,7 +299,7 @@ public final class CargaEquipos implements CargaArchivo {
                     emp.tarimasCompletas(), emp.cajasPorTarima(), emp.piezasPorCaja(), emp.tarimasIncompletas(),
                     emp.cajasIncompletas(), emp.resto()));
             piezasTotal += piezas;
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), clave, insumos.get(clave),
                         serie == null ? (cb == null ? "(CB nuevo)" : cb) : serie, String.format("%,d", piezas),
                         marcas.get(marca), ubicacion, proyecto, (oc == null ? "EQUIPOS" : oc) + " / " + (remision == null ? "S/R" : remision)));

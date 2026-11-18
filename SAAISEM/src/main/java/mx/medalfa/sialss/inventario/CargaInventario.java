@@ -411,7 +411,7 @@ public final class CargaInventario {
         }
     }
 
-    /** Resumen para la pantalla (los primeros 200 renglones). */
+    /** Resumen para la pantalla: hasta 200 errores u omitidos y hasta {@link mx.medalfa.sialss.cargas.CargaArchivo#MAX_MUESTRA} renglones de vista previa. */
     public static Map<String, Object> resumen(Revision r) {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("valida", r.valida());
@@ -422,8 +422,9 @@ public final class CargaInventario {
         m.put("omitidos", r.omitidos().size() > 200 ? r.omitidos().subList(0, 200) : r.omitidos());
         m.put("totalOmitidos", r.omitidos().size());
         m.put("sinNuevos", r.sinNuevos());
+        m.put("muestraMaxima", mx.medalfa.sialss.cargas.CargaArchivo.MAX_MUESTRA);
         List<Map<String, Object>> muestra = new ArrayList<>();
-        for (Renglon x : r.renglones().subList(0, Math.min(200, r.renglones().size()))) {
+        for (Renglon x : r.renglones().subList(0, Math.min(mx.medalfa.sialss.cargas.CargaArchivo.MAX_MUESTRA, r.renglones().size()))) {
             Map<String, Object> p = new LinkedHashMap<>();
             p.put("renglon", x.numero());
             p.put("clave", x.clave());

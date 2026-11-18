@@ -237,7 +237,7 @@ public final class CargaProductos implements CargaArchivo {
             nuevos.add(new Producto(clave, descripcion, Integer.parseInt(tipo), Integer.parseInt(origen), precio, proyectos,
                     claveSS == null ? clave : claveSS, presentacion == null ? "" : presentacion, origenNim.isEmpty() ? "-" : origenNim,
                     grupo, cantidadMaxima, catalogo, niveles, estatus));
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), clave, descripcion, tipos.get(tipo), origenes.get(origen),
                         "$" + precio, String.join(", ", nombresProyecto), niveles.size() == NIVELES.size() ? "Todos" : String.join(", ", niveles)));
             }

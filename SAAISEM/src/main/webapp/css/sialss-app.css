@@ -277,6 +277,16 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-captura__omitidos { margin: 0 0 16px; padding: 10px 12px; border-left: 4px solid var(--s-aviso-borde); border-radius: var(--s-radio); background: var(--s-aviso-fondo); color: var(--s-aviso-texto); }
 .sialss-captura__omitidos summary { cursor: pointer; font-weight: 600; }
 .sialss-captura__omitidos ul { margin: 8px 0 0; padding-left: 20px; max-height: 260px; overflow-y: auto; font-size: 14px; }
+/* Vista previa de las cargas: 50 renglones por página (js/sialss-tabla-paginada.js) dentro de un marco con desplazamiento;
+   el encabezado queda fijo arriba del marco (top: 0, no debajo de la barra de la página). */
+.sialss-mr__desplaza { max-height: 60vh; overflow: auto; border: 1px solid var(--s-borde); border-radius: var(--s-radio); background: var(--s-superficie); }
+.sialss-mr__desplaza > .sialss-mr__tabla { border: 0; }
+.sialss-mr__desplaza > .sialss-mr__tabla thead th { top: 0; }
+.sialss-paginas { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; margin: 10px 0 0; font-size: 14px; color: var(--s-texto-2); }
+.sialss-paginas__botones { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sialss-paginas__boton { min-height: 34px; padding: 4px 12px; font-size: 14px; }
+.sialss-paginas__boton:disabled { opacity: .45; cursor: default; }
+.sialss-paginas__actual { padding: 0 6px; font-weight: 600; color: var(--s-texto); }
 .sialss-mr__modulos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 .sialss-mr__modulo { margin: 0; padding: 0 0 8px; background: var(--s-superficie); border: 1px solid var(--s-borde); border-radius: var(--s-radio); box-shadow: var(--s-sombra); min-width: 0; }
 .sialss-mr__modulo legend {

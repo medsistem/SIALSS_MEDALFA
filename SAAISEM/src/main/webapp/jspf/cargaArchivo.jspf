@@ -50,11 +50,14 @@
     </form>
 
     <h2 class="sialss-etq__subtitulo">Vista previa</h2>
+    <div class="sialss-mr__desplaza" tabindex="0" aria-label="Vista previa, con desplazamiento">
     <table class="sialss-mr__tabla">
-        <caption class="sr-only">Primeros 200 renglones válidos del archivo</caption>
+        <caption class="sr-only">Renglones válidos del archivo, 50 por página</caption>
         <thead><tr><% for (String caCol : caColumnas) { %><th scope="col"><%=caCol%></th><% } %></tr></thead>
         <tbody id="ca-muestra"><tr><td colspan="<%=caColumnas.length%>" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
     </table>
+    </div>
 </div>
-<script src="<%=request.getContextPath()%>/js/sialss-carga-archivo.js?v=3" defer
+<script src="<%=request.getContextPath()%>/js/sialss-tabla-paginada.js?v=1" defer></script>
+<script src="<%=request.getContextPath()%>/js/sialss-carga-archivo.js?v=4" defer
         data-ctx="<%=request.getContextPath()%>" data-servlet="<%=caPagina%>"></script>

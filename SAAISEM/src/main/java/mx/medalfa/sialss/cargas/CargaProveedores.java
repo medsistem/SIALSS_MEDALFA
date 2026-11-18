@@ -133,7 +133,7 @@ public final class CargaProveedores implements CargaArchivo {
                 rfcArchivo.put(rfc, p[0]);
             }
             nuevos.add(p);
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), p[0], Campos.oGuion(p[1]), Campos.oGuion(p[2]),
                         Campos.oGuion(p[5]), Campos.oGuion(p[7])));
             }

@@ -141,7 +141,7 @@ public final class CargaRequerimiento implements CargaArchivo {
             renglones.add(new Renglon(cr.numero(), unidad, clave, fecha, cantidad));
             unidadesArchivo.add(unidad);
             piezas += cantidad;
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), unidad, uni.get(2), clave, ins.get(2),
                         fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), String.valueOf(cantidad)));
             }

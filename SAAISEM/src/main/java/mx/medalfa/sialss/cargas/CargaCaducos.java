@@ -148,7 +148,7 @@ public final class CargaCaducos implements CargaArchivo {
             }
             renglones.add(new Renglon(cr.numero(), unidad, clave, lote, caducidad, cantidad));
             piezas += cantidad;
-            if (muestra.size() < 200) {
+            if (muestra.size() < MAX_MUESTRA) {
                 muestra.add(List.of(String.valueOf(cr.numero()), unidad, uni.get(2), clave, insumos.get(clave), lote,
                         caducidad.format(DMA), String.valueOf(cantidad)));
             }
