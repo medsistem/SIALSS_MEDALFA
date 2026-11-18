@@ -2,6 +2,8 @@
 
 Todas las cargas se hacen con un archivo de Excel y siguen el mismo modelo: primero se **revisa** el archivo sin guardar nada y después se **confirma** con tu contraseña.
 
+**Renglones repetidos:** ninguna carga duplica información. Si un renglón ya está cargado, o se repite más arriba en el mismo archivo, **no es un error**: la revisión lo omite y carga solo lo nuevo. Verás el aviso "Se omite 1 renglón repetido" (o "Se omiten N renglones repetidos") con la opción **Ver la lista**, que indica el renglón y el motivo. Al confirmar, el mensaje final dice cuántos renglones repetidos no se cargaron. Si todos los renglones están repetidos, verás un aviso "No hay … nuevos … No se guardó nada." y no hay nada que confirmar.
+
 ## Carga de Inventario
 
 **Para qué sirve:** Cargar lotes y existencias desde un Excel.
@@ -38,7 +40,7 @@ En el Excel son obligatorias Clave, Lote, Caducidad, Cantidad, Ubicación, Proye
 - "Su sesión terminó o no es de Almacén. Vuelva a iniciar sesión.": entra de nuevo al sistema.
 - "No se guardó nada: …": ocurrió un error al guardar; no se aplicó ningún cambio. Avisa al departamento de sistemas.
 
-**Notas:** La revisión no guarda nada; solo **Confirmar carga** aplica los cambios. Si un renglón tiene error no se carga ninguno. Se permiten hasta 5,000 renglones. Un lote es el mismo cuando coinciden clave, lote, caducidad, proyecto y origen: conserva su folio y, si ya está en esa ubicación, se suma la cantidad. Si dejas vacío el código de barras, se usa el del lote existente o se genera uno nuevo. Si no capturas la fabricación se usa la fecha de la carga. Los movimientos quedan como alta de inventario a nombre de tu usuario. Caducidad y Fabricación pueden ser fecha de Excel o texto dd/mm/aaaa.
+**Notas:** La revisión no guarda nada; solo **Confirmar carga** aplica los cambios. Si un renglón tiene error no se carga ninguno. Se permiten hasta 5,000 renglones. Un lote es el mismo cuando coinciden clave, lote, caducidad, proyecto y origen: conserva su folio. Si la clave, el lote y la caducidad ya tienen existencia en esa ubicación, o se repiten en el archivo, el renglón se omite con aviso y solo se cargan los lotes nuevos; la revisión indica "renglones nuevos". Si dejas vacío el código de barras, se usa el del lote existente o se genera uno nuevo. Si no capturas la fabricación se usa la fecha de la carga. Los movimientos quedan como alta de inventario a nombre de tu usuario. Caducidad y Fabricación pueden ser fecha de Excel o texto dd/mm/aaaa.
 
 ## Carga de Requerimiento
 
@@ -67,7 +69,7 @@ Las cuatro columnas del Excel son obligatorias. Unidad es la clave de la unidad 
 - "la cantidad debe ser un entero mayor a 0" o "la cantidad (…) no es un número": corrige la cantidad.
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
-**Notas:** Si un renglón tiene error no se carga nada. Al confirmar, los requerimientos pendientes anteriores de cada unidad del archivo se cierran y queda el nuevo; si una unidad repite clave y fecha, se suman las cantidades. Al terminar, el sistema indica cuántas unidades y claves se cargaron y cuántos pendientes anteriores se cerraron. Se permiten hasta 5,000 renglones.
+**Notas:** Si un renglón tiene error no se carga nada. Los requerimientos pendientes se conservan: un renglón con la misma unidad, clave y fecha de entrega que uno pendiente, o repetido en el archivo, se omite con aviso y solo se agregan los nuevos. Al terminar, el sistema indica cuántos renglones se cargaron y cuántos repetidos no se cargaron. Se permiten hasta 5,000 renglones.
 
 ## Carga de Caducos
 
@@ -97,7 +99,7 @@ Las cinco columnas del Excel son obligatorias. El lote puede tener hasta 30 cara
 - "No existe la ubicación CADUCADOSFARMACIA …": la ubicación de destino no está dada de alta; avisa al departamento de sistemas.
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
-**Notas:** Los productos entran a la ubicación CADUCADOSFARMACIA con un documento por unidad. Si el lote ya estaba en esa ubicación, se suma la cantidad. Al terminar, el sistema muestra las piezas cargadas, los renglones nuevos y sumados, y los documentos generados. Si un renglón tiene error no se carga nada. Se permiten hasta 5,000 renglones.
+**Notas:** Los productos entran a la ubicación CADUCADOSFARMACIA con un documento por unidad. Un renglón con la misma unidad, clave, lote y caducidad que ya se cargó a CADUCADOSFARMACIA, o repetido en el archivo, se omite con aviso: solo entran los caducos nuevos. Al terminar, el sistema muestra las piezas cargadas, los renglones nuevos y sumados, y los documentos generados. Si un renglón tiene error no se carga nada. Se permiten hasta 5,000 renglones.
 
 ## Carga de OC
 
@@ -124,11 +126,10 @@ En el Excel son obligatorias Orden de compra, Proveedor, Clave, Cantidad y Proye
 - "falta la clave", "la clave … no existe", "la clave … está suspendida": usa una clave activa.
 - "falta el proyecto" o "el proyecto … no existe": usa un proyecto del catálogo.
 - "la fuente de financiamiento pasa de 50 caracteres": acorta el texto.
-- "La orden … ya tiene piezas recibidas: no se puede reemplazar por carga.": esa orden ya recibió mercancía y no se puede volver a cargar.
 - "Su usuario (…) no está dado de alta en los usuarios de compras…": pide al administrador que te dé de alta como usuario de compras.
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
-**Notas:** Si una orden ya estaba cargada para ese proveedor y proyecto, se reemplaza (la revisión te avisa cuántas se reemplazarán). Si un renglón tiene error no se carga nada. Se permiten hasta 5,000 renglones. Compras tiene la misma opción (perfil 13).
+**Notas:** Las órdenes ya no se reemplazan: si una orden ya está cargada, sus claves se conservan. Un renglón con la misma orden y clave que ya está cargada, o repetido en el archivo, se omite con aviso y solo se agregan las claves nuevas; la revisión indica "claves nuevas". Si un renglón tiene error no se carga nada. Se permiten hasta 5,000 renglones. Compras tiene la misma opción (perfil 13).
 
 ## Carga de Equipos
 
@@ -158,8 +159,8 @@ Las primeras seis (Clave, Marca, Proyecto, Origen, Proveedor y Ubicación) son o
 - "la fecha de compra no puede ser futura" o "la garantía termina antes de la compra": corrige las fechas.
 - "faltan las cajas por tarima", "faltan las piezas por caja", "faltan las cajas o el resto de las tarimas incompletas": completa el empaque del renglón.
 - "la serie … ya tiene existencia con la clave … (no es un equipo de esta carga)" o "el código de barras … ya es de otro lote": cambia la serie o el código de barras.
-- "No hay equipos nuevos: todos los renglones ya están cargados o se repiten.": todos los renglones se omitieron; no hay nada que cargar.
-- "Se omiten N renglones repetidos, que no se vuelven a cargar: …": aviso informativo con el renglón, la clave y la serie o código de barras; los demás sí se cargan.
+- "No hay equipos nuevos: los N renglones ya están cargados o se repiten. No se guardó nada.": todos los renglones se omitieron; no hay nada que cargar.
+- "Se omiten N renglones repetidos (ya cargados o repetidos en el archivo)": aviso informativo; da clic en **Ver la lista** para ver el renglón, la clave, la serie o código de barras y el motivo. Los demás sí se cargan.
 - "el lote o número de serie pasa de 30 caracteres" o "Un dato es más largo de lo que admite el sistema … (hasta 30 caracteres)": acorta la serie o el lote.
 - Si falla el guardado, el mensaje ya no muestra textos técnicos: dice qué dato falló, indica que no se guardó ningún cambio y, si el problema sigue, una referencia para dar a sistemas.
 - "pasa de 10,000,000 de piezas": revisa el empaque.
@@ -167,3 +168,126 @@ Las primeras seis (Clave, Marca, Proyecto, Origen, Proveedor y Ubicación) son o
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
 **Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie; con varias piezas es el lote (hasta 30 caracteres). Los equipos que ya están cargados (misma clave y misma serie, lote o código de barras) y los renglones repetidos dentro del archivo se omiten con aviso: solo se suben los nuevos, y la revisión indica "equipos nuevos". Al confirmar, el mensaje también dice cuántos renglones repetidos no se volvieron a cargar. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque).
+
+## Carga de Marcas
+
+**Para qué sirve:** Dar de alta muchas marcas a la vez desde un Excel.
+
+**Quién la ve:** Perfiles 100, 1 y 5.
+
+**Cómo llegar:** Menú › Carga de Archivos › Carga de Marcas.
+
+**Paso a paso:** Igual que en **Carga de Inventario**: da clic en **Descargar plantilla**, llénala, elige el archivo, da clic en **Revisar archivo**, escribe tu contraseña y da clic en **Confirmar carga**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Excel (.xlsx o .xls) | Archivo con la columna Marca, un renglón por marca (hasta 80 caracteres) | Sí |
+| Contraseña | Tu contraseña, para confirmar | Sí |
+
+**Mensajes y errores frecuentes:**
+- "Renglón N: falta la marca" o "la marca pasa de 80 caracteres": corrige el renglón.
+- "Se omite N renglón repetido": la marca ya existe, se parece a una registrada ("ya existe la marca …" o "se parece a la marca …") o se repite en el archivo. No es error.
+- "No hay marcas nuevas: … No se guardó nada.": todas las marcas del archivo ya existían o se repetían.
+- Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
+
+**Notas:** Las marcas se guardan en mayúsculas. Dos nombres se consideran la misma marca si, sin importar acentos, mayúsculas, signos o espacios de más, quedan iguales (por ejemplo "BAXTER" y "BAX TER"), o si difieren en una letra. La plantilla trae en otra hoja las marcas ya registradas. Se permiten hasta 5,000 renglones y, si un renglón tiene error, no se carga nada.
+
+## Carga de Proveedores
+
+**Para qué sirve:** Dar de alta muchos proveedores a la vez desde un Excel.
+
+**Quién la ve:** Perfiles 100, 1 y 5.
+
+**Cómo llegar:** Menú › Carga de Archivos › Carga de Proveedores.
+
+**Paso a paso:** Igual que en **Carga de Inventario**: da clic en **Descargar plantilla**, llénala, elige el archivo, da clic en **Revisar archivo**, escribe tu contraseña y da clic en **Confirmar carga**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Excel (.xlsx o .xls) | Archivo con las columnas de la plantilla (abajo) | Sí |
+| Contraseña | Tu contraseña, para confirmar | Sí |
+
+Columnas del Excel: Nombre o razón social (hasta 150 caracteres, obligatoria), RFC (hasta 20), Dirección (150), Colonia (150), Código postal (10), Teléfono (20), Fax (20), Correo (80), Población (80) y Clave SAP (20). Solo el nombre es obligatorio.
+
+**Mensajes y errores frecuentes:**
+- "Renglón N: falta el nombre" o "el campo … pasa de N caracteres": corrige el renglón.
+- "el RFC … no tiene el formato de 12 o 13 caracteres": corrige el RFC.
+- "el correo … no es válido": escribe un correo con formato nombre@dominio.mx.
+- "Se omite N renglón repetido": el nombre ya existe o se parece a un proveedor registrado, el RFC ya es de otro proveedor, o se repite en el archivo. No es error.
+- "No hay proveedores nuevos: … No se guardó nada.": todos los renglones ya existían o se repetían.
+- Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
+
+**Notas:** El nombre se guarda en mayúsculas y los datos que dejes vacíos se guardan con "-". Al comparar nombres no cuentan acentos, signos, espacios ni la razón social (S.A. de C.V., S. de R.L., etc.). Se permiten hasta 5,000 renglones y, si un renglón tiene error, no se carga nada.
+
+## Carga de Unidades
+
+**Para qué sirve:** Dar de alta muchas unidades de atención a la vez desde un Excel, con las mismas reglas que el alta de unidades.
+
+**Quién la ve:** Perfiles 100, 1 y 5.
+
+**Cómo llegar:** Menú › Carga de Archivos › Carga de Unidades.
+
+**Paso a paso:** Igual que en **Carga de Inventario**: da clic en **Descargar plantilla**, llénala, elige el archivo, da clic en **Revisar archivo**, escribe tu contraseña y da clic en **Confirmar carga**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Excel (.xlsx o .xls) | Archivo con las columnas de la plantilla (abajo) | Sí |
+| Contraseña | Tu contraseña, para confirmar | Sí |
+
+Columnas del Excel: Clave de la unidad (hasta 10 caracteres), Nombre (150), Tipo de unidad, Municipio, Proyecto, Dirección (250), CLUES (100), Nivel de unidad y Ruta (20). Son obligatorias Clave, Nombre, Tipo de unidad, Municipio y Proyecto; Tipo de unidad, Municipio y Proyecto llevan el número de la hoja de catálogos de la plantilla. Si dejas vacío Nivel de unidad se usa el del tipo de unidad (1 a 99 si lo capturas); si dejas vacía la Ruta se usa R1001.
+
+**Mensajes y errores frecuentes:**
+- "Renglón N: falta la clave", "falta el nombre", "falta el tipo de unidad", "falta el municipio", "falta el proyecto": completa el dato.
+- "el tipo de unidad … no existe (hoja Catálogos)", "el municipio … no existe (hoja Catálogos)", "el proyecto … no existe": usa un número de la hoja de catálogos.
+- "el nivel de unidad debe ser de 1 a 99" o "el nivel de unidad (…) no es un número": corrige el nivel.
+- "Se omite N renglón repetido": la clave o la CLUES ya son de otra unidad, el nombre ya existe o se parece a una unidad registrada, o se repite en el archivo. No es error.
+- "No hay unidades nuevas: … No se guardó nada.": todos los renglones ya existían o se repetían.
+- Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
+
+**Notas:** Las unidades se dan de alta activas; la jurisdicción sale del municipio. La plantilla trae las listas de tipos de unidad, municipios, proyectos y las unidades ya registradas. Se permiten hasta 5,000 renglones y, si un renglón tiene error, no se carga nada.
+
+## Carga de Productos
+
+**Para qué sirve:** Dar de alta muchas claves de insumos (medicamento, material de curación y demás) a la vez desde un Excel, como en **Alta de Claves**.
+
+**Quién la ve:** Perfiles 100, 1 y 5.
+
+**Cómo llegar:** Menú › Carga de Archivos › Carga de Productos.
+
+**Paso a paso:** Igual que en **Carga de Inventario**: da clic en **Descargar plantilla**, llénala (un renglón por clave), elige el archivo, da clic en **Revisar archivo**, escribe tu contraseña y da clic en **Confirmar carga**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Excel (.xlsx o .xls) | Archivo con las columnas de la plantilla (abajo) | Sí |
+| Contraseña | Tu contraseña, para confirmar | Sí |
+
+Columnas del Excel: Clave (hasta 20 caracteres), Descripción, Tipo de insumo, Origen, Precio, Proyectos, Clave SS, Presentación, Origen NIM, Grupo terapéutico, Cantidad máxima a recibir, Catálogo (año), Niveles de unidad y Estatus.
+
+Son obligatorias Clave, Descripción, Tipo de insumo, Origen, Precio y Proyectos. Tipo de insumo, Origen y Proyectos llevan el número de la hoja de catálogos; en Proyectos puedes poner varios separados por coma (1,2). Las demás son opcionales:
+- **Clave SS** vacía: se usa la misma clave.
+- **Origen NIM**: LP, CC o CC/LP.
+- **Grupo terapéutico**: el nombre de la hoja de catálogos; vacío = POR DEFINIR.
+- **Cantidad máxima a recibir** vacía: 100,000.
+- **Catálogo (año)** vacío: el año actual.
+- **Niveles de unidad** vacío: todos; o los números separados por coma.
+- **Estatus**: A (activo) o S (suspendido); vacío = A.
+
+**Mensajes y errores frecuentes:**
+- "Renglón N: falta la clave", "falta la descripción", "falta el tipo de insumo", "falta el origen", "falta el precio", "faltan los proyectos": completa el dato.
+- "el tipo de insumo … no existe (hoja Catálogos)", "el origen … no existe (hoja Catálogos)", "el grupo terapéutico … no existe (hoja Catálogos)": usa un valor de la hoja de catálogos.
+- "el precio no puede ser negativo", "el precio (…) no es un número", "el precio pasa de 11 caracteres": corrige el precio.
+- "el origen NIM … no es LP, CC ni CC/LP", "el estatus debe ser A (activo) o S (suspendido)", "el catálogo (año) … no es válido", "el nivel de unidad … no existe": corrige el dato.
+- "el proyecto … no existe o no tiene columna": el proyecto no puede usarse para productos; avisa al departamento de sistemas.
+- "Se omite N renglón repetido": la clave ya existe (también si solo cambian los ceros a la izquierda, 104 y 0104), la descripción ya existe o se parece a la de otro producto, o se repite en el archivo. No es error.
+- "No hay productos nuevos: … No se guardó nada.": todos los renglones ya existían o se repetían.
+- Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
+
+**Notas:** Dos descripciones se consideran parecidas solo si tienen los mismos números: "PARACETAMOL 500 MG" y "PARACETAMOL 750 MG" son productos distintos. La plantilla trae un ejemplo y las listas de tipo de insumo, origen, proyectos y grupo terapéutico. Se permiten hasta 5,000 renglones y, si un renglón tiene error, no se carga nada.

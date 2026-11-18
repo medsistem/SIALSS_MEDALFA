@@ -34,6 +34,12 @@ public final class CargaProveedores implements CargaArchivo {
     record Datos(ArrayList<String[]> proveedores, int omitidos) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"PROVEEDOR DE EJEMPLO, S.A. DE C.V.", "PEJ010101AB1", "AV. EJEMPLO 100", "CENTRO", "50000",
+                        "7220000000", "", "contacto@ejemplo.mx", "TOLUCA", ""}};
+    }
+
     @Override
     public String nombre() {
         return "proveedores";
@@ -52,8 +58,7 @@ public final class CargaProveedores implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "Proveedores", COLUMNAS, 1,
-                new String[][]{{"PROVEEDOR DE EJEMPLO, S.A. DE C.V.", "PEJ010101AB1", "AV. EJEMPLO 100", "CENTRO", "50000",
-                        "7220000000", "", "contacto@ejemplo.mx", "TOLUCA", ""}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Proveedores ya registrados", Consultas.lista(c,
                         "SELECT F_ClaProve, CONCAT(F_NomPro, '  ·  RFC ', F_Rfc) FROM tb_proveedor ORDER BY F_NomPro"))),
                 List.of("Carga del catálogo de proveedores SIALSS. Un renglón por proveedor; solo el nombre es obligatorio.",
@@ -68,7 +73,7 @@ public final class CargaProveedores implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of());
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

@@ -47,6 +47,11 @@ public final class CargaCaducos implements CargaArchivo {
             implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"1", "200962.02", "L12345", "31/01/2026", "5"}};
+    }
+
     @Override
     public String nombre() {
         return "caducos";
@@ -65,7 +70,7 @@ public final class CargaCaducos implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "Caducos", COLUMNAS, 5,
-                new String[][]{{"1", "200962.02", "L12345", "31/01/2026", "5"}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Unidad (columna A)", Consultas.lista(c,
                         "SELECT F_ClaCli, CONCAT(F_NomCli, IF(F_StsCli = 'A', '', ' · SUSPENDIDA')) FROM tb_uniatn ORDER BY F_ClaCli"))),
                 List.of("Carga de caducos SIALSS. Un renglón por unidad, clave, lote y caducidad; todas las columnas son obligatorias.",
@@ -79,7 +84,7 @@ public final class CargaCaducos implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(3));
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(3), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

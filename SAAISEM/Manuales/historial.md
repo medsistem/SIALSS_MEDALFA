@@ -1,5 +1,14 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · 78eddce
+
+Mensaje del commit: Cargas sin repetidos, carga de catálogos y nuevo inicio.
+
+- `almacen-carga-de-archivos.md`: aviso general de **renglones repetidos** (se omiten con aviso y lista, no son error); cambios en **Carga de Inventario**, **Carga de Requerimiento** (ya no cierra pendientes), **Carga de Caducos**, **Carga de OC** (ya no reemplaza órdenes) y **Carga de Equipos**; secciones nuevas **Carga de Marcas**, **Carga de Proveedores**, **Carga de Unidades** y **Carga de Productos** (perfiles 100, 1 y 5).
+- `compras-carga-de-archivos.md`, sección **Carga de OC**: las órdenes ya no se reemplazan; los repetidos se omiten con aviso.
+- `README.md`, **Cómo entrar**: nueva página de inicio con los tres accesos.
+- Los demás cambios de pantallas (versión de estilos) no afectan lo que ve el usuario.
+
 ## 2026-11-18 · b4922c5
 
 Mensaje del commit: Login con selector Almacén · Compras · Auditoría y errores claros en las cargas.

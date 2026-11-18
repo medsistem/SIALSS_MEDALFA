@@ -36,6 +36,11 @@ public final class CargaUnidades implements CargaArchivo {
     record Datos(ArrayList<Unidad> unidades, int omitidos) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"U-001", "CENTRO DE SALUD DE EJEMPLO", "3", "1", "1", "AV. EJEMPLO 10", "MCSSA000000", "", ""}};
+    }
+
     @Override
     public String nombre() {
         return "unidades";
@@ -54,7 +59,7 @@ public final class CargaUnidades implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "Unidades", COLUMNAS, 5,
-                new String[][]{{"U-001", "CENTRO DE SALUD DE EJEMPLO", "3", "1", "1", "AV. EJEMPLO 10", "MCSSA000000", "", ""}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Tipo de unidad (columna C)", Consultas.lista(c,
                                 "SELECT F_idTipUni, CONCAT(F_NomUni, ' (', F_NomeUnidad, ', nivel ', F_NivelUni, ')') FROM tb_tipunidad ORDER BY F_idTipUni")),
                         new Excel.Bloque("Municipio (columna D)", Consultas.lista(c,
@@ -73,7 +78,7 @@ public final class CargaUnidades implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of());
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

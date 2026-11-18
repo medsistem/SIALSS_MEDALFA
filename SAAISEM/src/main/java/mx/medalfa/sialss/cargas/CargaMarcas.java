@@ -26,6 +26,11 @@ public final class CargaMarcas implements CargaArchivo {
     record Datos(ArrayList<String> marcas, int omitidos) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"MARCA DE EJEMPLO"}};
+    }
+
     @Override
     public String nombre() {
         return "marcas";
@@ -43,7 +48,7 @@ public final class CargaMarcas implements CargaArchivo {
 
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
-        Excel.plantilla(salida, "Marcas", COLUMNAS, 1, new String[][]{{"MARCA DE EJEMPLO"}},
+        Excel.plantilla(salida, "Marcas", COLUMNAS, 1, ejemplos(),
                 List.of(new Excel.Bloque("Marcas ya registradas", Consultas.lista(c, "SELECT F_ClaMar, F_DesMar FROM tb_marca ORDER BY F_DesMar"))),
                 List.of("Carga del catálogo de marcas SIALSS. Un renglón por marca (hasta 80 caracteres); se guarda en mayúsculas.",
                         "No se duplican: una marca igual o parecida a una registrada (sin importar acentos, mayúsculas, signos o espacios, "
@@ -55,7 +60,7 @@ public final class CargaMarcas implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of());
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

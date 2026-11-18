@@ -104,8 +104,12 @@ public class CargaArchivoServlet extends HttpServlet {
                          CargaArchivo.Usuario u) throws IOException, ServletException {
         limpiar(sesion, carga);
         Part archivo = req.getPart("archivo");
-        if (archivo == null || archivo.getSize() == 0) {
+        if (archivo == null || archivo.getSubmittedFileName() == null || archivo.getSubmittedFileName().isBlank()) {
             json(res, 400, Map.of("error", "Elija el archivo de Excel."));
+            return;
+        }
+        if (archivo.getSize() == 0) {
+            json(res, 400, Map.of("error", "El archivo " + archivo.getSubmittedFileName() + " está vacío (0 bytes). Elija el Excel con sus datos."));
             return;
         }
         try (Connection c = BaseDatos.GENERAL.conexion(); InputStream in = archivo.getInputStream()) {

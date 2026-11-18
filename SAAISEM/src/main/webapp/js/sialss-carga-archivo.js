@@ -83,6 +83,7 @@
   $('ca-revisar').addEventListener('click', function () {
     var archivo = $('ca-archivo').files[0];
     if (!archivo) { estado('Elige el archivo de Excel.', 'error'); return; }
+    if (archivo.size === 0) { estado('El archivo ' + archivo.name + ' está vacío (0 bytes). Elige el Excel con tus datos.', 'error'); return; }
     reiniciar();
     mostrarErrores([], 0);
     mostrarOmitidos([], 0);

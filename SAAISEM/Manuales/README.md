@@ -6,7 +6,7 @@ SIALSS (Sistema Integral de Administración y Logística para Servicios de Salud
 
 ## Cómo entrar
 
-1. Abre la página de inicio y elige tu acceso: **SIALSS Almacén**, **SIALSS Compras** o **SIALSS Auditoría**. En la pantalla de inicio de sesión, arriba de **Iniciar sesión**, hay un selector **Almacén · Compras · Auditoría** para cambiar de módulo.
+1. Abre la página de inicio (**¿A qué módulo quieres entrar?**) y elige tu acceso: **SIALSS Almacén**, **SIALSS Compras** o **SIALSS Auditoría**. Cada opción trae una breve descripción y el botón **Entrar**. En la pantalla de inicio de sesión, arriba de **Iniciar sesión**, hay un selector **Almacén · Compras · Auditoría** para cambiar de módulo.
 2. Escribe tu **Usuario**.
 3. En **Entrar con**, elige **Contraseña** o **PIN**.
 4. Escribe tu contraseña o tu PIN. Usa **Mostrar** para ver lo que escribes.

@@ -53,8 +53,22 @@ public final class Excel {
 
     /** Lee la primera hoja. {@code fechas}: índices de columnas que pueden traer fecha de Excel. */
     public static List<Renglon> leer(InputStream archivo, int columnas, Set<Integer> fechas) throws IOException, Ilegible {
+        return leer(archivo, columnas, fechas, new String[0][]);
+    }
+
+    /**
+     * Lee la primera hoja y descarta los renglones de ejemplo de la plantilla ({@code ejemplos}, comparados sin las
+     * columnas de fecha, que cambian cada día). Rechaza el archivo vacío: sin hojas, sin renglones debajo de los
+     * títulos o con solo el ejemplo de la plantilla.
+     */
+    public static List<Renglon> leer(InputStream archivo, int columnas, Set<Integer> fechas, String[][] ejemplos)
+            throws IOException, Ilegible {
         List<Renglon> r = new ArrayList<>();
+        int ejemplosQuitados = 0;
         try (Workbook wb = WorkbookFactory.create(archivo)) {
+            if (wb.getNumberOfSheets() == 0) {
+                throw new Ilegible("El archivo está vacío: no tiene hojas. Use la plantilla y vuelva a subirlo.");
+            }
             Sheet s = wb.getSheetAt(0);
             DataFormatter fmt = new DataFormatter();
             for (int i = 1; i <= s.getLastRowNum(); i++) {
@@ -68,20 +82,47 @@ public final class Excel {
                     v[j] = celda(row.getCell(j), fmt, fechas.contains(j));
                     vacio &= v[j].isEmpty();
                 }
-                if (!vacio) {
-                    r.add(new Renglon(i + 1, v));
+                if (vacio) {
+                    continue;
                 }
+                if (esEjemplo(v, ejemplos, fechas)) {
+                    ejemplosQuitados++;
+                    continue;
+                }
+                r.add(new Renglon(i + 1, v));
             }
         } catch (RuntimeException | org.apache.poi.openxml4j.exceptions.InvalidFormatException ex) {
-            throw new Ilegible("No se pudo leer el archivo como Excel (.xlsx o .xls): " + ex.getMessage());
+            throw new Ilegible(ex.getMessage() != null && ex.getMessage().toLowerCase().contains("zero bytes")
+                    ? "El archivo está vacío (0 bytes). Elija el Excel con sus datos."
+                    : "No se pudo leer el archivo como Excel (.xlsx o .xls): " + ex.getMessage());
         }
         if (r.isEmpty()) {
-            throw new Ilegible("El archivo no tiene renglones con datos (la primera fila son los títulos).");
+            throw new Ilegible(ejemplosQuitados > 0
+                    ? "El archivo solo trae " + (ejemplosQuitados == 1 ? "el renglón" : "los renglones") + " de ejemplo de la plantilla: "
+                    + "escriba sus datos debajo de los títulos (puede borrar el ejemplo) y vuelva a subirlo. No se guardó nada."
+                    : "El archivo está vacío: no tiene renglones con datos debajo de los títulos (fila 1). No se guardó nada.");
         }
         if (r.size() > MAXIMO_RENGLONES) {
             throw new Ilegible("El archivo tiene " + r.size() + " renglones; el máximo es " + MAXIMO_RENGLONES + ".");
         }
         return r;
+    }
+
+    /** ¿Es el renglón igual a un ejemplo de la plantilla? Sin contar las columnas de fecha ni mayúsculas. */
+    public static boolean esEjemplo(String[] v, String[][] ejemplos, Set<Integer> fechas) {
+        for (String[] e : ejemplos) {
+            boolean igual = true;
+            for (int j = 0; j < v.length && igual; j++) {
+                if (!fechas.contains(j)) {
+                    String ej = j < e.length && e[j] != null ? e[j].trim() : "";
+                    igual = ej.equalsIgnoreCase(v[j]);
+                }
+            }
+            if (igual) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String celda(Cell cel, DataFormatter fmt, boolean esFecha) {
@@ -192,6 +233,8 @@ public final class Excel {
                 cat.setColumnWidth(1, 60 * 256);
             }
             Sheet ayuda = wb.createSheet("Instrucciones");
+            instrucciones = new ArrayList<>(instrucciones);
+            instrucciones.add("El renglón de ejemplo no se carga: escriba sus datos debajo de los títulos (puede borrarlo). Un archivo sin datos se rechaza.");
             for (int i = 0; i < instrucciones.size(); i++) {
                 ayuda.createRow(i).createCell(0).setCellValue(instrucciones.get(i));
             }

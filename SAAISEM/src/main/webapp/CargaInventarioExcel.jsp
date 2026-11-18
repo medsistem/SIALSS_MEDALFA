@@ -77,7 +77,7 @@
                 <tbody id="ci-muestra"><tr><td colspan="9" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
             </table>
         </div>
-        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=3" defer data-ctx="<%=request.getContextPath()%>"></script>
+        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=4" defer data-ctx="<%=request.getContextPath()%>"></script>
         <%@include file="jspf/piePagina.jspf" %>
     </body>
 </html>

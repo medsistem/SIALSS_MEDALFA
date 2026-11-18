@@ -37,7 +37,8 @@ Columnas del Excel:
 **Mensajes y errores frecuentes:**
 - "Renglón N: falta la orden de compra; el proveedor X no existe; la clave X no existe…": corrige esos renglones en tu Excel y vuelve a subirlo. Si un renglón tiene error no se carga nada.
 - "la clave X está suspendida": usa otra clave o pide que la reactiven.
-- "la orden X (proveedor Y, proyecto Z) ya tiene piezas recibidas: no se puede reemplazar por carga": esa orden ya recibió mercancía; no se puede volver a cargar.
+- "Se omite N renglón repetido": la orden y la clave ya estaban cargadas, o se repiten en el archivo. No es error; da clic en **Ver la lista** para ver cuáles son.
+- "No hay claves nuevas de órdenes de compra: … No se guardó nada.": todos los renglones ya estaban cargados o se repetían.
 - "Su usuario no está dado de alta en los usuarios de compras…": pide al administrador que te dé de alta.
 - "Elige el archivo de Excel." y "Escribe tu contraseña para confirmar.": faltó el archivo o la contraseña.
 - "Contraseña incorrecta. Te quedan N intentos.": al tercer error se cancela la carga y debes volver a subir el archivo.
@@ -45,6 +46,6 @@ Columnas del Excel:
 
 **Notas:**
 - La revisión no guarda nada; solo **Confirmar carga** aplica la carga, y se guarda a tu nombre.
-- Si una orden ya estaba cargada para ese proveedor y proyecto (y sin piezas recibidas), se reemplaza. Las filas repetidas de la misma clave se suman.
+- Las órdenes ya no se reemplazan: si una orden ya está cargada, sus claves se conservan y solo se agregan las claves nuevas. Los renglones con la misma orden y clave (ya cargados o repetidos en el archivo) se omiten con aviso, y el mensaje final dice cuántos no se cargaron.
 - Las órdenes quedan confirmadas, con entrega a 7 días.
 - Diferencia con Almacén: ninguna en pantalla; en Compras tu usuario ya es el usuario de compras que se registra en la orden.

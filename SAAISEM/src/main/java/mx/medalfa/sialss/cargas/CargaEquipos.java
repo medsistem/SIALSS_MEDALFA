@@ -53,6 +53,15 @@ public final class CargaEquipos implements CargaArchivo {
         }
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{
+                        {"EQ0000100", "100", "1", "1", "90000", "Stgrecibo1", "SN-0001", "", "", "Monitoreo", "Nuevo", "15000.00",
+                                LocalDate.now().format(DMA), "31/12/2028", "Cable, sensor", "", "T-1", "", "", "", "", "", "", "OC-EQ-001", "R-001"},
+                        {"EQ0000100", "100", "1", "1", "90000", "Stgrecibo1", "L-2026-01", "", "", "Consumible", "Nuevo", "35.50",
+                                LocalDate.now().format(DMA), "", "", "", "T-2", "2", "10", "4", "1", "3", "2", "OC-EQ-001", "R-001"}};
+    }
+
     @Override
     public String nombre() {
         return "equipos";
@@ -70,13 +79,8 @@ public final class CargaEquipos implements CargaArchivo {
 
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
-        String hoy = LocalDate.now().format(DMA);
         Excel.plantilla(salida, "Equipos", COLUMNAS, OBLIGATORIAS,
-                new String[][]{
-                        {"EQ0000100", "100", "1", "1", "90000", "Stgrecibo1", "SN-0001", "", "", "Monitoreo", "Nuevo", "15000.00",
-                                hoy, "31/12/2028", "Cable, sensor", "", "T-1", "", "", "", "", "", "", "OC-EQ-001", "R-001"},
-                        {"EQ0000100", "100", "1", "1", "90000", "Stgrecibo1", "L-2026-01", "", "", "Consumible", "Nuevo", "35.50",
-                                hoy, "", "", "", "T-2", "2", "10", "4", "1", "3", "2", "OC-EQ-001", "R-001"}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Marca (columna B: número o nombre)", Consultas.lista(c, "SELECT F_ClaMar, F_DesMar FROM tb_marca ORDER BY F_DesMar")),
                         new Excel.Bloque("Proyecto (columna C)", Consultas.lista(c, "SELECT F_Id, F_DesProy FROM tb_proyectos ORDER BY F_Id")),
                         new Excel.Bloque("Origen (columna D)", Consultas.lista(c, "SELECT F_ClaOri, F_DesOri FROM tb_origen ORDER BY F_ClaOri")),
@@ -106,7 +110,7 @@ public final class CargaEquipos implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(12, 13));
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(12, 13), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

@@ -79,6 +79,9 @@ public final class CargaInventario {
     public record Aplicado(int documento, int lotesNuevos, int lotesSumados, int piezas) {
     }
 
+    /** Renglón de ejemplo de la plantilla: no se carga si el archivo lo trae tal cual. */
+    static final String[] EJEMPLO = {"200962.02", "S/L", "31/12/2030", "10", "NUEVA", "1", "1", "", "", "", "", ""};
+
     // ------------------------------------------------------------------ plantilla
 
     public static void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
@@ -96,7 +99,7 @@ public final class CargaInventario {
                 cel.setCellStyle(negritas);
                 s.setColumnWidth(i, 18 * 256);
             }
-            String[] ejemplo = {"200962.02", "S/L", "31/12/2030", "10", "NUEVA", "1", "1", "", "", "", "", ""};
+            String[] ejemplo = EJEMPLO;
             Row e = s.createRow(1);
             for (int i = 0; i < ejemplo.length; i++) {
                 e.createCell(i).setCellValue(ejemplo[i]);
@@ -119,6 +122,7 @@ public final class CargaInventario {
                 "Mismo lote = misma clave, lote, caducidad, proyecto y origen: conserva su folio.",
                 "Un lote (clave, lote y caducidad) que ya tiene existencia en esa ubicación, o repetido en el archivo, se omite: solo se cargan los lotes nuevos.",
                 "Código de barras vacío: se usa el del lote existente o se genera uno nuevo.",
+                "El renglón de ejemplo no se carga: escriba sus datos debajo de los títulos (puede borrarlo). Un archivo sin datos se rechaza.",
                 "Máximo " + MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."};
             for (int i = 0; i < lineas.length; i++) {
                 ayuda.createRow(i).createCell(0).setCellValue(lineas[i]);
@@ -146,7 +150,12 @@ public final class CargaInventario {
         List<String> errores = new ArrayList<>();
         List<String[]> crudos = new ArrayList<>();
         List<Integer> numeros = new ArrayList<>();
+        int ejemplos = 0;
         try (Workbook wb = WorkbookFactory.create(archivo)) {
+            if (wb.getNumberOfSheets() == 0) {
+                errores.add("El archivo está vacío: no tiene hojas. Use la plantilla y vuelva a subirlo.");
+                return new Revision(List.of(), errores, 0);
+            }
             Sheet s = wb.getSheetAt(0);
             DataFormatter fmt = new DataFormatter();
             for (int i = 1; i <= s.getLastRowNum(); i++) {
@@ -163,6 +172,10 @@ public final class CargaInventario {
                 if (vacio) {
                     continue;
                 }
+                if (mx.medalfa.sialss.cargas.Excel.esEjemplo(v, new String[][]{EJEMPLO}, Set.of(2, 10))) {
+                    ejemplos++;
+                    continue;
+                }
                 crudos.add(v);
                 numeros.add(i + 1);
             }
@@ -171,7 +184,9 @@ public final class CargaInventario {
             return new Revision(List.of(), errores, 0);
         }
         if (crudos.isEmpty()) {
-            errores.add("El archivo no tiene renglones con datos (la primera fila son los títulos).");
+            errores.add(ejemplos > 0
+                    ? "El archivo solo trae el renglón de ejemplo de la plantilla: escriba sus datos debajo de los títulos (puede borrar el ejemplo) y vuelva a subirlo. No se guardó nada."
+                    : "El archivo está vacío: no tiene renglones con datos debajo de los títulos (fila 1). No se guardó nada.");
             return new Revision(List.of(), errores, 0);
         }
         if (crudos.size() > MAXIMO_RENGLONES) {

@@ -38,6 +38,11 @@ public final class CargaRequerimiento implements CargaArchivo {
     record Renglon(int numero, String unidad, String clave, LocalDate fecha, int cantidad) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"1", "200962.02", LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), "10"}};
+    }
+
     @Override
     public String nombre() {
         return "requerimiento";
@@ -56,7 +61,7 @@ public final class CargaRequerimiento implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "Requerimiento", COLUMNAS, 4,
-                new String[][]{{"1", "200962.02", LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), "10"}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Unidad (columna A) y nivel", Consultas.lista(c,
                         "SELECT F_ClaCli, CONCAT(F_NomCli, ' · nivel ', F_NivelUni, IF(F_StsCli = 'A', '', ' · SUSPENDIDA')) FROM tb_uniatn ORDER BY F_ClaCli"))),
                 List.of("Carga de requerimiento SIALSS. Un renglón por unidad, clave y fecha de entrega; todas las columnas son obligatorias.",
@@ -70,7 +75,7 @@ public final class CargaRequerimiento implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(2));
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(2), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

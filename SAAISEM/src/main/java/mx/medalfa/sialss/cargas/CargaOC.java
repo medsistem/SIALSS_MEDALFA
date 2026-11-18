@@ -42,6 +42,11 @@ public final class CargaOC implements CargaArchivo {
     record Datos(List<Renglon> renglones, int idUsuarioCompra, int omitidos) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"OC-2026-001", "90004", "PROVEEDOR DE EJEMPLO", "200962.02", "100", "1", "Pendiente"}};
+    }
+
     @Override
     public String nombre() {
         return "oc";
@@ -60,7 +65,7 @@ public final class CargaOC implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "OC", COLUMNAS, 2,
-                new String[][]{{"OC-2026-001", "90004", "PROVEEDOR DE EJEMPLO", "200962.02", "100", "1", "Pendiente"}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Proveedor (columna B)", Consultas.lista(c, "SELECT F_ClaProve, F_NomPro FROM tb_proveedor ORDER BY F_ClaProve")),
                         new Excel.Bloque("Proyecto (columna F)", Consultas.lista(c, "SELECT F_Id, F_DesProy FROM tb_proyectos ORDER BY F_Id"))),
                 List.of("Carga de órdenes de compra SIALSS. Un renglón por orden y clave.",
@@ -80,7 +85,7 @@ public final class CargaOC implements CargaArchivo {
         }
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of());
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }

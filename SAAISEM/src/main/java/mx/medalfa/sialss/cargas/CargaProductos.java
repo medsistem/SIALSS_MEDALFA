@@ -47,6 +47,12 @@ public final class CargaProductos implements CargaArchivo {
     record Datos(ArrayList<Producto> productos, int omitidos) implements Serializable {
     }
 
+    /** Renglones de ejemplo de la plantilla: no se cargan si el archivo los trae tal cual. */
+    static String[][] ejemplos() {
+        return new String[][]{{"CLAVE-EJEMPLO", "PARACETAMOL TABLETA 500 MG CAJA CON 10 TABLETAS", "2504", "1", "12.50", "1",
+                        "010.000.0104.00", "CAJA CON 10 TABLETAS", "LP", "", "100000", String.valueOf(Year.now().getValue()), "", "A"}};
+    }
+
     @Override
     public String nombre() {
         return "productos";
@@ -65,8 +71,7 @@ public final class CargaProductos implements CargaArchivo {
     @Override
     public void plantilla(Connection c, OutputStream salida) throws IOException, SQLException {
         Excel.plantilla(salida, "Productos", COLUMNAS, 6,
-                new String[][]{{"CLAVE-EJEMPLO", "PARACETAMOL TABLETA 500 MG CAJA CON 10 TABLETAS", "2504", "1", "12.50", "1",
-                        "010.000.0104.00", "CAJA CON 10 TABLETAS", "LP", "", "100000", String.valueOf(Year.now().getValue()), "", "A"}},
+                ejemplos(),
                 List.of(new Excel.Bloque("Tipo de insumo (columna C)", Consultas.lista(c, "SELECT F_TipMed, F_DesMed FROM tb_tipmed ORDER BY F_TipMed")),
                         new Excel.Bloque("Origen (columna D)", Consultas.lista(c, "SELECT F_ClaOri, F_DesOri FROM tb_origen ORDER BY F_ClaOri")),
                         new Excel.Bloque("Proyectos (columna F, uno o varios separados por coma)",
@@ -87,7 +92,7 @@ public final class CargaProductos implements CargaArchivo {
     public Revision revisar(Connection c, InputStream archivo, Usuario u) throws IOException, SQLException {
         List<Excel.Renglon> crudos;
         try {
-            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of());
+            crudos = Excel.leer(archivo, COLUMNAS.length, Set.of(), ejemplos());
         } catch (Excel.Ilegible e) {
             return Revision.conError(e.getMessage());
         }
