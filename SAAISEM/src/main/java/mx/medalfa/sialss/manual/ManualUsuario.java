@@ -159,21 +159,28 @@ public final class ManualUsuario {
         return List.copyOf(todos);
     }
 
-    /** Nombre del perfil (tb_tipusuario) solo para Almacén; si no se puede leer, cadena vacía. */
+    /** Nombre del perfil (tb_tipusuario, el catálogo de perfiles de todos los accesos); si no está, cadena vacía. */
     public static String nombrePerfil(Acceso acceso, String perfil) {
-        if (acceso != Acceso.ALMACEN || perfil == null) {
-            return "";
-        }
+        return perfil == null ? "" : nombresPerfiles().getOrDefault(perfil.trim(), "");
+    }
+
+    /** id → nombre de los perfiles de tb_tipusuario (vacío si no se puede leer). */
+    public static Map<String, String> nombresPerfiles() {
+        Map<String, String> m = new java.util.HashMap<>();
         try (Connection c = BaseDatos.GENERAL.conexion()) {
             for (PerfilDao.Perfil p : PerfilDao.lista(c)) {
-                if (String.valueOf(p.id()).equals(perfil.trim())) {
-                    return p.nombre();
-                }
+                m.put(String.valueOf(p.id()), p.nombre());
             }
         } catch (Exception | LinkageError e) {
-            LOG.log(Level.FINE, "Nombre de perfil " + perfil, e);
+            LOG.log(Level.FINE, "Nombres de perfil", e);
         }
-        return "";
+        return m;
+    }
+
+    /** Texto para elegir un perfil: su nombre, o "Perfil N" si no está en tb_tipusuario. */
+    public static String etiquetaPerfil(Map<String, String> nombres, String perfil) {
+        String n = nombres.get(perfil);
+        return n == null || n.isBlank() ? "Perfil " + perfil : n;
     }
 
     /** Commit corto con el que se actualizó el manual por última vez. */

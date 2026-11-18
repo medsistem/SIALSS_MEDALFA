@@ -4,6 +4,14 @@ Todas las cargas se hacen con un archivo de Excel y siguen el mismo modelo: prim
 
 **Renglones repetidos:** ninguna carga duplica información. Si un renglón ya está cargado, o se repite más arriba en el mismo archivo, **no es un error**: la revisión lo omite y carga solo lo nuevo. Verás el aviso "Se omite 1 renglón repetido" (o "Se omiten N renglones repetidos") con la opción **Ver la lista**, que indica el renglón y el motivo. Al confirmar, el mensaje final dice cuántos renglones repetidos no se cargaron. Si todos los renglones están repetidos, verás un aviso "No hay … nuevos … No se guardó nada." y no hay nada que confirmar.
 
+**Archivos vacíos y renglones de ejemplo:** la plantilla trae uno o más renglones de ejemplo. Si los dejas tal cual en tu archivo, **no se cargan** (puedes borrarlos o dejarlos). Tampoco se aceptan archivos sin datos. Estos son los avisos:
+- "El archivo NOMBRE está vacío (0 bytes). Elige el Excel con tus datos.": el archivo no tiene contenido; elige el Excel correcto.
+- "El archivo está vacío: no tiene hojas. Use la plantilla y vuelva a subirlo.": el Excel no tiene ninguna hoja.
+- "El archivo está vacío: no tiene renglones con datos debajo de los títulos (fila 1). No se guardó nada.": captura al menos un renglón debajo de los títulos.
+- "El archivo solo trae el renglón de ejemplo de la plantilla: escriba sus datos debajo de los títulos … No se guardó nada.": borra o reemplaza el ejemplo con tus datos y vuelve a subir el archivo.
+
+En estos casos no se guarda nada.
+
 ## Carga de Inventario
 
 **Para qué sirve:** Cargar lotes y existencias desde un Excel.
@@ -31,7 +39,7 @@ En el Excel son obligatorias Clave, Lote, Caducidad, Cantidad, Ubicación, Proye
 **Mensajes y errores frecuentes:**
 - "Renglón N: falta la clave; …": el renglón tiene datos faltantes o incorrectos. Las observaciones pueden ser "la clave … no existe", "falta el lote", "la cantidad debe ser un entero mayor a 0", "la cantidad no es un número", "falta la ubicación", "la ubicación … no existe", "el proyecto … no existe", "el origen … no existe", "la caducidad no es una fecha (dd/mm/aaaa)". Corrige el Excel y vuelve a subirlo.
 - "No se pudo leer el archivo como Excel (.xlsx o .xls)": el archivo está dañado o no es de Excel.
-- "El archivo no tiene renglones con datos (la primera fila son los títulos).": captura al menos un renglón debajo de los títulos.
+- "El archivo está vacío …" o "El archivo solo trae el renglón de ejemplo de la plantilla …": captura tus datos debajo de los títulos (ver **Archivos vacíos y renglones de ejemplo**, arriba).
 - "El archivo tiene N renglones; el máximo es 5000.": divide el archivo en partes.
 - "Elige el archivo de Excel.": falta seleccionar el archivo antes de **Revisar archivo**.
 - "Escribe tu contraseña para confirmar.": captura tu contraseña.
@@ -167,7 +175,7 @@ Las primeras seis (Clave, Marca, Proyecto, Origen, Proveedor y Ubicación) son o
 - También pueden salir avisos de números inválidos (costo, tarimas, cajas, piezas) o de textos demasiado largos; corrige el dato indicado.
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
-**Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie; con varias piezas es el lote (hasta 30 caracteres). Los equipos que ya están cargados (misma clave y misma serie, lote o código de barras) y los renglones repetidos dentro del archivo se omiten con aviso: solo se suben los nuevos, y la revisión indica "equipos nuevos". Al confirmar, el mensaje también dice cuántos renglones repetidos no se volvieron a cargar. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque).
+**Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie; con varias piezas es el lote (hasta 30 caracteres). Los equipos que ya están cargados (misma clave y misma serie, lote o código de barras) y los renglones repetidos dentro del archivo se omiten con aviso: solo se suben los nuevos, y la revisión indica "equipos nuevos". Al confirmar, el mensaje también dice cuántos renglones repetidos no se volvieron a cargar. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque); si los dejas tal cual, no se cargan.
 
 ## Carga de Marcas
 

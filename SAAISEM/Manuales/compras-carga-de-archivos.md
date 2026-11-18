@@ -40,6 +40,7 @@ Columnas del Excel:
 - "Se omite N renglón repetido": la orden y la clave ya estaban cargadas, o se repiten en el archivo. No es error; da clic en **Ver la lista** para ver cuáles son.
 - "No hay claves nuevas de órdenes de compra: … No se guardó nada.": todos los renglones ya estaban cargados o se repetían.
 - "Su usuario no está dado de alta en los usuarios de compras…": pide al administrador que te dé de alta.
+- "El archivo … está vacío (0 bytes)", "El archivo está vacío: no tiene renglones con datos…" o "El archivo solo trae el renglón de ejemplo de la plantilla…": captura tus órdenes debajo de los títulos; no se guardó nada.
 - "Elige el archivo de Excel." y "Escribe tu contraseña para confirmar.": faltó el archivo o la contraseña.
 - "Contraseña incorrecta. Te quedan N intentos.": al tercer error se cancela la carga y debes volver a subir el archivo.
 - "No hay una revisión pendiente: vuelva a subir el archivo.": vuelve a dar clic en **Revisar archivo**.
@@ -47,5 +48,6 @@ Columnas del Excel:
 **Notas:**
 - La revisión no guarda nada; solo **Confirmar carga** aplica la carga, y se guarda a tu nombre.
 - Las órdenes ya no se reemplazan: si una orden ya está cargada, sus claves se conservan y solo se agregan las claves nuevas. Los renglones con la misma orden y clave (ya cargados o repetidos en el archivo) se omiten con aviso, y el mensaje final dice cuántos no se cargaron.
+- El renglón de ejemplo de la plantilla no se carga si lo dejas tal cual.
 - Las órdenes quedan confirmadas, con entrega a 7 días.
 - Diferencia con Almacén: ninguna en pantalla; en Compras tu usuario ya es el usuario de compras que se registra en la orden.

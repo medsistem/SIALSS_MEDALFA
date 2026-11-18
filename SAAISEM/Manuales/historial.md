@@ -1,5 +1,13 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · 4b6ce2d
+
+Mensaje del commit: Cargas: no aceptar archivos vacíos ni la plantilla sin llenar.
+
+- `almacen-carga-de-archivos.md`: nuevo apartado general **Archivos vacíos y renglones de ejemplo** (archivo de 0 bytes, sin hojas, sin renglones o solo con el ejemplo de la plantilla; no se guarda nada); ajuste del aviso en **Carga de Inventario** y nota sobre los ejemplos en **Carga de Equipos**.
+- `compras-carga-de-archivos.md`, sección **Carga de OC**: mismos avisos de archivo vacío y de renglón de ejemplo.
+- Los cambios de versión de scripts no afectan lo que ve el usuario.
+
 ## 2026-11-18 · 78eddce
 
 Mensaje del commit: Cargas sin repetidos, carga de catálogos y nuevo inicio.

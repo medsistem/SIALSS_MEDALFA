@@ -62,8 +62,9 @@
                     <form method="get" action="ManualUsuario.jsp">
                         <label for="manual-perfil" class="sr-only">Perfil</label>
                         <select id="manual-perfil" name="perfil" class="form-control" onchange="this.form.submit()">
-                            <% for (String p : mx.medalfa.sialss.manual.ManualUsuario.perfiles(sol.acceso())) { %>
-                            <option value="<%=p%>" <%=p.equals(sol.perfil()) ? "selected" : ""%>>Perfil <%=p%><%=p.equals(perfilPropio) ? " (el mío)" : ""%></option>
+                            <% java.util.Map<String, String> nombresPerfil = mx.medalfa.sialss.manual.ManualUsuario.nombresPerfiles();
+                               for (String p : mx.medalfa.sialss.manual.ManualUsuario.perfiles(sol.acceso())) { %>
+                            <option value="<%=p%>" <%=p.equals(sol.perfil()) ? "selected" : ""%>><%=mx.medalfa.sialss.manual.ManualUsuario.esc(mx.medalfa.sialss.manual.ManualUsuario.etiquetaPerfil(nombresPerfil, p))%><%=p.equals(perfilPropio) ? " (el mío)" : ""%></option>
                             <% } %>
                         </select>
                     </form>
