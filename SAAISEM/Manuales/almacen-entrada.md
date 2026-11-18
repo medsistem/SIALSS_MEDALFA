@@ -148,7 +148,7 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 | Modelo | Elige el modelo; si no está, elige "Otra (escribir)" y captura el modelo nuevo (hasta 80 caracteres) | No |
 | Categoría | Texto libre, con sugerencias de las ya usadas (hasta 80 caracteres) | No |
 | Condición | Nuevo, Usado, Reacondicionado o Dañado | No |
-| No. de serie / Lote | Con una pieza se llama **No. de serie**; con varias, **Lote** (hasta 150 caracteres). Si lo dejas vacío, se usa el código de barras | No |
+| No. de serie / Lote | Con una pieza se llama **No. de serie**; con varias, **Lote** (hasta 30 caracteres). Si lo dejas vacío, se usa el código de barras | No |
 | Código de barras | Código del equipo, o da clic en **Generar CB** para que el sistema lo genere. Si lo dejas vacío, se genera uno al guardar | No |
 | Costo | Costo del equipo, número sin signo negativo | No |
 | No. de tarima | Tarima donde se coloca (hasta 100 caracteres) | No |
@@ -191,6 +191,7 @@ Los campos de empaque aceptan números enteros de 0 a 9,999,999. El **Total de l
 - "Código generado: …": se llenó el campo con el código nuevo.
 - "Entrada guardada: … pieza, serie … / … piezas, lote …, CB …, folio de lote …, documento … (OC …, remisión …)": la entrada quedó registrada y aparecen los botones de formatos.
 - "Su sesión terminó o no es de Almacén. Vuelva a iniciar sesión.": entra de nuevo al sistema.
+- Si el guardado falla, el mensaje explica qué dato falló (por ejemplo, "Un dato es más largo de lo que admite el sistema: el lote o número de serie (hasta 30 caracteres)"), indica que no se guardó ningún cambio y da una referencia para avisar a sistemas si el problema sigue.
 
 **Notas:** Con una sola pieza no se permite repetir la serie de un equipo que ya tiene existencia; con varias piezas se captura un lote y esa validación de serie no aplica. El código de barras no se puede repetir. Los formatos son los mismos de **Reimpresión de compras**. Abajo de la pantalla aparece la tabla **Últimas entradas de equipos** (Fecha, Clave, Equipo, Serie, CB, Marca, Modelo, Categoría, Condición, Costo, Piezas, Ubicación, Folio y Formatos). En **Formatos** de cada renglón están los vínculos **Acuse**, **Tarimas C**, **Tarimas A** y **Cajas**; si el renglón es una entrada anterior sin compra, dice "Sin compra".
 

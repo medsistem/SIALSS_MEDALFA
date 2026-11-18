@@ -26,7 +26,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS · Sesión bloqueada</title>
-        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <link href="<%=ctxBloqueo%>/css/sialss-app.css?v=2.0.19" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <noscript><p class="sialss-login">Active JavaScript para desbloquear la sesión.</p></noscript>

@@ -104,3 +104,8 @@ ALMACEN;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;100,1,2,3,4,5,6,17
 COMPRAS;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;13,14,15
 AUDITORIA;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;100,1,28
 ALMACEN;CARGA DE ARCHIVOS;Carga de Equipos;CargaArchivoEquipos.jsp;0;100,1,2,3,5
+# Carga de catálogos (skill carga-catalogos-sialss): solo superusuario y administradores, como el alta de proyectos.
+ALMACEN;CARGA DE ARCHIVOS;Carga de Marcas;CargaArchivoMarcas.jsp;0;100,1,5
+ALMACEN;CARGA DE ARCHIVOS;Carga de Proveedores;CargaArchivoProveedores.jsp;0;100,1,5
+ALMACEN;CARGA DE ARCHIVOS;Carga de Unidades;CargaArchivoUnidades.jsp;0;100,1,5
+ALMACEN;CARGA DE ARCHIVOS;Carga de Productos;CargaArchivoProductos.jsp;0;100,1,5

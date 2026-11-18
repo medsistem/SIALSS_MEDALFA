@@ -41,6 +41,23 @@
     ul.hidden = !lista.length;
   }
 
+  /* Repetidos que no se suben: aviso aparte (no es error), con la lista plegada. */
+  function mostrarOmitidos(lista, total) {
+    var caja = $('ca-omitidos');
+    if (!caja) { return; }
+    caja.hidden = !total;
+    if (!total) { return; }
+    $('ca-omitidos-titulo').textContent = (total === 1 ? 'Se omite ' : 'Se omiten ') + cuantos(total, 'renglón repetido', 'renglones repetidos')
+      + ' (ya cargados o repetidos en el archivo). Ver la lista';
+    var ul = $('ca-omitidos-lista');
+    ul.textContent = '';
+    (lista || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    if (total > (lista || []).length) {
+      var li = document.createElement('li'); li.textContent = '… y ' + cuantos(total - lista.length, 'más', 'más') + '.'; ul.appendChild(li);
+    }
+    caja.open = false;
+  }
+
   function mostrarMuestra(filas) {
     var tb = $('ca-muestra');
     tb.textContent = '';
@@ -68,6 +85,7 @@
     if (!archivo) { estado('Elige el archivo de Excel.', 'error'); return; }
     reiniciar();
     mostrarErrores([], 0);
+    mostrarOmitidos([], 0);
     var datos = new FormData();
     datos.append('accion', 'revisar');
     datos.append('archivo', archivo);
@@ -76,8 +94,11 @@
     estado('Revisando el archivo…');
     enviar(datos).then(function (r) {
       mostrarErrores(r.errores, r.totalErrores);
+      mostrarOmitidos(r.omitidos, r.totalOmitidos || 0);
       mostrarMuestra(r.muestra);
-      if (r.valida) {
+      if (r.sinNuevos) {
+        estado(r.resumen, 'aviso');
+      } else if (r.valida) {
         token = r.token;
         $('ca-resumen').textContent = r.resumen;
         $('ca-confirmar').hidden = false;

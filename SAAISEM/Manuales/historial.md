@@ -1,5 +1,14 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · b4922c5
+
+Mensaje del commit: Login con selector Almacén · Compras · Auditoría y errores claros en las cargas.
+
+- `README.md`: sección **Cómo entrar** (selector de módulo, aviso de perfil incorrecto, Auditoría con usuarios de Almacén) y tabla de perfiles (100 y 1 también entran a Auditoría).
+- `auditoria-consulta.md`, `auditoria-ordenes-de-compra.md`, `auditoria-usuario.md`: las opciones ahora las ven los perfiles 100, 1 y 28.
+- `almacen-carga-de-archivos.md`: **Carga de Caducos** (lote hasta 30 caracteres) y **Carga de Equipos** (los equipos repetidos se omiten con aviso, serie o lote hasta 30 caracteres, mensajes de error claros).
+- `almacen-entrada.md`, sección **Entrada de Equipos**: **No. de serie / Lote** hasta 30 caracteres y mensajes de error de guardado más claros.
+
 ## 2026-11-17 · da6c2f8
 
 Mensaje del commit: Carga de Equipos por Excel, ubicaciones de ingreso y etiquetas de poste en 3 columnas.

@@ -35,6 +35,10 @@
     </div>
     <p class="sialss-mr__estado" id="ca-estado" role="status" aria-live="polite"></p>
     <ul class="sialss-captura__errores" id="ca-errores" hidden></ul>
+    <details class="sialss-captura__omitidos" id="ca-omitidos" hidden>
+        <summary id="ca-omitidos-titulo">Renglones repetidos</summary>
+        <ul id="ca-omitidos-lista"></ul>
+    </details>
 
     <form class="sialss-captura__confirmar" id="ca-confirmar" hidden>
         <div class="sialss-filtros__campo">
@@ -52,5 +56,5 @@
         <tbody id="ca-muestra"><tr><td colspan="<%=caColumnas.length%>" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
     </table>
 </div>
-<script src="<%=request.getContextPath()%>/js/sialss-carga-archivo.js?v=1" defer
+<script src="<%=request.getContextPath()%>/js/sialss-carga-archivo.js?v=2" defer
         data-ctx="<%=request.getContextPath()%>" data-servlet="<%=caPagina%>"></script>

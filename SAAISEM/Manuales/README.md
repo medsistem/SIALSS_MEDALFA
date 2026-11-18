@@ -6,7 +6,7 @@ SIALSS (Sistema Integral de Administración y Logística para Servicios de Salud
 
 ## Cómo entrar
 
-1. Abre la página de inicio y elige tu acceso: **SIALSS Almacén** o **SIALSS Compras**. Auditoría tiene su propia página de inicio de sesión.
+1. Abre la página de inicio y elige tu acceso: **SIALSS Almacén**, **SIALSS Compras** o **SIALSS Auditoría**. En la pantalla de inicio de sesión, arriba de **Iniciar sesión**, hay un selector **Almacén · Compras · Auditoría** para cambiar de módulo.
 2. Escribe tu **Usuario**.
 3. En **Entrar con**, elige **Contraseña** o **PIN**.
 4. Escribe tu contraseña o tu PIN. Usa **Mostrar** para ver lo que escribes.
@@ -16,6 +16,8 @@ Reglas que debes conocer:
 - Después de varios intentos fallidos (3 de forma predeterminada) tu usuario se **bloquea**. Pide al administrador que lo desbloquee.
 - Si dejas el sistema sin actividad, la pantalla se **bloquea** (5 minutos de forma predeterminada) y debes escribir tu contraseña o PIN. Tras un tiempo más largo (60 minutos de forma predeterminada) la **sesión se cierra**.
 - Si tu perfil está suspendido no podrás entrar: "Su perfil de usuario está suspendido. Comuníquese con el administrador del sistema."
+- Cada acceso solo deja entrar a ciertos perfiles. Si entras por el acceso equivocado ves "Su usuario no tiene el perfil de este acceso. Entre por el acceso que le corresponde."; usa el selector para cambiar de módulo (no cuenta como intento fallido).
+- Auditoría usa los mismos usuarios que Almacén (solo entran los perfiles 28, 1 y 100): los intentos fallidos cuentan en conjunto, solo se permite una sesión a la vez y la contraseña se cambia cada 90 días.
 - Para salir, usa la opción de cerrar sesión del menú; la pantalla de inicio de sesión cierra cualquier sesión anterior.
 
 ### Tu PIN
@@ -38,8 +40,8 @@ El perfil de cada usuario (número de tipo de usuario) determina qué opciones d
 
 | Perfil | Nombre | Notas |
 |---|---|---|
-| 100 | SUPERUSUARIO | Todo lo del administrador, más perfiles y menús por perfil |
-| 1 | ADMINISTRADOR | Administra usuarios y proyectos |
+| 100 | SUPERUSUARIO | Todo lo del administrador, más perfiles y menús por perfil. También entra a Auditoría |
+| 1 | ADMINISTRADOR | Administra usuarios y proyectos. También entra a Auditoría |
 | 5 | ADMIN ALMACEN | Administra usuarios y proyectos de Almacén |
 | 6 | ADMIN CONSULTAS | Consultas y reportes |
 | 2 | JEFE DE C.S. | Acceso Almacén |

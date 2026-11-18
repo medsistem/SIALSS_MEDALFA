@@ -22,8 +22,8 @@ import mx.medalfa.sialss.seguridad.Acceso;
  * Columnas como el archivo de siempre: Orden de compra, Proveedor (F_ClaProve), Nombre del proveedor (solo de
  * referencia), Clave, Cantidad, Proyecto, Fuente de financiamiento (opcional, "Pendiente" si va vacía).
  * <p>
- * Cada combinación orden + proveedor + proyecto del archivo reemplaza lo que ya hubiera en tb_pedido_sialss para
- * esa orden (como antes), salvo que ya tenga piezas recibidas: entonces es error. Se guarda confirmada
+ * Ya no se reemplaza la orden (pedido del usuario, noviembre 2026): una orden + clave que ya está en tb_pedido_sialss,
+ * o repetida en el archivo, se omite y solo se agregan las claves nuevas. Se guarda confirmada
  * (F_StsPed 1), entrega a 7 días, moneda 1 (MXM, F_Tipo como la captura de OC) y el usuario de compras
  * (tb_usuariocompra) de quien carga. El tipo "LP" / "CC/LP" de la carga anterior ya no tiene columna (F_Tipo ahora es
  * la moneda) y no se guarda; la observación "LPN-44064003-030-20" de las órdenes CCISEM/OCISEM-AR-2020 sí.
@@ -39,7 +39,7 @@ public final class CargaOC implements CargaArchivo {
                    String fuente) implements Serializable {
     }
 
-    record Datos(List<Renglon> renglones, int idUsuarioCompra) implements Serializable {
+    record Datos(List<Renglon> renglones, int idUsuarioCompra, int omitidos) implements Serializable {
     }
 
     @Override
@@ -67,7 +67,7 @@ public final class CargaOC implements CargaArchivo {
                         "Obligatorias: Orden de compra, Proveedor, Clave, Cantidad y Proyecto. El nombre del proveedor es solo de referencia.",
                         "Proveedor y Proyecto: el número de la hoja Catálogos. La clave debe existir y no estar suspendida.",
                         "Fuente de financiamiento: opcional; si va vacía se guarda \"Pendiente\".",
-                        "Si la orden ya estaba cargada para ese proveedor y proyecto, se reemplaza (no se puede si ya tiene piezas recibidas).",
+                        "Si la orden ya está cargada, sus claves se conservan: una orden + clave ya cargada, o repetida en el archivo, se omite y solo se agregan las claves nuevas.",
                         "Máximo " + Excel.MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."));
     }
 
@@ -97,6 +97,13 @@ public final class CargaOC implements CargaArchivo {
             proyectos.put(f.get(1), f.get(2));
         }
         List<String> errores = new ArrayList<>();
+        // Orden + clave ya cargadas: no se vuelven a subir.
+        Set<String> cargadas = new java.util.HashSet<>();
+        for (Fila f : Consultas.lista(c, "SELECT DISTINCT F_NoCompra, F_Clave FROM tb_pedido_sialss")) {
+            cargadas.add((f.get(1) + "|" + f.get(2)).toUpperCase(java.util.Locale.ROOT));
+        }
+        Set<String> enArchivo = new java.util.HashSet<>();
+        Omitidos omitidos = new Omitidos();
         List<Renglon> renglones = new ArrayList<>();
         List<List<String>> muestra = new ArrayList<>();
         long piezas = 0;
@@ -139,6 +146,12 @@ public final class CargaOC implements CargaArchivo {
                 errores.add("Renglón " + cr.numero() + ": " + String.join("; ", mal) + ".");
                 continue;
             }
+            String llave = (orden + "|" + clave).toUpperCase(java.util.Locale.ROOT);
+            if (cargadas.contains(llave) || !enArchivo.add(llave)) {
+                omitidos.agregar(cr.numero(), "orden " + orden + ", clave " + clave + ": "
+                        + (cargadas.contains(llave) ? "ya está cargada en esa orden" : "se repite en el archivo"));
+                continue;
+            }
             String claveSS = ins.get(4) == null || ins.get(4).isEmpty() ? clave : ins.get(4);
             renglones.add(new Renglon(cr.numero(), orden, proveedor, clave, claveSS, cantidad, Integer.parseInt(proyecto), fuente));
             piezas += cantidad;
@@ -147,30 +160,17 @@ public final class CargaOC implements CargaArchivo {
                         ins.get(2), String.valueOf(cantidad), proyecto + " · " + proyectos.get(proyecto), fuente));
             }
         }
-        // Órdenes que ya existen: se reemplazan, salvo que ya tengan algo recibido.
-        Map<String, List<Renglon>> grupos = agrupar(renglones);
-        int reemplazos = 0;
-        for (List<Renglon> g : grupos.values()) {
-            Renglon x = g.get(0);
-            List<Fila> previas = Consultas.lista(c,
-                    "SELECT COUNT(*), COALESCE(SUM(F_Recibido <> 0), 0) FROM tb_pedido_sialss WHERE F_NoCompra = ? AND F_Provee = ? AND F_Proyecto = ?",
-                    x.orden(), x.proveedor(), x.proyecto());
-            int existentes = previas.get(0).entero(1);
-            if (previas.get(0).entero(2) > 0) {
-                errores.add("La orden " + x.orden() + " (proveedor " + x.proveedor() + ", proyecto " + x.proyecto()
-                        + ") ya tiene piezas recibidas: no se puede reemplazar por carga.");
-            } else if (existentes > 0) {
-                reemplazos++;
-            }
-        }
         if (!errores.isEmpty()) {
             return new Revision(errores, muestra, "", null);
         }
+        if (renglones.isEmpty()) {
+            return omitidos.sinNuevos(crudos.size(), "claves nuevas de órdenes de compra");
+        }
+        Map<String, List<Renglon>> grupos = agrupar(renglones);
         String resumen = Texto.cuantos(grupos.size(), "orden de compra", "órdenes de compra") + ", "
-                + Texto.cuantos(renglones.size(), "renglón", "renglones") + ", " + Texto.cuantos(piezas, "pieza", "piezas")
-                + (reemplazos == 0 ? "." : "; " + Texto.cuantos(reemplazos, "orden ya estaba cargada y se reemplazará",
-                "órdenes ya estaban cargadas y se reemplazarán") + ".");
-        return new Revision(List.of(), muestra, resumen, new Datos(new ArrayList<>(renglones), idCompra));
+                + Texto.cuantos(renglones.size(), "clave nueva", "claves nuevas") + ", " + Texto.cuantos(piezas, "pieza", "piezas")
+                + ". Lo que ya estaba cargado se conserva.";
+        return omitidos.valida(muestra, resumen, new Datos(new ArrayList<>(renglones), idCompra, omitidos.cuantos()));
     }
 
     @Override
@@ -179,12 +179,10 @@ public final class CargaOC implements CargaArchivo {
         Map<String, List<Renglon>> grupos = agrupar(d.renglones());
         boolean auto = c.getAutoCommit();
         c.setAutoCommit(false);
-        int borrados = 0;
         int insertados = 0;
-        try (PreparedStatement borrar = c.prepareStatement(
-                     "DELETE FROM tb_pedido_sialss WHERE F_NoCompra = ? AND F_Provee = ? AND F_Proyecto = ? AND F_Recibido = 0");
-             PreparedStatement recibidos = c.prepareStatement(
-                     "SELECT COUNT(*) FROM tb_pedido_sialss WHERE F_NoCompra = ? AND F_Provee = ? AND F_Proyecto = ? AND F_Recibido <> 0 FOR UPDATE");
+        // Ya no se reemplaza la orden: solo se agregan las claves nuevas (las ya cargadas se omitieron al revisar).
+        try (PreparedStatement existe = c.prepareStatement(
+                     "SELECT 1 FROM tb_pedido_sialss WHERE F_NoCompra = ? AND F_Clave = ? LIMIT 1 FOR UPDATE");
              PreparedStatement alta = c.prepareStatement(
                      "INSERT INTO tb_pedido_sialss (F_NoCompra, F_Provee, F_Clave, F_ClaveSS, F_CodBar, F_Priori, F_Lote, F_Cadu, "
                      + "F_Cant, F_Obser, F_Fecha, F_FecSur, F_HorSur, F_IdUsu, F_StsPed, F_Recibido, F_Proyecto, Fecha_Vencimiento, "
@@ -193,19 +191,7 @@ public final class CargaOC implements CargaArchivo {
                      + "DATE_ADD(CURDATE(), INTERVAL 7 DAY), 'N/A', 0, 0, '1', 0, ?, '')")) {
             for (List<Renglon> g : grupos.values()) {
                 Renglon x = g.get(0);
-                recibidos.setString(1, x.orden());
-                recibidos.setString(2, x.proveedor());
-                recibidos.setInt(3, x.proyecto());
-                try (var rs = recibidos.executeQuery()) {
-                    if (rs.next() && rs.getInt(1) > 0) {
-                        throw mx.medalfa.sialss.config.ErrorBase.rechazo("La orden " + x.orden() + " recibió piezas mientras se revisaba el archivo.");
-                    }
-                }
-                borrar.setString(1, x.orden());
-                borrar.setString(2, x.proveedor());
-                borrar.setInt(3, x.proyecto());
-                borrados += borrar.executeUpdate();
-                // Una fila por clave: se suman las repetidas; la fuente es la primera que aparezca.
+                // Una fila por clave (las repetidas en el archivo ya se omitieron al revisar).
                 Map<String, Renglon> porClave = new LinkedHashMap<>();
                 for (Renglon y : g) {
                     porClave.merge(y.clave(), y, (a, b) -> new Renglon(a.numero(), a.orden(), a.proveedor(), a.clave(),
@@ -213,6 +199,14 @@ public final class CargaOC implements CargaArchivo {
                 }
                 boolean ar = x.orden().contains("CCISEM-AR-2020-") || x.orden().contains("OCISEM-AR-2020-");
                 for (Renglon y : porClave.values()) {
+                    existe.setString(1, y.orden());
+                    existe.setString(2, y.clave());
+                    try (var rs = existe.executeQuery()) {
+                        if (rs.next()) {
+                            throw mx.medalfa.sialss.config.ErrorBase.rechazo("La clave " + y.clave() + " se agregó a la orden " + y.orden()
+                                    + " mientras se revisaba el archivo; vuelva a revisarlo.");
+                        }
+                    }
                     alta.setString(1, y.orden());
                     alta.setString(2, y.proveedor());
                     alta.setString(3, y.clave());
@@ -235,9 +229,8 @@ public final class CargaOC implements CargaArchivo {
             c.setAutoCommit(auto);
         }
         return (grupos.size() == 1 ? "Se cargó " : "Se cargaron ") + Texto.cuantos(grupos.size(), "orden de compra", "órdenes de compra") + " con "
-                + Texto.cuantos(insertados, "clave", "claves") + (borrados == 0 ? "." : "; se reemplazaron "
-                + Texto.cuantos(borrados, "renglón anterior", "renglones anteriores") + ".")
-                + " Quedan confirmadas, con entrega a 7 días.";
+                + Texto.cuantos(insertados, "clave nueva", "claves nuevas") + ". Quedan confirmadas, con entrega a 7 días."
+                + Omitidos.mensajeFinal(d.omitidos());
     }
 
     private static Map<String, List<Renglon>> agrupar(List<Renglon> renglones) {

@@ -29,7 +29,8 @@ import mx.medalfa.sialss.menu.MenuSialss;
  * de la sesión, 3 intentos) aplica en una transacción; POST {@code accion=cancelar}.
  * La carga se elige por la ruta.
  */
-@WebServlet({"/CargaArchivoRequerimiento", "/CargaArchivoCaducos", "/CargaArchivoOC", "/CargaArchivoEquipos"})
+@WebServlet({"/CargaArchivoRequerimiento", "/CargaArchivoCaducos", "/CargaArchivoOC", "/CargaArchivoEquipos",
+        "/CargaArchivoMarcas", "/CargaArchivoProveedores", "/CargaArchivoUnidades", "/CargaArchivoProductos"})
 @MultipartConfig(maxFileSize = 10 * 1024 * 1024, maxRequestSize = 11 * 1024 * 1024)
 public class CargaArchivoServlet extends HttpServlet {
 
@@ -38,11 +39,15 @@ public class CargaArchivoServlet extends HttpServlet {
     private static final int INTENTOS_MAXIMOS = 3;
     private static final int MAXIMO_ERRORES = 200;
 
-    private static final Map<String, CargaArchivo> CARGAS = Map.of(
-            "/CargaArchivoRequerimiento", new CargaRequerimiento(),
-            "/CargaArchivoCaducos", new CargaCaducos(),
-            "/CargaArchivoOC", new CargaOC(),
-            "/CargaArchivoEquipos", new CargaEquipos());
+    private static final Map<String, CargaArchivo> CARGAS = Map.ofEntries(
+            Map.entry("/CargaArchivoRequerimiento", new CargaRequerimiento()),
+            Map.entry("/CargaArchivoCaducos", new CargaCaducos()),
+            Map.entry("/CargaArchivoOC", new CargaOC()),
+            Map.entry("/CargaArchivoEquipos", new CargaEquipos()),
+            Map.entry("/CargaArchivoMarcas", new CargaMarcas()),
+            Map.entry("/CargaArchivoProveedores", new CargaProveedores()),
+            Map.entry("/CargaArchivoUnidades", new CargaUnidades()),
+            Map.entry("/CargaArchivoProductos", new CargaProductos()));
 
     /** ¿Puede la sesión usar la carga de esta página? (lo usan también las JSP). */
     public static boolean autorizado(HttpSession s, String ruta) {
@@ -111,6 +116,9 @@ public class CargaArchivoServlet extends HttpServlet {
             m.put("totalErrores", r.errores().size());
             m.put("muestra", r.muestra());
             m.put("resumen", r.resumen());
+            m.put("omitidos", r.omitidos().size() > MAXIMO_ERRORES ? r.omitidos().subList(0, MAXIMO_ERRORES) : r.omitidos());
+            m.put("totalOmitidos", r.omitidos().size());
+            m.put("sinNuevos", r.sinNuevos());
             if (r.valida()) {
                 String token = UUID.randomUUID().toString();
                 sesion.setAttribute(clave(carga, "revision"), r);

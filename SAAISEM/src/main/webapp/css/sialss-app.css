@@ -35,6 +35,32 @@
   --s-ancho-menu: 250px;
 }
 
+/* ============================== Inicio (index.jsp) ============================== */
+.sialss-inicio {
+  position: relative; z-index: 1; width: min(1040px, 100%); background: var(--s-superficie); border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(0, 40, 60, .28); padding: 28px 28px 22px;
+}
+.sialss-inicio__encabezado { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--s-borde); }
+.sialss-inicio__encabezado img { height: 34px; width: auto; }
+.sialss-inicio h1 { font-size: 22px; margin: 0 0 18px; color: var(--s-texto); }
+.sialss-inicio__accesos { list-style: none; margin: 0 0 20px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.sialss-inicio__acceso {
+  display: flex; flex-direction: column; height: 100%; overflow: hidden; text-decoration: none; color: var(--s-texto);
+  border: 1px solid var(--s-borde); border-radius: 10px; background: var(--s-superficie);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.sialss-inicio__acceso:hover { transform: translateY(-3px); border-color: var(--s-turquesa); box-shadow: 0 12px 24px rgba(0, 40, 60, .16); text-decoration: none; color: var(--s-texto); }
+.sialss-inicio__acceso:focus-visible { outline: 3px solid var(--s-lima); outline-offset: 2px; }
+.sialss-inicio__foto { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--s-superficie-2); }
+.sialss-inicio__foto--icono { display: grid; place-items: center; color: var(--s-blanco); background: linear-gradient(135deg, var(--s-barra) 0%, var(--s-turquesa-osc) 100%); }
+.sialss-inicio__texto { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px; flex: 1; }
+.sialss-inicio__nombre { font-size: 18px; font-weight: 700; color: var(--s-barra); letter-spacing: .5px; }
+.sialss-inicio__desc { font-size: 14px; color: var(--s-texto-2); line-height: 1.45; flex: 1; }
+.sialss-inicio__entrar { margin-top: 8px; align-self: flex-start; padding: 8px 16px; border-radius: var(--s-radio); background: var(--s-turquesa-osc); color: var(--s-blanco); font-weight: 600; font-size: 14px; }
+.sialss-inicio__acceso:hover .sialss-inicio__entrar { background: var(--s-barra); }
+@media (max-width: 820px) { .sialss-inicio__accesos { grid-template-columns: 1fr; } .sialss-inicio__foto { aspect-ratio: 21 / 9; } }
+@media (max-width: 480px) { .sialss-inicio { padding: 20px 16px 16px; } .sialss-inicio__encabezado { flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { .sialss-inicio__acceso { transition: none; } .sialss-inicio__acceso:hover { transform: none; } }
 /* ============================== Inicio de sesión ============================== */
 .sialss-login-pagina {
   margin: 0; min-height: 100vh; font-family: var(--s-fuente); font-size: 15px; color: var(--s-texto);
@@ -227,6 +253,8 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-mr { font-family: var(--s-fuente); color: var(--s-texto); padding-bottom: 40px; }
 .sialss-mr h1 { font-size: 24px; margin: 6px 0 4px; }
 .sialss-mr .sialss-secundario { color: var(--s-texto-2); margin: 0 0 16px; max-width: 75ch; }
+/* Pantallas de captura y cargas: la descripción usa el ancho de la página (sin renglones de más de ~140 caracteres). */
+.sialss-mr.sialss-captura > .sialss-secundario { max-width: 140ch; }
 .sialss-mr__barra { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; margin-bottom: 14px; }
 .sialss-mr__campo { display: flex; flex-direction: column; gap: 4px; min-width: 220px; }
 .sialss-mr__campo label { font-weight: 600; font-size: 13.5px; margin: 0; }
@@ -244,6 +272,11 @@ body.sialss-bloqueada { overflow: hidden; }
 .sialss-mr__estado { min-height: 22px; margin: 0 0 12px; font-weight: 600; }
 .sialss-mr__estado--ok { color: var(--s-turquesa-osc); }
 .sialss-mr__estado--error { color: var(--s-error); }
+.sialss-mr__estado--aviso { color: var(--s-aviso-texto); font-weight: 600; }
+/* Renglones repetidos que una carga no sube: aviso informativo (no error), plegado. */
+.sialss-captura__omitidos { margin: 0 0 16px; padding: 10px 12px; border-left: 4px solid var(--s-aviso-borde); border-radius: var(--s-radio); background: var(--s-aviso-fondo); color: var(--s-aviso-texto); }
+.sialss-captura__omitidos summary { cursor: pointer; font-weight: 600; }
+.sialss-captura__omitidos ul { margin: 8px 0 0; padding-left: 20px; max-height: 260px; overflow-y: auto; font-size: 14px; }
 .sialss-mr__modulos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 .sialss-mr__modulo { margin: 0; padding: 0 0 8px; background: var(--s-superficie); border: 1px solid var(--s-borde); border-radius: var(--s-radio); box-shadow: var(--s-sombra); min-width: 0; }
 .sialss-mr__modulo legend {

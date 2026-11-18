@@ -86,12 +86,12 @@ Las cuatro columnas del Excel son obligatorias. Unidad es la clave de la unidad 
 | Excel (.xlsx o .xls) | Archivo con las columnas Unidad, Clave, Lote, Caducidad y Cantidad | Sí |
 | Contraseña | Tu contraseña, para confirmar | Sí |
 
-Las cinco columnas del Excel son obligatorias. El lote puede tener hasta 150 caracteres. La caducidad puede ser fecha de Excel o texto dd/mm/aaaa y la cantidad un entero mayor a 0.
+Las cinco columnas del Excel son obligatorias. El lote puede tener hasta 30 caracteres. La caducidad puede ser fecha de Excel o texto dd/mm/aaaa y la cantidad un entero mayor a 0.
 
 **Mensajes y errores frecuentes:**
 - "Renglón N: falta la unidad" o "la unidad … no existe": usa una unidad del catálogo.
 - "falta la clave" o "la clave … no existe": usa una clave del catálogo.
-- "falta el lote" o "el lote pasa de 150 caracteres": corrige el lote.
+- "falta el lote" o "el lote pasa de 30 caracteres": corrige el lote.
 - "falta la caducidad", "la caducidad (…) no es una fecha dd/mm/aaaa": corrige la fecha.
 - "la cantidad debe ser un entero mayor a 0": corrige la cantidad.
 - "No existe la ubicación CADUCADOSFARMACIA …": la ubicación de destino no está dada de alta; avisa al departamento de sistemas.
@@ -157,9 +157,13 @@ Las primeras seis (Clave, Marca, Proyecto, Origen, Proveedor y Ubicación) son o
 - "el modelo … no existe (hoja Catálogos)" o "la condición … no es …": usa un valor de la hoja de catálogos.
 - "la fecha de compra no puede ser futura" o "la garantía termina antes de la compra": corrige las fechas.
 - "faltan las cajas por tarima", "faltan las piezas por caja", "faltan las cajas o el resto de las tarimas incompletas": completa el empaque del renglón.
-- "la serie … se repite en el archivo", "la serie … ya tiene existencia con la clave …", "el código de barras … se repite en el archivo" o "ya existe": cambia la serie o el código de barras.
+- "la serie … ya tiene existencia con la clave … (no es un equipo de esta carga)" o "el código de barras … ya es de otro lote": cambia la serie o el código de barras.
+- "No hay equipos nuevos: todos los renglones ya están cargados o se repiten.": todos los renglones se omitieron; no hay nada que cargar.
+- "Se omiten N renglones repetidos, que no se vuelven a cargar: …": aviso informativo con el renglón, la clave y la serie o código de barras; los demás sí se cargan.
+- "el lote o número de serie pasa de 30 caracteres" o "Un dato es más largo de lo que admite el sistema … (hasta 30 caracteres)": acorta la serie o el lote.
+- Si falla el guardado, el mensaje ya no muestra textos técnicos: dice qué dato falló, indica que no se guardó ningún cambio y, si el problema sigue, una referencia para dar a sistemas.
 - "pasa de 10,000,000 de piezas": revisa el empaque.
 - También pueden salir avisos de números inválidos (costo, tarimas, cajas, piezas) o de textos demasiado largos; corrige el dato indicado.
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
-**Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie (no puede repetirse ni tener existencia); con varias piezas es el lote. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque).
+**Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie; con varias piezas es el lote (hasta 30 caracteres). Los equipos que ya están cargados (misma clave y misma serie, lote o código de barras) y los renglones repetidos dentro del archivo se omiten con aviso: solo se suben los nuevos, y la revisión indica "equipos nuevos". Al confirmar, el mensaje también dice cuántos renglones repetidos no se volvieron a cargar. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque).

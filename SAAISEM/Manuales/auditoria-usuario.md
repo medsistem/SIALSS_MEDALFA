@@ -6,7 +6,7 @@ Opciones de la cuenta del usuario de Auditoría.
 
 **Para qué sirve:** Consultar este manual dentro del sistema, solo con los módulos y opciones que tienes en tu menú, y descargarlo en PDF.
 
-**Quién la ve:** Perfil 28.
+**Quién la ve:** Perfiles 100, 1 y 28.
 
 **Cómo llegar:** Menú › Usuario › Manual de Usuario.
 

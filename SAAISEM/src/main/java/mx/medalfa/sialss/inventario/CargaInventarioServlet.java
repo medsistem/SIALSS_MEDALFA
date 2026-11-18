@@ -146,6 +146,7 @@ public class CargaInventarioServlet extends HttpServlet {
             m.put("lotesSumados", a.lotesSumados());
             m.put("piezas", a.piezas());
             m.put("usuario", s.usuario());
+            m.put("omitidos", revision.omitidos().size());
             json(res, 200, m);
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Aplicar carga de inventario", e);

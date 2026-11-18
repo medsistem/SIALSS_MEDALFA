@@ -19,11 +19,24 @@ import mx.medalfa.sialss.seguridad.PoliticaSesion;
  */
 public interface CargaArchivo {
 
-    /** Resultado de revisar. {@code datos} es lo que necesita {@link #aplicar}; null si hubo errores. */
-    record Revision(List<String> errores, List<List<String>> muestra, String resumen, Serializable datos)
-            implements Serializable {
+    /**
+     * Resultado de revisar. {@code datos} es lo que necesita {@link #aplicar}; null si hubo errores o si no quedó nada
+     * nuevo. {@code omitidos}: renglones repetidos (ya cargados o repetidos en el archivo) que no se suben; no son error.
+     */
+    record Revision(List<String> errores, List<List<String>> muestra, String resumen, Serializable datos,
+                    List<String> omitidos) implements Serializable {
+
+        public Revision(List<String> errores, List<List<String>> muestra, String resumen, Serializable datos) {
+            this(errores, muestra, resumen, datos, List.of());
+        }
+
         public boolean valida() {
             return errores.isEmpty() && datos != null;
+        }
+
+        /** Todo el archivo estaba repetido: no hay error, pero tampoco nada que guardar. */
+        public boolean sinNuevos() {
+            return errores.isEmpty() && datos == null && !omitidos.isEmpty();
         }
 
         public static Revision conError(String mensaje) {

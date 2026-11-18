@@ -1,77 +1,66 @@
-<%-- 
-    Document   : index
-    Created on : 01-oct-2013, 12:05:12
-    Author     : wence
---%>
-
+<%-- Inicio de SIALSS: elige el acceso (Almacén, Compras o Auditoría). Mismo diseño que el login (jspf/loginSialss.jspf):
+     fondo animado, colores de Medalfa y css/sialss-app.css. Antes era un carrusel de Bootstrap 4 desde CDN. --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    HttpSession sesion = request.getSession();
-    String info = null;
-
+    String ctx = request.getContextPath();
+    String[][] accesos = {
+        {"Almacén", "indexalmacen.jsp", "imagenes/alm6.jpg",
+            "Entradas, inventario, remisiones, cargas de archivos, reportes y catálogos del almacén."},
+        {"Compras", "indexCompras.jsp", "imagenes/alm7.jpg",
+            "Órdenes de compra, proveedores, puntos de entrega y seguimiento de lo recibido."},
+        {"Auditoría", "indexAuditoria.jsp", "",
+            "Consulta de órdenes de compra, existencias y reportes para revisión."}};
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
-        <title>SIALSS</title>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Bootstrap -->
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/login.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+        <title>SIALSS · Inicio</title>
+        <link href="<%=ctx%>/css/sialss-app.css?v=2.0.19" rel="stylesheet">
     </head>
-    <body>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                      
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                  <img src="imagenes/alm6.jpg" class="d-block w-100" alt="ALMACEN" width="720px" height="680px"/>
-                               
-                              <a title=" " href="/SIALSS_MDF_1/indexalmacen.jsp">
-                                  <div class="carousel-caption  d-none d-md-block ">
-                                <h1>SIALSS ALMACEN</h>
-                                <h3>Dar Click para Ingresar al sistema de almacen</h3>
-                               </div>
-                               </a> 
-                            </div>
-                            
-                        
-                            <div class="carousel-item">
-                                <img src="imagenes/alm7.jpg" class="d-block w-100" alt="COMPRAS" width="720px" height="680px"/>
-                                <a title=" " href="/SIALSS_MDF_1/indexCompras.jsp">
-                                <div class="carousel-caption d-none d-md-block">
-                                <h1>SIALSS COMPRAS</h1>
-                                <h3>Ingreso al sistema de Compras</h3>
-                               </div>
-                                </a>    
-                            </div>
-                          
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <body class="sialss-login-pagina sialss-inicio-pagina">
+        <div class="sialss-login-fondo" aria-hidden="true">
+            <img src="<%=ctx%>/imagenes/login-fondo-cadena.gif" alt="" width="1144" height="748">
         </div>
+        <main class="sialss-inicio" aria-labelledby="titulo-inicio">
+            <header class="sialss-inicio__encabezado">
+                <img src="<%=ctx%>/imagenes/LogoMedalfa.png" alt="Medalfa" width="175" height="34">
+                <div>
+                    <p class="sialss-login__sistema">SIALSS</p>
+                    <p class="sialss-login__lema">Sistema Integral de Administración y Logística para Servicios de Salud</p>
+                </div>
+            </header>
+            <h1 id="titulo-inicio">¿A qué módulo quieres entrar?</h1>
+
+            <ul class="sialss-inicio__accesos">
+                <% for (String[] a : accesos) { %>
+                <li>
+                    <a class="sialss-inicio__acceso" href="<%=ctx%>/<%=a[1]%>">
+                        <% if (!a[2].isEmpty()) { %>
+                        <img class="sialss-inicio__foto" src="<%=ctx%>/<%=a[2]%>" alt="" width="400" height="225" loading="lazy">
+                        <% } else { %>
+                        <span class="sialss-inicio__foto sialss-inicio__foto--icono" aria-hidden="true">
+                            <svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="10" y="7" width="24" height="32" rx="3"/><path d="M16 16h12M16 22h12M16 28h6"/><circle cx="33" cy="33" r="7"/><path d="m38 38 5 5"/>
+                            </svg>
+                        </span>
+                        <% } %>
+                        <span class="sialss-inicio__texto">
+                            <span class="sialss-inicio__nombre">SIALSS <%=a[0]%></span>
+                            <span class="sialss-inicio__desc"><%=a[3]%></span>
+                            <span class="sialss-inicio__entrar">Entrar <span aria-hidden="true">→</span></span>
+                        </span>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+
+            <p class="sialss-aviso-legal">Uso exclusivo del personal autorizado. Cada acceso queda registrado.</p>
+            <div class="sialss-login__pie">
+                <span>Versión 2.0.0 · Java 17 · Tomcat 11</span>
+                <span>Medalfa · Desarrollo de Aplicaciones</span>
+            </div>
+        </main>
     </body>
 </html>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-       

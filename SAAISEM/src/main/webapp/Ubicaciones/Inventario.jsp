@@ -129,7 +129,7 @@
         <script src="js_auto/jquery-ui.js"></script>
 
             <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
-        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.19" rel="stylesheet">
         <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
 </head>
     <body>

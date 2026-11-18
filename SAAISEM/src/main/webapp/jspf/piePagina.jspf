@@ -9,7 +9,7 @@
     boolean piePaginaHtml = piePaginaTipo.isEmpty() || piePaginaTipo.startsWith("text/html");
 %>
 <% if (piePaginaHtml) { %>
-<link href="<%=warName%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+<link href="<%=warName%>/css/sialss-app.css?v=2.0.19" rel="stylesheet">
 <script src="<%=warName%>/js/sialss-tablas.js?v=3" defer></script>
 <% } %>
 <br><br><br>

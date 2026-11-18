@@ -62,7 +62,7 @@ public final class CargaRequerimiento implements CargaArchivo {
                 List.of("Carga de requerimiento SIALSS. Un renglón por unidad, clave y fecha de entrega; todas las columnas son obligatorias.",
                         "Unidad: la clave de la unidad (hoja Catálogos). Clave: la del catálogo de insumos, activa y autorizada para el nivel de la unidad.",
                         "Fecha de entrega: fecha de Excel o texto dd/mm/aaaa. Cantidad: piezas, entero mayor a 0.",
-                        "Al confirmar, los requerimientos pendientes anteriores de cada unidad del archivo se cierran y queda el nuevo.",
+                        "Los pendientes se conservan: un renglón con la misma unidad, clave y fecha de entrega que un requerimiento pendiente, o repetido en el archivo, se omite; solo se agregan los nuevos.",
                         "Máximo " + Excel.MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."));
     }
 
@@ -83,6 +83,13 @@ public final class CargaRequerimiento implements CargaArchivo {
             insumos.put(f.get(1), f);
         }
 
+        // Pendientes (F_Status 0) por unidad|clave|fecha: lo que ya está cargado no se vuelve a subir.
+        Set<String> pendientes = new java.util.HashSet<>();
+        for (Fila f : Consultas.lista(c, "SELECT F_ClaUni, F_ClaPro, F_Fecha FROM tb_unireq WHERE F_Status = 0")) {
+            pendientes.add(f.get(1) + "|" + f.get(2) + "|" + f.get(3));
+        }
+        Set<String> enArchivo = new java.util.HashSet<>();
+        Omitidos omitidos = new Omitidos();
         List<String> errores = new ArrayList<>();
         List<Renglon> renglones = new ArrayList<>();
         List<List<String>> muestra = new ArrayList<>();
@@ -119,6 +126,13 @@ public final class CargaRequerimiento implements CargaArchivo {
                 errores.add("Renglón " + cr.numero() + ": " + String.join("; ", mal) + ".");
                 continue;
             }
+            String llave = unidad + "|" + clave + "|" + fecha;
+            String fechaTxt = fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            if (pendientes.contains(llave) || !enArchivo.add(llave)) {
+                omitidos.agregar(cr.numero(), "unidad " + unidad + ", clave " + clave + ", entrega " + fechaTxt + ": "
+                        + (pendientes.contains(llave) ? "ya está en un requerimiento pendiente" : "se repite en el archivo"));
+                continue;
+            }
             renglones.add(new Renglon(cr.numero(), unidad, clave, fecha, cantidad));
             unidadesArchivo.add(unidad);
             piezas += cantidad;
@@ -130,16 +144,23 @@ public final class CargaRequerimiento implements CargaArchivo {
         if (!errores.isEmpty()) {
             return new Revision(errores, muestra, "", null);
         }
-        String resumen = Texto.cuantos(renglones.size(), "renglón", "renglones") + ", "
+        if (renglones.isEmpty()) {
+            return omitidos.sinNuevos(crudos.size(), "renglones nuevos de requerimiento");
+        }
+        String resumen = Texto.cuantos(renglones.size(), "renglón nuevo", "renglones nuevos") + ", "
                 + Texto.cuantos(unidadesArchivo.size(), "unidad", "unidades") + ", " + Texto.cuantos(piezas, "pieza", "piezas")
-                + ". Los requerimientos pendientes anteriores de esas unidades se cerrarán.";
-        return new Revision(List.of(), muestra, resumen, new ArrayList<>(renglones));
+                + ". Los pendientes anteriores se conservan.";
+        return omitidos.valida(muestra, resumen, new Datos(new ArrayList<>(renglones), omitidos.cuantos()));
+    }
+
+    /** Lo que se guarda en la sesión entre revisar y confirmar. */
+    record Datos(ArrayList<Renglon> renglones, int omitidos) implements java.io.Serializable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public String aplicar(Connection c, Revision r, Usuario u) throws SQLException {
-        List<Renglon> renglones = (List<Renglon>) r.datos();
+        Datos datos = (Datos) r.datos();
+        List<Renglon> renglones = datos.renglones();
         // unidad → (clave|fecha → cantidad), en el orden del archivo
         Map<String, Map<String, Integer>> porUnidad = new LinkedHashMap<>();
         Set<String> monitor = new LinkedHashSet<>();
@@ -150,7 +171,6 @@ public final class CargaRequerimiento implements CargaArchivo {
         }
         boolean auto = c.getAutoCommit();
         c.setAutoCommit(false);
-        int cerrados = 0;
         int registros = 0;
         try {
             try (PreparedStatement ps = c.prepareStatement("DELETE FROM tb_cargareq WHERE F_User = ?")) {
@@ -181,13 +201,11 @@ public final class CargaRequerimiento implements CargaArchivo {
                 }
                 ps.executeBatch();
             }
-            try (PreparedStatement cerrar = c.prepareStatement("UPDATE tb_unireq SET F_Status = 1 WHERE F_ClaUni = ? AND F_Status = 0");
-                 PreparedStatement alta = c.prepareStatement(
+            // Ya no se cierran los pendientes de la unidad: solo se agregan los renglones nuevos (los repetidos se omitieron).
+            try (PreparedStatement alta = c.prepareStatement(
                          "INSERT INTO tb_unireq (F_ClaUni, F_ClaPro, F_CajasReq, F_PiezasReq, F_FecCarg, F_Status, F_Fecha, F_Solicitado, F_Obs) "
                          + "VALUES (?, ?, 0, ?, CURDATE(), 0, ?, ?, '')")) {
                 for (Map.Entry<String, Map<String, Integer>> e : porUnidad.entrySet()) {
-                    cerrar.setString(1, e.getKey());
-                    cerrados += cerrar.executeUpdate();
                     for (Map.Entry<String, Integer> cf : e.getValue().entrySet()) {
                         String[] p = cf.getKey().split("\\|", 2);
                         alta.setString(1, e.getKey());
@@ -209,7 +227,7 @@ public final class CargaRequerimiento implements CargaArchivo {
             c.setAutoCommit(auto);
         }
         return "Requerimiento cargado: " + Texto.cuantos(porUnidad.size(), "unidad", "unidades") + ", "
-                + Texto.cuantos(registros, "clave", "claves") + " (por unidad y fecha). "
-                + (cerrados == 0 ? "No había pendientes anteriores." : "Se cerraron " + Texto.cuantos(cerrados, "renglón pendiente anterior", "renglones pendientes anteriores") + ".");
+                + Texto.cuantos(registros, "clave nueva", "claves nuevas") + " (por unidad y fecha). Los pendientes anteriores se conservan."
+                + Omitidos.mensajeFinal(datos.omitidos());
     }
 }

@@ -54,6 +54,10 @@
             </div>
             <p class="sialss-mr__estado" id="ci-estado" role="status" aria-live="polite"></p>
             <ul class="sialss-captura__errores" id="ci-errores" hidden></ul>
+            <details class="sialss-captura__omitidos" id="ci-omitidos" hidden>
+                <summary id="ci-omitidos-titulo">Renglones repetidos</summary>
+                <ul id="ci-omitidos-lista"></ul>
+            </details>
 
             <form class="sialss-captura__confirmar" id="ci-confirmar" hidden>
                 <div class="sialss-filtros__campo">
@@ -73,7 +77,7 @@
                 <tbody id="ci-muestra"><tr><td colspan="9" class="sialss-mr__vacio">Sube un archivo y pulsa "Revisar archivo".</td></tr></tbody>
             </table>
         </div>
-        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=2" defer data-ctx="<%=request.getContextPath()%>"></script>
+        <script src="<%=request.getContextPath()%>/js/sialss-carga-inventario.js?v=3" defer data-ctx="<%=request.getContextPath()%>"></script>
         <%@include file="jspf/piePagina.jspf" %>
     </body>
 </html>

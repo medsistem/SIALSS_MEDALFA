@@ -4,7 +4,7 @@
 
 **Para qué sirve:** Consultar las existencias por proyecto.
 
-**Quién la ve:** Perfil 28.
+**Quién la ve:** Perfiles 100, 1 y 28.
 
 **Cómo llegar:** Menú › Consulta › Existencia.
 
@@ -42,7 +42,7 @@ La tabla muestra: Proyecto, Clave, ClaveSS, Descripción, Lote, Caducidad, Canti
 
 **Para qué sirve:** Consultar lo entregado por proveedor en un periodo.
 
-**Quién la ve:** Perfil 28.
+**Quién la ve:** Perfiles 100, 1 y 28.
 
 **Cómo llegar:** Menú › Consulta › Reporte Fecha Proveedor.
 
@@ -83,7 +83,7 @@ La tabla muestra: Proyecto, Proveedor, Clave, Marca, Lote, Caducidad, Piezas, Fe
 
 **Para qué sirve:** Generar el reporte estadístico de entregas.
 
-**Quién la ve:** Perfil 28.
+**Quién la ve:** Perfiles 100, 1 y 28.
 
 **Cómo llegar:** Menú › Consulta › Reporteador Estadística de Entrega.
 

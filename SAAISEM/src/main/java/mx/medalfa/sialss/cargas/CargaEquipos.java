@@ -138,7 +138,7 @@ public final class CargaEquipos implements CargaArchivo {
         List<List<String>> muestra = new ArrayList<>();
         Set<String> seriesArchivo = new HashSet<>();
         Set<String> cbArchivo = new HashSet<>();
-        List<String> omitidos = new ArrayList<>();
+        Omitidos omitidos = new Omitidos();
         long piezasTotal = 0;
         for (Excel.Renglon cr : crudos) {
             String[] v = cr.v();
@@ -266,7 +266,7 @@ public final class CargaEquipos implements CargaArchivo {
                     motivo = "ya está cargado";
                 }
                 if (motivo != null) {
-                    omitidos.add(cr.numero() + " (" + clave + " " + (serie != null ? serie : cb) + ", " + motivo + ")");
+                    omitidos.agregar(cr.numero(), clave + " " + (serie != null ? serie : cb) + ": " + motivo);
                     continue;
                 }
                 if (porSerie != null) {
@@ -304,17 +304,13 @@ public final class CargaEquipos implements CargaArchivo {
         if (!errores.isEmpty()) {
             return new Revision(errores, muestra, "", null);
         }
-        String avisoOmitidos = omitidos.isEmpty() ? "" : " Se omiten " + Texto.cuantos(omitidos.size(), "renglón repetido", "renglones repetidos")
-                + ", que no se vuelven a cargar: " + String.join(", ", omitidos.size() > 30 ? omitidos.subList(0, 30) : omitidos)
-                + (omitidos.size() > 30 ? " y " + (omitidos.size() - 30) + " más." : ".");
         if (renglones.isEmpty()) {
-            return Revision.conError(crudos.isEmpty() ? "El archivo no tiene renglones."
-                    : "No hay equipos nuevos: todos los renglones ya están cargados o se repiten." + avisoOmitidos);
+            return omitidos.sinNuevos(crudos.size(), "equipos nuevos");
         }
         long documentos = renglones.stream().map(CargaEquipos::grupo).distinct().count();
         String resumen = Texto.cuantos(renglones.size(), "equipo nuevo", "equipos nuevos") + ", " + Texto.cuantos(piezasTotal, "pieza", "piezas")
-                + ", " + Texto.cuantos(documentos, "documento", "documentos") + " (uno por orden de compra y remisión)." + avisoOmitidos;
-        return new Revision(List.of(), muestra, resumen, new Datos(new ArrayList<>(renglones), omitidos.size()));
+                + ", " + Texto.cuantos(documentos, "documento", "documentos") + " (uno por orden de compra y remisión).";
+        return omitidos.valida(muestra, resumen, new Datos(new ArrayList<>(renglones), omitidos.cuantos()));
     }
 
     /** Lo que se guarda en la sesión entre revisar y confirmar. */
@@ -356,7 +352,7 @@ public final class CargaEquipos implements CargaArchivo {
         return "Se cargaron " + Texto.cuantos(renglones.size(), "equipo", "equipos") + " con " + Texto.cuantos(piezas, "pieza", "piezas")
                 + ". " + (docs.size() == 1 ? "Documento " : "Documentos ") + String.join("; ", docs)
                 + ". El acuse y los marbetes están en Reimpresión de compras y en Entrada de Equipos › Últimas entradas."
-                + (datos.omitidos() == 0 ? "" : " No se volvieron a cargar " + Texto.cuantos(datos.omitidos(), "renglón repetido", "renglones repetidos") + ".");
+                + Omitidos.mensajeFinal(datos.omitidos());
     }
 
     private static String grupo(Renglon x) {

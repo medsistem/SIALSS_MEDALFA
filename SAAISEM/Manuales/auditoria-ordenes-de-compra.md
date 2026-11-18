@@ -4,7 +4,7 @@
 
 **Para qué sirve:** Consultar las órdenes de compra para auditoría.
 
-**Quién la ve:** Perfil 28.
+**Quién la ve:** Perfiles 100, 1 y 28.
 
 **Cómo llegar:** Menú › Órdenes de Compra › Ver OC (se abre en una ventana aparte).
 

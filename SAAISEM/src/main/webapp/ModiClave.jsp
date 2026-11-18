@@ -98,7 +98,7 @@
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
         <title>SIALSS</title>
-        <link href="css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <link href="css/sialss-app.css?v=2.0.19" rel="stylesheet">
             <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
         <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
 </head>

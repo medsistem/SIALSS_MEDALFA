@@ -71,6 +71,7 @@ public final class CargaCaducos implements CargaArchivo {
                 List.of("Carga de caducos SIALSS. Un renglón por unidad, clave, lote y caducidad; todas las columnas son obligatorias.",
                         "Unidad: la clave de la unidad que devuelve (hoja Catálogos). Caducidad: fecha de Excel o texto dd/mm/aaaa.",
                         "Las piezas entran a la ubicación " + UBICACION + " (concepto 30). Si el lote se le facturó a esa unidad conserva su folio.",
+                        "Un renglón con la misma unidad, clave, lote y caducidad que ya se cargó a " + UBICACION + ", o repetido en el archivo, se omite: solo entran los caducos nuevos.",
                         "Máximo " + Excel.MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."));
     }
 
@@ -93,6 +94,15 @@ public final class CargaCaducos implements CargaArchivo {
         for (Fila f : Consultas.lista(c, "SELECT F_ClaPro, F_DesPro FROM tb_medica")) {
             insumos.put(f.get(1), f.get(2));
         }
+        // Caducos ya cargados: unidad (tb_obsmov.F_Req del documento) | clave | lote | caducidad con movimiento 30.
+        Set<String> cargados = new java.util.HashSet<>();
+        for (Fila f : Consultas.lista(c, "SELECT DISTINCT o.F_Req, m.F_ProMov, l.F_ClaLot, l.F_FecCad FROM tb_movinv m "
+                + "JOIN tb_lote l ON l.F_FolLot = m.F_LotMov AND l.F_Ubica = m.F_UbiMov JOIN tb_obsmov o ON o.F_IdFact = m.F_DocMov "
+                + "WHERE m.F_ConMov = ? AND m.F_UbiMov = ?", CONCEPTO, UBICACION)) {
+            cargados.add(llave(f.get(1), f.get(2), f.get(3), f.get(4)));
+        }
+        Set<String> enArchivo = new java.util.HashSet<>();
+        Omitidos omitidos = new Omitidos();
         List<String> errores = new ArrayList<>();
         List<Renglon> renglones = new ArrayList<>();
         List<List<String>> muestra = new ArrayList<>();
@@ -125,6 +135,12 @@ public final class CargaCaducos implements CargaArchivo {
                 errores.add("Renglón " + cr.numero() + ": " + String.join("; ", mal) + ".");
                 continue;
             }
+            String llave = llave(unidad, clave, lote, caducidad.toString());
+            if (cargados.contains(llave) || !enArchivo.add(llave)) {
+                omitidos.agregar(cr.numero(), "unidad " + unidad + ", clave " + clave + ", lote " + lote + ", caducidad " + caducidad.format(DMA) + ": "
+                        + (cargados.contains(llave) ? "ya se cargó a " + UBICACION : "se repite en el archivo"));
+                continue;
+            }
             renglones.add(new Renglon(cr.numero(), unidad, clave, lote, caducidad, cantidad));
             piezas += cantidad;
             if (muestra.size() < 200) {
@@ -135,17 +151,28 @@ public final class CargaCaducos implements CargaArchivo {
         if (!errores.isEmpty()) {
             return new Revision(errores, muestra, "", null);
         }
+        if (renglones.isEmpty()) {
+            return omitidos.sinNuevos(crudos.size(), "caducos nuevos");
+        }
         long unidadesArchivo = renglones.stream().map(Renglon::unidad).distinct().count();
         String resumen = Texto.cuantos(renglones.size(), "renglón", "renglones") + ", "
                 + Texto.cuantos(unidadesArchivo, "unidad", "unidades") + ", " + Texto.cuantos(piezas, "pieza", "piezas")
                 + " a " + UBICACION + " (un documento por unidad).";
-        return new Revision(List.of(), muestra, resumen, new ArrayList<>(renglones));
+        return omitidos.valida(muestra, resumen, new Datos(new ArrayList<>(renglones), omitidos.cuantos()));
+    }
+
+    /** Lo que se guarda en la sesión entre revisar y confirmar. */
+    record Datos(ArrayList<Renglon> renglones, int omitidos) implements Serializable {
+    }
+
+    private static String llave(String unidad, String clave, String lote, String caducidad) {
+        return (unidad + "|" + clave + "|" + lote + "|" + caducidad).trim().toUpperCase(java.util.Locale.ROOT);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public String aplicar(Connection c, Revision r, Usuario u) throws SQLException {
-        List<Renglon> renglones = (List<Renglon>) r.datos();
+        Datos datos = (Datos) r.datos();
+        List<Renglon> renglones = datos.renglones();
         // unidad → (clave|lote|caducidad → cantidad)
         Map<String, Map<String, Integer>> porUnidad = new LinkedHashMap<>();
         for (Renglon x : renglones) {
@@ -207,7 +234,7 @@ public final class CargaCaducos implements CargaArchivo {
         return "Caducos cargados a " + UBICACION + ": " + Texto.cuantos(piezas, "pieza", "piezas") + ", "
                 + Texto.cuantos(nuevos, "renglón nuevo", "renglones nuevos") + " y " + Texto.cuantos(sumados, "sumado", "sumados")
                 + " a lotes que ya estaban ahí. " + (documentos.size() == 1 ? "Documento " : "Documentos ")
-                + String.join(", ", documentos) + " (usuario " + u.usuario() + ").";
+                + String.join(", ", documentos) + " (usuario " + u.usuario() + ")." + Omitidos.mensajeFinal(datos.omitidos());
     }
 
     /** Folio del lote que se le facturó a la unidad (como la carga anterior), o null. */

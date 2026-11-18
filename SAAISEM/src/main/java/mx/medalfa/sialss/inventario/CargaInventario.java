@@ -58,10 +58,21 @@ public final class CargaInventario {
                           LocalDate fabricacion, String tarima) implements Serializable {
     }
 
-    /** Resultado de revisar el archivo: renglones válidos y errores por renglón. */
-    public record Revision(List<Renglon> renglones, List<String> errores, int piezas) implements Serializable {
+    /**
+     * Resultado de revisar el archivo: renglones válidos, errores por renglón y renglones omitidos por repetidos
+     * (lote con existencia en esa ubicación o repetido en el archivo; no son error).
+     */
+    public record Revision(List<Renglon> renglones, List<String> errores, int piezas, List<String> omitidos) implements Serializable {
+        public Revision(List<Renglon> renglones, List<String> errores, int piezas) {
+            this(renglones, errores, piezas, List.of());
+        }
+
         public boolean valida() {
             return errores.isEmpty() && !renglones.isEmpty();
+        }
+
+        public boolean sinNuevos() {
+            return errores.isEmpty() && renglones.isEmpty() && !omitidos.isEmpty();
         }
     }
 
@@ -105,7 +116,8 @@ public final class CargaInventario {
                 "Carga de inventario SIALSS. Un renglón por lote y ubicación; los marcados con * son obligatorios.",
                 "Caducidad y Fabricación: fecha de Excel o texto dd/mm/aaaa. Si no hay fabricación se usa la fecha de la carga.",
                 "Proyecto, Origen, Proveedor y Marca: el número de la hoja Catálogos.",
-                "Mismo lote = misma clave, lote, caducidad, proyecto y origen: conserva su folio y, si ya está en esa ubicación, se suma.",
+                "Mismo lote = misma clave, lote, caducidad, proyecto y origen: conserva su folio.",
+                "Un lote (clave, lote y caducidad) que ya tiene existencia en esa ubicación, o repetido en el archivo, se omite: solo se cargan los lotes nuevos.",
                 "Código de barras vacío: se usa el del lote existente o se genera uno nuevo.",
                 "Máximo " + MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."};
             for (int i = 0; i < lineas.length; i++) {
@@ -174,6 +186,13 @@ public final class CargaInventario {
         Set<String> proveedores = conjunto(c, "SELECT F_ClaProve FROM tb_proveedor");
         Set<String> marcas = conjunto(c, "SELECT F_ClaMar FROM tb_marca");
 
+        // Lotes con existencia por clave|lote|caducidad|ubicación: no se vuelven a cargar.
+        Set<String> conExistencia = new HashSet<>();
+        for (Fila f : Consultas.lista(c, "SELECT F_ClaPro, F_ClaLot, F_FecCad, F_Ubica FROM tb_lote WHERE F_ExiLot > 0")) {
+            conExistencia.add(llave(f.get(1), f.get(2), f.get(3), f.get(4)));
+        }
+        Set<String> enArchivo = new HashSet<>();
+        mx.medalfa.sialss.cargas.Omitidos omitidos = new mx.medalfa.sialss.cargas.Omitidos();
         List<Renglon> renglones = new ArrayList<>();
         int piezas = 0;
         for (int k = 0; k < crudos.size(); k++) {
@@ -227,11 +246,22 @@ public final class CargaInventario {
                 errores.add("Renglón " + n + ": " + String.join("; ", mal) + ".");
                 continue;
             }
+            String llave = llave(clave, lote, caducidad.toString(), ubicacion);
+            if (conExistencia.contains(llave) || !enArchivo.add(llave)) {
+                omitidos.agregar(n, "clave " + clave + ", lote " + lote + ", caducidad " + caducidad.format(DMA) + " en " + ubicacion + ": "
+                        + (conExistencia.contains(llave) ? "ya tiene existencia en esa ubicación" : "se repite en el archivo"));
+                continue;
+            }
             renglones.add(new Renglon(n, clave, insumos.get(clave), lote, caducidad, cantidad, ubicacion, proyecto,
                     origen, proveedor, marca, cb, fabricacion, tarima));
             piezas += cantidad;
         }
-        return new Revision(errores.isEmpty() ? renglones : List.of(), errores, errores.isEmpty() ? piezas : 0);
+        return new Revision(errores.isEmpty() ? renglones : List.of(), errores, errores.isEmpty() ? piezas : 0,
+                errores.isEmpty() ? omitidos.lista() : List.of());
+    }
+
+    private static String llave(String clave, String lote, String caducidad, String ubicacion) {
+        return (clave + "|" + lote + "|" + caducidad + "|" + ubicacion).trim().toUpperCase(java.util.Locale.ROOT);
     }
 
     private static String celda(Cell cel, DataFormatter fmt, boolean esFecha) {
@@ -374,6 +404,9 @@ public final class CargaInventario {
         m.put("piezas", r.piezas());
         m.put("errores", r.errores().size() > 200 ? r.errores().subList(0, 200) : r.errores());
         m.put("totalErrores", r.errores().size());
+        m.put("omitidos", r.omitidos().size() > 200 ? r.omitidos().subList(0, 200) : r.omitidos());
+        m.put("totalOmitidos", r.omitidos().size());
+        m.put("sinNuevos", r.sinNuevos());
         List<Map<String, Object>> muestra = new ArrayList<>();
         for (Renglon x : r.renglones().subList(0, Math.min(200, r.renglones().size()))) {
             Map<String, Object> p = new LinkedHashMap<>();

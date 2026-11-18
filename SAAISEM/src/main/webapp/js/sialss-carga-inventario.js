@@ -37,6 +37,22 @@
     ul.hidden = !lista.length;
   }
 
+  /* Lotes repetidos que no se suben: aviso aparte (no es error), con la lista plegada. */
+  function mostrarOmitidos(lista, total) {
+    var caja = $('ci-omitidos');
+    caja.hidden = !total;
+    if (!total) { return; }
+    $('ci-omitidos-titulo').textContent = (total === 1 ? 'Se omite ' : 'Se omiten ') + cuantos(total, 'renglón repetido', 'renglones repetidos')
+      + ' (lote con existencia en esa ubicación o repetido en el archivo). Ver la lista';
+    var ul = $('ci-omitidos-lista');
+    ul.textContent = '';
+    (lista || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    if (total > (lista || []).length) {
+      var li = document.createElement('li'); li.textContent = '… y ' + (total - lista.length) + ' más.'; ul.appendChild(li);
+    }
+    caja.open = false;
+  }
+
   function mostrarMuestra(filas) {
     var tb = $('ci-muestra');
     tb.innerHTML = '';
@@ -65,6 +81,7 @@
     if (!archivo) { estado('Elige el archivo de Excel.', 'error'); return; }
     reiniciar();
     mostrarErrores([], 0);
+    mostrarOmitidos([], 0);
     var datos = new FormData();
     datos.append('accion', 'revisar');
     datos.append('archivo', archivo);
@@ -73,14 +90,19 @@
     estado('Revisando el archivo…');
     enviar(datos).then(function (r) {
       mostrarErrores(r.errores, r.totalErrores);
+      mostrarOmitidos(r.omitidos, r.totalOmitidos || 0);
       mostrarMuestra(r.muestra);
-      if (r.valida) {
+      var omit = r.totalOmitidos ? (r.totalOmitidos === 1 ? ' Se omite ' : ' Se omiten ') + cuantos(r.totalOmitidos, 'renglón repetido', 'renglones repetidos') + '.' : '';
+      if (r.sinNuevos) {
+        estado('No hay lotes nuevos: ' + (r.totalOmitidos === 1 ? 'el renglón ya tiene existencia o se repite.'
+          : 'los ' + r.totalOmitidos + ' renglones ya tienen existencia o se repiten.') + ' No se guardó nada.', 'aviso');
+      } else if (r.valida) {
         token = r.token;
-        $('ci-resumen').textContent = cuantos(r.renglones, 'renglón', 'renglones') + ', ' + cuantos(r.piezas, 'pieza', 'piezas') + '.';
+        $('ci-resumen').textContent = cuantos(r.renglones, 'renglón nuevo', 'renglones nuevos') + ', ' + cuantos(r.piezas, 'pieza', 'piezas') + '.' + omit;
         $('ci-confirmar').hidden = false;
         $('ci-cancelar').hidden = false;
-        estado('El archivo está correcto: ' + cuantos(r.renglones, 'renglón', 'renglones') + ' y ' + cuantos(r.piezas, 'pieza', 'piezas')
-          + '. Confirma con tu contraseña para guardar.', 'ok');
+        estado('El archivo está correcto: ' + cuantos(r.renglones, 'renglón nuevo', 'renglones nuevos') + ' y ' + cuantos(r.piezas, 'pieza', 'piezas')
+          + '.' + omit + ' Confirma con tu contraseña para guardar.', 'ok');
         $('ci-contrasena').focus();
       } else if (r.totalErrores) {
         estado('El archivo tiene ' + cuantos(r.totalErrores, 'error', 'errores') + '. Corrígelo y vuelve a subirlo; no se guardó nada.', 'error');
@@ -107,7 +129,8 @@
       $('ci-archivo').value = '';
       estado('Carga guardada con el documento ' + r.documento + ': ' + cuantos(r.piezas, 'pieza', 'piezas') + ', '
         + cuantos(r.lotesNuevos, 'renglón nuevo', 'renglones nuevos') + ' y ' + cuantos(r.lotesSumados, 'sumado', 'sumados')
-        + ' a renglones que ya estaban en esa ubicación (usuario ' + r.usuario + ').', 'ok');
+        + ' a renglones que ya estaban en esa ubicación (usuario ' + r.usuario + ').'
+        + (r.omitidos ? (r.omitidos === 1 ? ' No se cargó ' : ' No se cargaron ') + cuantos(r.omitidos, 'renglón repetido', 'renglones repetidos') + '.' : ''), 'ok');
     }).catch(function (e) {
       if (e.datos && e.datos.cancelada) { reiniciar(); }
       estado(e.message, 'error');
