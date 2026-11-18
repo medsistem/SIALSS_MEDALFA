@@ -44,7 +44,7 @@
         <script type="text/javascript" charset="utf-8" src="table_js/TableTools.js"></script>
         <script type="text/javascript" src="table_js/TableTools.min.js"></script>
             <%-- Tablas anchas con scroll horizontal (css/sialss-app.css + js/sialss-tablas.js) --%>
-        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.19" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/css/sialss-app.css?v=2.0.20" rel="stylesheet">
         <script src="<%=request.getContextPath()%>/js/sialss-tablas.js?v=3" defer></script>
 </head>
     <body>

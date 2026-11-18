@@ -54,7 +54,7 @@
 **Cómo llegar:** Menú › Usuario › Manual de Usuario.
 
 **Paso a paso:**
-1. Abre la opción. Arriba ves tu acceso, tu perfil y la versión del manual.
+1. Abre la opción. Arriba ves tu acceso, tu perfil (número y nombre) y la versión del manual.
 2. Usa el **Contenido** para ir al módulo u opción que necesitas.
 3. Da clic en **Descargar PDF** para obtener el mismo manual en un archivo que puedes guardar o imprimir.
 

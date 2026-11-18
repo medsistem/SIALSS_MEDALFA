@@ -426,7 +426,9 @@ body.sialss-app .btn-block { width: min-content; min-width: 100%; padding-left: 
    esta hoja y js/sialss-tablas.js. */
 .sialss-tabla-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin-bottom: 20px; }
 .sialss-tabla-scroll > .table { margin-bottom: 0; }
-.dataTables_wrapper { max-width: 100%; overflow-x: auto; }
+/* clear: con overflow el contenedor no puede quedar junto a columnas flotantes sin cerrar (col-sm-6 de botones):
+   se encogía a 0 px y la tabla desaparecía al terminar de cargar (p. ej. reportes/ConsultasExi.jsp). */
+.dataTables_wrapper { max-width: 100%; overflow-x: auto; clear: both; }
 .table-responsive { overflow-x: auto; }
 
 /* ======================= Página que se mueve a los lados ======================= */

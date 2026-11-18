@@ -1,5 +1,12 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · 9bb755d
+
+Mensaje del commit: Manual: nombre del perfil en el selector en lugar de Perfil N.
+
+- `almacen-usuario.md`, sección **Manual de Usuario**: la lista para elegir perfil muestra el nombre del perfil; el encabezado muestra número y nombre.
+- `compras-usuario.md` y `auditoria-usuario.md`, sección **Manual de Usuario**: el encabezado muestra número y nombre del perfil.
+
 ## 2026-11-18 · 4b6ce2d
 
 Mensaje del commit: Cargas: no aceptar archivos vacíos ni la plantilla sin llenar.
