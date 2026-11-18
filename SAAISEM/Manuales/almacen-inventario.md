@@ -214,28 +214,3 @@ Opciones para mover, consultar y ubicar el inventario.
 
 **Notas:** La tabla muestra **Proyecto**, **CLAVE**, **Presentacion**, **Origen**, **Lote**, **Caducidad**, **Ubicación**, **Piezas**, **Proveedor** y **Bodega**. Con **Descargar Inventario** obtienes el inventario completo en un archivo.
 
-## Etiquetas de Ubicación
-
-**Para qué sirve:** Imprimir en PDF las etiquetas de poste de las ubicaciones.
-
-**Quién la ve:** Perfiles 100, 1, 2, 3 y 5.
-
-**Cómo llegar:** Menú › Inventario › Etiquetas de Ubicación.
-
-**Paso a paso:**
-1. Elige la **Hoja para etiquetas de poste**.
-2. Elige la **Sección** o usa **Buscar clave o ubicación** y da clic en **Buscar**.
-3. Marca las ubicaciones, o usa **Seleccionar todas** / **Quitar selección**.
-4. Da clic en **Generar PDF**.
-
-**Campos:**
-
-| Campo | Qué capturar | Obligatorio |
-|---|---|---|
-| Hoja para etiquetas de poste | Tipo de hoja | Sí |
-| Sección | Sección del almacén | No |
-| Buscar clave o ubicación | Texto a buscar | No |
-
-**Mensajes y errores frecuentes:** **Generar PDF** está desactivado hasta que marcas al menos una ubicación.
-
-**Notas:** Ninguna.

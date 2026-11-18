@@ -1,0 +1,17 @@
+#!/bin/sh
+# Después de cada commit lanza en segundo plano el agente manual-usuario-sialss,
+# que actualiza SAAISEM/Manuales/ con lo que cambió. El commit no espera al agente.
+# Desactivar una vez:  SIALSS_SIN_MANUAL=1 git commit ...
+# Bitácora:            .git/manual-usuario.log
+
+[ -n "$SIALSS_SIN_MANUAL" ] && exit 0
+
+RAIZ=$(git rev-parse --show-toplevel)
+
+# Si el commit solo trae el manual (o el propio hook/agente), no hay nada que documentar.
+CAMBIOS=$(git diff-tree --no-commit-id --name-only -r HEAD | grep -vE '^(SAAISEM/Manuales/|\.githooks/|\.claude/)')
+[ -z "$CAMBIOS" ] && exit 0
+
+nohup sh "$RAIZ/.githooks/generar-manual.sh" >>"$RAIZ/.git/manual-usuario.log" 2>&1 </dev/null &
+echo "Manual de usuario: actualizándose en segundo plano (ver .git/manual-usuario.log)"
+exit 0

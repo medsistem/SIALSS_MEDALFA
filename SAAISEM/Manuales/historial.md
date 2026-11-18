@@ -1,5 +1,14 @@
 # Historial de cambios del manual
 
+## 2026-11-17 · da6c2f8
+
+Mensaje del commit: Carga de Equipos por Excel, ubicaciones de ingreso y etiquetas de poste en 3 columnas.
+
+- `almacen-carga-de-archivos.md`: sección nueva **Carga de Equipos** (perfiles 100, 1, 2, 3 y 5).
+- `almacen-entrada.md`, sección **Entrada de Equipos**: **Ubicación** ahora es una lista de ubicaciones de ingreso que cambia según el proyecto; mensajes nuevos de ubicación.
+- `almacen-inventario.md`: se quitó **Etiquetas de Ubicación**, que pasó al módulo PDF.
+- `almacen-pdf.md`: sección **Etiquetas de Ubicación**, ahora con etiquetas de poste en 3 columnas por hoja.
+
 ## 2026-11-17 · 1c9c276
 
 Mensaje del commit: Entrada de Equipos: empaque por tarimas, cajas y piezas, acuse y marbetes.

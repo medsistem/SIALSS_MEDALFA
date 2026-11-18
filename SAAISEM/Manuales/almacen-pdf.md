@@ -194,6 +194,32 @@ Opciones para reimprimir y administrar documentos: remisiones, movimientos, devo
 
 **Notas:** Esta opción reimprime documentos de las compras (entradas), no de las remisiones de salida; para reimprimir una remisión usa **Administrar Remisiones**. La ventana de corrección de la remisión de la compra existe en la pantalla, pero no tiene un botón que la abra.
 
+## Etiquetas de Ubicación
+
+**Para qué sirve:** Imprimir en PDF las etiquetas de las ubicaciones. Las de poste miden 5 × 4 cm y salen en 3 columnas por hoja.
+
+**Quién la ve:** Perfiles 100, 1, 2, 3 y 5.
+
+**Cómo llegar:** Menú › PDF › Etiquetas de Ubicación.
+
+**Paso a paso:**
+1. Elige la **Hoja para etiquetas de poste**.
+2. Elige la **Sección** o usa **Buscar clave o ubicación** y da clic en **Buscar**.
+3. Marca las ubicaciones, o usa **Seleccionar todas** / **Quitar selección**.
+4. Da clic en **Generar PDF**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Hoja para etiquetas de poste | Tipo de hoja | Sí |
+| Sección | Sección del almacén | No |
+| Buscar clave o ubicación | Texto a buscar | No |
+
+**Mensajes y errores frecuentes:** **Generar PDF** está desactivado hasta que marcas al menos una ubicación.
+
+**Notas:** Las etiquetas de poste se acomodan en 3 columnas, con espacio entre ellas y guías de corte. La lista se llena de arriba abajo en la primera columna, luego la segunda y la tercera, así que se lee en orden por columna.
+
 ## Opciones apagadas
 
 Estas opciones aparecen en el catálogo del menú pero hoy no están disponibles:

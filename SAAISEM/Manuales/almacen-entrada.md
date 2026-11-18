@@ -135,7 +135,7 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 3. Captura el **Código de barras** o da clic en **Generar CB**.
 4. Captura costo, **No. de tarima**, fecha de compra, garantía, accesorios y notas.
 5. En **Empaque**, captura las tarimas completas, las incompletas y el resto. Si lo dejas vacío, entra una pieza. Revisa el **Total de la entrada** (Tarimas, Cajas y Piezas).
-6. Elige **Proyecto**, **Origen**, **Proveedor**, **Ubicación**, y escribe la **Orden de compra** y la **Remisión o factura**.
+6. Elige **Proyecto**, **Origen**, **Proveedor**, **Ubicación** (lista de ubicaciones de ingreso; cambia según el proyecto) y escribe la **Orden de compra** y la **Remisión o factura**.
 7. Da clic en **Guardar entrada**. Para empezar de nuevo, da clic en **Limpiar equipo**.
 8. Al guardar aparecen los botones de formatos de la entrada: **Acuse de entrada**, **Marbetes tarimas completas**, **Marbetes todas las tarimas** y **Marbetes de cajas**. Se abren en una ventana aparte.
 
@@ -159,7 +159,7 @@ Abajo, la tabla **Ordenes cerradas** muestra las órdenes ya cerradas con **No. 
 | Proyecto | Proyecto de la entrada | Sí |
 | Origen | Origen del equipo | Sí |
 | Proveedor | Proveedor que entrega | Sí |
-| Ubicación | Ubicación de destino; el sistema propone NUEVA y debe existir | Sí |
+| Ubicación | Elige una ubicación de ingreso de la lista. Salen las generales y las del **Proyecto** elegido; al cambiar el proyecto la lista se actualiza | Sí |
 | Tarimas (completas) | Número de tarimas completas | No |
 | Cajas por tarima | Cajas que trae cada tarima completa | Solo si hay tarimas completas |
 | Piezas por caja | Piezas que trae cada caja | Solo si hay cajas |
@@ -182,7 +182,8 @@ Los campos de empaque aceptan números enteros de 0 a 9,999,999. El **Total de l
 - "Busque y elija el equipo (clave o descripción).": elige el equipo de la lista de resultados; no basta con escribir.
 - "Elija la marca o escriba una nueva.": elige una marca o captura la nueva.
 - "Elija proyecto, origen y proveedor.": completa los tres.
-- "La ubicación … no existe.": escribe una ubicación registrada.
+- "Elija la ubicación de ingreso.": elige una ubicación de la lista.
+- "La ubicación … no es una ubicación de ingreso activa" o "… es del proyecto …, no del proyecto elegido": elige una ubicación general o del mismo proyecto.
 - "El costo no es un número." / "El costo no puede ser negativo.": corrige el costo.
 - "La fecha de compra no puede ser futura." / "La garantía no puede terminar antes de la fecha de compra.": corrige las fechas.
 - "La serie … ya tiene existencia con la clave …": ese equipo ya está en el almacén; no se puede repetir la serie.

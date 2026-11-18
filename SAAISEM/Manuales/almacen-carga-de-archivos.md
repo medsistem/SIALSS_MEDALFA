@@ -129,3 +129,37 @@ En el Excel son obligatorias Orden de compra, Proveedor, Clave, Cantidad y Proye
 - Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
 
 **Notas:** Si una orden ya estaba cargada para ese proveedor y proyecto, se reemplaza (la revisión te avisa cuántas se reemplazarán). Si un renglón tiene error no se carga nada. Se permiten hasta 5,000 renglones. Compras tiene la misma opción (perfil 13).
+
+## Carga de Equipos
+
+**Para qué sirve:** Registrar desde un Excel la entrada de muchos equipos a la vez, igual que en **Entrada de Equipos**.
+
+**Quién la ve:** Perfiles 100, 1, 2, 3 y 5.
+
+**Cómo llegar:** Menú › Carga de Archivos › Carga de Equipos.
+
+**Paso a paso:** Igual que en **Carga de Inventario**: da clic en **Descargar plantilla**, llénala (un renglón por entrada), elige el archivo, da clic en **Revisar archivo**, escribe tu contraseña y da clic en **Confirmar carga**.
+
+**Campos:**
+
+| Campo | Qué capturar | Obligatorio |
+|---|---|---|
+| Excel (.xlsx o .xls) | Archivo con las columnas de la plantilla (abajo) | Sí |
+| Contraseña | Tu contraseña, para confirmar | Sí |
+
+Columnas del Excel: Clave, Marca, Proyecto, Origen, Proveedor, Ubicación, No. de serie o lote, Código de barras, Modelo, Categoría, Condición, Costo, Fecha de compra, Garantía hasta, Accesorios, Notas, No. de tarima, Tarimas completas, Cajas por tarima, Piezas por caja, Tarimas incompletas, Cajas incompletas, Resto, Orden de compra y Remisión o factura.
+
+Las primeras seis (Clave, Marca, Proyecto, Origen, Proveedor y Ubicación) son obligatorias; las demás son opcionales. Marca y Modelo se capturan con el número o el nombre exacto de la hoja de catálogos (no se dan de alta desde el archivo). Proyecto, Origen y Proveedor llevan el número de esa hoja. La Ubicación debe ser una de ingreso, general o del mismo proyecto del renglón.
+
+**Mensajes y errores frecuentes:**
+- "Renglón N: falta la clave", "la clave … no existe", "falta la marca", "la marca … no existe (hoja Catálogos)", "falta el proyecto", "el proyecto … no existe", "falta el origen", "falta el proveedor": corrige el dato con los catálogos de la plantilla.
+- "la ubicación … no es de ingreso" o "la ubicación … es del proyecto …": usa una ubicación de ingreso general o del proyecto del renglón.
+- "el modelo … no existe (hoja Catálogos)" o "la condición … no es …": usa un valor de la hoja de catálogos.
+- "la fecha de compra no puede ser futura" o "la garantía termina antes de la compra": corrige las fechas.
+- "faltan las cajas por tarima", "faltan las piezas por caja", "faltan las cajas o el resto de las tarimas incompletas": completa el empaque del renglón.
+- "la serie … se repite en el archivo", "la serie … ya tiene existencia con la clave …", "el código de barras … se repite en el archivo" o "ya existe": cambia la serie o el código de barras.
+- "pasa de 10,000,000 de piezas": revisa el empaque.
+- También pueden salir avisos de números inválidos (costo, tarimas, cajas, piezas) o de textos demasiado largos; corrige el dato indicado.
+- Los mensajes de archivo, contraseña y sesión son los mismos que en **Carga de Inventario**.
+
+**Notas:** Se permiten hasta 5,000 renglones. Si un renglón tiene error no se carga nada. La cantidad sale del empaque, como en la Entrada Manual: cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza. Con 1 pieza la columna No. de serie o lote es la serie (no puede repetirse ni tener existencia); con varias piezas es el lote. Si la dejas vacía se usa el código de barras, y si también va vacío se genera uno. Las fechas pueden ser fecha de Excel o texto dd/mm/aaaa. Si dejas vacías la orden de compra y la remisión se usan "EQUIPOS" y "S/R". Los renglones con la misma orden de compra y remisión comparten documento. Al confirmar, el sistema indica los equipos, las piezas y los documentos generados; el acuse y los marbetes están en **Reimpresión de compras** y en **Entrada de Equipos › Últimas entradas**. La plantilla trae dos ejemplos (una pieza con serie y un lote con empaque).
