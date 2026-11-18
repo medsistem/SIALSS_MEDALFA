@@ -228,6 +228,10 @@ public class EquipoDao {
 
             String cb = e.cb() == null ? Folios.siguienteCb(c) : e.cb();
             String serie = e.serie() == null ? cb : e.serie();
+            if (serie.length() > mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE) {
+                throw new Rechazo("El número de serie o lote admite hasta " + mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE
+                        + " caracteres" + (e.serie() == null ? " (sin serie se usa el código de barras, que es más largo)." : "."));
+            }
 
             // Una pieza = número de serie: no puede repetirse con existencia. Varias piezas = lote.
             List<Fila> conSerie = piezas > 1 ? List.of() : Consultas.lista(c,

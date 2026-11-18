@@ -15,7 +15,7 @@
     String tipo = (String) sesion.getAttribute("Tipo");
     String caPagina = "CargaArchivoEquipos";
     String caTitulo = "Carga de equipos";
-    String caDescripcion = "Sube el Excel con los equipos que entran, igual que en Entrada de Equipos: clave, marca, proyecto, origen, proveedor, ubicación de ingreso, serie o lote, empaque (tarimas, cajas y piezas) y sus datos de compra y garantía. Los renglones con la misma orden de compra y remisión comparten documento.";
+    String caDescripcion = "Sube el Excel con los equipos que entran, igual que en Entrada de Equipos: clave, marca, proyecto, origen, proveedor, ubicación de ingreso, serie o lote, empaque (tarimas, cajas y piezas) y sus datos de compra y garantía. Los renglones con la misma orden de compra y remisión comparten documento. Los equipos que ya están cargados o que se repiten en el archivo se omiten: solo se suben los nuevos.";
     String caPlantilla = "La plantilla trae las columnas, dos ejemplos (una pieza con serie y un lote con empaque) y los catálogos de marca, proyecto, origen, proveedor, ubicación, modelo y condición.";
     String[] caColumnas = {"Renglón", "Clave", "Descripción", "Serie o lote", "Piezas", "Marca", "Ubicación", "Proyecto", "OC / remisión"};
 %>

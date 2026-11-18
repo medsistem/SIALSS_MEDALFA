@@ -159,7 +159,7 @@ public class CargaArchivoServlet extends HttpServlet {
             json(res, 200, Map.of("mensaje", mensaje));
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Aplicar carga " + carga.nombre(), e);
-            json(res, 500, Map.of("error", "No se guardó nada: " + e.getMessage()));
+            json(res, 500, Map.of("error", mx.medalfa.sialss.config.ErrorBase.mensaje(e)));
         }
     }
 

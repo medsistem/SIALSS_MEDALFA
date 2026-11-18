@@ -60,10 +60,10 @@ ALMACEN;CATÁLOGOS;Catálogo de Unidades;catalogoUnidades.jsp;1;100,1,2,3,4,5,6
 ALMACEN;USUARIO;Cambio Contraseña;ListaUsuario?Accion=Listausuario;0;100,1,2,3,4,5,6,17
 ALMACEN;USUARIO;Nuevo Usuario;NuevoUsuario.jsp;0;100,1,5
 ALMACEN;USUARIO;Parámetro Facturación;ParametrofacturaU.jsp;0;100,1,2,3,4,5,6,17
-AUDITORIA;ÓRDENES DE COMPRA;Ver OC;verFoliosMedalfaAud.jsp;1;28
-AUDITORIA;CONSULTA;Existencia;hh/ExistenciaProyectoAuditoria.jsp;0;28
-AUDITORIA;CONSULTA;Reporte Fecha Proveedor;ReporteProveedor/ReporteFAuditoria.jsp;0;28
-AUDITORIA;CONSULTA;Reporteador Estadística de Entrega;reportes/ReporteadorAuditoria.jsp;0;28
+AUDITORIA;ÓRDENES DE COMPRA;Ver OC;verFoliosMedalfaAud.jsp;1;100,1,28
+AUDITORIA;CONSULTA;Existencia;hh/ExistenciaProyectoAuditoria.jsp;0;100,1,28
+AUDITORIA;CONSULTA;Reporte Fecha Proveedor;ReporteProveedor/ReporteFAuditoria.jsp;0;100,1,28
+AUDITORIA;CONSULTA;Reporteador Estadística de Entrega;reportes/ReporteadorAuditoria.jsp;0;100,1,28
 COMPRAS;ENTRADA;Entrada Automática ORI;hh/compraAuto3.jsp;0;14
 COMPRAS;ENTRADA;Entrada Manual;captura.jsp;0;14
 COMPRAS;ENTRADA;Verificar OC (ORI);verificarCompraAuto.jsp;0;14
@@ -102,5 +102,5 @@ COMPRAS;CARGA DE ARCHIVOS;Carga de OC;CargaArchivoOC.jsp;0;13
 ALMACEN;USUARIO;Perfiles de Usuario;PerfilesUsuario.jsp;0;100
 ALMACEN;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;100,1,2,3,4,5,6,17
 COMPRAS;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;13,14,15
-AUDITORIA;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;28
+AUDITORIA;USUARIO;Manual de Usuario;ManualUsuario.jsp;0;100,1,28
 ALMACEN;CARGA DE ARCHIVOS;Carga de Equipos;CargaArchivoEquipos.jsp;0;100,1,2,3,5

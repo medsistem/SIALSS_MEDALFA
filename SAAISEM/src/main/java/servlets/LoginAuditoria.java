@@ -1,58 +1,34 @@
 package servlets;
 
 import in.co.sneh.model.Usuario;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 import mx.medalfa.sialss.seguridad.Acceso;
-import mx.medalfa.sialss.seguridad.ServicioAcceso;
 
 /**
- * Inicio de sesión de Auditoría (indexAuditoria.jsp), usuarios de tb_usuarioauditoria.
- * Nota: en sialss_mdf esa tabla no existe; el acceso ya fallaba antes de la migración.
+ * Inicio de sesión de Auditoría (indexAuditoria.jsp): usuarios de tb_usuario con perfil 28 AUDITORIA,
+ * 1 ADMINISTRADOR o 100 SUPERUSUARIO ({@link Acceso#AUDITORIA}). Hereda de {@link login} las reglas de Almacén:
+ * bloqueo a los 3 intentos (cuentan junto con Almacén), sesión única, cambio de contraseña a los 90 días.
  */
 @WebServlet("/LoginAuditoria")
-public class LoginAuditoria extends HttpServlet {
-
-    private static final String PAGINA_LOGIN = "indexAuditoria.jsp";
+public class LoginAuditoria extends login {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        // La pantalla manda el usuario como "usuario"; se acepta también "nombre".
-        String nombre = request.getParameter("usuario") != null ? request.getParameter("usuario") : request.getParameter("nombre");
-        ServicioAcceso.Resultado r = ServicioAcceso.autenticar(request, Acceso.AUDITORIA, nombre, request.getParameter("pass"));
-
-        if (r.estado() != ServicioAcceso.Estado.CORRECTO) {
-            request.getSession(true).setAttribute("mensaje", r.mensaje());
-            response.sendRedirect(PAGINA_LOGIN);
-            return;
-        }
-        Usuario u = r.usuario();
-        HttpSession sesion = r.sesion();
-        sesion.setAttribute("Usuario", u.getUsuario());
-        sesion.setAttribute("nombre", u.getNombre());
-        sesion.setAttribute("Tipo", u.getTipo());
-        sesion.setAttribute("IdUsu", u.getId() + "");
-        sesion.setAttribute("Proyecto", u.getProyecto());
-        sesion.setAttribute("posClave", "0");
-        sesion.setAttribute("tipoIngreso", "compras");
-        if (u.getProyecto() == null || u.getProyecto().isEmpty()) {
-            sesion.setAttribute("mensaje", "No tienes Proyecto asignado");
-            response.sendRedirect(PAGINA_LOGIN);
-        } else {
-            response.sendRedirect("main_menuAuditoria.jsp");
-        }
+    protected Acceso acceso() {
+        return Acceso.AUDITORIA;
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.sendRedirect(PAGINA_LOGIN);
+    protected String nombreUsuario(HttpServletRequest request) {
+        // La pantalla manda el usuario como "usuario"; se acepta también "nombre".
+        String u = request.getParameter("usuario");
+        return u != null ? u : request.getParameter("nombre");
+    }
+
+    @Override
+    protected void completarSesion(HttpSession sesion, Usuario usuario) {
+        // Las pantallas de Auditoría leen el proyecto de "Proyecto" (las de Almacén, de "ProyectoCL").
+        sesion.setAttribute("Proyecto", usuario.getProyecto());
     }
 }

@@ -189,8 +189,8 @@ public final class CargaInventario {
             String lote = v[1];
             if (lote.isEmpty()) {
                 mal.add("falta el lote");
-            } else if (lote.length() > 150) {
-                mal.add("el lote pasa de 150 caracteres");
+            } else if (lote.length() > mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE) {
+                mal.add("el lote pasa de " + mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE + " caracteres");
             }
             LocalDate caducidad = fecha(v[2], "la caducidad", true, mal);
             int cantidad = 0;

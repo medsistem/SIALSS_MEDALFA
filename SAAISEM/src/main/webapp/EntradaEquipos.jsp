@@ -72,7 +72,7 @@
                         </div>
                         <div class="sialss-filtros__campo">
                             <label for="eq-serie" id="eq-serie-etiqueta">No. de serie</label>
-                            <input type="text" class="form-control" id="eq-serie" name="serie" maxlength="150" autocomplete="off"
+                            <input type="text" class="form-control" id="eq-serie" name="serie" maxlength="30" autocomplete="off"
                                    aria-describedby="eq-serie-ayuda">
                             <p class="sialss-filtros__ayuda" id="eq-serie-ayuda">Si no tiene, use "Generar CB": el código queda también como serie.</p>
                         </div>

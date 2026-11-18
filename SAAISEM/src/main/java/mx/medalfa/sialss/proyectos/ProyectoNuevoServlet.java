@@ -106,7 +106,7 @@ public class ProyectoNuevoServlet extends HttpServlet {
                     "proyectos", proyectos()));
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Alta de proyecto", e);
-            json(res, 500, Map.of("error", "No se pudo dar de alta el proyecto; no se guardaron sus datos. Detalle: " + e.getMessage()));
+            json(res, 500, Map.of("error", mx.medalfa.sialss.config.ErrorBase.mensaje(e)));
         }
     }
 

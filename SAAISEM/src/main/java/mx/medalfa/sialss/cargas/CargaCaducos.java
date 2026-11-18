@@ -116,8 +116,8 @@ public final class CargaCaducos implements CargaArchivo {
             String lote = v[2];
             if (lote.isEmpty()) {
                 mal.add("falta el lote");
-            } else if (lote.length() > 150) {
-                mal.add("el lote pasa de 150 caracteres");
+            } else if (lote.length() > mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE) {
+                mal.add("el lote pasa de " + mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE + " caracteres");
             }
             LocalDate caducidad = Excel.fecha(v[3], "la caducidad", true, mal);
             int cantidad = Excel.cantidad(v[4], "la cantidad", mal);

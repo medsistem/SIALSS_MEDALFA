@@ -85,13 +85,13 @@ public class EntradaEquiposServlet extends HttpServlet {
             json(res, 400, Map.of("error", r.getMessage()));
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, "Guardar equipo", ex);
-            json(res, 500, Map.of("error", "No se pudo guardar el equipo: " + ex.getMessage()));
+            json(res, 500, Map.of("error", mx.medalfa.sialss.config.ErrorBase.mensaje(ex)));
         }
     }
 
     private static EquipoDao.Equipo leer(HttpServletRequest r) throws EquipoDao.Rechazo {
         String clave = texto(r, "clave", 30);
-        String serie = texto(r, "serie", 150);
+        String serie = texto(r, "serie", mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE);
         String ubicacion = texto(r, "ubicacion", 40);
         if (clave == null) {
             throw new EquipoDao.Rechazo("Busque y elija el equipo (clave o descripción).");

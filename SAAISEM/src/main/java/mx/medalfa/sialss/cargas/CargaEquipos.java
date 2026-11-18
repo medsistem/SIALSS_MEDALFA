@@ -89,7 +89,8 @@ public final class CargaEquipos implements CargaArchivo {
                         "Marca y Modelo: el número o el nombre exacto de la hoja Catálogos (no se dan de alta desde el archivo).",
                         "Ubicación: una de ingreso (tb_ubicanueva) general o del mismo proyecto del renglón.",
                         "Empaque (como Entrada Manual): cajas = tarimas completas × cajas por tarima + cajas incompletas; piezas = cajas × piezas por caja + resto. Sin empaque entra 1 pieza.",
-                        "Con 1 pieza la columna G es el número de serie (no puede repetirse ni tener existencia); con varias es el lote. Vacía = se usa el código de barras (se genera si también va vacío).",
+                        "Con 1 pieza la columna G es el número de serie; con varias es el lote (hasta 30 caracteres). Vacía = se usa el código de barras (se genera si también va vacío).",
+                        "Los equipos ya cargados (misma clave y serie, lote o código de barras) y los renglones repetidos se omiten: solo se suben los nuevos.",
                         "Fechas: fecha de Excel o texto dd/mm/aaaa. La compra no puede ser futura y la garantía no puede terminar antes de la compra.",
                         "Orden de compra y remisión: vacías = EQUIPOS y S/R. Los renglones con la misma orden y remisión comparten documento: un acuse y sus marbetes en Reimpresión de compras.",
                         "Máximo " + Excel.MAXIMO_RENGLONES + " renglones. Si un renglón tiene error no se carga nada: corrija el archivo y vuelva a subirlo."));
@@ -137,6 +138,7 @@ public final class CargaEquipos implements CargaArchivo {
         List<List<String>> muestra = new ArrayList<>();
         Set<String> seriesArchivo = new HashSet<>();
         Set<String> cbArchivo = new HashSet<>();
+        List<String> omitidos = new ArrayList<>();
         long piezasTotal = 0;
         for (Excel.Renglon cr : crudos) {
             String[] v = cr.v();
@@ -183,7 +185,7 @@ public final class CargaEquipos implements CargaArchivo {
             } else {
                 ubicacion = ubicacionReal.get(v[5].toLowerCase(Locale.ROOT));
             }
-            String serie = texto(v[6], 150, "la serie o lote", mal);
+            String serie = texto(v[6], mx.medalfa.sialss.config.ErrorBase.LARGO_LOTE, "la serie o lote", mal);
             String cb = texto(v[7], 255, "el código de barras", mal);
             String modelo = null;
             if (!v[8].isEmpty()) {
@@ -249,21 +251,38 @@ public final class CargaEquipos implements CargaArchivo {
                 mal.add("pasa de 10,000,000 de piezas");
             }
 
-            // Serie (1 pieza) y código de barras: sin repetir en el archivo ni en la base.
-            if (clave != null && piezas == 1 && serie != null) {
-                if (!seriesArchivo.add(clave + "|" + serie.toLowerCase(Locale.ROOT))) {
-                    mal.add("la serie " + serie + " se repite en el archivo");
-                } else if (!Consultas.lista(c, "SELECT 1 FROM tb_lote WHERE F_ClaPro = ? AND F_ClaLot = ? AND F_ExiLot > 0 LIMIT 1",
-                        clave, serie).isEmpty()) {
-                    mal.add("la serie " + serie + " ya tiene existencia con la clave " + clave);
+            // Repetidos: el equipo (clave + serie/lote o código de barras) que ya está cargado, o que ya apareció
+            // más arriba en el archivo, no se vuelve a subir: se omite con aviso y se cargan solo los nuevos.
+            if (mal.isEmpty() && clave != null) {
+                String porSerie = serie == null ? null : clave + "|" + serie.toLowerCase(Locale.ROOT);
+                String porCb = cb == null ? null : cb.toLowerCase(Locale.ROOT);
+                String motivo = null;
+                if (porSerie != null && seriesArchivo.contains(porSerie) || porCb != null && cbArchivo.contains(porCb)) {
+                    motivo = "se repite en el archivo";
+                } else if ((serie != null || cb != null) && !Consultas.lista(c,
+                        "SELECT 1 FROM tb_equipo e JOIN tb_lote l ON l.F_IdLote = e.F_IdLoteAlta WHERE e.F_ClaPro = ? AND ("
+                                + (serie != null ? "l.F_ClaLot = ?" : "1 = 0") + " OR " + (cb != null ? "l.F_Cb = ?" : "1 = 0") + ") LIMIT 1",
+                        java.util.stream.Stream.of(clave, serie, cb).filter(java.util.Objects::nonNull).toArray()).isEmpty()) {
+                    motivo = "ya está cargado";
+                }
+                if (motivo != null) {
+                    omitidos.add(cr.numero() + " (" + clave + " " + (serie != null ? serie : cb) + ", " + motivo + ")");
+                    continue;
+                }
+                if (porSerie != null) {
+                    seriesArchivo.add(porSerie);
+                }
+                if (porCb != null) {
+                    cbArchivo.add(porCb);
                 }
             }
-            if (cb != null) {
-                if (!cbArchivo.add(cb)) {
-                    mal.add("el código de barras " + cb + " se repite en el archivo");
-                } else if (!Consultas.lista(c, "SELECT 1 FROM tb_lote WHERE F_Cb = ? LIMIT 1", cb).isEmpty()) {
-                    mal.add("el código de barras " + cb + " ya existe");
-                }
+            // Lo que no es el mismo equipo pero choca con la base sigue siendo error.
+            if (clave != null && piezas == 1 && serie != null && !Consultas.lista(c,
+                    "SELECT 1 FROM tb_lote WHERE F_ClaPro = ? AND F_ClaLot = ? AND F_ExiLot > 0 LIMIT 1", clave, serie).isEmpty()) {
+                mal.add("la serie " + serie + " ya tiene existencia con la clave " + clave + " (no es un equipo de esta carga)");
+            }
+            if (cb != null && !Consultas.lista(c, "SELECT 1 FROM tb_lote WHERE F_Cb = ? LIMIT 1", cb).isEmpty()) {
+                mal.add("el código de barras " + cb + " ya es de otro lote");
             }
 
             if (!mal.isEmpty()) {
@@ -285,16 +304,27 @@ public final class CargaEquipos implements CargaArchivo {
         if (!errores.isEmpty()) {
             return new Revision(errores, muestra, "", null);
         }
+        String avisoOmitidos = omitidos.isEmpty() ? "" : " Se omiten " + Texto.cuantos(omitidos.size(), "renglón repetido", "renglones repetidos")
+                + ", que no se vuelven a cargar: " + String.join(", ", omitidos.size() > 30 ? omitidos.subList(0, 30) : omitidos)
+                + (omitidos.size() > 30 ? " y " + (omitidos.size() - 30) + " más." : ".");
+        if (renglones.isEmpty()) {
+            return Revision.conError(crudos.isEmpty() ? "El archivo no tiene renglones."
+                    : "No hay equipos nuevos: todos los renglones ya están cargados o se repiten." + avisoOmitidos);
+        }
         long documentos = renglones.stream().map(CargaEquipos::grupo).distinct().count();
-        String resumen = Texto.cuantos(renglones.size(), "equipo", "equipos") + ", " + Texto.cuantos(piezasTotal, "pieza", "piezas")
-                + ", " + Texto.cuantos(documentos, "documento", "documentos") + " (uno por orden de compra y remisión).";
-        return new Revision(List.of(), muestra, resumen, new ArrayList<>(renglones));
+        String resumen = Texto.cuantos(renglones.size(), "equipo nuevo", "equipos nuevos") + ", " + Texto.cuantos(piezasTotal, "pieza", "piezas")
+                + ", " + Texto.cuantos(documentos, "documento", "documentos") + " (uno por orden de compra y remisión)." + avisoOmitidos;
+        return new Revision(List.of(), muestra, resumen, new Datos(new ArrayList<>(renglones), omitidos.size()));
+    }
+
+    /** Lo que se guarda en la sesión entre revisar y confirmar. */
+    private record Datos(ArrayList<Renglon> renglones, int omitidos) implements java.io.Serializable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public String aplicar(Connection c, Revision r, Usuario u) throws SQLException {
-        List<Renglon> renglones = (List<Renglon>) r.datos();
+        Datos datos = (Datos) r.datos();
+        List<Renglon> renglones = datos.renglones();
         EquipoDao dao = new EquipoDao(c);
         Map<String, Integer> documentos = new LinkedHashMap<>();
         long piezas = 0;
@@ -311,7 +341,7 @@ public final class CargaEquipos implements CargaArchivo {
                 try {
                     piezas += dao.registrar(x.equipo(), u.usuario(), doc).piezas();
                 } catch (EquipoDao.Rechazo ex) {
-                    throw new SQLException("Renglón " + x.numero() + ": " + ex.getMessage());
+                    throw mx.medalfa.sialss.config.ErrorBase.rechazo("Renglón " + x.numero() + ": " + ex.getMessage());
                 }
             }
             c.commit();
@@ -325,7 +355,8 @@ public final class CargaEquipos implements CargaArchivo {
         documentos.forEach((g, d) -> docs.add(d + " (" + g.replace("|", ", remisión ") + ")"));
         return "Se cargaron " + Texto.cuantos(renglones.size(), "equipo", "equipos") + " con " + Texto.cuantos(piezas, "pieza", "piezas")
                 + ". " + (docs.size() == 1 ? "Documento " : "Documentos ") + String.join("; ", docs)
-                + ". El acuse y los marbetes están en Reimpresión de compras y en Entrada de Equipos › Últimas entradas.";
+                + ". El acuse y los marbetes están en Reimpresión de compras y en Entrada de Equipos › Últimas entradas."
+                + (datos.omitidos() == 0 ? "" : " No se volvieron a cargar " + Texto.cuantos(datos.omitidos(), "renglón repetido", "renglones repetidos") + ".");
     }
 
     private static String grupo(Renglon x) {

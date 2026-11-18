@@ -14,25 +14,39 @@ import mx.medalfa.sialss.seguridad.ServicioAcceso;
 /**
  * Inicio de sesión de Almacén (indexalmacen.jsp). Reglas comunes en {@link ServicioAcceso}:
  * bloqueo a los 3 intentos fallidos, sesión nueva al entrar, cierre de la sesión previa.
+ * {@link LoginAuditoria} lo extiende para el acceso de Auditoría (misma tabla tb_usuario).
  */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
-    private static final String PAGINA_LOGIN = "indexalmacen.jsp";
+    /** Acceso que valida este servlet; LoginAuditoria lo cambia y hereda todo lo demás. */
+    protected Acceso acceso() {
+        return Acceso.ALMACEN;
+    }
+
+    /** Datos extra de la sesión propios del acceso (Auditoría agrega los suyos). */
+    protected void completarSesion(HttpSession sesion, Usuario usuario) {
+    }
+
+    /** Campo del usuario en el formulario. */
+    protected String nombreUsuario(HttpServletRequest request) {
+        return request.getParameter("nombre");
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ServicioAcceso.Resultado r = ServicioAcceso.autenticar(request, Acceso.ALMACEN,
-                request.getParameter("nombre"), request.getParameter("pass"));
+        ServicioAcceso.Resultado r = ServicioAcceso.autenticar(request, acceso(),
+                nombreUsuario(request), request.getParameter("pass"));
 
         if (r.estado() != ServicioAcceso.Estado.CORRECTO) {
             request.getSession(true).setAttribute("mensaje", r.mensaje());
-            response.sendRedirect(PAGINA_LOGIN);
+            response.sendRedirect(acceso().paginaLogin);
             return;
         }
         HttpSession sesion = r.sesion();
         llenarSesion(sesion, r.usuario());
+        completarSesion(sesion, r.usuario());
         if (r.diasContrasena() == null || r.diasContrasena() > 90) {
             response.sendRedirect("Password/EditaPasswordUsuario.jsp");
             return;
@@ -40,10 +54,10 @@ public class login extends HttpServlet {
         if (r.cerroOtraSesion()) {
             sesion.setAttribute("mensaje", "Se cerró otra sesión que estaba activa");
         }
-        if ("27".equals(r.usuario().getTipo())) {
+        if (acceso() == Acceso.ALMACEN && "27".equals(r.usuario().getTipo())) {
             response.sendRedirect("consulta/isem.jsp?clues=&clave=&tipo=&fecha_ini=&fecha_fin=&pagina=");
         } else {
-            response.sendRedirect("main_menu.jsp");
+            response.sendRedirect(acceso().menu);
         }
     }
 
@@ -63,7 +77,7 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(PAGINA_LOGIN);
+        response.sendRedirect(acceso().paginaLogin);
     }
 
     @Override
@@ -74,6 +88,6 @@ public class login extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Inicio de sesión de Almacén";
+        return "Inicio de sesión de " + acceso();
     }
 }

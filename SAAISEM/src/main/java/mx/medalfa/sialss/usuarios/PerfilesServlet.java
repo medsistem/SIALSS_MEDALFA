@@ -99,7 +99,7 @@ public class PerfilesServlet extends HttpServlet {
             json(res, 400, Map.of("error", "Perfil no válido."));
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Guardar perfil", e);
-            json(res, 500, Map.of("error", "No se guardó: " + e.getMessage()));
+            json(res, 500, Map.of("error", mx.medalfa.sialss.config.ErrorBase.mensaje(e)));
         }
     }
 

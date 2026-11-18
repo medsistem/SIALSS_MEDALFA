@@ -198,7 +198,7 @@ public final class CargaOC implements CargaArchivo {
                 recibidos.setInt(3, x.proyecto());
                 try (var rs = recibidos.executeQuery()) {
                     if (rs.next() && rs.getInt(1) > 0) {
-                        throw new SQLException("La orden " + x.orden() + " recibió piezas mientras se revisaba el archivo.");
+                        throw mx.medalfa.sialss.config.ErrorBase.rechazo("La orden " + x.orden() + " recibió piezas mientras se revisaba el archivo.");
                     }
                 }
                 borrar.setString(1, x.orden());

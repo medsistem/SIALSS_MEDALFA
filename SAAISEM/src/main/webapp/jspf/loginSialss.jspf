@@ -2,6 +2,7 @@
      La página que lo incluye define antes, con estos nombres exactos:
        String loginModulo  -> "Almacén", "Compras", "Auditoría" (lema bajo SIALSS y título de la pestaña)
        String loginAccion  -> servlet que valida ("login", "loginISEM", "LoginAuditoria")
+     Arriba de "Iniciar sesión" va el selector Almacén · Compras · Auditoría (marca el actual por loginModulo).
        String loginCampo   -> nombre del campo de usuario que espera ese servlet ("nombre" o "usuario")
      Al mostrarse cierra la sesión anterior (sirve también como "Cerrar sesión"). --%>
 <%@ page pageEncoding="UTF-8" %>
@@ -24,7 +25,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIALSS <%=loginModulo%> · Iniciar sesión</title>
-        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.16" rel="stylesheet">
+        <link href="<%=ctxLogin%>/css/sialss-app.css?v=2.0.17" rel="stylesheet">
     </head>
     <body class="sialss-login-pagina">
         <!-- Fondo animado: cadena de suministro de medicamento y material de curación -->
@@ -39,6 +40,13 @@
                     <p class="sialss-login__lema">Administración y logística para servicios de salud · <%=loginModulo%></p>
                 </div>
             </div>
+            <nav class="sialss-login__accesos" aria-label="Cambiar de módulo">
+                <% String[][] accesosLogin = {{"Almacén", "indexalmacen.jsp"}, {"Compras", "indexCompras.jsp"}, {"Auditoría", "indexAuditoria.jsp"}};
+                   for (String[] a : accesosLogin) {
+                       boolean actual = a[0].equals(loginModulo); %>
+                <a href="<%=ctxLogin%>/<%=a[1]%>"<%= actual ? " aria-current=\"page\"" : "" %>><%=a[0]%></a>
+                <% } %>
+            </nav>
             <h1 id="titulo-login">Iniciar sesión</h1>
             <p class="sialss-secundario">Use el usuario que le asignó el departamento de sistemas.</p>
 

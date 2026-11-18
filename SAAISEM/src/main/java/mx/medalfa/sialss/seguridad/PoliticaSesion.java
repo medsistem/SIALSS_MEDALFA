@@ -31,6 +31,9 @@ public final class PoliticaSesion {
     public static final String MENSAJE_BLOQUEADO =
             "Su usuario está bloqueado. Comuníquese con el administrador del sistema para desbloquearlo.";
 
+    public static final String MENSAJE_PERFIL_ACCESO =
+            "Su usuario no tiene el perfil de este acceso. Entre por el acceso que le corresponde.";
+
     public static final String MENSAJE_PERFIL_SUSPENDIDO =
             "Su perfil de usuario está suspendido. Comuníquese con el administrador del sistema.";
 

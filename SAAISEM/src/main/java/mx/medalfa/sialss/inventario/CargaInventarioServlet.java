@@ -149,7 +149,7 @@ public class CargaInventarioServlet extends HttpServlet {
             json(res, 200, m);
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Aplicar carga de inventario", e);
-            json(res, 500, Map.of("error", "No se guardó nada: " + e.getMessage()));
+            json(res, 500, Map.of("error", mx.medalfa.sialss.config.ErrorBase.mensaje(e)));
         }
     }
 
