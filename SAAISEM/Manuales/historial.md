@@ -1,5 +1,13 @@
 # Historial de cambios del manual
 
+## 2026-11-18 · 9ab1ac5
+
+Mensaje del commit: Cargas: vista previa de 50 en 50 con desplazamiento.
+
+- `almacen-carga-de-archivos.md`: nuevo apartado general **Vista previa por páginas** (50 renglones por página, botones de página, tope de 5,000 renglones en la vista previa) y ajuste del paso 3 de **Carga de Inventario**.
+- `compras-carga-de-archivos.md`, sección **Carga de OC**: la vista previa ya no se limita a 200 renglones; se muestra por páginas de 50.
+- El resto de los archivos cambiados (versión de la hoja de estilos en las demás pantallas) no afecta lo que ve el usuario.
+
 ## 2026-11-18 · 1ca830f
 
 Mensaje del commit: Tablas: DataTables ya no desaparece junto a columnas flotantes.

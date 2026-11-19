@@ -11,7 +11,7 @@
 **Paso a paso:**
 1. Da clic en **Descargar plantilla**. Trae las columnas, un ejemplo y los catálogos de proveedores y proyectos.
 2. Llena tu Excel con un renglón por orden y clave, y elígelo en **Excel (.xlsx o .xls)**.
-3. Da clic en **Revisar archivo**. Consulta la **Vista previa** (primeros 200 renglones válidos) y corrige tu Excel si aparecen errores.
+3. Da clic en **Revisar archivo**. Consulta la **Vista previa** (renglones válidos, de 50 en 50; usa **Siguiente ›** y **‹ Anterior** para cambiar de página) y corrige tu Excel si aparecen errores.
 4. Escribe tu contraseña en **2. Para confirmar, escribe tu contraseña**.
 5. Da clic en **Confirmar carga**. Si ya no quieres seguir, da clic en **Cancelar carga**.
 

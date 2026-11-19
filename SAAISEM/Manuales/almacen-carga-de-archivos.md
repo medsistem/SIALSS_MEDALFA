@@ -4,6 +4,8 @@ Todas las cargas se hacen con un archivo de Excel y siguen el mismo modelo: prim
 
 **Renglones repetidos:** ninguna carga duplica información. Si un renglón ya está cargado, o se repite más arriba en el mismo archivo, **no es un error**: la revisión lo omite y carga solo lo nuevo. Verás el aviso "Se omite 1 renglón repetido" (o "Se omiten N renglones repetidos") con la opción **Ver la lista**, que indica el renglón y el motivo. Al confirmar, el mensaje final dice cuántos renglones repetidos no se cargaron. Si todos los renglones están repetidos, verás un aviso "No hay … nuevos … No se guardó nada." y no hay nada que confirmar.
 
+**Vista previa por páginas:** al revisar un archivo, la **Vista previa** muestra los renglones válidos de 50 en 50, dentro de un recuadro con desplazamiento. Debajo aparece el rango ("Renglones 1–50 de N") y los botones **« Primera**, **‹ Anterior**, **Siguiente ›** y **Última »** con el número de página. Los botones solo aparecen si hay más de una página. La vista previa muestra como máximo los primeros 5,000 renglones; si el archivo llega a ese tope, el aviso lo indica y, al confirmar, se cargan todos los renglones.
+
 **Archivos vacíos y renglones de ejemplo:** la plantilla trae uno o más renglones de ejemplo. Si los dejas tal cual en tu archivo, **no se cargan** (puedes borrarlos o dejarlos). Tampoco se aceptan archivos sin datos. Estos son los avisos:
 - "El archivo NOMBRE está vacío (0 bytes). Elige el Excel con tus datos.": el archivo no tiene contenido; elige el Excel correcto.
 - "El archivo está vacío: no tiene hojas. Use la plantilla y vuelva a subirlo.": el Excel no tiene ninguna hoja.
@@ -23,7 +25,7 @@ En estos casos no se guarda nada.
 **Paso a paso:**
 1. Da clic en **Descargar plantilla** si necesitas el formato.
 2. Elige tu archivo en **Excel (.xlsx o .xls)**.
-3. Da clic en **Revisar archivo**. Consulta la **Vista previa** y corrige tu Excel si hay observaciones.
+3. Da clic en **Revisar archivo**. Consulta la **Vista previa** (se muestra de 50 en 50 renglones; usa **Siguiente ›** y **‹ Anterior** para cambiar de página) y corrige tu Excel si hay observaciones.
 4. Escribe tu contraseña en **2. Para confirmar, escribe tu contraseña**.
 5. Da clic en **Confirmar carga**. Si ya no quieres seguir, da clic en **Cancelar carga**.
 
