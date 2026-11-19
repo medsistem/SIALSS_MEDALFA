@@ -63,13 +63,23 @@
         Logger.getLogger("GeneraMarbeteManual.jsp").log(Level.SEVERE, "No se pudo generar el marbete manual", e);
         // Antes el error se tragaba y el usuario veía una página en blanco.
         if (!response.isCommitted()) {
+            // Jasper envuelve el error real (por ejemplo "Unknown column ... in field list" o
+            // "PROCEDURE ... does not exist"); se muestra la causa más interna, que es la útil.
+            Throwable causa = e;
+            while (causa.getCause() != null && causa.getCause() != causa) {
+                causa = causa.getCause();
+            }
+            String detalle = String.valueOf(e.getMessage());
+            if (causa != e && causa.getMessage() != null) {
+                detalle = detalle + " | Causa: " + causa.getMessage();
+            }
             response.setContentType("text/html;charset=UTF-8");
             out.clearBuffer();
             out.print("<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"UTF-8\"><title>Marbete manual</title></head>"
                     + "<body style=\"font-family:Arial,sans-serif;padding:24px\"><h3>No se pudo generar el marbete</h3>"
                     + "<p>Revise que el proyecto, el producto y el lote sean correctos. Si el problema sigue, avise a sistemas.</p>"
                     + "<p style=\"color:#666;font-size:12px\">Detalle: "
-                    + String.valueOf(e.getMessage()).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                    + detalle.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                     + "</p></body></html>");
         }
     } finally {
