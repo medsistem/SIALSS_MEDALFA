@@ -1,5 +1,18 @@
 # Historial de cambios del manual
 
+## 2026-11-19 · 87b9de8
+
+Mensaje del commit: Despliegue: menu_roles_tablas.sql regenerado con las 105 opciones del menú actual.
+
+- Sin cambios visibles para el usuario: solo se regeneró el script de despliegue de las tablas del menú.
+
+## 2026-11-19 · 270057d
+
+Mensaje del commit: Manuales: carga de archivos e historial actualizados, PDF por perfil regenerados (el rango incluye e91891a: Marbete Manual: selects encadenados, diseño nuevo y procedimiento con F_tarima).
+
+- `almacen-pdf.md`, sección **Marbete Manual**: las listas de **Producto** y **Lote** ahora dependen del proyecto y la clave elegidos; nuevos avisos; nota con el contenido del nuevo diseño del marbete (equipo y detalle de componentes con tarima).
+- El resto de los archivos del rango (manuales y PDF ya generados, script de base de datos) no afecta lo que ve el usuario.
+
 ## 2026-11-18 · 9ab1ac5
 
 Mensaje del commit: Cargas: vista previa de 50 en 50 con desplazamiento.

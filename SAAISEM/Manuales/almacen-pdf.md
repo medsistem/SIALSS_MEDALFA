@@ -109,15 +109,15 @@ Opciones para reimprimir y administrar documentos: remisiones, movimientos, devo
 
 ## Marbete Manual
 
-**Para qué sirve:** Generar un marbete a mano.
+**Para qué sirve:** Generar en PDF el marbete de un equipo, con el detalle de los componentes (lotes) que lo integran.
 
 **Quién la ve:** Perfiles 100 y 1.
 
 **Cómo llegar:** Menú › PDF › Marbete Manual.
 
 **Paso a paso:**
-1. En **Criterios de Búsqueda**, elige el **Proyecto**.
-2. Elige el **Producto** (la clave).
+1. En **Criterios de Búsqueda**, elige el **Proyecto**. La lista de **Producto** se activa con las claves de ese proyecto que tienen lotes.
+2. Elige el **Producto** (aparece como clave y descripción). La lista de **Lote** se activa con los lotes de esa clave en el proyecto.
 3. Elige el **Lote**.
 4. Da clic en **Generar Marbetes**. El marbete se abre en una pestaña nueva.
 
@@ -126,14 +126,17 @@ Opciones para reimprimir y administrar documentos: remisiones, movimientos, devo
 | Campo | Qué capturar | Obligatorio |
 |---|---|---|
 | Proyecto | Proyecto del insumo | Sí |
-| Producto | Clave del insumo | Sí |
-| Lote | Lote del insumo | Sí |
+| Producto | Clave del insumo (solo claves con lotes en el proyecto) | Sí |
+| Lote | Lote del insumo (solo lotes de la clave y el proyecto elegidos) | Sí |
 
 **Mensajes y errores frecuentes:**
 - "Selecciona proyecto, producto y lote antes de generar el marbete.": elige los tres datos.
-- Antes de generar el marbete puede aparecer un aviso con el proyecto, la clave y el lote elegidos; ciérralo para continuar.
+- "Este proyecto no tiene claves con lotes." / "Esta clave no tiene lotes en el proyecto.": elige otro proyecto o clave.
+- "No se pudo cargar el catálogo. Intente de nuevo.": vuelve a elegir; si persiste, avisa a sistemas.
+- "La sesión terminó. Vuelva a iniciar sesión.": entra de nuevo al sistema.
+- "No se pudo generar el marbete": revisa que proyecto, producto y lote sean correctos; si sigue, avisa a sistemas.
 
-**Notas:** La lista de **Lote** muestra todos los lotes, no solo los de la clave elegida; asegúrate de elegir el lote que corresponde al producto.
+**Notas:** Las listas son encadenadas: cada una depende de la anterior, y si cambias el proyecto o la clave se reinician las siguientes. Si solo hay una opción, se elige sola. Las listas permiten escribir para buscar. El marbete (formato MDF-OPE-F26, "Marbete de Equipo") muestra clave, número de serie, cantidad, nombre, marca, modelo, tarimas, ubicación, observaciones y un código QR con los datos del equipo. Incluye una tabla con el equipo principal y los lotes del mismo proyecto cuya clave y lote contienen los del equipo elegido (por ejemplo, de RXF / 29 se incluyen RXF-BP / 18-29), con **Tarima**, **Clave**, **Nombre**, **Modelo** y **No. Serie**.
 
 ## Múltiples Remisiones/Recalendarizar
 
