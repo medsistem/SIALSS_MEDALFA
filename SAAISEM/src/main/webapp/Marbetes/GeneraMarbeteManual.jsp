@@ -20,19 +20,19 @@
 
     if (sesion.getAttribute("nombre") != null) {
     } else {
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("../index.jsp");
+        return;
     }
-    
+
     try {
-        con.conectar();
         Connection conexion;
         con.conectar();
         conexion = con.getConn();
         
         String Clave = request.getParameter("clave");
         String Lote = request.getParameter("lote");
-       int Proyecto = Integer.parseInt(request.getParameter("Proyecto"));
-       // int Proyecto = Integer.parseInt(request.getParameter("proyectoF"));
+        // El reporte declara Proyecto como java.lang.String: con un Integer Jasper rechaza el parámetro.
+        String Proyecto = String.valueOf(Integer.parseInt(request.getParameter("Proyecto")));
         
         System.out.println("Marbete jasper: "+Clave+"/"+Lote+"/" +Proyecto);
 
@@ -48,6 +48,7 @@
         parameters.put("Clave", Clave);
         parameters.put("Lote", Lote);
         parameters.put("Proyecto", Proyecto);
+        parameters.put("Logo", application.getRealPath("/reportes/image/LogoMedalfa.png"));
 
         /*Enviamos la ruta del reporte, los parámetros y la conexión(objeto Connection)*/
         byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parameters, conexion);
@@ -59,8 +60,18 @@
         ouputStream.close();
 
     } catch (Exception e) {
-        Logger.getLogger("GeneraMarbeteManual.jsp").log(Level.SEVERE, null, e);
-        e.getMessage();
+        Logger.getLogger("GeneraMarbeteManual.jsp").log(Level.SEVERE, "No se pudo generar el marbete manual", e);
+        // Antes el error se tragaba y el usuario veía una página en blanco.
+        if (!response.isCommitted()) {
+            response.setContentType("text/html;charset=UTF-8");
+            out.clearBuffer();
+            out.print("<!DOCTYPE html><html lang=\"es\"><head><meta charset=\"UTF-8\"><title>Marbete manual</title></head>"
+                    + "<body style=\"font-family:Arial,sans-serif;padding:24px\"><h3>No se pudo generar el marbete</h3>"
+                    + "<p>Revise que el proyecto, el producto y el lote sean correctos. Si el problema sigue, avise a sistemas.</p>"
+                    + "<p style=\"color:#666;font-size:12px\">Detalle: "
+                    + String.valueOf(e.getMessage()).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                    + "</p></body></html>");
+        }
     } finally {
         try {
             con.cierraConexion();

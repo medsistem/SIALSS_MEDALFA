@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Marbete" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="ac5afa2b-dbeb-4948-9e26-5043590070db">
-	<property name="ireport.zoom" value="2.357947691000002"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SAA"/>
-	<style name="table">
+<!--
+  Marbete manual de equipo (MDF-OPE-F26). Datos: procedimiento MarbeteManual(clave, lote, proyecto).
+  Rediseño 19/11/2026: encabezado con logo y fecha, datos del equipo en recuadros, QR a la derecha,
+  observaciones resaltadas y tabla de componentes con encabezado de color y renglones alternados.
+  El contenido del QR no cambió.
+  Parámetro opcional Logo: ruta absoluta del logo (GeneraMarbeteManual.jsp la manda); sin él no se dibuja.
+-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MarbeteManual" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="16" whenNoDataType="AllSectionsNoDetail" whenResourceMissingType="Empty" uuid="ac5afa2b-dbeb-4948-9e26-5043590070db">
+	<style name="base" isDefault="true" fontName="SansSerif" fontSize="8" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="etiqueta" style="base" forecolor="#5F6B6A" fontSize="7" pdfFontName="Helvetica-Bold" isBold="true"/>
+	<style name="valor" style="base" forecolor="#1B2A29" fontSize="14" pdfFontName="Helvetica-Bold" isBold="true"/>
+	<style name="recuadro" style="base">
 		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
+			<pen lineWidth="0.75" lineColor="#B9C7C5"/>
 		</box>
+	</style>
+	<style name="encabezadoTabla" style="base" mode="Opaque" forecolor="#FFFFFF" backcolor="#0F6E66" fontSize="8" pdfFontName="Helvetica-Bold" isBold="true">
+		<box>
+			<pen lineWidth="0.5" lineColor="#0F6E66"/>
+		</box>
+	</style>
+	<style name="celda" style="base" mode="Opaque" backcolor="#FFFFFF" fontSize="8">
+		<box>
+			<pen lineWidth="0.5" lineColor="#C9D4D2"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}.intValue() % 2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEF5F4"/>
+		</conditionalStyle>
+	</style>
+	<style name="celdaPrincipal" style="celda">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F_ClaProclaveDad} != null && $F{F_ClaProclaveDad}.equals($F{clave})]]></conditionExpression>
+			<style pdfFontName="Helvetica-Bold" isBold="true"/>
+		</conditionalStyle>
 	</style>
 	<parameter name="Clave" class="java.lang.String"/>
 	<parameter name="Lote" class="java.lang.String"/>
 	<parameter name="Proyecto" class="java.lang.String"/>
+	<parameter name="Logo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[CALL MarbeteManual($P{Clave},$P{Lote},$P{Proyecto})]]>
 	</queryString>
@@ -45,248 +63,296 @@
 	<field name="F_TarimaDad" class="java.lang.String"/>
 	<field name="F_ClaLotDad" class="java.lang.String"/>
 	<field name="F_observacionDad" class="java.lang.String"/>
-	<variable name="v_lotes" class="java.lang.String" resetType="Group" resetGroup="GrupoPartida">
-		<variableExpression><![CDATA[($V{v_lotes} == null || $V{v_lotes}.length() == 0 ? "" : $V{v_lotes} + "\n\n")
-        + " " + ($F{row_number} == null ? "" : $F{row_number})
-        + "  " + ($F{F_ClaProclaveDad} == null ? "" : $F{F_ClaProclaveDad})
-        + "  " + ($F{F_DesProDesProDad} == null ? "" : $F{F_DesProDesProDad})
-        + "  " + ($F{F_DesModeloDad} == null ? "" : $F{F_DesModeloDad})]]></variableExpression>
-		<initialValueExpression><![CDATA[""]]></initialValueExpression>
-	</variable>
-	<group name="GrupoPartida" keepTogether="true">
-		<groupExpression><![CDATA[String.valueOf($F{row_number}) + "|" + String.valueOf($F{clave})]]></groupExpression>
-		<groupHeader>
-			<band/>
-		</groupHeader>
-		<groupFooter>
-			<band height="18">
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="73951a9c-382e-48a4-a2f4-1620019c5b23" style="table" x="0" y="0" width="33" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{row_number}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="c321e46e-99f7-4718-9e3d-52844c28179d" style="table" x="33" y="0" width="67" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{F_TarimaDad}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="4dcad4ef-0304-4502-a529-34eee89d2e71" style="table" x="100" y="0" width="106" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{F_ClaProclaveDad}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="11335df0-e21f-4867-af69-ed63d57665dc" style="table" x="206" y="0" width="246" height="18"/>
+	<title>
+		<band height="276" splitType="Prevent">
+			<!-- Encabezado -->
+			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000001" x="0" y="0" width="150" height="30">
+					<printWhenExpression><![CDATA[$P{Logo} != null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{Logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000002" style="base" x="170" y="-2" width="410" height="24" forecolor="#0F6E66"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[MARBETE DE EQUIPO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000003" style="base" x="170" y="21" width="410" height="13" forecolor="#5F6B6A"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Proyecto: " + ($F{proyecto} == null ? "" : $F{proyecto})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000004" style="base" x="580" y="0" width="172" height="16" forecolor="#1B2A29"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[MDF-OPE-F26]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000005" style="base" x="580" y="16" width="172" height="14" forecolor="#5F6B6A"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Impreso: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000006" x="0" y="35" width="752" height="1" forecolor="#0F6E66"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<!-- Datos del equipo (columna izquierda, 520 de ancho) -->
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000101" style="recuadro" x="0" y="44" width="150" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000102" style="etiqueta" x="6" y="4" width="138" height="10"/>
+					<text><![CDATA[CLAVE]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000103" style="valor" x="6" y="14" width="138" height="26"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-						<paragraph leftIndent="2"/>
+						<font size="15"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{F_DesProDesProDad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="022af0f8-91eb-4ce8-8a5a-0ee60ae362e7" style="table" x="452" y="0" width="161" height="18"/>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000104" style="recuadro" x="150" y="44" width="230" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000105" style="etiqueta" x="6" y="4" width="218" height="10"/>
+					<text><![CDATA[NO. SERIE]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000106" style="valor" x="6" y="14" width="218" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000107" style="recuadro" x="380" y="44" width="140" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000108" style="etiqueta" x="6" y="4" width="128" height="10"/>
+					<text><![CDATA[CANTIDAD]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000109" style="valor" x="6" y="14" width="128" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000110" style="recuadro" x="0" y="86" width="520" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000111" style="etiqueta" x="6" y="4" width="508" height="10"/>
+					<text><![CDATA[NOMBRE]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000112" style="valor" x="6" y="14" width="508" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000113" style="recuadro" x="0" y="128" width="200" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000114" style="etiqueta" x="6" y="4" width="188" height="10"/>
+					<text><![CDATA[MARCA]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000115" style="valor" x="6" y="14" width="188" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000116" style="recuadro" x="200" y="128" width="320" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000117" style="etiqueta" x="6" y="4" width="308" height="10"/>
+					<text><![CDATA[MODELO]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000118" style="valor" x="6" y="14" width="308" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{F_Modelo}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000119" style="recuadro" x="0" y="170" width="200" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000120" style="etiqueta" x="6" y="4" width="188" height="10"/>
+					<text><![CDATA[TARIMAS]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000121" style="valor" x="6" y="14" width="188" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tarima}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000122" style="recuadro" x="200" y="170" width="320" height="42"/>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000123" style="etiqueta" x="6" y="4" width="308" height="10"/>
+					<text><![CDATA[UBICACIÓN]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000124" style="valor" x="6" y="14" width="308" height="26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ubicacion}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<!-- QR grande a la derecha (mismo contenido que la versión anterior) -->
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000125" style="recuadro" x="528" y="44" width="224" height="224"/>
+				<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000126" x="4" y="2" width="216" height="208"/>
+					<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+    new com.google.zxing.qrcode.QRCodeWriter().encode(
+        $F{clave}+"|"+$F{lote}+"|"+$F{caducidad}+"|"+$F{cantidad}
+        +"|"+$F{F_Cb}+"||"+$F{ubicacion}+"|"+$F{fabrica}+"|"+$F{marca}
+        +"|"+$F{proyecto}+"|"+$F{nombre}+"|"+$F{origen}+"|"+$F{F_Modelo}+"|"+$F{observa},com.google.zxing.BarcodeFormat.QR_CODE, 600, 600
+    )
+)]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000127" style="base" x="0" y="210" width="224" height="12" forecolor="#5F6B6A"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
+						<font size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{F_DesModeloDad}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="deb65569-7551-4372-acf2-22c05290949a" style="table" x="613" y="0" width="137" height="18"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
+					<text><![CDATA[Datos del equipo en código QR]]></text>
+				</staticText>
+			</frame>
+			<!-- Observaciones -->
+			<frame>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000128" mode="Opaque" x="0" y="220" width="520" height="48" backcolor="#FFF4D6">
+					<printWhenExpression><![CDATA[$F{observa} != null && $F{observa}.trim().length() > 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75" lineColor="#E0A800"/>
+					<leftPen lineWidth="4.0" lineColor="#E0A800"/>
+				</box>
+				<staticText>
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000129" style="etiqueta" x="10" y="4" width="300" height="10" forecolor="#8A6100"/>
+					<text><![CDATA[OBSERVACIONES]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000130" style="base" x="10" y="14" width="504" height="32" forecolor="#3D2E00"/>
+					<textElement verticalAlignment="Top">
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{F_ClaLotDad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{observa}.trim()]]></textFieldExpression>
 				</textField>
-			</band>
-		</groupFooter>
-	</group>
-	<pageHeader>
-		<band height="115">
-			<staticText>
-				<reportElement uuid="031b2931-e75a-406a-b9c0-1b49a1f3e42c" x="0" y="0" width="100" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Tarimas:]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="b9bdb145-88c1-473a-a0a7-2f1274fa60c4" x="100" y="0" width="255" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tarima}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="32b90b03-4326-4999-853e-e19e1348ac95" x="355" y="0" width="120" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Clave:]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="848f9e9e-2ed9-44dd-80b5-b9a6f5f37717" x="475" y="0" width="277" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="c8459dc4-5cbe-4b66-801f-c28fca29075c" x="0" y="23" width="100" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Marca:]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="477bc50d-941c-4f2e-8016-31fe3bee1118" x="100" y="23" width="257" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="3d3303ed-9b60-4ea9-bbd6-c71f617fdcd9" x="100" y="46" width="255" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{F_Modelo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="9b8b5e8e-1bf4-4a00-9f3e-518f0f8a3447" x="0" y="46" width="100" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Modelo:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="0250b1a5-ce25-4e5f-957f-f7f28fa41403" x="355" y="23" width="120" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[No. Serie:]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="2db13673-d14f-4158-b4c7-ce844736a338" x="475" y="23" width="277" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="97640192-faa5-400f-9ee4-12fc8e83dfe7" x="100" y="69" width="652" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="0d2f226c-5ed5-45b9-929a-e15d595227d1" x="0" y="69" width="100" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Nombre:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="31fb7bcd-49dd-4ba0-a352-382f9a4fe959" positionType="Float" x="355" y="46" width="120" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="20"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<text><![CDATA[Cantidad:]]></text>
-			</staticText>
-			<textField pattern="#,##0">
-				<reportElement uuid="05b34e54-71e4-47b5-8862-bd51f6c7eef7" positionType="Float" x="475" y="46" width="275" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="80b2a3a0-77f2-4797-b64c-d498f2b13c86" x="0" y="92" width="652" height="23"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18"/>
-					<paragraph firstLineIndent="2" leftIndent="2"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{observa}]]></textFieldExpression>
-			</textField>
+			</frame>
 		</band>
-	</pageHeader>
+	</title>
 	<columnHeader>
-		<band height="20">
+		<band height="20" splitType="Prevent">
 			<staticText>
-				<reportElement uuid="19f92293-4ff2-4a6f-aaef-8cda1140bbae" style="table" x="0" y="0" width="33" height="20"/>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000070" style="encabezadoTabla" x="0" y="0" width="34" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7c456b7b-52e7-4e4b-97a5-f05b426eea68" style="table" x="33" y="0" width="67" height="20"/>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000071" style="encabezadoTabla" x="34" y="0" width="96" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[TARIMA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ccef8048-d89a-4a19-a5a4-af2c75b3ff0a" style="table" x="206" y="0" width="246" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[NOMBRE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6fa39cda-a53e-404c-94de-5f981fd17dd8" style="table" x="452" y="0" width="161" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[MODELO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="886f321c-1638-40da-8f99-7f2c6aa94fd1" style="table" x="613" y="0" width="137" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[No. SERIE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="291393b2-3708-41e0-80d5-b1b25c929dff" style="table" x="100" y="0" width="106" height="20"/>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000072" style="encabezadoTabla" x="130" y="0" width="80" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[CLAVE]]></text>
 			</staticText>
-		</band>
-	</columnHeader>
-	<lastPageFooter>
-		<band height="18">
 			<staticText>
-				<reportElement uuid="e257f5d5-99e7-4c10-b29a-9d0e41255ff9" x="658" y="0" width="94" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000073" style="encabezadoTabla" x="210" y="0" width="220" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="6"/>
 				</textElement>
-				<text><![CDATA[MDF-OPE-F26]]></text>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000074" style="encabezadoTabla" x="430" y="0" width="190" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="6"/>
+				</textElement>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000075" style="encabezadoTabla" x="620" y="0" width="132" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NO. SERIE]]></text>
 			</staticText>
 		</band>
-	</lastPageFooter>
-	<summary>
-		<band height="209">
-			<image hAlign="Center">
-				<reportElement uuid="fd8bb583-20f2-4383-88ba-fedab779e4e7" x="221" y="1" width="323" height="208" isPrintWhenDetailOverflows="true"/>
-				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
-    new com.google.zxing.qrcode.QRCodeWriter().encode(
-        $F{clave}+"|"+$F{lote}+"|"+$F{caducidad}+"|"+$F{cantidad}
-        +"|"+$F{F_Cb}+"||"+$F{ubicacion}+"|"+$F{fabrica}+"|"+$F{marca}
-        +"|"+$F{proyecto}+"|"+$F{nombre}+"|"+$F{origen}+"|"+$F{F_Modelo}+"|"+$F{observa},com.google.zxing.BarcodeFormat.QR_CODE, 300, 300
-    )
-)]]></imageExpression>
-			</image>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000080" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="0" y="0" width="34" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{row_number}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000081" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="34" y="0" width="96" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{F_TarimaDad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000082" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="130" y="0" width="80" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{F_ClaProclaveDad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000083" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="210" y="0" width="220" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_DesProDesProDad} == null ? null : $F{F_DesProDesProDad}.trim()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000084" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="430" y="0" width="190" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_DesModeloDad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000085" style="celdaPrincipal" stretchType="RelativeToTallestObject" x="620" y="0" width="132" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{F_ClaLotDad}]]></textFieldExpression>
+			</textField>
 		</band>
-	</summary>
+	</detail>
+	<pageFooter>
+		<band height="16">
+			<textField evaluationTime="Report">
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000090" style="base" x="0" y="4" width="500" height="12" forecolor="#5F6B6A"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SIALSS · Marbete manual · " + $V{REPORT_COUNT} + ($V{REPORT_COUNT}.intValue() == 1 ? " renglón" : " renglones") + " (en negritas el equipo principal)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0e8b7f3a-1a01-4c11-9a01-000000000091" style="base" x="552" y="4" width="200" height="12" forecolor="#5F6B6A"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MDF-OPE-F26 · Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

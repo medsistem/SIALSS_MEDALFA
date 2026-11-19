@@ -18,6 +18,29 @@ $(document).ready(function () {
     // trae todos los lotes de la tabla y pasa de los dos mil renglones.
     $('#ProyecMar, #ClaveMar, #loteMar').select2({ width: '100%' });
 
+    // Selects encadenados: proyecto -> claves de ese proyecto -> lotes de esa clave y proyecto.
+    $('#ProyecMar').on('change', function () {
+        var proyecto = $(this).val();
+        reiniciar('#loteMar', '--Primero elija la clave--');
+        if (!tieneValor(proyecto)) {
+            reiniciar('#ClaveMar', '--Primero elija el proyecto--');
+            return;
+        }
+        cargarOpciones('#ClaveMar', { accion: 'claves', proyecto: proyecto },
+                '--Clave--', 'Este proyecto no tiene claves con lotes.');
+    });
+
+    $('#ClaveMar').on('change', function () {
+        var proyecto = $('#ProyecMar').val();
+        var clave = $(this).val();
+        if (!tieneValor(proyecto) || !tieneValor(clave)) {
+            reiniciar('#loteMar', '--Primero elija la clave--');
+            return;
+        }
+        cargarOpciones('#loteMar', { accion: 'lotes', proyecto: proyecto, clave: clave },
+                '--Lote--', 'Esta clave no tiene lotes en el proyecto.');
+    });
+
     $('#generarMarbete').on('click', function () {
 
         // Cada variable lee SU propio select.
@@ -27,7 +50,6 @@ $(document).ready(function () {
         var proyecto = $('#ProyecMar').val();
         var clave    = $('#ClaveMar').val();
         var lote     = $('#loteMar').val();
-        alert(proyecto +" "+clave +" "+lote  );
         if (!tieneValor(proyecto) || !tieneValor(clave) || !tieneValor(lote)) {
             swal('Selecciona proyecto, producto y lote antes de generar el marbete.');
             return;
@@ -54,6 +76,49 @@ $(document).ready(function () {
  */
 function tieneValor(v) {
     return v !== null && v !== undefined && String(v).trim() !== '';
+}
+
+/** Deja el select vacío y deshabilitado con un solo texto de ayuda. */
+function reiniciar(selector, texto) {
+    $(selector).empty()
+            .append($('<option>', { value: '', text: texto, selected: true }))
+            .prop('disabled', true)
+            .trigger('change.select2');
+}
+
+/**
+ * Llena un select con [{valor, texto}] de MarbeteManualDatos.jsp.
+ * Se construye con $('<option>') para que claves o lotes con comillas o "<" no rompan el HTML.
+ */
+function cargarOpciones(selector, datos, encabezado, sinDatos) {
+    var $sel = $(selector);
+    $sel.empty().append($('<option>', { value: '', text: 'Cargando…', selected: true }))
+            .prop('disabled', true).trigger('change.select2');
+    $.ajax({
+        url: 'MarbeteManualDatos.jsp',
+        data: datos,
+        type: 'GET',
+        dataType: 'json',
+        cache: false
+    }).done(function (lista) {
+        if (!lista || lista.length === 0) {
+            reiniciar(selector, sinDatos);
+            return;
+        }
+        $sel.empty().append($('<option>', { value: '', text: encabezado, selected: true }));
+        $.each(lista, function (i, o) {
+            $sel.append($('<option>', { value: o.valor, text: o.texto }));
+        });
+        $sel.prop('disabled', false).trigger('change.select2');
+        // Si solo hay una opción, se elige sola y se encadena el siguiente select.
+        if (lista.length === 1) {
+            $sel.val(lista[0].valor).trigger('change');
+        }
+    }).fail(function (xhr) {
+        reiniciar(selector, 'No se pudo cargar');
+        var msg = (xhr.responseJSON && xhr.responseJSON.error) || 'No se pudo cargar el catálogo. Intente de nuevo.';
+        swal(msg);
+    });
 }
 
 /*

@@ -61,10 +61,10 @@
 
                         <label class="col-lg-1 col-md-1 col-sm-1" style="margin-top: 5px"
                                for="ProyecMar">Proyecto:</label>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
                             <select class="form-control" id="ProyecMar" name="ProyecMar">
                                 <%-- value="" para que .val() devuelva "" y no null --%>
-                                <option selected disabled>--Proyecto--</option>
+                                <option value="" selected disabled>--Proyecto--</option>
                                 <%
                                     try {
                                         con.conectar();
@@ -90,62 +90,19 @@
 
                         <label class="col-lg-1 col-md-1 col-sm-1" style="margin-top: 5px"
                                for="ClaveMar">Producto:</label>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
-                            <select class="form-control" id="ClaveMar" name="ClaveMar">
-                                <option selected disabled>--Clave--</option>
-                                <%
-                                    try {
-                                        con.conectar();
-                                        ResultSet rsetProd = con.consulta(
-                                            "SELECT F_ClaPro FROM tb_lote GROUP BY F_ClaPro ORDER BY F_ClaPro");
-                                        while (rsetProd.next()) {
-                                            String claPro = rsetProd.getString("F_ClaPro");
-                                %>
-                                <option value="<%= claPro %>"><%= claPro %></option>
-                                <%
-                                        }
-                                    } catch (Exception e) {
-                                        log("Error al cargar productos en Marbete_Manual.jsp", e);
-                                    } finally {
-                                        try { con.cierraConexion(); } catch (Exception ex) { }
-                                    }
-                                %>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <%-- Se llena con las claves del proyecto elegido (MarbeteManualDatos.jsp). --%>
+                            <select class="form-control" id="ClaveMar" name="ClaveMar" disabled>
+                                <option value="" selected>--Primero elija el proyecto--</option>
                             </select>
                         </div>
 
                         <label class="col-lg-1 col-md-1 col-sm-1" style="margin-top: 5px"
                                for="loteMar">Lote:</label>
-                        <div class="col-lg-2 col-md-2 col-sm-2">
-                            <select class="form-control" id="loteMar" name="loteMar">
-                                <option selected disabled>--Lote--</option>
-                                <%
-                                    /*
-                                     * Esta consulta trae TODOS los lotes de la tabla, sin filtrar por
-                                     * el producto elegido, y agrupa por F_ClaLot: dos productos que
-                                     * compartan clave de lote se funden en un solo renglón.
-                                     *
-                                     * Con los datos actuales son más de dos mil opciones y el usuario
-                                     * puede elegir un lote que no corresponde al producto. Queda así
-                                     * para no cambiar el comportamiento de tu pantalla en esta
-                                     * corrección; el proyecto marbetes-global resuelve exactamente
-                                     * esto cargando los lotes del producto seleccionado.
-                                     */
-                                    try {
-                                        con.conectar();
-                                        ResultSet rsetLot = con.consulta(
-                                            "SELECT F_ClaLot FROM tb_lote GROUP BY F_ClaLot ORDER BY F_ClaLot");
-                                        while (rsetLot.next()) {
-                                            String claLot = rsetLot.getString("F_ClaLot");
-                                %>
-                                <option value="<%= claLot %>"><%= claLot %></option>
-                                <%
-                                        }
-                                    } catch (Exception e) {
-                                        log("Error al cargar lotes en Marbete_Manual.jsp", e);
-                                    } finally {
-                                        try { con.cierraConexion(); } catch (Exception ex) { }
-                                    }
-                                %>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <%-- Se llena con los lotes de la clave y el proyecto elegidos. --%>
+                            <select class="form-control" id="loteMar" name="loteMar" disabled>
+                                <option value="" selected>--Primero elija la clave--</option>
                             </select>
                         </div>
 
@@ -169,6 +126,7 @@
         <script src="../js/bootstrap.js"></script>
         <script src="../js/select2.js" type="text/javascript"></script>
         <script src="../js/sweetalert.min.js" type="text/javascript"></script>
-        <script src="../js/marbetes/marbeteManual.js" type="text/javascript"></script>
+        <%-- ?v= con la fecha del archivo: cada cambio al JS obliga al navegador a bajar la versión nueva. --%>
+        <script src="../js/marbetes/marbeteManual.js?v=<%= new java.io.File(application.getRealPath("/js/marbetes/marbeteManual.js")).lastModified() %>" type="text/javascript"></script>
     </body>
 </html>
