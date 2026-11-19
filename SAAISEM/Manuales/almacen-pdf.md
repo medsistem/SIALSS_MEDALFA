@@ -134,7 +134,7 @@ Opciones para reimprimir y administrar documentos: remisiones, movimientos, devo
 - "Este proyecto no tiene claves con lotes." / "Esta clave no tiene lotes en el proyecto.": elige otro proyecto o clave.
 - "No se pudo cargar el catálogo. Intente de nuevo.": vuelve a elegir; si persiste, avisa a sistemas.
 - "La sesión terminó. Vuelva a iniciar sesión.": entra de nuevo al sistema.
-- "No se pudo generar el marbete": revisa que proyecto, producto y lote sean correctos; si sigue, avisa a sistemas.
+- "No se pudo generar el marbete": revisa que proyecto, producto y lote sean correctos; si sigue, avisa a sistemas. Abajo aparece una línea de **Detalle** con el motivo técnico (y, si lo hay, su **Causa**); toma captura o anótala y compártela con sistemas.
 
 **Notas:** Las listas son encadenadas: cada una depende de la anterior, y si cambias el proyecto o la clave se reinician las siguientes. Si solo hay una opción, se elige sola. Las listas permiten escribir para buscar. El marbete (formato MDF-OPE-F26, "Marbete de Equipo") muestra clave, número de serie, cantidad, nombre, marca, modelo, tarimas, ubicación, observaciones y un código QR con los datos del equipo. Incluye una tabla con el equipo principal y los lotes del mismo proyecto cuya clave y lote contienen los del equipo elegido (por ejemplo, de RXF / 29 se incluyen RXF-BP / 18-29), con **Tarima**, **Clave**, **Nombre**, **Modelo** y **No. Serie**.
 

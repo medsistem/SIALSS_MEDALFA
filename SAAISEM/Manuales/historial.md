@@ -1,5 +1,11 @@
 # Historial de cambios del manual
 
+## 2026-11-19 · 27996cf
+
+Mensaje del commit: Marbete Manual: el mensaje de error muestra la causa real de la base (el rango incluye bb3d690: Manual: Marbete Manual con selects encadenados y mensajes nuevos).
+
+- `almacen-pdf.md`, sección **Marbete Manual**: el aviso "No se pudo generar el marbete" ahora muestra en **Detalle** el motivo y su causa; se indica qué hacer con ese dato.
+
 ## 2026-11-19 · 87b9de8
 
 Mensaje del commit: Despliegue: menu_roles_tablas.sql regenerado con las 105 opciones del menú actual.
